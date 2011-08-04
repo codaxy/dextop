@@ -1202,7 +1202,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>9340</DevelopmentServerPort>
+          <DevelopmentServerPort>1631</DevelopmentServerPort>
           <DevelopmentServerVPath>/showcase</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
