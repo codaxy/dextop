@@ -8,3 +8,4 @@ lib/ext
 generated/*.js
 cache/*.js
 *.min.css
+Apps/Codaxy.Dextop.Template.Desktop/client/dextop
