@@ -6,8 +6,8 @@ REM robocopy ..\Libraries\Codaxy.Dextop\sound Dextop\content\client\lib\sound /X
 
 del *.nupkg
 
-bin\nuget pack Dextop\dextop.nuspec
+nuget pack Dextop\dextop.nuspec
 
 REM Creating NuGet : Dextop Basic (simple app with one window, no libs)
 
-bin\nuget pack Dextop.Template.Basic\Dextop.Template.Basic.nuspec
+nuget pack Dextop.Template.Basic\Dextop.Template.Basic.nuspec
