@@ -9,3 +9,6 @@ ext
 cache/*.js
 *.min.css
 Apps/Codaxy.Dextop.Template.Desktop/client/dextop
+/Apps/Codaxy.Dextop.Showcase/client/lib/dextop/css/dextop-min.css
+/Apps/Codaxy.Dextop.Showcase/client/css/theme-min.css
+/Apps/Codaxy.Dextop.Showcase/client/css/features-min.css
