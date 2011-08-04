@@ -1,0 +1,55 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using Codaxy.Dextop.Data;
+
+namespace Codaxy.Dextop.Showcase.Demos.Grids
+{
+    public class ClientGridWindow : DextopWindow
+    {
+        public override void InitRemotable(DextopRemote remote, DextopConfig config)
+        {
+            base.InitRemotable(remote, config);                      
+            Remote.AddStore(&quot;model&quot;, new Crud(), Remote.IsClientInitiated ? &quot;store&quot; : null);
+        }
+
+        class Crud : DextopDataProxy&lt;Model&gt;
+        {
+            public override DextopReadResult&lt;Model&gt; Read(DextopReadFilter filter)
+            {
+                return DextopReadResult.Params(
+                    new Model { Id = 1, Name = &quot;Bill&quot;, Age = 30, Height = 180 },
+                    new Model { Id = 2, Name = &quot;Bob&quot;, Age = 26, Height = 175 }
+                );
+            }            
+        }        
+
+        [DextopModel]
+        [DextopGrid]
+        class Model
+        {
+            [DextopModelId]
+            public int Id { get; set; }
+            
+            [DextopGridColumn(flex=1)]
+            public String Name { get; set; }
+            
+            [DextopGridColumn(width = 50)]            
+            public int Age { get; set; }
+
+            [DextopGridColumn(width = 50)]
+            public int Height { get; set; }
+        }
+    }
+}
+
+</pre>
+</body>
+</html>

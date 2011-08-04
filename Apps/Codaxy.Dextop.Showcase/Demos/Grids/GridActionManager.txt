@@ -1,0 +1,28 @@
+﻿Grid Action Manager
+===================
+
+Ext.ux.grid.plugin.ActionManager plugin provides two basic
+features. First one is enabling and disabling actions based
+on the selected rows int grid. Add 
+
+	enableOnSingle:true 
+
+or 
+
+	enableOnMulti:true 
+
+to your actions to enable this feature.
+
+For data sensitive enabling using following method:
+
+	enableOnSingle: function (rec) {
+		return !rec.get('IsAdministrator');
+	}
+
+This way 'Administrators' can't be deleted.
+
+Second feature is context sensitive menu.
+Set bindContextMenu: false in plugin config to disable this feature.
+
+Use contextMenuConfig config property to pass special configuration 
+options to Ext.menu.Menu.

@@ -1,0 +1,90 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using Codaxy.Dextop.Data;
+
+
+namespace Codaxy.Dextop.Showcase.Demos.Live
+{
+    public class LiveChartWindow : DextopWindow
+    {
+        DextopObservableStore&lt;string, LiveChartModel&gt; store;
+        Timer timer;
+
+        public LiveChartWindow()
+        {
+            store = new DextopObservableStore&lt;string, LiveChartModel&gt;(a =&gt; a.CPU);
+
+            for (var i = 0; i &lt; 4; i++)
+                store.Set(new LiveChartModel
+                {
+                    CPU = &quot;CPU &quot; + (i+1),
+                    Usage = 0
+                });
+        }
+
+        public override void InitRemotable(DextopRemote remote, DextopConfig config)
+        {
+            base.InitRemotable(remote, config);
+            Remote.RemoteHostType = &quot;Showcase.demos.LiveChartWindow&quot;;
+            Remote.AddLiveStore(&quot;model&quot;, store);
+
+#if DEBUG
+            timer = new Timer(OnTimer, null, 100, 300);
+#else
+            timer = new Timer(OnTimer, null, 100, 2000);            
+#endif
+        }
+
+        public override void Dispose()
+        {
+            if (timer != null)
+            {
+                timer.Dispose();
+                timer = null;
+            }
+            base.Dispose();
+        }
+
+        void OnTimer(object state)
+        {
+            try
+            {
+                var r = new Random();
+                var changes = new List&lt;LiveChartModel&gt;();
+                for (var i = 0; i &lt; 4; i++)
+                {
+                    changes.Add(new LiveChartModel
+                    {
+                        CPU = &quot;CPU &quot; + (i+1),
+                        Usage = Math.Round(r.NextDouble() * 100, 2)
+                    });
+                }
+                store.SetMany(changes);
+            }
+            catch { }
+        }
+
+        [DextopModel]        
+        class LiveChartModel
+        {
+            [DextopModelId]           
+            public String CPU { get; set; }            
+            
+            public double Usage { get; set; }
+        }
+    }
+}
+
+</pre>
+</body>
+</html>

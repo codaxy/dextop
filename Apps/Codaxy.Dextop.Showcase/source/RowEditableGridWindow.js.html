@@ -1,0 +1,115 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.ns(&#39;Showcase&#39;);
+
+Ext.define(&#39;Showcase.demos.RowEditableGridWindow&#39;, {
+	extend: &#39;Dextop.Window&#39;,
+	width: 500,
+	height: 300,
+
+	title: &#39;Row Editable Grid&#39;,
+	requires: &#39;Ext.grid.GridPanel&#39;,
+
+	initComponent: function () {
+
+		var store = this.remote.createStore(&#39;model&#39;, {
+			autoLoad: true,
+			autoSync: true,
+			proxyOptions: {				
+				batchActions: false,
+				autoRevert: true,
+				remoteCallbackOptions: {
+					type: &#39;notify&#39;
+				}
+			}
+		});
+
+		var columns = this.remote.createGridColumns(&#39;model&#39;);
+
+		var rowEditor = new Ext.grid.plugin.RowEditing({
+			//clicksToEdit: 1,
+			removePhantomsOnCancel: true
+		});
+
+		var grid = Ext.create(&#39;Ext.grid.GridPanel&#39;, {
+			border: false,
+			store: store,
+			columns: columns,
+			plugins: [rowEditor],
+			tbar: [{
+				text: &#39;Add&#39;,
+				iconCls: &#39;add&#39;,
+				scope: this,
+				handler: function () {
+					var rec = Ext.create(store.model, {});
+					rowEditor.cancelEdit();
+					var index = store.getCount();
+					store.insertPhantom(index, rec); //(by dextop) insert row without syncing
+					rowEditor.startEdit(index, 1);
+				}
+			}, &#39;-&#39;, {
+				text: &#39;Remove&#39;,
+				iconCls: &#39;remove&#39;,
+				scope: this,
+				handler: function () {
+					var s = grid.getSelectionModel().getSelection();
+					for (var i = 0; i &lt; s.length; i++)
+						store.remove(s[i]);
+				}
+			}, &#39;-&#39;, {
+				text: &#39;Save&#39;,
+				iconCls: &#39;save&#39;,
+				scope: this,
+				handler: function () {
+					store.sync();
+				}
+			}, {
+				text: &#39;Refresh&#39;,
+				iconCls: &#39;reload&#39;,
+				scope: this,
+				handler: function () {
+					store.load();
+				}
+			}, &#39;-&#39;, {
+				enableToggle: true,
+				pressed: true,
+				text: &#39;Auto Save&#39;,
+				listeners: {
+					scope: this,
+					&#39;toggle&#39;: function (toggle, pressed) {
+						store.autoSync = pressed;
+					}
+				}
+			}, {
+				enableToggle: true,
+				pressed: true,
+				text: &#39;Auto Revert&#39;,
+				listeners: {
+					scope: this,
+					&#39;toggle&#39;: function (toggle, pressed) {
+						store.proxy.autoRevert = pressed;
+					}
+				}
+			}]
+		});
+
+		Ext.apply(this, {
+			layout: &#39;fit&#39;,
+			items: grid
+		});
+
+		this.callParent(arguments);
+
+	}
+});
+
+</pre>
+</body>
+</html>

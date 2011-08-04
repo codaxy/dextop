@@ -1,0 +1,36 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using System.Threading;
+using Codaxy.Dextop.Remoting;
+
+namespace Codaxy.Dextop.Showcase.Demos.Remoting
+{
+    public class RemotingCallbacksWindow : DextopWindow
+    {
+        public override void InitRemotable(DextopRemote remote, DextopConfig config)
+        {
+            base.InitRemotable(remote, config);
+			Remote.RemoteHostType = &quot;Showcase.demos.RemotingCallbacksWindow&quot;;            
+        }
+
+		[DextopRemotable]
+		public String GetHelloWorldMessage(bool fail)
+		{
+			if (fail)
+				throw new NotImplementedException();
+			return &quot;Hello World!&quot;;
+		}
+    }
+}
+
+</pre>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Codaxy.Dextop.Data;
+
+namespace Codaxy.Dextop.Showcase.Demos.Grids
+{
+    public class SwissGridWindow : DextopWindow
+    {
+        public override void InitRemotable(DextopRemote remote, DextopConfig config)
+        {
+            base.InitRemotable(remote, config);
+			var crud = new Crud();
+			crud.Create(new[] { new GridModel { Name = &quot;Player&quot;, Age = 30, Basketball = true, Football = true, Gender = Gender.Male, Height = 180 } });
+            Remote.AddStore(&quot;model&quot;, crud);
+            Remote.AddLookupData(&quot;Gender&quot;, new[] {
+                new object[] { Gender.Male, &quot;Male&quot; },
+                new object[] { Gender.Female, &quot;Female&quot; }
+            });
+        }
+
+        class Crud : DextopDataProxy&lt;GridModel&gt;
+        {
+            SortedDictionary&lt;int, GridModel&gt; list = new SortedDictionary&lt;int, GridModel&gt;();
+            int id = 0;
+
+            public override IList&lt;GridModel&gt; Create(IList&lt;GridModel&gt; data)
+            {
+                foreach (var row in data)
+                {
+                    row.Id = ++id;
+                    list.Add(row.Id, row);
+                }
+                return data;
+            }
+
+            public override IList&lt;GridModel&gt; Update(IList&lt;GridModel&gt; data)
+            {
+                foreach (var d in data)
+                    list[d.Id] = d;
+                return data;
+            }
+
+            public override IList&lt;GridModel&gt; Destroy(IList&lt;GridModel&gt; data)
+            {
+                foreach (var d in data)
+                    list.Remove(d.Id);
+                return new GridModel[0];
+            }
+
+            public override DextopReadResult&lt;GridModel&gt; Read(DextopReadFilter filter)
+            {
+                return DextopReadResult.CreatePage(list.Values.AsQueryable(), filter);                
+            }            
+        }
+
+        enum Gender { Male, Female };
+
+        [DextopModel]
+        [DextopGrid]
+        class GridModel
+        {            
+            [DextopGridColumn(width = 50, readOnly=true)] 
+            public int Id { get; set; }
+            
+            [DextopGridColumn(flex=1)]
+            public String Name { get; set; }
+
+            [DextopGridLookupColumn()]
+            public Gender Gender { get; set; }
+            
+            [DextopGridColumn(width = 50)]            
+            public int Age { get; set; }
+
+            [DextopGridColumn(width = 50)]
+            public int Height { get; set; }
+			
+			[DextopGridColumn]
+			public bool Basketball { get; set; }
+
+			[DextopGridColumn]
+			public bool Football { get; set; }
+        }
+    }
+}
+
+</pre>
+</body>
+</html>

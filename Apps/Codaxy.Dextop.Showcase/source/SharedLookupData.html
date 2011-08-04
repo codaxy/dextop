@@ -1,0 +1,32 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<h1>Shared Lookup Data</h1>
+
+<p>Dextop provides built-in mechanism for building and caching of lookup data which appears in random places
+throughout your applications. Lookup data can be cached accross multiple sessions which can improve
+application performance.</p>
+
+<pre><code>//Session.cs
+protected override object[] BuildLookupData(string name, out DextopSessionVariableSharing sharing)
+{
+    switch (name)
+    {
+        case "OnOff":               
+            sharing = DextopSessionVariableSharing.Global;
+            return new[] { 
+                new object[] { true, "On" },
+                new object[] { false, "Off" }
+            };
+    }
+    return base.BuildLookupData(name, out version, out sharing);
+}
+</code></pre>
+
+<p>Use <pre>session.InvalidateLookupData</pre> to invalidate cached version of the data.</p>
+
+</body>
+</html>

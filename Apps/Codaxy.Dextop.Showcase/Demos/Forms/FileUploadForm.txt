@@ -1,0 +1,6 @@
+﻿File Upload Form
+================
+
+File upload has been integrated into the Dextop.Forms engine.
+Review the code for form + file upload scenarios.
+

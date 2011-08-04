@@ -1,0 +1,45 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.define(&#39;Showcase.demos.AdvancedExceptionHandlingWindow&#39;, {
+	extend: &#39;Dextop.Window&#39;,
+	width: 200,
+	autoHeight: true,
+	title: &#39;Dextop Remoting Callbacks&#39;,
+
+	initComponent: function () {
+		Ext.apply(this, {
+			bodyStyle: &#39;padding: 5px&#39;,
+			plain: true,
+			items: [{
+				xtype: &#39;button&#39;,
+				text: &#39;Do Something&#39;,
+				scope: this,
+				handler: function () {
+					this.remote.DoSomething({
+						type: &#39;alert&#39;
+					});
+				}
+			}, {
+				xtype: &#39;button&#39;,
+				text: &#39;Try Something Else&#39;,
+				scope: this,
+				handler: function () {
+					this.remote.TrySomethingElse({
+						type: &#39;alert&#39;
+					});
+				}
+			}]
+		});
+		this.callParent(arguments);
+	}
+});
+</pre>
+</body>
+</html>

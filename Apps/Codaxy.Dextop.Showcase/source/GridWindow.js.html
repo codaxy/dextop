@@ -1,0 +1,44 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.ns(&#39;Showcase&#39;);
+
+Ext.define(&#39;Showcase.demos.GridWindow&#39;, {
+	extend: &#39;Dextop.Window&#39;,
+	width: 500,
+	height: 300,
+
+	title: &#39;Grid Window&#39;,
+	requires: &#39;Ext.grid.GridPanel&#39;,
+
+	initComponent: function () {
+		var store = this.remote.createStore(&#39;model&#39;, {
+			autoLoad: true
+		});
+
+		var columns = this.remote.createGridColumns(&#39;model&#39;);
+
+		var grid = Ext.create(&#39;Ext.grid.GridPanel&#39;, {
+			border: false,
+			store: store,
+			columns: columns
+		});
+
+		Ext.apply(this, {
+			layout: &#39;fit&#39;,
+			items: grid
+		});
+
+		this.callParent(arguments);
+	}
+});
+
+</pre>
+</body>
+</html>

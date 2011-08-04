@@ -1,0 +1,4 @@
+﻿Grouped Grid Headers
+====================
+
+You can easily group your headers in a grid.

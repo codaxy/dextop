@@ -1,0 +1,62 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.define(&#39;Showcase.demos.FileUploadDemoWindow&#39;, {
+    extend: &#39;Dextop.Window&#39;,
+    width: 300,
+    autoHeight: true,
+    title: &#39;File Upload Demo&#39;,
+
+    initComponent: function () {
+        Ext.apply(this, {
+            items: [{
+                xtype: &#39;form&#39;,
+                bodyStyle: &#39;padding: 10px&#39;,
+                autoHeight: true,
+                api: {
+                    submit: Ext.bind(this.submit, this)
+                },
+                border: false,
+                items: [{
+                    labelAlign: &#39;top&#39;,
+                    fieldLabel: &#39;File&#39;,
+                    xtype: &#39;fileuploadfield&#39;,
+                    anchor: &#39;0&#39;
+                }],
+                buttons: [{
+                    text: &#39;Cancel&#39;,
+                    scope: this,
+                    handler: function () {
+                        this.close();
+                    }
+                }, {
+
+                    text: &#39;Send&#39;,
+                    scope: this,
+                    handler: function () {
+                        this.down(&#39;form&#39;).getForm().submit();
+                    }
+                }]
+            }]
+        });
+        this.callParent(arguments);
+    },
+
+    submit: function (form) {
+        this.remote.UploadFile(form, function (r) {
+            if (r &amp;&amp; r.success)
+                alert(r.result);
+            else
+                alert(&#39;failed&#39;);
+        });
+    }
+});
+</pre>
+</body>
+</html>

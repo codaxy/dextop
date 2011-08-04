@@ -1,0 +1,1 @@
+﻿<?xml version="1.0" encoding="utf-8"?><EnvironmentVariables xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"><Entries><EnvironmentVariable><Name>WebClient</Name><Value>{projectPath}\..\Apps\Codaxy.Dextop.Showcase\</Value></EnvironmentVariable></Entries></EnvironmentVariables>

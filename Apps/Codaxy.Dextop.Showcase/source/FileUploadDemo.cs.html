@@ -1,0 +1,39 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using Codaxy.Dextop.Remoting;
+using System.Linq;
+
+namespace Codaxy.Dextop.Showcase.Demos.Remoting
+{
+    public class FileUploadDemoWindow : DextopWindow
+    {
+        public override void InitRemotable(DextopRemote remote, DextopConfig config)
+        {
+            base.InitRemotable(remote, config);
+            Remote.RemoteHostType = &quot;Showcase.demos.FileUploadDemoWindow&quot;;            
+        }
+
+        [DextopRemotable]
+        string UploadFile(DextopFormSubmit form)
+        {
+            if (form.Files.Count == 1)
+            {
+                var file = form.Files.Values.First();
+                return String.Format(&quot;You have just uploaded the {1:0,0} bytes long file named &#39;{0}&#39;.&quot;, file.FileName, file.FileLength);
+            }
+            throw new InvalidOperationException(&quot;No file recieved!&quot;);
+        }
+    }
+}
+
+</pre>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.ns(&#39;Showcase&#39;);
+
+Ext.define(&#39;Showcase.demos.LongOperationWindow&#39;, {
+	extend: &#39;Dextop.Window&#39;,
+	width: 300,
+	height: 100,
+
+	title: &#39;Long Operation Progress&#39;,
+
+	initComponent: function () {
+
+		this.progressBar = Ext.create(&#39;Ext.ProgressBar&#39;, {});
+
+		Ext.apply(this, {
+			bodyStyle: &#39;padding: 5px&#39;,
+			layout: {
+				type: &#39;vbox&#39;,
+				align: &#39;stretch&#39;
+			},
+			items: this.progressBar,			
+			buttons: [{				
+				scope: this,
+				text: &#39;Start&#39;,
+				handler: function () {
+					this.remote.StartOperation({
+						type: &#39;alert&#39;,
+						scope: this,
+						prepare: function () { this.setLoading(true); },
+						cleanup: function () { this.setLoading(false); }
+					});
+				}
+			}, {
+				scope: this,
+				text: &#39;Cancel&#39;,
+				handler: function () {
+					this.remote.CancelCurrentOperation({
+						type: &#39;alert&#39;,
+						scope: this,
+						prepare: function () { this.setLoading(true); },
+						cleanup: function () { this.setLoading(false); }
+					});
+				}
+			}]
+		});
+
+		this.callParent(arguments);
+	},
+
+	onServerMessage: function (data) {
+		this.progressBar.updateProgress(data.progress, data.message);
+	}
+});
+
+</pre>
+</body>
+</html>

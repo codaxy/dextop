@@ -1,0 +1,117 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.define(&#39;Showcase.demos.RemotingCallbacksWindow&#39;, {
+	extend: &#39;Dextop.Window&#39;,
+	width: 200,
+	height: 300,
+	title: &#39;Dextop Remoting Callbacks&#39;,
+
+	initComponent: function () {
+
+		var exception = Ext.create(&#39;Ext.form.Checkbox&#39;, {
+			fieldLabel: &#39;Exception&#39;
+		});
+
+		Ext.apply(this, {
+			bodyStyle: &#39;padding: 5px&#39;,
+			layout: {
+				type: &#39;vbox&#39;,
+				align: &#39;stretch&#39;
+			},
+			defaults: {
+				xtype: &#39;button&#39;,
+				margins: &#39;3 3 3 3&#39;,
+				flex: 1,
+				scope: this,
+			},
+			items: [exception, {				
+				text: &#39;Callback Function&#39;,				
+				handler: function () {
+					this.remote.GetHelloWorldMessage(exception.getValue(), function (r) {
+						if (r &amp;&amp; r.success)
+							alert(r.result);
+						else
+							alert(&#39;failed&#39;);
+					}, this);
+				}
+			}, {				
+				text: &#39;Callback Options&#39;,
+				handler: function () {
+					this.remote.GetHelloWorldMessage(exception.getValue(), {
+						scope: this,
+						success: function (result) { Dextop.infoAlert(result); },
+						failure: function (result) {
+							if (!result)
+								alert(&#39;Communication error.&#39;);
+							else
+								alert(result.exception);
+						}
+					});
+				}
+			}, {				
+				text: &#39;Alert on Error&#39;,				
+				handler: function () {
+					this.remote.GetHelloWorldMessage(exception.getValue(), {
+						success: function (result) { Dextop.infoAlert(result); },
+						type: &#39;alert&#39;
+					});
+				}
+			}, {				
+				text: &#39;Error Notification&#39;,				
+				handler: function () {
+					this.remote.GetHelloWorldMessage(exception.getValue(), {
+						success: function (result) { Dextop.notify(result); },
+						type: &#39;notify&#39;
+					});
+				}
+			}, {
+				text: &#39;Callback plus Special Events&#39;,				
+				handler: function () {
+					this.remote.GetHelloWorldMessage(exception.getValue(), {
+						scope: this,
+						type: &#39;alert&#39;,
+						success: function (result) { Dextop.infoAlert(result) },
+						prepare: function () {
+							this.setLoading(true);
+						},
+						cleanup: function () {
+							this.setLoading(false);
+						}
+					});
+				}
+			}, {
+				text: &#39;Set Loading Mask&#39;,				
+				handler: function () {
+					this.remote.GetHelloWorldMessage(exception.getValue(), {
+						scope: this,
+						type: &#39;alert&#39;,
+						success: function (result) { Dextop.infoAlert(result) },
+						setLoading: true
+					});
+				}
+			}, {
+				text: &#39;Set Loading Mask on Viewport&#39;,				
+				handler: function () {
+					this.remote.GetHelloWorldMessage(exception.getValue(), {
+						scope: this,
+						type: &#39;alert&#39;,
+						success: function (result) { Dextop.infoAlert(result) },
+						setLoading: &#39;Please wait until the server responds...&#39;, 
+						setLoadingTarget: Dextop.getSession().viewport //specific to Showcase application
+					});
+				}
+			}]
+		});
+		this.callParent(arguments);
+	}
+});
+</pre>
+</body>
+</html>

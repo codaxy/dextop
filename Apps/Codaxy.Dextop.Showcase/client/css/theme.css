@@ -1,0 +1,45 @@
+/*
+ .viewport .x-panel-header {
+    background-color: #000;
+	
+	background: -moz-linear-gradient(center top , #000, #676767 100%);
+
+    border-color: #001;
+    border-style: solid;
+	box-shadow: none;
+}
+
+.viewport .x-panel-header-vertical {
+    background-color: #000;
+    background-image: -moz-linear-gradient(left center ,#000 90%, #676767 10%);
+    border-color: #001;
+}
+
+.viewport .x-panel-body {
+    background: none repeat scroll 0 0 white;
+    border-color: #001;
+    color: #ddd;
+}
+
+.viewport .x-panel {
+    border-color: #001;
+}
+
+.viewport .x-border-layout-ct {
+    background-color: #676767;
+}
+
+.viewport .x-toolbar {
+	border: 1px solid #001;
+	border-top: none;
+    background-color: #676767;
+}
+
+.viewport .x-panel-header-text, .x-window-header-text {
+    color: #ddd;
+}
+
+.viewport .x-btn-toolbar-small button {
+    color: #ddd;
+}
+*/

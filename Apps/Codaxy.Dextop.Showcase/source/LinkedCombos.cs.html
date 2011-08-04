@@ -1,0 +1,70 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using Codaxy.Dextop.Forms;
+using Codaxy.Dextop.Remoting;
+using Codaxy.Dextop.Data;
+using System.Collections.Generic;
+
+namespace Codaxy.Dextop.Showcase.Demos.Forms
+{
+    public class LinkedCombosWindow : DextopWindow
+	{
+
+        public override void InitRemotable(DextopRemote remote, DextopConfig config)
+        {
+            base.InitRemotable(remote, config);
+
+            Remote.AddStore(&quot;Value2&quot;, GetValues2);
+            Remote.AddStore(&quot;Value3&quot;, GetValues3);
+
+        }
+
+        IEnumerable&lt;ComboModel&gt; GetValues2(DextopReadFilter filter)
+        {
+            var baseValue = filter.Params.SafeGet(&quot;Value1&quot;, 0);
+
+            for (var i = baseValue+1; i &lt; 10; i++)
+                yield return new ComboModel { Id = i };
+        }
+
+        IEnumerable&lt;ComboModel&gt; GetValues3(DextopReadFilter filter)
+        {
+            var baseValue = filter.Params.SafeGet(&quot;Value2&quot;, 0);
+
+            for (var i = baseValue+1; i &lt; 10; i++)
+                yield return new ComboModel { Id = i };
+        }
+
+        [DextopModel]
+        class ComboModel
+        {
+            [DextopModelId]
+            public int Id { get; set; }
+        }
+
+		[DextopForm]
+		class Form
+		{
+			[DextopFormField(allowBlank = false, anchor = &quot;0&quot;)]
+			public int Value1 { get; set; }
+
+            [DextopFormRemoteFilteredLookupCombo(&quot;Id&quot;, &quot;Id&quot;, anchor = &quot;0&quot;, formParams=new[] { &quot;Value1&quot; })]
+			public int Value2 { get; set; }
+
+            [DextopFormRemoteFilteredLookupCombo(&quot;Id&quot;, &quot;Id&quot;, anchor = &quot;0&quot;, formParams = new[] { &quot;Value2&quot; })]
+            public int Value3 { get; set; }
+		}
+	}
+}
+
+</pre>
+</body>
+</html>

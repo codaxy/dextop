@@ -1,0 +1,23 @@
+﻿@model Codaxy.Dextop.Showcase.Models.DextopAppConfig
+           
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/client/lib/ext/resources/ext-all.css")" type="text/css" />
+</head>
+
+<body>
+    @RenderBody()
+
+    @foreach (var js in @Model.JsFiles) {
+    <script src="@Url.Content(js)" type="text/javascript"></script>
+    }
+    <script type="text/javascript">
+        Ext.onReady(function() {
+            Dextop.Session.initialize(@Model.SessionConfig);
+        });
+    </script>
+</body>
+</html>

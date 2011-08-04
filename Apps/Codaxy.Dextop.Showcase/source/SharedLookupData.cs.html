@@ -1,0 +1,35 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using Codaxy.Dextop.Forms;
+using Codaxy.Dextop.Remoting;
+
+namespace Codaxy.Dextop.Showcase.Demos.Forms
+{
+	public class SharedLookupDataWindow : DextopWindow
+	{
+		public override void InitRemotable(DextopRemote remote, DextopConfig config)
+		{
+			base.InitRemotable(remote, config);
+			Remote.AddSharedLookupData(&quot;OnOff&quot;); //See Session.cs to see how to add lookups
+		}
+
+		[DextopForm]
+		class Form
+		{
+			[DextopFormLookupCombo(allowBlank = false, anchor = &quot;0&quot;, forceSelection = true, disableKeyFilter=true)]
+			public bool OnOff { get; set; }
+		}
+	}
+}
+
+</pre>
+</body>
+</html>

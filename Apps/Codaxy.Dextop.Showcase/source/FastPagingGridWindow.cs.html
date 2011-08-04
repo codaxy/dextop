@@ -1,0 +1,70 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Codaxy.Dextop.Data;
+
+namespace Codaxy.Dextop.Showcase.Demos.Grids
+{
+    public class FastPagingGridWindow : DextopWindow
+    {
+        public override void InitRemotable(DextopRemote remote, DextopConfig config)
+        {
+            base.InitRemotable(remote, config);            
+            Remote.AddStore(&quot;model&quot;, new Crud());
+        }
+
+        class Crud : DextopDataProxy&lt;GridModel&gt;
+        {
+            List&lt;GridModel&gt; data;
+
+            public Crud()
+            {
+                var r = new Random();
+                data = new List&lt;GridModel&gt;();
+                for (var i = 1; i &lt; 100; i++)
+                    data.Add(new GridModel
+                    {
+                        Id = i,
+                        Name = &quot;User &quot; + i,
+                        Age = r.Next(20, 60),
+                        Height = r.Next(160, 200)
+                    });
+            }
+
+            public override DextopReadResult&lt;GridModel&gt; Read(DextopReadFilter filter)
+            {
+                return DextopReadResult.CreatePage(data.AsQueryable(), filter, true);
+            }            
+        }        
+
+        [DextopModel]
+        [DextopGrid]
+        class GridModel
+        {
+            [DextopModelId]
+            public int Id { get; set; }
+            
+            [DextopGridColumn(flex=1)]
+            public String Name { get; set; }
+            
+            [DextopGridColumn(width = 50)]            
+            public int Age { get; set; }
+
+            [DextopGridColumn(width = 50)]
+            public int Height { get; set; }
+        }
+    }
+}
+
+</pre>
+</body>
+</html>

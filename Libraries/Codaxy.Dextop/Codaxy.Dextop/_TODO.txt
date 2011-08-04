@@ -1,0 +1,42 @@
+﻿Pending
+--------
+#. [Done] Implement InOrder Remote Request processing - ms
+#. Implement caching and compiling in DextopRemoteMethodInvoker  - ms
+2. [Done] Implement DextopPackage concanation and minification - ms - done
+#. Implement compiled array reader - ms.
+4. [Done] Implement lookup columns - ms - done
+5. Implement remote-lookup columns - ms
+6. Implement remote-lookup (emptyText renderer) technique  - ms
+7. Implement basic desktop plugin (taskbar + startmenu)
+8. Implement multi-desktop desktop plugin
+9. Review form radiofield - ms 
+
+#. Implement UseNull in DataModels
+
+In Progress
+-----------
+
+
+Done
+---
+3. Implement model validation generation -mh - implemented with demo, problem with grid editor...
+9. Review all ext containers and map them to attributes in Dextop.Forms namespace and add most common properties. - mh
+4. Review all field types and implement them as attributes in Dextop.Forms namepsace and add most common properties. - mh 
+
+
+# Dextop Modules
+
+Module consists of assemblies and client resources.
+Client resources can be generated.
+Module is referenced using external or jsref tool.
+
+# Dextop Plugins
+Modules with special handling. (plugin)
+Should add special config to the session.
+
+Document
+--------
+1. Explain remote Proxy generation -mh
+1. Explain Dextop.data.Proxy - mh
+2. Explain Dextop.ItemFactory - mh
+

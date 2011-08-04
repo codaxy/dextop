@@ -1,0 +1,94 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.ns(&#39;Showcase&#39;);
+
+Ext.define(&#39;Showcase.demos.GridActionsWindow&#39;, {
+	extend: &#39;Dextop.Window&#39;,
+	width: 500,
+	height: 300,
+
+	title: &#39;Grid Action Manager&#39;,
+	requires: &#39;Ext.grid.GridPanel&#39;,
+
+	initComponent: function () {
+
+		var store = this.remote.createStore(&#39;model&#39;, {
+			autoLoad: true,
+			autoSync: true
+		});
+
+		var columns = this.remote.createGridColumns(&#39;model&#39;);
+
+		var rowEditor = new Ext.grid.plugin.RowEditing({
+			clicksToEdit: 2,
+			removePhantomsOnCancel: true
+		});
+
+		var actionsPlugin = new Ext.ux.grid.plugin.ActionManager({
+			actions: [{
+				text: &#39;Add&#39;,
+				key: [Ext.EventObject.NUM_PLUS, Ext.EventObject.INSERT],
+				scope: this,
+				handler: function () {
+					var rec = Ext.create(store.model, {});
+					rowEditor.cancelEdit();
+					var index = store.getCount();
+					store.insertPhantom(index, rec);
+					rowEditor.startEdit(index, 1);
+				}
+			}, &#39;-&#39;, {
+				text: &#39;Edit&#39;,
+				enableOnSingle: true,
+				scope: this,
+				handler: function () {
+					var rec = rowEditor.grid.getSelectionModel().getSelection()[0];
+					rowEditor.cancelEdit();
+					rowEditor.startEdit(store.indexOf(rec), 1);
+				}
+			}, &#39;-&#39;, {
+				text: &#39;Remove&#39;,
+				key: [Ext.EventObject.NUM_MINUS, Ext.EventObject.DELETE],
+				enableOnSingle: function (rec) {
+					return !rec.get(&#39;IsAdministrator&#39;);
+				},
+				scope: this,
+				handler: function () {
+					rowEditor.cancelEdit();
+					var s = grid.getSelectionModel().getSelection();
+					for (var i = 0; i &lt; s.length; i++)
+						store.remove(s[i]);
+				}
+			}],
+			contextMenuConfig: {
+				showSeparator: false
+			}
+		});
+
+		var grid = Ext.create(&#39;Ext.grid.GridPanel&#39;, {
+			store: store,
+			columns: columns,
+			border: false,
+			plugins: [rowEditor, actionsPlugin],
+			bbar: actionsPlugin.getActions()
+		});
+
+		Ext.apply(this, {
+			layout: &#39;fit&#39;,
+			items: grid
+		});
+
+		this.callParent(arguments);
+
+	}
+});
+
+</pre>
+</body>
+</html>

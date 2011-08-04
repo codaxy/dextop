@@ -1,0 +1,27 @@
+Codaxy Dextop
+Copyright (c) 2011. Codaxy d.o.o.
+All rights reserved.
+licence@codaxy.com
+
+http://www.codaxy.com/dextop/licensing
+
+Open Source License
+------------------------------------------------------------------------------------------
+Codaxy Dextop is licensed under the terms of the Open Source GPL 3.0 license. 
+
+http://www.gnu.org/licenses/gpl.html
+
+
+Commercial License
+------------------------------------------------------------------------------------------
+This is the appropriate option if you are creating proprietary applications and you are 
+not prepared to distribute and share the source code of your application under the 
+GPL v3 license. Please contact us at license@codaxy.com for more details.
+
+Note that Ext JS and Codaxy Dextop are separate products, and Ext JS license is also required.
+
+--
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT OF THIRD-PARTY INTELLECTUAL PROPERTY RIGHTS.  See the GNU
+General Public License for more details.

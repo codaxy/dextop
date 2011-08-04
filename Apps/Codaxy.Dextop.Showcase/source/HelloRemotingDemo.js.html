@@ -1,0 +1,69 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.define(&#39;Showcase.demos.HelloRemotingWindow&#39;, {
+    extend: &#39;Dextop.Window&#39;,
+    width: 200,
+    height: 150,
+    title: &#39;Hello Remoting Demo&#39;,
+    
+    initComponent: function () {
+        Ext.apply(this, {
+            bodyStyle: &#39;padding: 5px&#39;,
+            layout: {
+				type: &#39;vbox&#39;,
+				align: &#39;stretch&#39;
+			},
+			defaults: {
+				xtype: &#39;button&#39;,
+				margins: &#39;3 3 3 3&#39;,
+				flex: 1,
+				scope: this,
+			},
+            items: [{                
+                text: &#39;Say Hello&#39;,                
+                handler: function () {
+                    this.remote.GetHelloWorldMessage(function (r) {
+                        if (r &amp;&amp; r.success)
+                            alert(r.result);
+                        else
+                            alert(&#39;failed&#39;);
+                    });
+                }
+            },{                
+                text: &#39;Search for John Smith&#39;,                
+                handler: function () {
+                    this.remote.Search({FirstName: &#39;John&#39;,LastName: &#39;Smith&#39;}, function (r) {
+                        if (r &amp;&amp; r.success)
+                            alert(r.result);
+                        else
+                            alert(&#39;failed&#39;);
+                    });
+                }
+            }, {                
+				text: &#39;Request Server Notification&#39;,                
+                handler: function () {
+                    this.remote.RequestServerNotification(function (r) {
+                        if (!r || !r.success)
+                            alert(&#39;failed&#39;);
+                    });
+                }
+            }]
+        });
+        this.callParent(arguments);
+    },
+
+    onServerMessage: function(m) {
+    	if (m.type === &#39;alert&#39;)
+    		alert(m.msg);	
+    }
+});
+</pre>
+</body>
+</html>

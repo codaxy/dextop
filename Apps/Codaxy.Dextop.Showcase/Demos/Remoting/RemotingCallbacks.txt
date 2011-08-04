@@ -1,0 +1,4 @@
+﻿Dextop remoting callbacks
+===============================
+
+This demo explores different possibilites of handling responses of remote calls.

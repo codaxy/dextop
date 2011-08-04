@@ -1,0 +1,53 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.ns(&#39;Showcase&#39;);
+
+Ext.define(&#39;Showcase.demos.TreeWindow&#39;, {
+    extend: &#39;Dextop.Window&#39;,
+    width: 500,
+    height: 300,
+
+    title: &#39;Tree Window&#39;,
+    requires: &#39;Ext.tree.*&#39;,
+
+    initComponent: function () {
+
+        var url = this.remote.getAjaxUrl();
+
+        var store = new Ext.data.TreeStore({
+            proxy: {
+                type: &#39;ajax&#39;,
+                url: url
+            },
+            root: {
+                text: &#39;root&#39;,
+                id: &#39;&#39;,
+                expanded: true
+            }
+        });
+
+
+        var tree = new Ext.tree.TreePanel({
+            store: store
+        });
+
+        Ext.apply(this, {
+            layout: &#39;fit&#39;,
+            items: tree
+        });
+
+        this.callParent(arguments);
+
+    }
+});
+
+</pre>
+</body>
+</html>

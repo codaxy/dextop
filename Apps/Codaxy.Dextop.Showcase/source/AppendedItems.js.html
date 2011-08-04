@@ -1,0 +1,68 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.define(&#39;Showcase.demos.AppendedItemsWindow&#39;, {
+	extend: &#39;Dextop.Window&#39;,
+	width: 400,
+	autoHeight: true,
+	title: &#39;Appended Items&#39;,
+
+	initComponent: function () {
+
+		var formFields = Ext.create(this.getNestedTypeName(&#39;.form.ComplexForm&#39;)).getItems({
+			apply: {
+				&#39;LocateButton&#39;: {
+					xtype: &#39;button&#39;,
+					text: &#39;Locate&#39;,
+					style: &#39;margin-left: 5px&#39;,
+					width: 100,
+					listeners: {
+						&#39;click&#39;: function() {
+							alert(&#39;This button is added on the client side to a server side defined form.&#39;);
+						}
+					}
+				}
+			}
+		});
+
+		Ext.apply(this, {
+			layout: &#39;fit&#39;,
+			items: {
+				xtype: &#39;form&#39;,
+				bodyStyle: &#39;padding: 5px&#39;,
+				itemId: &#39;form&#39;,
+				layout: &#39;fit&#39;,
+				border: false,
+				items: formFields,
+				buttons: [{
+					text: &#39;Send&#39;,
+					scope: this,
+					handler: function () {
+						var form = this.getComponent(&#39;form&#39;);
+						if (!form.getForm().isValid())
+							return;
+						var data = form.getForm().getFieldValues();
+						this.remote.Send(data, {
+							type: &#39;alert&#39;,
+							success: function () {
+								Dextop.infoAlert(&#39;Form has been successfully submited.&#39;);
+							}
+						});
+					}
+				}]
+			}
+		});
+
+		this.callParent(arguments);
+	}
+});
+
+</pre>
+</body>
+</html>

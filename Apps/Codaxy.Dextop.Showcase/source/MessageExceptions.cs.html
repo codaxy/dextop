@@ -1,0 +1,40 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using System.Threading;
+using Codaxy.Dextop.Remoting;
+
+namespace Codaxy.Dextop.Showcase.Demos.Remoting
+{
+    public class MessageExceptionsWindow : DextopWindow
+    {
+		[DextopRemotable]
+		public void Error()
+		{
+			throw new DextopErrorMessageException(&quot;Nothing went well. We screwed up.&quot;);
+		}		
+
+		[DextopRemotable]
+		public void Warning()
+		{
+			throw new DextopWarningMessageException(&quot;Almost everything went well, but ...&quot;);
+		}
+
+		[DextopRemotable]
+		public void Info()
+		{
+			throw new DextopInfoMessageException(&quot;Everything went well.&quot;);
+		}		
+    }
+}
+
+</pre>
+</body>
+</html>

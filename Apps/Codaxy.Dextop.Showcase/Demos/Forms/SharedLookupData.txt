@@ -1,0 +1,23 @@
+﻿Shared Lookup Data
+==================
+
+Dextop provides built-in mechanism for building and caching of lookup data which appears in random places
+throughout your applications. Lookup data can be cached accross multiple sessions which can improve
+application performance.
+
+	//Session.cs
+	protected override object[] BuildLookupData(string name, out DextopSessionVariableSharing sharing)
+	{
+		switch (name)
+		{
+			case "OnOff":				
+				sharing = DextopSessionVariableSharing.Global;
+				return new[] { 
+					new object[] { true, "On" },
+					new object[] { false, "Off" }
+				};
+		}
+		return base.BuildLookupData(name, out version, out sharing);
+	}
+
+Use <pre>session.InvalidateLookupData</pre> to invalidate cached version of the data.

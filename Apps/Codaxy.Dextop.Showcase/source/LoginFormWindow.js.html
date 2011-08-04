@@ -1,0 +1,67 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.define(&#39;Showcase.demos.LoginFormWindow&#39;, {
+	extend: &#39;Dextop.Window&#39;,
+	width: 250,
+	autoHeight: true,
+	title: &#39;Please Login&#39;,
+
+	initComponent: function () {
+
+		var formFields = Ext.create(this.getNestedTypeName(&#39;.form.Login&#39;)).getItems();
+
+		Ext.apply(this, {
+			layout: &#39;fit&#39;,
+			items: {
+				xtype: &#39;form&#39;,
+				bodyStyle: &#39;padding: 5px&#39;,
+				border: false,
+				autoHeight: true,
+				items: formFields,
+				plugins: new Ext.ux.KeyMapPlugin(),
+				fieldDefaults: {
+					labelWidth: 70
+				},
+				keyMap: [{
+					key: Ext.EventObject.ENTER,
+					scope: this,
+					handler: this.doLogin
+				}],
+				buttons: [{
+					text: &#39;Login&#39;,
+					formBind: true,
+					scope: this,
+					handler: this.doLogin
+				}]
+			}
+		});
+
+		this.callParent(arguments);
+	},
+
+	doLogin: function () {
+		var form = this.down(&#39;form&#39;).getForm();
+		if (form.isValid())
+			this.remote.DoLogin(form.getFieldValues(), {
+				type: &#39;alert&#39;,
+				scope: this,
+				prepare: function () { this.setLoading(true); },
+				cleanup: function () { this.setLoading(false); },
+				success: function (result) {
+					this.close();
+					alert(result);
+				}
+			});
+	}
+});
+
+</pre>
+</body>
+</html>

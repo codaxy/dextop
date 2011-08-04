@@ -1,0 +1,67 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using Codaxy.Dextop.Forms;
+using Codaxy.Dextop.Remoting;
+
+namespace Codaxy.Dextop.Showcase.Demos.Forms
+{
+    public class ComplexFormWindow : DextopWindow
+    {
+        [DextopForm]
+        class ComplexForm
+        {
+            // Tab 1 (FieldSet)
+			[DextopFormTabPanelAttribute(0, border = false)]
+			[DextopFormContainer(1, title = &quot;FieldSet Examples&quot;, bodyStyle = &quot;padding: 5px;&quot;, border=false)]
+			[DextopFormFieldSet(2, title = &quot;Checkbox FieldSet&quot;, checkboxToggle = true)]
+			[DextopFormField(Dummy = true)] //This field is used by the field set
+			public bool Enabled { get; set; }
+
+            [DextopFormField]
+            public String FirstName { get; set; }
+            
+            [DextopFormField]
+            public String LastName { get; set; }
+
+            [DextopFormFieldSet(2, title = &quot;Collapsible FieldSet&quot;, collapsible = true)]
+            [DextopFormDateField(showToday=false)]
+            public DateTime Birth { get; set; }
+        
+            [DextopFormTimeField( format = &quot;H:i&quot;, minValue = &quot;8:00&quot;, maxValue = &quot;16:00&quot; )]
+            public DateTime Time { get; set; }
+
+            [DextopFormNumberField(step = 2, allowDecimals = true, minValue = 0, maxValue = 10)]
+            public double Number { get; set; }
+
+            // Tab 2
+			[DextopFormContainer(1, title = &quot;Checkboxes&quot;, bodyStyle = &quot;padding: 5px;&quot;, border=false)]
+			[DextopFormCheckboxGroup(2, vertical=true, columns=3)]
+            [DextopFormCheckbox(boxLabel=&quot;Checkbox 1&quot;)]
+            public bool Checkbox1 { get; set; }
+
+			[DextopFormCheckbox(boxLabel = &quot;Checkbox 2&quot;)]
+			public bool Checkbox2 { get; set; }
+
+			[DextopFormCheckbox(boxLabel = &quot;Checkbox 3&quot;)]
+			public bool Checkbox3 { get; set; }
+        }
+
+		[DextopRemotable]
+		void Send(ComplexForm form)
+		{
+
+		}
+    }
+}
+
+</pre>
+</body>
+</html>

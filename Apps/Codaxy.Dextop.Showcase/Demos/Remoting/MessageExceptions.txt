@@ -1,0 +1,4 @@
+﻿Message Exceptions
+===============================
+
+*DextopMessageException* provides simple and convinient way to present message to the user as result of a remote call.

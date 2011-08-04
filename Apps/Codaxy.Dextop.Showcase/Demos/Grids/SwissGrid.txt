@@ -1,0 +1,37 @@
+﻿Swiss Army Grid
+===============
+
+Swiss Army Grid is a Ext grid with built-in support for
+
+- paging (by PageSizeCombo plugin)
+- cell/row/form data editing
+- context menu and action key binding (by GridActionManager plugin)
+- toolbar action enabling/disabling (by GridActionManager plugin)
+- special actions ('add', 'remove', 'edit', 'save', 'reload')
+
+### Configuration properties
+
+Copied from the source file.
+
+	Ext.define('Dextop.ux.SwissArmyGrid', {
+		extend: 'Ext.grid.Panel',	
+	
+		model: 'model',	//Common name of store and column model as registered on the server side.
+	
+		editing: undefined, //One of the 'cell', 'row', 'form'	 
+		editingOptions: undefined, //special options to be passed to the editing plugin
+	
+		storeName: undefined, //Name of the store component. If not specified model property is used. 
+		storeOptions: undefined, //Special store configuration options
+    
+		columnModelName: undefined, //Name of the column model, 
+		columnModelOptions: undefined, //Special column model options (e.g. renderers, etc.)
+    
+		paging: false, //Set to true to enable paging.
+		pagingToolbarOptions: undefined, //Special paging toolbar options       
+	
+		actionIconClsSuffix: undefined, //Suffix to be added to the action name to get the action icon class (e.g. '-icon' will transform 'add' to 'add-icon')
+		actionIconClsPrefix: undefined, //Suffix to be added to the action name to get the action icon class (e.g. 'icon-' will transform 'add' to 'icon-add')
+	
+		editOnDblClick: false, //Start editing when row is double-clicked
+	

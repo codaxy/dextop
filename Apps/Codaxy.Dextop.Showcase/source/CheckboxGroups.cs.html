@@ -1,0 +1,106 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using Codaxy.Dextop.Forms;
+using Codaxy.Dextop.Remoting;
+
+namespace Codaxy.Dextop.Showcase.Demos.Forms
+{
+	public class CheckboxGroupsWindow : DextopWindow
+	{
+		[DextopRemotable]
+		void Send(Form form)
+		{
+			
+		}
+
+		[DextopForm]
+		class Form
+		{
+			[DextopFormCheckboxGroup(0, fieldLabel=&quot;One Check Required&quot;, allowBlank=false)]
+			[DextopFormCheckbox(boxLabel = &quot;Item 1&quot;)]
+			public bool Checkbox1 { get; set; }
+
+			[DextopFormCheckbox(boxLabel = &quot;Item 2&quot;)]
+			public bool Checkbox2 { get; set; }
+
+			[DextopFormCheckbox(boxLabel = &quot;Item 3&quot;)]
+			public bool Checkbox3 { get; set; }
+
+			[DextopFormCheckboxGroup(0, fieldLabel = &quot;3 Columns&quot;, columns=3)]
+			[DextopFormCheckbox(boxLabel = &quot;Item 1&quot;)]
+			public bool C1 { get; set; }
+
+			[DextopFormCheckbox(boxLabel = &quot;Item 2&quot;)]
+			public bool C2 { get; set; }
+
+			[DextopFormCheckbox(boxLabel = &quot;Item 3&quot;)]
+			public bool C3 { get; set; }
+
+			[DextopFormCheckbox(boxLabel = &quot;Item 4&quot;)]
+			public bool C4 { get; set; }
+
+			[DextopFormCheckbox(boxLabel = &quot;Item 5&quot;)]
+			public bool C5 { get; set; }
+
+			[DextopFormCheckboxGroup(0, fieldLabel = &quot;Vertical&quot;, columns = 3, vertical=true)]
+			[DextopFormCheckbox(boxLabel = &quot;Item 1&quot;)]
+			public bool V1 { get; set; }
+
+			[DextopFormCheckbox(boxLabel = &quot;Item 2&quot;)]
+			public bool V2 { get; set; }
+
+			[DextopFormCheckbox(boxLabel = &quot;Item 3&quot;)]
+			public bool V3 { get; set; }
+
+			[DextopFormCheckbox(boxLabel = &quot;Item 4&quot;)]
+			public bool V4 { get; set; }
+
+			[DextopFormCheckbox(boxLabel = &quot;Item 5&quot;)]
+			public bool V5 { get; set; }
+
+			[DextopFormCheckboxGroup(0, fieldLabel = &quot;Custom Width&quot;, columnWidths = new [] {0.25, 0.5, 0.25}, vertical = true)]
+			[DextopFormCheckbox(boxLabel = &quot;Item 1&quot;)]
+			public bool W1 { get; set; }
+
+			[DextopFormCheckbox(boxLabel = &quot;Item 2&quot;)]
+			public bool W2 { get; set; }
+
+			[DextopFormCheckbox(boxLabel = &quot;Item 3&quot;)]
+			public bool W3 { get; set; }
+
+			[DextopFormCheckbox(boxLabel = &quot;Item 4&quot;)]
+			public bool W4 { get; set; }
+
+			[DextopFormCheckbox(boxLabel = &quot;Item 5&quot;)]
+			public bool W5 { get; set; }
+
+			[DextopFormCheckboxGroup(0, fieldLabel = &quot;Pixel Widths&quot;, columnWidths = new double[] { 50, 100, 200 }, vertical = true)]
+			[DextopFormCheckbox(boxLabel = &quot;50 px&quot;)]
+			public bool CW1 { get; set; }
+
+			[DextopFormCheckbox(boxLabel = &quot;50 px&quot;)]
+			public bool CW2 { get; set; }
+
+			[DextopFormCheckbox(boxLabel = &quot;100 px&quot;)]
+			public bool CW3 { get; set; }
+
+			[DextopFormCheckbox(boxLabel = &quot;100 px&quot;)]
+			public bool CW4 { get; set; }
+
+			[DextopFormCheckbox(boxLabel = &quot;200 px&quot;)]
+			public bool CW5 { get; set; }
+		}
+	}
+}
+
+</pre>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.define(&#39;Showcase.demos.EnumDemoWindow&#39;, {
+	extend: &#39;Dextop.Window&#39;,
+	width: 300,
+	autoHeight: true,
+	title: &#39;Enum&#39;,
+
+	initComponent: function () {
+		Ext.apply(this, {
+			items: [{
+				layout: &#39;hbox&#39;,
+				//bodyStyle: &#39;padding: 10px&#39;,
+				autoHeight: true,
+				border: false,
+				defaults: {
+					margins: &#39;10 5 10 5&#39;
+				},
+				items: [{
+					xtype: &#39;button&#39;,
+					text: &#39;Toggle&#39;,
+					scope: this,
+					handler: function () {
+						this.remote.ToggleStatus({
+							scope: this,
+							type: &#39;alert&#39;,
+							success: this.updateStatus 
+						});
+					}
+				}, {
+					xtype: &#39;button&#39;,
+					text: &#39;Make Valid&#39;,
+					scope: this,
+					handler: function () {
+						this.remote.SetStatus(Showcase.demos.EnumDemoStatus.Valid, {
+							scope: this,
+							type: &#39;alert&#39;,
+							success: this.updateStatus
+						});
+					}
+				}, {
+					xtype: &#39;button&#39;,
+					text: &#39;Make Invalid&#39;,
+					scope: this,
+					handler: function () {
+						this.remote.SetStatus(Showcase.demos.EnumDemoStatus.Invalid, {
+							scope: this,
+							type: &#39;alert&#39;,
+							success: this.updateStatus
+						});
+					}
+				}, {
+					xtype: &#39;label&#39;
+				}]
+			}]
+		});
+		this.callParent(arguments);
+	},
+
+	updateStatus: function (status) {
+		switch (status) {
+			case Showcase.demos.EnumDemoStatus.Valid:
+				this.down(&#39;label&#39;).setText(&#39;Valid&#39;);
+				break;
+			case Showcase.demos.EnumDemoStatus.Invalid:
+				this.down(&#39;label&#39;).setText(&#39;Invalid&#39;);
+				break;
+		}
+	}
+});
+</pre>
+</body>
+</html>

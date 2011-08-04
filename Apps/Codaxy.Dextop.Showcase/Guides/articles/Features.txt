@@ -1,0 +1,40 @@
+﻿List of Dextop Features
+=======================
+
+1. Remoting
+-----------------------
+
+- Simple remote procedure calls using Ext.Direct
+- Automatic JSON encoding/decoding (thanks to JSON.NET)
+- File upload
+- AJAX request handling
+- Server notifications by polling or long-polling technique
+
+2. CodeGeneration
+---------------------
+- Automatic concatenion and minification of js files (thanks to Yahoo.Yui.Compressor for .NET)
+- Automatic minification of css files
+- Automatic remoting Proxy class generation based on DextopRemotable attribute
+- Automatic generation of Ext models based on DextopModel attribute
+- Automatic generation of grid headers based on DextopGridHeaders attribute
+- Automatic generation of forms based on DextopForm attribute
+
+3. Data
+----------------------
+- Array serialization/deserialization
+- Simplified data access interface
+
+4. Grids
+---------------------
+- Reflection based models
+- Reflection based headers
+- Paging helpers
+
+5. Forms
+------------------
+- Powerfull form generation engine
+
+6. Localization
+------------------
+- Client and server localization support
+- Localization tool

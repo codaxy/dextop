@@ -1,0 +1,64 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.define(&#39;Showcase.demos.FileUploadFormWindow&#39;, {
+    extend: &#39;Dextop.Window&#39;,
+    width: 300,
+    autoHeight: true,
+    title: &#39;File Upload Form&#39;,
+
+    initComponent: function () {
+
+        var formItems = Ext.create(this.getNestedTypeName(&#39;.form.Form&#39;)).getItems();
+
+        Ext.apply(this, {
+            items: [{
+                xtype: &#39;form&#39;,
+                bodyStyle: &#39;padding: 10px&#39;,
+                autoHeight: true,
+                api: {
+                    submit: Ext.bind(this.submit, this)
+                },
+                border: false,
+                fieldDefaults: {
+                    labelAlign: &#39;top&#39;  
+                },
+                items: formItems,
+                buttons: [{
+                    text: &#39;Cancel&#39;,
+                    scope: this,
+                    handler: function () {
+                        this.close();
+                    }
+                }, {
+
+                    text: &#39;Send&#39;,
+                    scope: this,
+                    handler: function () {                       
+                        this.submit();
+                    }
+                }]
+            }]
+        });
+        this.callParent(arguments);
+    },
+
+    submit: function (form) {
+        var f = this.down(&#39;form&#39;).getForm();
+        this.remote.SubmitForm(f, {
+            type: &#39;alert&#39;,
+            success: function (result) {
+                Dextop.infoAlert(result);
+            }
+        });
+    }
+});
+</pre>
+</body>
+</html>

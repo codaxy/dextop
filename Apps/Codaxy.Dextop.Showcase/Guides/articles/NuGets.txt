@@ -1,0 +1,33 @@
+﻿Dextop NuGets
+=============
+
+![NuGet](../images/NuGetContribGraphic.png)
+
+We are providing few NuGet packages which can be used to quickly setup new Dextop applications.
+
+NuGets are available through the official [NuGet feed](http://nuget.org/List/Packages/Dextop.Template.Basic). 
+
+## Setting up a new Dextop application
+
+To setup a new Dextop application use following steps:
+
+#### 1. Open up Visual Studio and create new "ASP.NET Empty Web Application" project
+
+Make sure .NET 4 Framework is selected. You should get an empty project, with just one file (Web.config).
+
+#### 2. Install Dextop by adding NuGet Library Package Reference
+
+Right-click on project References and select Add Library Package Reference.
+Search for Dextop and then select and install an appropriate project template Nuget.
+After installing your project should look like the standard ASP.NET MVC 3 application.
+
+#### 3. Download and unpack Ext JS 
+
+Ext JS library can be downloaded from the [Sencha website](http://www.sencha.com). 
+Use latest version of Ext JS 4 library and unpack it's contents to '/client/lib/ext' directory of your application,
+or include ext as a symbolic link (guide).
+
+#### 4. Run the application
+Hit F5 to start the application. If everything went well you should see some Ext content appearing.
+
+**Note:** After installing you shouldn't update the project template as it will revert some of the project files to default content. Update only the library packages.

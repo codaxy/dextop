@@ -1,0 +1,46 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.ns(&#39;Showcase.demos&#39;);
+
+
+Ext.define(&#39;Showcase.demos.WindowOnDemandWindow&#39;, {
+	extend: &#39;Dextop.Window&#39;,
+
+	autoWidth: true,
+	autoHeight: true,
+	title: &#39;Window On Demand&#39;,
+	
+	initComponent: function() {
+		Ext.apply(this, {
+			items: {
+				xtype: &#39;button&#39;,
+				text: &#39;Create Simple Window&#39;,
+				margin: &#39;5 5 5 5&#39;,
+				scope: this,	
+				handler: this.createSimpleWindow				
+			}
+		})
+		
+		this.callParent(arguments);
+	},
+	
+	createSimpleWindow: function() {
+		this.remote.CreateWindow(&#39;simple&#39;, {
+			success: function(config) {
+				var win = Dextop.create(config);
+				win.show();
+			}
+		});
+	}
+});
+
+</pre>
+</body>
+</html>

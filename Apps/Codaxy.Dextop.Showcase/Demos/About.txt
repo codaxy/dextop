@@ -1,0 +1,18 @@
+﻿Dextop
+======
+
+Dextop is RIA open-source framework based on .NET/Mono and Sencha Ext JS.
+
+Checkout Dextop source code at <a href="http://code.google.com/p/codaxy-dextop2/" target="_blank">Google Code</a>.
+
+Browse <a href="http://dextop.codaxy.com/dox/" target="_blank">Dextop's documentation</a>.
+
+Find out more about Codaxy at <a href="http://www.codaxy.com/" target="_blank">www.codaxy.com</a>.
+
+License
+-------
+Dextop is available under GPL v3 and commercial license.
+
+### SoundManager2
+Dextop Showcase application is using SoundManager2 library written by Scott Schiller (<a href="http://www.schillmania.com/" target="_blank">schillmania.com</a>), 
+which is available under a <a href="http://www.schillmania.com/projects/soundmanager2/license.txt" target="_blank">BSD license</a>.

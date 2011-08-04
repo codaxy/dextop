@@ -1,0 +1,30 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System.Dynamic;
+
+namespace Codaxy.Dextop.Showcase.Demos.Windows
+{
+	public class SimpleWindow : DextopWindow
+	{
+		public override void InitRemotable(DextopRemote remote, DextopConfig config)
+		{
+			base.InitRemotable(remote, config);			
+			config[&quot;title&quot;] = &quot;Simple Window&quot;;
+			config[&quot;html&quot;] = &quot;This is a simple window with html content from the server...&quot;;
+			config[&quot;width&quot;] = 500;
+			config[&quot;height&quot;] = 300;
+			Remote.RemoteHostType = &quot;Dextop.Window&quot;;
+		}
+	}
+}
+
+</pre>
+</body>
+</html>

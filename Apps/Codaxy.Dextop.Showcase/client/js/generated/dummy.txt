@@ -1,0 +1,1 @@
+﻿Sole purpose of this file is to create folder on publish.

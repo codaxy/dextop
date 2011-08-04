@@ -1,0 +1,28 @@
+﻿body 
+{
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;    
+    font-size: 9pt;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Trebuchet MS", "Palatino Linotype", "Book Antiqua", Palatino;    
+}
+
+h1 
+{
+    font-size: 13.5pt;
+}
+
+h2 
+{
+    font-size: 12pt;
+}
+
+h3 
+{
+    font-size: 11pt;
+}
+
+pre {
+	font-size: 8pt;
+}

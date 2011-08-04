@@ -1,0 +1,50 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.ns(&#39;Showcase&#39;);
+
+Ext.define(&#39;Showcase.demos.SwissGridWithFormEditorWindow&#39;, {
+	extend: &#39;Dextop.Window&#39;,
+	width: 600,
+	height: 300,
+
+	title: &#39;Swiss Army Grid + Form Editor&#39;,
+
+	initComponent: function () {
+
+		var grid = Ext.create(&#39;Dextop.ux.SwissArmyGrid&#39;, {
+			remote: this.remote,
+			border: false,
+			tbar: [&#39;add&#39;, &#39;edit&#39;, &#39;remove&#39;],
+			storeOptions: {
+				autoLoad: true,
+				autoSync: true
+			},
+			editingOptions: {
+				width: 350,
+				formConfig: {
+					bodyStyle: &#39;padding: 10px&#39;
+				}
+			},
+			editing: &#39;form&#39;,
+			editOnDblClick: true
+		});
+
+		Ext.apply(this, {
+			layout: &#39;fit&#39;,
+			items: grid
+		});
+
+		this.callParent(arguments);
+	}
+});
+
+</pre>
+</body>
+</html>

@@ -1,0 +1,23 @@
+﻿# Including Ext as a symbolic link
+
+Ext 4 download package is very big, over 100 MB unpacked.
+If you're working on more than one Ext based application, 
+then a lot of disk space is wasted.
+In order to save space NTFS symbolic links can be used.
+
+NTFS symbolic link (symlink) is a filesystem object in the NTFS filesystem that points to another filesystem object. 
+
+## How to create an Ext symbolic link
+
+Unpack Ext somewhere outside your project repository (e.g. C:\Ext\ext-4.0.1).
+
+To create a symbolic link follow these few simple steps:
+
+1. Open Command Prompt in Administrator Mode
+2. Change directory to 'client\lib' folder of your application.
+3. Type <pre>mklink %CD%\ext C:\Ext\ext-4.0.1 /D</pre>
+4. Make sure that ext folder is ignored if you're using svn or git 
+
+Ext folder should appear with a shortcut overlay. 
+
+To delete the link simply delete the folder.

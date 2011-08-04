@@ -1,0 +1,60 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.ns(&#39;Showcase&#39;);
+
+Ext.define(&#39;Showcase.demos.PageSizeComboBoxWindow&#39;, {
+    extend: &#39;Dextop.Window&#39;,
+    width: 600,
+    height: 400,
+	maximizable: true,
+
+	title: &#39;Page Size Combo&#39;,
+    requires: &#39;Ext.grid.GridPanel&#39;,
+
+    initComponent: function () {
+
+        var store = this.remote.createStore(&#39;model&#39;, {
+            pageSize: 10,
+            autoLoad: false,
+            remoteSort: true
+        });
+
+        var columns = this.remote.createGridColumns(&#39;model&#39;);
+
+        var grid = Ext.create(&#39;Ext.grid.GridPanel&#39;, {
+            store: store,
+            columns: columns,
+            bbar: new Ext.PagingToolbar({
+                store: store,
+                displayInfo: true,
+                displayMsg: &#39;Displaying items {0} - {1} of {2}&#39;,
+                emptyMsg: &quot;No items to display&quot;,
+				items: [&#39;Page: &#39;, {
+					xtype: &#39;pagesizecombo&#39;,
+					store: store
+				}]
+            })
+        });
+
+        Ext.apply(this, {
+            layout: &#39;fit&#39;,
+            items: grid
+        });
+
+        store.loadPage(1);
+
+        this.callParent(arguments);
+
+    }
+});
+
+</pre>
+</body>
+</html>

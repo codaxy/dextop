@@ -1,0 +1,71 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.ns(&#39;Showcase&#39;);
+
+Ext.define(&#39;Showcase.demos.Launcher.ClientGridWindow&#39;, {
+    extend: &#39;Showcase.demos.Launcher&#39;,
+    launch: function () {
+        var remoteId = Ext.id();
+        var w = Ext.create(&#39;Showcase.demos.ClientGridWindow&#39;, {
+            remote: {
+                remoteId: remoteId
+            }
+        });
+        w.show();
+        this.session.remote.CreateDemoWindow(&#39;ClientGridWindow&#39;, remoteId, {
+			failure: function() {            
+                w.close();
+                alert(&#39;failed&#39;);
+            }
+        });
+    }
+});
+
+Ext.define(&#39;Showcase.demos.ClientGridWindow&#39;, {
+	extend: &#39;Dextop.Window&#39;,	
+	width: 500,
+	height: 300,
+	
+	title: &#39;Client Grid Window&#39;,
+	requires: &#39;Ext.grid.GridPanel&#39;,
+	
+	initComponent: function() {			
+		
+		var store = Ext.create(&#39;Ext.data.Store&#39;, {
+			proxy: Ext.create(&#39;Dextop.data.Proxy&#39;, {
+				remote: {
+					remoteId: this.remote.getSubRemoteId(&#39;store&#39;)
+				},
+				model: &#39;Showcase.demos.ClientGridWindow.model.Model&#39;
+			}),
+			autoLoad: true,
+			model: &#39;Showcase.demos.ClientGridWindow.model.Model&#39;
+		});
+
+		var columns = Dextop.createGridColumns(&#39;Showcase.demos.ClientGridWindow.columns.Model&#39;);
+
+		var grid = new Ext.grid.GridPanel({
+			border: false,
+			store: store,
+			columns: columns  
+		});		
+		
+		Ext.apply(this, {	
+			layout: &#39;fit&#39;,
+			items: grid			
+		});
+		
+		this.callParent(arguments);	
+	}
+});
+
+</pre>
+</body>
+</html>

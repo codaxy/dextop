@@ -1,0 +1,75 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using Codaxy.Dextop.Tools;
+
+namespace Codaxy.Dextop.Forms
+{
+	/// <summary>
+	/// ComboBox with remote store
+	/// </summary>
+	public class DextopFormRemoteLookupComboAttribute : DextopFormLookupComboAttribute
+	{
+		/// <summary>
+		/// Initializes a new instance of the <see cref="DextopFormRemoteLookupComboAttribute"/> class.
+		/// </summary>
+		/// <param name="valueField">The value field.</param>
+		/// <param name="displayField">The display field.</param>
+		public DextopFormRemoteLookupComboAttribute(String valueField, String displayField)
+		{
+			forceSelection = true;
+			disableKeyFilter = false;
+			minChars = 1;
+			this.valueField = valueField;
+			this.displayField = displayField;
+			editable = true;
+		}
+
+		/// <summary>
+		/// Converts this attribute to a form field.
+		/// </summary>
+		/// <param name="memberName">Name of the member.</param>
+		/// <param name="memberType">The type of the member.</param>
+		/// <returns></returns>
+		public override DextopFormField ToField(string memberName, Type memberType)
+		{
+			var res = base.ToField(memberName, memberType);			
+			res["valueField"] = valueField;
+			res["displayField"] = displayField;
+			res["queryMode"] = "remote";
+			res["minChars"] = minChars;
+			if (valueNotFoundField != null)
+				res["valueNotFoundText"] = new DextopRawJs("options.data['{0}']{1}", valueNotFoundField, valueNotFoundText != null ? String.Format("|| '{0}'", valueNotFoundText) : null);
+			else if (valueNotFoundText != null)
+				res["valueNotFoundText"] = valueNotFoundText;
+			return res;
+		}
+
+		/// <summary>
+		/// The minimum number of characters the user must type before autocomplete and 
+		/// typeAhead activate (defaults to 4 if queryMode = 'remote' or 0 if queryMode = 'local', does not apply if editable = false)
+		/// </summary>
+		public int minChars { get; set; }
+		
+		/// <summary>
+		/// The underlying data field name to bind to this ComboBox (defaults to 'text').
+		/// </summary>		
+		public String displayField { get; set; }
+		
+		/// <summary>
+		/// The underlying data value name to bind to this ComboBox (defaults to match the value of the displayField config).
+		/// </summary>
+		public String valueField { get; set; }
+		
+		/// <summary>
+		/// Used for record editing. Specifies the field to be used as lookup text when lookup store doesn't contain lookup value.
+		/// </summary>
+		public String valueNotFoundField { get; set; }
+		
+		/// <summary>
+		/// When using a name/value combo, if the value passed to setValue is not found in the store, valueNotFoundText will be displayed as the field text if defined (defaults to undefined). If this default text is used, it means there is no value set and no validation will occur on this field.
+		/// </summary>
+		public String valueNotFoundText { get; set; }
+	}
+}

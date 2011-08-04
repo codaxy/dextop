@@ -1,0 +1,38 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using Codaxy.Dextop.Forms;
+using Codaxy.Dextop.Remoting;
+
+namespace Codaxy.Dextop.Showcase.Demos.Forms
+{
+	public class LoginFormWindow : DextopWindow
+	{
+		[DextopRemotable]
+		string DoLogin(Login login)
+		{
+			return &quot;Hello &quot; + login.Username + &quot;!&quot;;
+		}
+
+		[DextopForm]
+		class Login
+		{
+			[DextopFormField(allowBlank = false, anchor = &quot;0&quot;)]
+			public String Username { get; set; }
+
+			[DextopFormField(inputType = &quot;password&quot;, anchor = &quot;0&quot;)]
+			public String Password { get; set; }
+		}
+	}
+}
+
+</pre>
+</body>
+</html>

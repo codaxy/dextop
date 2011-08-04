@@ -1,0 +1,14 @@
+﻿All Form Field Types
+====================
+
+This demo shows all form field types supported by Dextop.
+
+
+
+### Remote Lookup Combo
+
+When form is displayed combo store is not loaded and description lookup 
+cannot be made. If description is available inside initial form data then
+it is possible to use valueNotFoundField in the field attribute to 
+specify the name of the field which holds the description for the current 
+inital lookup value.

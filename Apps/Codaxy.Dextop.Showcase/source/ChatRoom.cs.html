@@ -1,0 +1,104 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using Codaxy.Dextop.Data;
+using System.Collections.Concurrent;
+using Codaxy.Dextop.Remoting;
+using Codaxy.Dextop.Forms;
+
+
+namespace Codaxy.Dextop.Showcase.Demos.Live
+{
+    public class ChatWindow : DextopWindow
+    {
+		DextopObservableStore&lt;int, ChatLine&gt; store;
+		
+		static ConcurrentQueue&lt;ChatLine&gt; lines = new ConcurrentQueue&lt;ChatLine&gt;();
+		static ConcurrentDictionary&lt;ChatWindow, int&gt; windows = new ConcurrentDictionary&lt;ChatWindow, int&gt;();
+
+		public ChatWindow()
+        {
+			store = new DextopObservableStore&lt;int, ChatLine&gt;(a =&gt; a.Id);
+			store.SetMany(lines);
+        }
+
+        public override void InitRemotable(DextopRemote remote, DextopConfig config)
+        {
+            base.InitRemotable(remote, config);                      
+            Remote.AddLiveStore(&quot;model&quot;, store);
+			windows.TryAdd(this, 1);
+        }
+
+		void RemoveOldLine(ChatLine data)
+		{
+			store.Set(data);
+		}
+
+		void AddNewLine(ChatLine data)
+		{
+			store.Remove(data);
+		}
+
+		static int id;
+
+		[DextopRemotable]
+		void EnterLine(ChatLine data)
+		{
+			data.Id = Interlocked.Increment(ref id);
+			data.Time = DateTime.Now;
+
+			if (lines.Count &gt; 100)
+			{
+				ChatLine old;
+				lines.TryDequeue(out old);
+				foreach (var win in windows)
+					win.Key.AddNewLine(old);
+			}
+
+			lines.Enqueue(data);
+			
+			foreach (var win in windows)
+				win.Key.RemoveOldLine(data);
+		}
+
+		public override void Dispose()
+		{
+			base.Dispose();
+			int value;
+			windows.TryRemove(this, out value);
+		}
+
+		[DextopModel]
+		[DextopGrid]
+		[DextopForm]
+		class ChatLine
+		{
+			public int Id { get; set; }
+
+			[DextopGridColumn(width = 60, type = &quot;time&quot;)]
+			public DateTime Time { get; set; }
+
+			[DextopFormContainer(layout=&quot;hbox&quot;, border=false, title=&quot;Say something&quot;, bodyStyle= &quot;padding: 5px&quot;)]
+			[DextopGridColumn(width = 80)]
+			[DextopFormField(labelAlign = &quot;top&quot;, width=80, allowBlank=false)]
+			public String Name { get; set; }
+
+			[DextopGridColumn(flex = 1)]
+			[DextopFormField(labelAlign = &quot;top&quot;, flex = 1, margin = &quot;0 0 0 5&quot;, allowBlank = false)]
+			public string Text { get; set; }
+		}
+    }
+}
+
+</pre>
+</body>
+</html>

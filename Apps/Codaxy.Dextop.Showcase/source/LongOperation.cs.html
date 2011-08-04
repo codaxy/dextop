@@ -1,0 +1,85 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using Codaxy.Dextop.Data;
+using Codaxy.Dextop.Remoting;
+
+
+namespace Codaxy.Dextop.Showcase.Demos.Live
+{
+	public class LongOperationWindow : DextopWindow
+    {
+		int itemCount;
+		int currentItem;
+		Timer timer;
+
+		[DextopRemotable]
+		void StartOperation()
+		{
+			if (timer != null)
+				throw new DextopErrorMessageException(&quot;Another operation is in progress.&quot;);
+
+			timer = new Timer(OnTimer, null, 50, 1000);
+			currentItem = 0;
+			itemCount = 10;
+		}
+
+		[DextopRemotable]
+		void CancelCurrentOperation()
+		{
+			if (timer == null)
+				throw new DextopErrorMessageException(&quot;No operation is currently active.&quot;);
+			DisposeTimer();
+			ReportProgress(0, &quot;Canceled&quot;);
+		}
+
+		void OnTimer(object state)
+		{
+			currentItem++;
+			if (currentItem &lt; itemCount)
+				ReportProgress(currentItem * 1.0 / itemCount, String.Format(&quot;Processed {0} of {1} items.&quot;, currentItem, itemCount));			
+			else
+			{
+				DisposeTimer();
+				ReportProgress(1, &quot;Done&quot;);
+			}
+		}
+
+		void ReportProgress(double progress, String message)
+		{
+			Remote.SendMessage(new
+			{
+				progress =  progress,
+				message = message
+			});
+		}
+
+		void DisposeTimer()
+		{
+			if (timer != null)
+			{
+				timer.Dispose();
+				timer = null;
+			}
+		}
+
+		public override void Dispose()
+		{
+			DisposeTimer();
+			base.Dispose();
+		}
+    }
+}
+
+</pre>
+</body>
+</html>

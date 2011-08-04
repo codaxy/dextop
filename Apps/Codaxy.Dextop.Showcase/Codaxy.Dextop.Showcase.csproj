@@ -1,0 +1,1221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3A1B5EE6-BB5A-4BA6-873A-6C291221C3FB}</ProjectGuid>
+    <ProjectTypeGuids>{E53F8FEA-EAE0-44A6-8774-FFD645390401};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Codaxy.Dextop.Showcase</RootNamespace>
+    <AssemblyName>Codaxy.Dextop.Showcase</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>
+    </DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'NuGet|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisLogFile>bin\Codaxy.Dextop.Showcase.dll.CodeAnalysisLog.xml</CodeAnalysisLogFile>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSetDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\\Rule Sets</CodeAnalysisRuleSetDirectories>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisRuleDirectories>;C:\Program Files (x86)\Microsoft Visual Studio 10.0\Team Tools\Static Analysis Tools\FxCop\\Rules</CodeAnalysisRuleDirectories>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Codaxy.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Codaxy.Common.0.5.0\lib\Codaxy.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="MarkdownSharp">
+      <HintPath>..\..\Libraries\bin\MarkdownSharp\MarkdownSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages" />
+    <Reference Include="System.Web.Helpers" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="client\images\article-icon.png" />
+    <Content Include="client\js\controls\GuidesTreePanel.js" />
+    <Content Include="client\lib\dextop\images\icons\add.png" />
+    <Content Include="client\lib\dextop\images\icons\delete.png" />
+    <Content Include="client\lib\dextop\images\icons\edit.png" />
+    <Content Include="client\lib\dextop\images\icons\refresh.gif" />
+    <Content Include="client\lib\dextop\images\icons\save.png" />
+    <Content Include="client\lib\dextop\js\Ext.tweaks.js" />
+    <Content Include="client\lib\dextop\js\ux\Ext.ux.FilteredCombo.js" />
+    <Content Include="client\lib\dextop\js\ux\Ext.ux.KeyMapPlugin.js" />
+    <Compile Include="Demos\Forms\AppendedItems.cs" />
+    <Compile Include="Demos\Forms\LinkedCombos.cs" />
+    <Compile Include="Demos\Forms\FileUploadForm.cs" />
+    <Compile Include="Demos\Grids\BufferedGrid.cs" />
+    <Compile Include="Demos\Grids\SwissGridWithFormEditor.cs" />
+    <Compile Include="Demos\Grids\SwissGrid.cs" />
+    <Compile Include="Demos\Live\ChatRoom.cs" />
+    <Content Include="Demos\Live\ChatRoom.txt" />
+    <Compile Include="Demos\Remoting\Enums.cs" />
+    <Compile Include="Guides\GuidePreprocessor.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Demos\CategoryAttribute.cs" />
+    <Compile Include="Demos\DemoAttribute.cs" />
+    <Compile Include="Demos\DemoPreprocessor.cs" />
+    <Compile Include="Demos\DemoSourcePreprocessor.cs" />
+    <Compile Include="Demos\Forms\AllFormFieldsWindow.cs" />
+    <Compile Include="Demos\Forms\CheckboxGroups.cs" />
+    <Compile Include="Demos\Forms\SharedLookupData.cs" />
+    <Compile Include="Demos\Forms\RadioGroups.cs" />
+    <Compile Include="Demos\Grids\ClientGridWindow.cs" />
+    <Compile Include="Demos\Grids\PageSizeComboBox.cs" />
+    <Compile Include="Demos\Grids\GridEditorsWindow.cs" />
+    <Compile Include="Demos\Grids\GridActionManager.cs" />
+    <Compile Include="Demos\Grids\ModelValidationGridWindow.cs" />
+    <Compile Include="Demos\Grids\FastPagingGridWindow.cs" />
+    <Compile Include="Demos\Grids\PagingGridWindow.cs" />
+    <Compile Include="Demos\Grids\RowEditableGridWindow.cs" />
+    <Compile Include="Demos\Grids\EditableGridWindow.cs" />
+    <Compile Include="Demos\Grids\GroupedGridHeaders.cs" />
+    <Compile Include="Demos\Live\LongOperation.cs" />
+    <Compile Include="Demos\Live\NotificationsWindow.cs" />
+    <Compile Include="Demos\Live\PlaySoundWindow.cs" />
+    <Compile Include="Demos\Live\LiveChartWindow.cs" />
+    <Compile Include="Demos\Live\LiveGridWindow.cs" />
+    <Compile Include="Demos\Remoting\AdvancedExceptionHandling.cs" />
+    <Compile Include="Demos\Remoting\MessageExceptions.cs" />
+    <Compile Include="Demos\Remoting\RemotingCallbacks.cs" />
+    <Compile Include="Demos\Remoting\FileUploadDemo.cs" />
+    <Compile Include="Demos\Remoting\HelloRemotingDemo.cs" />
+    <Compile Include="Demos\LevelAttribute.cs" />
+    <Compile Include="Demos\TopicAttribute.cs" />
+    <Compile Include="Demos\Trees\TreeWindow.cs" />
+    <Compile Include="Demos\Windows\WindowOnDemand.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DextopAppConfig.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShowcaseApplication.cs" />
+    <Compile Include="ShowcaseApplication.DemoLauncher.cs" />
+    <Compile Include="ShowcaseApplication.ExtDataViewModule.cs" />
+    <Compile Include="ShowcaseApplication.Module.cs" />
+    <Compile Include="ShowcaseSession.cs" />
+    <Compile Include="Demos\Forms\ComplexFormWindow.cs" />
+    <Compile Include="Demos\Grids\GridWindow.cs" />
+    <Compile Include="Demos\Forms\LoginFormWindow.cs" />
+    <Compile Include="Demos\Windows\SimpleWindow.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="client\js\controls\guides.js" />
+    <Content Include="client\lib\dextop\js\locale\dextop-ru.js" />
+    <Content Include="client\lib\dextop\js\locale\dextop-sr.js" />
+    <Content Include="client\lib\dextop\js\ux\Dextop.ux.FormEditorWindow.js" />
+    <Content Include="client\lib\dextop\js\ux\Dextop.ux.SwissArmyGrid.js" />
+    <Content Include="client\lib\ext\resources\css\ext-all-gray.css" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\boundlist\trigger-arrow.png" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\box\corners-blue.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\box\corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\box\l-blue.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\box\l.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\box\r-blue.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\box\r.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\box\tb-blue.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\box\tb.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn-group\btn-group-default-framed-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn-group\btn-group-default-framed-notitle-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn-group\btn-group-default-framed-notitle-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn-group\btn-group-default-framed-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-large-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-large-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-large-disabled-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-large-disabled-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-large-disabled-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-large-focus-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-large-focus-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-large-focus-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-large-over-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-large-over-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-large-over-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-large-pressed-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-large-pressed-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-large-pressed-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-large-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-medium-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-medium-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-medium-disabled-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-medium-disabled-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-medium-disabled-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-medium-focus-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-medium-focus-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-medium-focus-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-medium-over-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-medium-over-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-medium-over-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-medium-pressed-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-medium-pressed-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-medium-pressed-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-medium-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-small-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-small-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-small-disabled-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-small-disabled-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-small-disabled-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-small-focus-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-small-focus-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-small-focus-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-small-over-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-small-over-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-small-over-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-small-pressed-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-small-pressed-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-small-pressed-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-small-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-large-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-large-disabled-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-large-disabled-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-large-focus-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-large-focus-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-large-focus-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-large-over-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-large-over-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-large-over-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-large-pressed-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-large-pressed-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-large-pressed-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-large-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-medium-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-medium-disabled-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-medium-disabled-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-medium-focus-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-medium-focus-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-medium-focus-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-medium-over-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-medium-over-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-medium-over-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-medium-pressed-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-medium-pressed-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-medium-pressed-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-medium-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-small-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-small-disabled-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-small-disabled-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-small-focus-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-small-focus-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-small-focus-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-small-over-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-small-over-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-small-over-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-small-pressed-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-small-pressed-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-small-pressed-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\btn\btn-default-toolbar-small-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\button\arrow.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\button\btn-arrow.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\button\btn-sprite.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\button\btn.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\button\group-cs.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\button\group-lr.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\button\group-tb.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\button\s-arrow-b-noline.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\button\s-arrow-b.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\button\s-arrow-bo.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\button\s-arrow-light.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\button\s-arrow-noline.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\button\s-arrow-o.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\button\s-arrow.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\datepicker\datepicker-footer-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\datepicker\datepicker-footer-bg.png" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\datepicker\datepicker-header-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\datepicker\datepicker-header-bg.png" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\dd\drop-add.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\dd\drop-no.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\dd\drop-yes.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\editor\tb-sprite.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\form-invalid-tip\form-invalid-tip-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\form-invalid-tip\form-invalid-tip-default-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\form-invalid-tip\form-invalid-tip-default-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\form-invalid-tip\form-invalid-tip-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\form\checkbox.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\form\clear-trigger.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\form\date-trigger.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\form\error-tip-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\form\exclamation.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\form\radio.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\form\search-trigger.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\form\spinner-small.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\form\spinner.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\form\text-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\form\trigger-square.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\form\trigger-tpl.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\form\trigger.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\arrow-left-white.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\arrow-right-white.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\cell-special-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\cell-special-bg.png" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\cell-special-selected-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\cell-special-selected-bg.png" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\checked.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\col-move-bottom.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\col-move-top.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\column-header-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\column-header-bg.png" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\column-header-over-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\column-header-over-bg.png" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\columns.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\dd-insert-arrow-left.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\dd-insert-arrow-left.png" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\dd-insert-arrow-right.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\dd-insert-arrow-right.png" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\dirty.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\done.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\drop-no.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\drop-yes.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\footer-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\grid-blue-hd.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\grid-blue-split.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\grid-hrow.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\grid-loading.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\grid-split.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\grid-vista-hd.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\grid3-hd-btn.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\grid3-hrow-over.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\grid3-hrow.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\grid3-rowheader.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\group-by.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\group-collapse.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\group-expand-sprite.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\group-expand.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\hd-pop.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\hmenu-asc.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\hmenu-desc.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\hmenu-lock.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\hmenu-lock.png" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\hmenu-unlock.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\hmenu-unlock.png" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\invalid_line.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\loading.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\mso-hd.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\nowait.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\page-first-disabled.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\page-first.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\page-last-disabled.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\page-last.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\page-next-disabled.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\page-next.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\page-prev-disabled.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\page-prev.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\pick-button.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\property-cell-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\property-cell-selected-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\refresh-disabled.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\refresh.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\row-check-sprite.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\row-expand-sprite.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\row-over.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\row-sel.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\sort-hd.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\sort_asc.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\sort_desc.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\unchecked.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\grid\wait.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\layout\mini-bottom.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\layout\mini-left.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\layout\mini-right.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\layout\mini-top.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\menu\checked.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\menu\group-checked.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\menu\item-over-disabled.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\menu\item-over.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\menu\menu-item-active-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\menu\menu-item-active-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\menu\menu-item-active-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\menu\menu-parent.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\menu\menu.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\menu\unchecked.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel-header\panel-header-default-bottom-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel-header\panel-header-default-framed-bottom-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel-header\panel-header-default-framed-bottom-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel-header\panel-header-default-framed-bottom-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel-header\panel-header-default-framed-collapsed-bottom-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel-header\panel-header-default-framed-collapsed-bottom-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel-header\panel-header-default-framed-collapsed-bottom-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel-header\panel-header-default-framed-collapsed-left-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel-header\panel-header-default-framed-collapsed-left-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel-header\panel-header-default-framed-collapsed-left-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel-header\panel-header-default-framed-collapsed-right-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel-header\panel-header-default-framed-collapsed-right-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel-header\panel-header-default-framed-collapsed-right-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel-header\panel-header-default-framed-collapsed-top-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel-header\panel-header-default-framed-collapsed-top-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel-header\panel-header-default-framed-collapsed-top-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel-header\panel-header-default-framed-left-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel-header\panel-header-default-framed-left-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel-header\panel-header-default-framed-left-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel-header\panel-header-default-framed-right-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel-header\panel-header-default-framed-right-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel-header\panel-header-default-framed-right-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel-header\panel-header-default-framed-top-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel-header\panel-header-default-framed-top-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel-header\panel-header-default-framed-top-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel-header\panel-header-default-left-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel-header\panel-header-default-right-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel-header\panel-header-default-top-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel\panel-default-framed-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\panel\panel-default-framed-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\progress\progress-default-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\shared\blue-loading.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\shared\calendar.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\shared\glass-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\shared\hd-sprite.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\shared\icon-error.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\shared\icon-info.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\shared\icon-question.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\shared\icon-warning.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\shared\large-loading.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\shared\left-btn.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\shared\loading-balls.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\shared\right-btn.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\shared\shadow-c.png" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\shared\shadow-lr.png" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\shared\shadow.png" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\shared\warning.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\sizer\e-handle-dark.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\sizer\e-handle.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\sizer\ne-handle-dark.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\sizer\ne-handle.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\sizer\nw-handle-dark.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\sizer\nw-handle.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\sizer\s-handle-dark.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\sizer\s-handle.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\sizer\se-handle-dark.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\sizer\se-handle.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\sizer\square.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\sizer\sw-handle-dark.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\sizer\sw-handle.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\slider\slider-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\slider\slider-bg.png" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\slider\slider-thumb.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\slider\slider-thumb.png" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\slider\slider-v-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\slider\slider-v-bg.png" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\slider\slider-v-thumb.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\slider\slider-v-thumb.png" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tab-bar\scroll-left.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tab-bar\scroll-right.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tab-bar\tab-bar-default-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tab\tab-default-bottom-active-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tab\tab-default-bottom-active-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tab\tab-default-bottom-active-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tab\tab-default-bottom-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tab\tab-default-bottom-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tab\tab-default-bottom-disabled-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tab\tab-default-bottom-disabled-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tab\tab-default-bottom-disabled-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tab\tab-default-bottom-over-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tab\tab-default-bottom-over-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tab\tab-default-bottom-over-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tab\tab-default-bottom-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tab\tab-default-close.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tab\tab-default-top-active-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tab\tab-default-top-active-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tab\tab-default-top-active-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tab\tab-default-top-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tab\tab-default-top-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tab\tab-default-top-disabled-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tab\tab-default-top-disabled-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tab\tab-default-top-disabled-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tab\tab-default-top-over-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tab\tab-default-top-over-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tab\tab-default-top-over-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tab\tab-default-top-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tip\tip-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tip\tip-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\toolbar\more.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\toolbar\scroll-left.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\toolbar\scroll-right.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\toolbar\toolbar-default-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tools\tool-sprite-tpl.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tools\tool-sprites.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tools\tools-sprites-trans.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tree\arrows.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tree\drop-above.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tree\drop-add.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tree\drop-append.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tree\drop-below.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tree\drop-between.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tree\drop-no.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tree\drop-over.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tree\drop-under.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tree\drop-yes.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tree\elbow-end-minus-nl.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tree\elbow-end-minus.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tree\elbow-end-plus-nl.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tree\elbow-end-plus.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tree\elbow-end.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tree\elbow-line.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tree\elbow-minus-nl.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tree\elbow-minus.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tree\elbow-plus-nl.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tree\elbow-plus.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tree\elbow.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tree\folder-open.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tree\folder.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tree\leaf.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tree\loading.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\tree\s.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\util\splitter\mini-bottom.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\util\splitter\mini-left.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\util\splitter\mini-right.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\util\splitter\mini-top.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\window-header\window-header-default-bottom-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\window-header\window-header-default-bottom-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\window-header\window-header-default-left-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\window-header\window-header-default-left-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\window-header\window-header-default-right-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\window-header\window-header-default-right-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\window-header\window-header-default-top-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\window-header\window-header-default-top-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\window\icon-error.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\window\icon-info.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\window\icon-question.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\window\icon-warning.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\window\window-default-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\gray\window\window-default-sides.gif" />
+    <Content Include="Demos\Forms\AppendedItems.js" />
+    <Content Include="Demos\Forms\AppendedItems.txt" />
+    <Content Include="Demos\Forms\LinkedCombos.js" />
+    <Content Include="Demos\Forms\LinkedCombos.txt" />
+    <Content Include="Demos\Forms\FileUploadForm.js" />
+    <Content Include="Demos\Forms\FileUploadForm.txt" />
+    <Content Include="Demos\Grids\BufferedGrid.js" />
+    <Content Include="Demos\Grids\BufferedGrid.txt" />
+    <Content Include="Demos\Grids\SwissGrid.txt" />
+    <Content Include="Demos\Grids\SwissGridWithFormEditor.js" />
+    <Content Include="Demos\Grids\SwissGrid.js" />
+    <Content Include="Demos\Live\ChatRoom.js" />
+    <Content Include="Demos\Remoting\Enums.txt" />
+    <Content Include="Demos\Remoting\Enums.js" />
+    <Content Include="Guides\articles\Features.txt" />
+    <Content Include="Guides\articles\Getting Started.txt" />
+    <Content Include="Guides\articles\NuGets.txt" />
+    <Content Include="Guides\html\dummy.txt" />
+    <Content Include="browse.htm" />
+    <Content Include="client\css\features.css" />
+    <Content Include="client\css\showcase.css" />
+    <Content Include="client\css\theme.css" />
+    <Content Include="client\images\about-icon.png" />
+    <Content Include="client\images\back-icon.png" />
+    <Content Include="client\images\code-icon.png" />
+    <Content Include="client\images\launch-icon.png" />
+    <Content Include="client\images\placeholder.jpg" />
+    <Content Include="client\js\cache\dummy.txt" />
+    <Content Include="client\js\controls\DemoDataView.js" />
+    <Content Include="client\js\controls\DemoDetails.js" />
+    <Content Include="client\js\controls\DemoExplorerPanel.js" />
+    <Content Include="client\js\controls\DemoFilterPanel.js" />
+    <Content Include="client\js\controls\DemoViewport.js" />
+    <Content Include="client\js\generated\dummy.txt" />
+    <Content Include="client\js\Session.js" />
+    <Content Include="client\lib\dextop\css\dextop.css" />
+    <Content Include="client\lib\dextop\js\data\GridColumnsFactory.js" />
+    <Content Include="client\lib\dextop\js\data\LiveStore.js" />
+    <Content Include="client\lib\dextop\js\data\RendererFactory.js" />
+    <Content Include="client\lib\dextop\js\Ext.patch.js" />
+    <Content Include="client\lib\dextop\js\generated\dummy.txt" />
+    <Content Include="client\lib\dextop\js\ux\Ext.ux.CheckColumn.js" />
+    <Content Include="client\lib\dextop\js\ux\Ext.ux.grid.plugin.ActionManager.js" />
+    <Content Include="client\lib\dextop\js\ux\Ext.ux.PageSizeComboBox.js" />
+    <Content Include="client\lib\ext\examples\ux\BoxReorderer.js" />
+    <Content Include="client\lib\ext\examples\ux\DataView\Animated.js" />
+    <Content Include="client\lib\ext\examples\view\multisort\SortButton.js" />
+    <Content Include="client\lib\ext\ext-all.js" />
+    <Content Include="client\lib\ext\resources\css\ext-all.css" />
+    <Content Include="client\lib\ext\resources\themes\images\default\boundlist\trigger-arrow.png" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn-group\btn-group-default-framed-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn-group\btn-group-default-framed-notitle-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn-group\btn-group-default-framed-notitle-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn-group\btn-group-default-framed-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-large-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-large-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-large-disabled-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-large-disabled-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-large-disabled-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-large-focus-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-large-focus-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-large-focus-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-large-over-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-large-over-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-large-over-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-large-pressed-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-large-pressed-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-large-pressed-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-large-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-medium-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-medium-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-medium-disabled-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-medium-disabled-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-medium-disabled-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-medium-focus-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-medium-focus-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-medium-focus-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-medium-over-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-medium-over-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-medium-over-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-medium-pressed-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-medium-pressed-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-medium-pressed-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-medium-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-small-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-small-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-small-disabled-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-small-disabled-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-small-disabled-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-small-focus-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-small-focus-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-small-focus-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-small-over-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-small-over-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-small-over-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-small-pressed-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-small-pressed-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-small-pressed-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-small-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-large-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-large-disabled-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-large-disabled-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-large-focus-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-large-focus-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-large-focus-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-large-over-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-large-over-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-large-over-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-large-pressed-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-large-pressed-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-large-pressed-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-large-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-medium-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-medium-disabled-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-medium-disabled-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-medium-focus-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-medium-focus-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-medium-focus-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-medium-over-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-medium-over-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-medium-over-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-medium-pressed-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-medium-pressed-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-medium-pressed-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-medium-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-small-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-small-disabled-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-small-disabled-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-small-focus-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-small-focus-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-small-focus-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-small-over-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-small-over-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-small-over-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-small-pressed-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-small-pressed-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-small-pressed-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\btn\btn-default-toolbar-small-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\button\arrow.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\button\btn.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\button\group-cs.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\button\group-lr.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\button\group-tb.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\button\s-arrow-b-noline.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\button\s-arrow-b.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\button\s-arrow-bo.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\button\s-arrow-light.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\button\s-arrow-noline.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\button\s-arrow-o.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\button\s-arrow.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\datepicker\datepicker-footer-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\datepicker\datepicker-footer-bg.png" />
+    <Content Include="client\lib\ext\resources\themes\images\default\datepicker\datepicker-header-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\datepicker\datepicker-header-bg.png" />
+    <Content Include="client\lib\ext\resources\themes\images\default\dd\drop-add.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\dd\drop-no.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\dd\drop-yes.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\editor\tb-sprite.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\form-invalid-tip\form-invalid-tip-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\form-invalid-tip\form-invalid-tip-default-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\form-invalid-tip\form-invalid-tip-default-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\form-invalid-tip\form-invalid-tip-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\form\checkbox.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\form\clear-trigger.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\form\date-trigger.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\form\error-tip-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\form\exclamation.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\form\radio.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\form\search-trigger.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\form\spinner-small.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\form\spinner.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\form\text-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\form\trigger-square.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\form\trigger-tpl.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\form\trigger.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\arrow-left-white.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\arrow-right-white.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\cell-special-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\cell-special-bg.png" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\cell-special-selected-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\cell-special-selected-bg.png" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\checked.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\col-move-bottom.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\col-move-top.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\column-header-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\column-header-bg.png" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\column-header-over-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\column-header-over-bg.png" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\columns.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\dd-insert-arrow-left.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\dd-insert-arrow-left.png" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\dd-insert-arrow-right.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\dd-insert-arrow-right.png" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\dirty.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\done.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\drop-no.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\drop-yes.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\footer-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\grid-blue-hd.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\grid-blue-split.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\grid-hrow.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\grid-loading.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\grid-split.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\grid-vista-hd.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\grid3-hd-btn.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\grid3-hrow-over.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\grid3-hrow.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\grid3-rowheader.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\group-by.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\group-collapse.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\group-expand-sprite.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\group-expand.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\hd-pop.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\hmenu-asc.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\hmenu-desc.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\hmenu-lock.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\hmenu-lock.png" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\hmenu-unlock.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\hmenu-unlock.png" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\invalid_line.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\loading.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\mso-hd.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\nowait.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\page-first-disabled.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\page-first.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\page-last-disabled.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\page-last.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\page-next-disabled.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\page-next.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\page-prev-disabled.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\page-prev.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\pick-button.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\property-cell-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\property-cell-selected-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\refresh-disabled.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\refresh.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\row-check-sprite.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\row-expand-sprite.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\row-over.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\row-sel.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\sort-hd.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\sort_asc.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\sort_desc.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\unchecked.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\grid\wait.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\layout\mini-bottom.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\layout\mini-left.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\layout\mini-right.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\layout\mini-top.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\menu\checked.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\menu\group-checked.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\menu\item-over.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\menu\menu-parent.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\menu\menu.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\menu\unchecked.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel-header\panel-header-default-bottom-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel-header\panel-header-default-framed-bottom-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel-header\panel-header-default-framed-bottom-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel-header\panel-header-default-framed-bottom-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel-header\panel-header-default-framed-collapsed-bottom-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel-header\panel-header-default-framed-collapsed-bottom-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel-header\panel-header-default-framed-collapsed-bottom-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel-header\panel-header-default-framed-collapsed-left-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel-header\panel-header-default-framed-collapsed-left-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel-header\panel-header-default-framed-collapsed-left-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel-header\panel-header-default-framed-collapsed-right-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel-header\panel-header-default-framed-collapsed-right-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel-header\panel-header-default-framed-collapsed-right-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel-header\panel-header-default-framed-collapsed-top-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel-header\panel-header-default-framed-collapsed-top-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel-header\panel-header-default-framed-collapsed-top-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel-header\panel-header-default-framed-left-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel-header\panel-header-default-framed-left-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel-header\panel-header-default-framed-left-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel-header\panel-header-default-framed-right-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel-header\panel-header-default-framed-right-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel-header\panel-header-default-framed-right-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel-header\panel-header-default-framed-top-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel-header\panel-header-default-framed-top-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel-header\panel-header-default-framed-top-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel-header\panel-header-default-left-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel-header\panel-header-default-right-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel-header\panel-header-default-top-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel\panel-default-framed-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel\panel-default-framed-noborder-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel\panel-default-framed-noborder-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\panel\panel-default-framed-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\progress\progress-default-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\shared\blue-loading.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\shared\calendar.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\shared\glass-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\shared\hd-sprite.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\shared\icon-error.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\shared\icon-info.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\shared\icon-question.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\shared\icon-warning.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\shared\large-loading.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\shared\left-btn.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\shared\loading-balls.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\shared\right-btn.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\shared\shadow-c.png" />
+    <Content Include="client\lib\ext\resources\themes\images\default\shared\shadow-lr.png" />
+    <Content Include="client\lib\ext\resources\themes\images\default\shared\shadow.png" />
+    <Content Include="client\lib\ext\resources\themes\images\default\shared\warning.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\sizer\e-handle-dark.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\sizer\e-handle.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\sizer\ne-handle-dark.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\sizer\ne-handle.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\sizer\nw-handle-dark.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\sizer\nw-handle.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\sizer\s-handle-dark.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\sizer\s-handle.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\sizer\se-handle-dark.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\sizer\se-handle.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\sizer\square.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\sizer\sw-handle-dark.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\sizer\sw-handle.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\slider\slider-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\slider\slider-bg.png" />
+    <Content Include="client\lib\ext\resources\themes\images\default\slider\slider-thumb.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\slider\slider-thumb.png" />
+    <Content Include="client\lib\ext\resources\themes\images\default\slider\slider-v-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\slider\slider-v-bg.png" />
+    <Content Include="client\lib\ext\resources\themes\images\default\slider\slider-v-thumb.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\slider\slider-v-thumb.png" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tab-bar\scroll-left.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tab-bar\scroll-right.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tab-bar\tab-bar-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tab\tab-default-bottom-active-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tab\tab-default-bottom-active-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tab\tab-default-bottom-active-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tab\tab-default-bottom-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tab\tab-default-bottom-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tab\tab-default-bottom-disabled-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tab\tab-default-bottom-disabled-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tab\tab-default-bottom-disabled-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tab\tab-default-bottom-over-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tab\tab-default-bottom-over-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tab\tab-default-bottom-over-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tab\tab-default-bottom-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tab\tab-default-close.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tab\tab-default-top-active-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tab\tab-default-top-active-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tab\tab-default-top-active-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tab\tab-default-top-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tab\tab-default-top-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tab\tab-default-top-disabled-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tab\tab-default-top-disabled-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tab\tab-default-top-disabled-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tab\tab-default-top-over-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tab\tab-default-top-over-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tab\tab-default-top-over-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tab\tab-default-top-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tip\tip-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tip\tip-corners.png" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tip\tip-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tip\tip-sides.png" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tip\tooltip-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tip\tooltip-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\toolbar\more.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\toolbar\scroll-left.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\toolbar\scroll-right.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\toolbar\toolbar-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\toolbar\toolbar-default-bg.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tools\tool-sprite-tpl.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tools\tool-sprites.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tools\tools-sprites-trans.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tree\arrows.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tree\drop-above.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tree\drop-add.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tree\drop-append.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tree\drop-below.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tree\drop-between.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tree\drop-no.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tree\drop-over.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tree\drop-under.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tree\drop-yes.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tree\elbow-end-minus-nl.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tree\elbow-end-minus.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tree\elbow-end-plus-nl.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tree\elbow-end-plus.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tree\elbow-end.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tree\elbow-line.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tree\elbow-minus-nl.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tree\elbow-minus.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tree\elbow-plus-nl.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tree\elbow-plus.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tree\elbow.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tree\folder-open.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tree\folder.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tree\leaf.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tree\loading.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\tree\s.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\util\splitter\mini-bottom.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\util\splitter\mini-left.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\util\splitter\mini-right.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\util\splitter\mini-top.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\window-header\window-header-default-bottom-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\window-header\window-header-default-bottom-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\window-header\window-header-default-left-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\window-header\window-header-default-left-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\window-header\window-header-default-right-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\window-header\window-header-default-right-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\window-header\window-header-default-top-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\window-header\window-header-default-top-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\window\window-default-corners.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\window\window-default-sides.gif" />
+    <Content Include="client\lib\prettify\lang-apollo.js" />
+    <Content Include="client\lib\prettify\lang-css.js" />
+    <Content Include="client\lib\prettify\lang-hs.js" />
+    <Content Include="client\lib\prettify\lang-lisp.js" />
+    <Content Include="client\lib\prettify\lang-lua.js" />
+    <Content Include="client\lib\prettify\lang-ml.js" />
+    <Content Include="client\lib\prettify\lang-proto.js" />
+    <Content Include="client\lib\prettify\lang-scala.js" />
+    <Content Include="client\lib\prettify\lang-sql.js" />
+    <Content Include="client\lib\prettify\lang-vb.js" />
+    <Content Include="client\lib\prettify\lang-vhdl.js" />
+    <Content Include="client\lib\prettify\lang-wiki.js" />
+    <Content Include="client\lib\prettify\lang-yaml.js" />
+    <Content Include="client\lib\prettify\prettify.css" />
+    <Content Include="client\lib\prettify\prettify.js" />
+    <Content Include="client\lib\sound\soundmanager2\license.txt" />
+    <Content Include="client\lib\sound\soundmanager2\script\soundmanager2-jsmin.js" />
+    <Content Include="client\lib\sound\soundmanager2\script\soundmanager2-nodebug-jsmin.js" />
+    <Content Include="client\lib\sound\soundmanager2\script\soundmanager2-nodebug.js" />
+    <Content Include="client\lib\sound\soundmanager2\script\soundmanager2.js" />
+    <Content Include="client\lib\sound\soundmanager2\swf\soundmanager2.swf" />
+    <Content Include="client\lib\sound\soundmanager2\swf\soundmanager2_debug.swf" />
+    <Content Include="client\lib\sound\soundmanager2\swf\soundmanager2_flash9.swf" />
+    <Content Include="client\lib\sound\soundmanager2\swf\soundmanager2_flash9_debug.swf" />
+    <Content Include="client\lib\sound\SoundModule.js" />
+    <Content Include="client\sound\notify.mp3" />
+    <Content Include="Demos\About.txt" />
+    <Content Include="Demos\Forms\ComplexFormWindow.txt" />
+    <Content Include="Demos\Forms\ComplexFormWindow.js" />
+    <Content Include="Demos\Forms\AllFormFieldsWindow.js" />
+    <Content Include="Demos\Forms\AllFormFieldsWindow.txt" />
+    <Content Include="Demos\Forms\CheckboxGroups.js" />
+    <Content Include="Demos\Forms\CheckboxGroups.txt" />
+    <Content Include="Demos\Forms\SharedLookupData.js" />
+    <Content Include="Demos\Forms\SharedLookupData.txt" />
+    <Content Include="Demos\Forms\RadioGroups.js" />
+    <Content Include="Demos\Forms\RadioGroups.txt" />
+    <Content Include="Demos\Forms\LoginFormWindow.js" />
+    <Content Include="Demos\Forms\LoginFormWindow.txt" />
+    <Content Include="Demos\Grids\ClientGridWindow.js" />
+    <Content Include="Demos\Grids\ClientGridWindow.txt" />
+    <Content Include="Demos\Grids\PageSizeComboBox.txt" />
+    <Content Include="Demos\Grids\PageSizeComboBox.js" />
+    <Content Include="Demos\Grids\RowEditableGridWindow.txt" />
+    <Content Include="Demos\Grids\GroupedGridHeaders.txt" />
+    <Content Include="Demos\Grids\GridEditorsWindow.js" />
+    <Content Include="Demos\Grids\GridActionManager.js" />
+    <Content Include="Demos\Grids\GridActionManager.txt" />
+    <Content Include="Demos\Grids\GridWindow.txt" />
+    <Content Include="Demos\Grids\ModelValidationGridWindow.js" />
+    <Content Include="Demos\Grids\FastPagingGridWindow.js" />
+    <Content Include="Demos\Grids\PagingGridWindow.js" />
+    <Content Include="Demos\Grids\PagingGridWindow.txt" />
+    <Content Include="Demos\Grids\RowEditableGridWindow.js" />
+    <Content Include="Demos\Grids\EditableGridWindow.js" />
+    <Content Include="Demos\Grids\GridWindow.js" />
+    <Content Include="Demos\Grids\GroupedGridHeaders.js" />
+    <Content Include="Demos\Live\LongOperation.js" />
+    <Content Include="Demos\Live\LongOperation.txt" />
+    <Content Include="Demos\Live\NotificationsWindow.js" />
+    <Content Include="Demos\Live\NotificationsWindow.txt" />
+    <Content Include="Demos\Live\PlaySoundWindow.js" />
+    <Content Include="Demos\Live\LiveChartWindow.js" />
+    <Content Include="Demos\Live\LiveGridWindow.js" />
+    <Content Include="Demos\Remoting\AdvancedExceptionHandling.js" />
+    <Content Include="Demos\Remoting\AdvancedExceptionHandling.txt" />
+    <Content Include="Demos\Remoting\MessageExceptions.js" />
+    <Content Include="Demos\Remoting\MessageExceptions.txt" />
+    <Content Include="Demos\Remoting\RemotingCallbacks.js" />
+    <Content Include="Demos\Remoting\RemotingCallbacks.txt" />
+    <Content Include="Demos\Remoting\HelloRemotingDemo.txt" />
+    <Content Include="Demos\Remoting\FileUploadDemo.js" />
+    <Content Include="Demos\Trees\TreeWindow.js" />
+    <Content Include="Demos\Trees\TreeWindow.txt" />
+    <Content Include="Demos\Windows\SimpleWindow.js" />
+    <Content Include="client\lib\dextop\js\data\ArrayWriter.js" />
+    <Content Include="client\lib\dextop\js\data\Proxy.js" />
+    <Content Include="client\lib\dextop\js\Dextop.js" />
+    <Content Include="client\lib\dextop\js\direct\LongPollingProvider.js" />
+    <Content Include="client\lib\dextop\js\ItemFactory.js" />
+    <Content Include="client\lib\dextop\js\remoting\Remotable.js" />
+    <Content Include="client\lib\dextop\js\Session.js" />
+    <Content Include="client\lib\dextop\js\remoting\Proxy.js" />
+    <Content Include="client\lib\dextop\js\Window.js" />
+    <Content Include="Demos\Remoting\HelloRemotingDemo.js" />
+    <Content Include="Demos\Windows\SimpleWindow.txt" />
+    <Content Include="Demos\Windows\WindowOnDemand.js" />
+    <Content Include="Demos\Windows\WindowOnDemand.txt" />
+    <Content Include="Global.asax" />
+    <Content Include="Guidelines.txt" />
+    <Content Include="Guides\articles\Ext Symbolic Links.txt" />
+    <Content Include="Guides\html\Ext Symbolic Links.html" />
+    <Content Include="Guides\html\Features.html" />
+    <Content Include="Guides\html\Getting Started.html" />
+    <Content Include="Guides\html\NuGets.html" />
+    <Content Include="Guides\images\NuGetContribGraphic.png" />
+    <Content Include="source\About.html" />
+    <Content Include="source\AdvancedExceptionHandling.cs.html" />
+    <Content Include="source\AdvancedExceptionHandling.html" />
+    <Content Include="source\AdvancedExceptionHandling.js.html" />
+    <Content Include="source\AllFormFieldsWindow.cs.html" />
+    <Content Include="source\AllFormFieldsWindow.html" />
+    <Content Include="source\AllFormFieldsWindow.js.html" />
+    <Content Include="source\AppendedItems.cs.html" />
+    <Content Include="source\AppendedItems.html" />
+    <Content Include="source\AppendedItems.js.html" />
+    <Content Include="source\BufferedGrid.cs.html" />
+    <Content Include="source\BufferedGrid.html" />
+    <Content Include="source\BufferedGrid.js.html" />
+    <Content Include="source\ChatRoom.cs.html" />
+    <Content Include="source\ChatRoom.html" />
+    <Content Include="source\ChatRoom.js.html" />
+    <Content Include="source\CheckboxGroups.cs.html" />
+    <Content Include="source\CheckboxGroups.html" />
+    <Content Include="source\CheckboxGroups.js.html" />
+    <Content Include="source\ClientGridWindow.cs.html" />
+    <Content Include="source\ClientGridWindow.html" />
+    <Content Include="source\ClientGridWindow.js.html" />
+    <Content Include="source\ComplexFormWindow.cs.html" />
+    <Content Include="source\ComplexFormWindow.html" />
+    <Content Include="source\ComplexFormWindow.js.html" />
+    <Content Include="source\dummy.txt" />
+    <Content Include="source\EditableGridWindow.cs.html" />
+    <Content Include="source\EditableGridWindow.html" />
+    <Content Include="source\EditableGridWindow.js.html" />
+    <Content Include="source\Enums.cs.html" />
+    <Content Include="source\Enums.html" />
+    <Content Include="source\Enums.js.html" />
+    <Content Include="source\FastPagingGridWindow.cs.html" />
+    <Content Include="source\FastPagingGridWindow.html" />
+    <Content Include="source\FastPagingGridWindow.js.html" />
+    <Content Include="source\FileUploadDemo.cs.html" />
+    <Content Include="source\FileUploadDemo.html" />
+    <Content Include="source\FileUploadDemo.js.html" />
+    <Content Include="source\FileUploadForm.cs.html" />
+    <Content Include="source\FileUploadForm.html" />
+    <Content Include="source\FileUploadForm.js.html" />
+    <Content Include="source\GridActionManager.cs.html" />
+    <Content Include="source\GridActionManager.html" />
+    <Content Include="source\GridActionManager.js.html" />
+    <Content Include="source\GridEditorsWindow.cs.html" />
+    <Content Include="source\GridEditorsWindow.html" />
+    <Content Include="source\GridEditorsWindow.js.html" />
+    <Content Include="source\GridWindow.cs.html" />
+    <Content Include="source\GridWindow.html" />
+    <Content Include="source\GridWindow.js.html" />
+    <Content Include="source\GroupedGridHeaders.cs.html" />
+    <Content Include="source\GroupedGridHeaders.html" />
+    <Content Include="source\GroupedGridHeaders.js.html" />
+    <Content Include="source\HelloRemotingDemo.cs.html" />
+    <Content Include="source\HelloRemotingDemo.html" />
+    <Content Include="source\HelloRemotingDemo.js.html" />
+    <Content Include="source\LinkedCombos.cs.html" />
+    <Content Include="source\LinkedCombos.html" />
+    <Content Include="source\LinkedCombos.js.html" />
+    <Content Include="source\LiveChartWindow.cs.html" />
+    <Content Include="source\LiveChartWindow.html" />
+    <Content Include="source\LiveChartWindow.js.html" />
+    <Content Include="source\LiveGridWindow.cs.html" />
+    <Content Include="source\LiveGridWindow.html" />
+    <Content Include="source\LiveGridWindow.js.html" />
+    <Content Include="source\LoginFormWindow.cs.html" />
+    <Content Include="source\LoginFormWindow.html" />
+    <Content Include="source\LoginFormWindow.js.html" />
+    <Content Include="source\LongOperation.cs.html" />
+    <Content Include="source\LongOperation.html" />
+    <Content Include="source\LongOperation.js.html" />
+    <Content Include="source\MessageExceptions.cs.html" />
+    <Content Include="source\MessageExceptions.html" />
+    <Content Include="source\MessageExceptions.js.html" />
+    <Content Include="source\ModelValidationGridWindow.cs.html" />
+    <Content Include="source\ModelValidationGridWindow.html" />
+    <Content Include="source\ModelValidationGridWindow.js.html" />
+    <Content Include="source\NotificationsWindow.cs.html" />
+    <Content Include="source\NotificationsWindow.html" />
+    <Content Include="source\NotificationsWindow.js.html" />
+    <Content Include="source\PageSizeComboBox.cs.html" />
+    <Content Include="source\PageSizeComboBox.html" />
+    <Content Include="source\PageSizeComboBox.js.html" />
+    <Content Include="source\PagingGridWindow.cs.html" />
+    <Content Include="source\PagingGridWindow.html" />
+    <Content Include="source\PagingGridWindow.js.html" />
+    <Content Include="source\PlaySoundWindow.cs.html" />
+    <Content Include="source\PlaySoundWindow.html" />
+    <Content Include="source\PlaySoundWindow.js.html" />
+    <Content Include="source\RadioGroups.cs.html" />
+    <Content Include="source\RadioGroups.html" />
+    <Content Include="source\RadioGroups.js.html" />
+    <Content Include="source\RemotingCallbacks.cs.html" />
+    <Content Include="source\RemotingCallbacks.html" />
+    <Content Include="source\RemotingCallbacks.js.html" />
+    <Content Include="source\RowEditableGridWindow.cs.html" />
+    <Content Include="source\RowEditableGridWindow.html" />
+    <Content Include="source\RowEditableGridWindow.js.html" />
+    <Content Include="source\SharedLookupData.cs.html" />
+    <Content Include="source\SharedLookupData.html" />
+    <Content Include="source\SharedLookupData.js.html" />
+    <Content Include="source\SimpleWindow.cs.html" />
+    <Content Include="source\SimpleWindow.html" />
+    <Content Include="source\SimpleWindow.js.html" />
+    <Content Include="source\SwissGrid.cs.html" />
+    <Content Include="source\SwissGrid.html" />
+    <Content Include="source\SwissGrid.js.html" />
+    <Content Include="source\SwissGridWithFormEditor.cs.html" />
+    <Content Include="source\SwissGridWithFormEditor.html" />
+    <Content Include="source\SwissGridWithFormEditor.js.html" />
+    <Content Include="source\TreeWindow.cs.html" />
+    <Content Include="source\TreeWindow.html" />
+    <Content Include="source\TreeWindow.js.html" />
+    <Content Include="source\WindowOnDemand.cs.html" />
+    <Content Include="source\WindowOnDemand.html" />
+    <Content Include="source\WindowOnDemand.js.html" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\Codaxy.Dextop\Codaxy.Dextop\Codaxy.Dextop.csproj">
+      <Project>{A58493FD-7BD1-42B2-97AE-BBB10D2BAB79}</Project>
+      <Name>Codaxy.Dextop</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Demos\Remoting\FileUploadDemo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="client\lib\sound\soundmanager2\swf\soundmanager2_flash_xdomain.zip" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+  <Target Name="PublishToLocalFolder" DependsOnTargets="PipelinePreDeployCopyAllFilesToOneFolder">
+    <Error Condition="'$(PublishDestination)'==''" Text="The PublishDestination property must be set to the intended publishing destination." />
+    <RemoveDir Directories="$(PublishDestination)" ContinueOnError="true" />
+    <MakeDir Directories="$(PublishDestination)" />
+    <ItemGroup>
+      <PublishFiles Include="$(_PackageTempDir)\**\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(PublishFiles)" DestinationFiles="@(PublishFiles->'$(PublishDestination)\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="True" />
+  </Target>
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>9340</DevelopmentServerPort>
+          <DevelopmentServerVPath>/showcase</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PreBuildEvent>cd $(SolutionDir)Nuget
+if $(ConfigurationName) == NuGet call local.bat</PreBuildEvent>
+  </PropertyGroup>
+</Project>

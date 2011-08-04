@@ -1,0 +1,52 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using Codaxy.Dextop.Forms;
+using Codaxy.Dextop.Remoting;
+
+namespace Codaxy.Dextop.Showcase.Demos.Forms
+{
+	public class RadioGroupsWindow : DextopWindow
+	{
+		[DextopRemotable]
+		void Send(Form form)
+		{
+			
+		}
+
+		[DextopForm]
+		class Form
+		{
+			[DextopFormRadioGroup(0, fieldLabel=&quot;String&quot;)]
+			[DextopFormRadio(boxLabels = new[] { &quot;Item 1&quot;, &quot;Item 2&quot;, &quot;Item 3&quot; }, inputValues = new object[] { &quot;A&quot;, &quot;B&quot;, &quot;C&quot; })]
+			public String R1 { get; set; }
+
+			[DextopFormCheckboxGroup(0, fieldLabel = &quot;3 Columns&quot;, columns=3)]
+			[DextopFormRadio(boxLabels = new[] { &quot;Item 1&quot;, &quot;Item 2&quot;, &quot;Item 3&quot;, &quot;Item 4&quot;, &quot;Item 5&quot; })]
+			public int? R2 { get; set; }			
+
+			[DextopFormCheckboxGroup(0, fieldLabel = &quot;Vertical&quot;, columns = 3, vertical=true)]
+			[DextopFormRadio(boxLabels = new[] { &quot;Item 1&quot;, &quot;Item 2&quot;, &quot;Item 3&quot;, &quot;Item 4&quot;, &quot;Item 5&quot; })]
+			public int? R3 { get; set; }
+
+			[DextopFormCheckboxGroup(0, fieldLabel = &quot;Percent Width&quot;, columnWidths = new [] {0.25, 0.5, 0.25})]
+			[DextopFormRadio(boxLabels = new[] { &quot;Item 1&quot;, &quot;Item 2&quot;, &quot;Item 3&quot;, &quot;Item 4&quot;, &quot;Item 5&quot; })]
+			public int? R4 { get; set; }
+
+			[DextopFormCheckboxGroup(0, fieldLabel = &quot;Pixel Width&quot;, columnWidths = new double[] { 75, 150, 200 })]
+			[DextopFormRadio(boxLabels = new[] { &quot;Item 1&quot;, &quot;Item 2&quot;, &quot;Item 3&quot;, &quot;Item 4&quot;, &quot;Item 5&quot; })]
+			public int? R5 { get; set; }
+		}
+	}
+}
+
+</pre>
+</body>
+</html>

@@ -1,0 +1,1 @@
+bin\dox --p:xml --o:"common-Codaxy.Common Library API Reference.dox" --i:"..\Apps\Codaxy.Dextop.Showcase\bin\Codaxy.Common.dll"

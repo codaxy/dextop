@@ -1,0 +1,86 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.ns(&#39;Showcase&#39;);
+
+Ext.define(&#39;Showcase.demos.ChatWindow&#39;, {
+	extend: &#39;Dextop.Window&#39;,
+	width: 500,
+	height: 500,
+
+	title: &#39;Chat Room&#39;,
+	requires: &#39;Ext.grid.GridPanel&#39;,
+
+	initComponent: function () {
+		var store = this.remote.createLiveStore(&#39;model&#39;, {
+			autoLoad: true
+		});
+
+		var columns = this.remote.createGridColumns(&#39;model&#39;);
+
+		var grid = Ext.create(&#39;Ext.grid.GridPanel&#39;, {
+			store: store,
+			columns: columns,
+			region: &#39;center&#39;,
+			border: false,
+		});
+
+		var formItems = Ext.create(this.getNestedTypeName(&#39;.form.ChatLine&#39;)).getItems({
+			apply: {
+				&quot;Text&quot;: {
+					listeners:{
+						scope: this,
+						specialkey: function(field, e) {
+							if (e.getKey() == e.ENTER) 
+								this.send();								
+						}
+					}
+				}
+			}
+		});
+
+		Ext.apply(this, {
+			layout: &#39;border&#39;,
+			items: [grid, {
+				xtype: &#39;form&#39;,
+				region: &#39;south&#39;,
+				height: 110,
+				items: formItems,
+				buttonAlign: &#39;left&#39;,
+				buttons: [{
+					text: &#39;Send&#39;,
+					scope: this,
+					handler: this.send
+				}, &#39;-&gt;&#39;, {
+					text: &#39;Close&#39;,
+					scope: this,
+					handler: function () {
+						this.close();
+					}
+				}]
+			}]
+		});
+
+		this.callParent(arguments);
+	}, 
+	
+	send: function() {
+		var form = this.down(&#39;form&#39;).getForm();
+		if (!form.isValid())
+			return;
+		this.remote.EnterLine(form.getFieldValues());
+		var tb = form.findField(&quot;Text&quot;);
+		tb.setValue(&#39;&#39;);
+		tb.focus();
+	}
+});
+
+</pre>
+</body>
+</html>

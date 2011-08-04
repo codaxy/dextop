@@ -1,0 +1,15 @@
+﻿Dextop DateTime handling
+------------------------
+
+DateTime JSON handling in Dextop is customized.
+
+Ext sends dates in ISO 8601 format 'yyyy-MM-ddThh:mm:ss', so it's natural 
+that Dextop use IsoDateTimeConverter. his results with an issue that
+date is written as string and it is not converted to js Date object.
+
+JavaScriptDateTimeConverter sends dates as new Date(ticks), which are 
+recognized by the browser and converted to dates. But, JavaScriptDateTimeConverter
+cannot parse dates sent by the browser (sent in ISO format).
+
+DextopDateTimeConverter sends dates using JavaScriptDateTimeConverter.
+DextopDateTimeConverter parses dates using IsoDateTimeConverter.

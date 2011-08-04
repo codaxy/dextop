@@ -1,0 +1,1 @@
+Copy Ext JS library content in this folder.

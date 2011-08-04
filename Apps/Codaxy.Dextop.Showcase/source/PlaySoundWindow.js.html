@@ -1,0 +1,56 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.ns(&#39;Showcase&#39;);
+
+Ext.define(&#39;Showcase.demos.PlaySoundWindow&#39;, {
+	extend: &#39;Dextop.Window&#39;,
+	width: 200,
+	height: 100,
+
+	title: &#39;Play Sound&#39;,
+
+	initComponent: function () {
+		
+		Ext.apply(this, {
+			bodyStyle: &#39;padding: 5px&#39;,
+			layout: {
+				type: &#39;vbox&#39;,
+				align: &#39;stretch&#39;
+			},
+			defaults: {
+				xtype: &#39;button&#39;,
+				margins: &#39;3 3 3 3&#39;,
+				flex: 1,
+				scope: this,
+			},
+			items: [{				
+				text: &#39;Play&#39;,				
+				handler: function () {
+					this.play();
+				}
+			}]
+		});		
+
+		this.callParent(arguments);
+	},
+
+	play: function () {
+		
+		var soundManager = window.soundManager;		
+		if (!window.soundManager)
+			Dextop.errorAlert(&#39;Sound manager not loaded/initialized.&#39;);
+		
+		window.soundManager.play(&#39;s&#39;, this.soundUrl);		
+	}
+});
+
+</pre>
+</body>
+</html>

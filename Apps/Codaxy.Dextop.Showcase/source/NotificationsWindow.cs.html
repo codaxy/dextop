@@ -1,0 +1,37 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using Codaxy.Dextop.Data;
+using Codaxy.Dextop.Remoting;
+
+
+namespace Codaxy.Dextop.Showcase.Demos.Live
+{
+	public class NotificationsWindow : DextopWindow
+    {
+		[DextopRemotable]
+		public void NotifyMe()
+		{
+			Remote.SendNotification(new DextopNotification
+			{
+				Alert = true,
+				Sound = DextopNotificationSound.Standard,
+				Message = &quot;This is an alert and sound notification from the server.&quot;,
+				Type = DextopMessageType.Error
+			});
+		}
+    }
+}
+
+</pre>
+</body>
+</html>

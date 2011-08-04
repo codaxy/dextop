@@ -1,0 +1,112 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using System.Linq;
+using Codaxy.Dextop.Forms;
+using Codaxy.Dextop.Remoting;
+using Codaxy.Dextop.Data;
+
+namespace Codaxy.Dextop.Showcase.Demos.Forms
+{
+	public class AllFormFieldsWindow : DextopWindow
+    {
+        public override void InitRemotable(DextopRemote remote, DextopConfig config)
+        {
+            base.InitRemotable(remote, config);
+
+			Remote.AddLookupData(&quot;Lookup&quot;, new[] {
+				new object[] { &quot;1&quot;, &quot;Item 1&quot; },
+				new object[] { &quot;2&quot;, &quot;Item 2&quot; },
+			});
+
+			Remote.AddStore(&quot;RemoteLookup&quot;, RemoteLookup);
+
+			config[&quot;data&quot;] = new Form
+			{
+				Date = DateTime.Today,
+				Time = DateTime.Now.TimeOfDay,
+				Checkbox = true,
+				Text = &quot;Some text&quot;,
+				TextArea = &quot;Some multiline\r\ntext&quot;,
+				Lookup = &quot;2&quot;,
+				RemoteLookup = &quot;Red&quot;,
+				RemoteLookupDescription = &quot;Code Red&quot;
+			};
+        }
+
+		RemoteLookupModel[] RemoteLookup(DextopReadFilter filter)
+		{
+			String query = filter.Params.SafeGet&lt;String&gt;(&quot;query&quot;);
+
+			var data = new [] { 
+				new RemoteLookupModel { Code = &quot;Red&quot;, Description = &quot;Code Red&quot;},
+				new RemoteLookupModel { Code = &quot;Blue&quot;, Description = &quot;Code Blue&quot;},
+				new RemoteLookupModel { Code = &quot;Green&quot;, Description = &quot;Code Green&quot;},
+			};
+
+			if (String.IsNullOrWhiteSpace(query))
+				return data;
+
+			return data.Where(a =&gt; a.Code.StartsWith(query) || a.Description.Contains(query)).ToArray();
+		}
+
+		[DextopModel]
+		class RemoteLookupModel
+		{
+			[DextopModelId]
+			public String Code { get; set; }
+			public String Description { get; set; }
+		}
+
+		[DextopRemotable]
+		void Send(Form form)
+		{
+
+		}
+
+		[DextopForm]
+		class Form
+		{
+			// Tab 1 (FieldSet)
+			[DextopFormTabPanelAttribute(0, border = false)]
+			[DextopFormContainer(1, title = &quot;Standard Fields&quot;, bodyStyle = &quot;padding: 5px;&quot;)]
+			[DextopFormField(anchor = &quot;0&quot;)]
+			public String Text { get; set; }
+
+			[DextopFormTextArea(fieldLabel = &quot;Text Area&quot;, grow = true, anchor = &quot;0&quot;)]
+			public String TextArea { get; set; }
+
+			[DextopFormDateField()]
+			public DateTime? Date { get; set; }
+
+			[DextopFormTimeField()]
+			public TimeSpan? Time { get; set; }
+
+			[DextopFormNumberField(step = 2, minValue = -10, maxValue = 10)]
+			public double? Number { get; set; }
+
+			[DextopFormCheckbox(boxLabel = &quot;Checkbox&quot;)]
+			public bool Checkbox { get; set; }
+
+			[DextopFormContainer(1, title = &quot;Lookup Fields&quot;, bodyStyle = &quot;padding: 5px;&quot;)]
+			[DextopFormLookupCombo]
+			public string Lookup { get; set; }			
+
+			[DextopFormRemoteLookupCombo(&quot;Code&quot;, &quot;Description&quot;, valueNotFoundField = &quot;RemoteLookupDescription&quot;, disableKeyFilter=true)]
+			public string RemoteLookup { get; set; }
+
+			public string RemoteLookupDescription { get; set; }
+		}
+    }
+}
+
+</pre>
+</body>
+</html>

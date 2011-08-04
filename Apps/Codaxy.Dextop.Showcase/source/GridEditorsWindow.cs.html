@@ -1,0 +1,150 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Codaxy.Dextop.Data;
+
+namespace Codaxy.Dextop.Showcase.Demos.Grids
+{
+	public class GridEditorsWindow : DextopWindow
+    {
+        public override void InitRemotable(DextopRemote remote, DextopConfig config)
+        {
+            base.InitRemotable(remote, config);
+			Remote.RemoteHostType = &quot;Showcase.demos.GridEditorsWindow&quot;;
+            Remote.AddStore(&quot;model&quot;, new Crud());
+			Remote.AddLookupData(&quot;Lookup&quot;, new[] {
+                new object[] { Lookup.L1, &quot;Item 1&quot; },
+                new object[] { Lookup.L2, &quot;Item 2&quot; },
+				new object[] { Lookup.L3, &quot;Item 3&quot; },
+            });
+			Remote.AddStore(&quot;RemoteLookup&quot;, RemoteLookup);
+
+			if (remoteData == null)
+				remoteData = new List&lt;RemoteLookupModel&gt;
+				{
+					new RemoteLookupModel { Code = &quot;USA&quot;, Description = &quot;United States of America&quot; },
+					new RemoteLookupModel { Code = &quot;BIH&quot;, Description = &quot;Bosnia and Herzegowina&quot; },
+					new RemoteLookupModel { Code = &quot;CRO&quot;, Description = &quot;Croatia&quot; },
+					new RemoteLookupModel { Code = &quot;SRB&quot;, Description = &quot;Serbia&quot; },
+					new RemoteLookupModel { Code = &quot;CHN&quot;, Description = &quot;China&quot; }
+				};
+        }
+
+		static List&lt;RemoteLookupModel&gt; remoteData;
+
+		IEnumerable&lt;RemoteLookupModel&gt; RemoteLookup(DextopReadFilter filter)
+		{
+			String query;
+			if (!filter.Params.TryGet&lt;String&gt;(&quot;query&quot;, out query) || String.IsNullOrEmpty(query))
+				return remoteData;
+
+			return remoteData.Where(a =&gt; a.Code.StartsWith(query, StringComparison.InvariantCultureIgnoreCase) || a.Description.Contains(query));
+		}
+
+        enum Lookup { L1, L2, L3 };
+
+		[DextopModel]
+		class RemoteLookupModel
+		{
+			[DextopModelId]
+			public String Code { get; set; }
+			public String Description { get; set; }
+		}
+
+        [DextopModel]
+        [DextopGrid]
+        class GridEditorsModel
+        {
+			[DextopModelId]
+			public int Id { get; set; }
+
+            [DextopGridColumn(flex=1)]
+            public String Text { get; set; }
+
+			[DextopGridColumn(width = 50)]
+			public int Integer { get; set; }
+
+			[DextopGridColumn]
+			[DextopModelDefaultValue(true)]
+			public bool Check { get; set; }
+
+			[DextopGridColumn]
+			public DateTime? Date { get; set; }
+
+			[DextopGridColumn]
+			public TimeSpan? Time { get; set; }
+
+            [DextopGridLookupColumn(tooltipTpl=&quot;{Text}&quot;)]
+			public Lookup Lookup { get; set; }
+
+			[DextopGridRemoteLookupColumn(&quot;Code&quot;, &quot;Description&quot;, 
+				valueNotFoundDataIndex = &quot;RemoteLookupDescription&quot;, 
+				width=150, 
+				listItemTpl = &quot;&lt;div&gt;{Description} ({Code})&lt;/div&gt;&quot;
+			)]
+			public String RemoteLookup { get; set; }
+
+			[DextopGridRemoteLookupColumn(&quot;Code&quot;, &quot;Code&quot;,
+				lookupId = &quot;RemoteLookup&quot;,
+				width = 100,
+				listItemTpl = &quot;&lt;div&gt;{Code} - {Description}&lt;/div&gt;&quot;,
+				listWidth = 300
+			)]
+			public String RemoteLookupCode { get; set; }
+
+			public String RemoteLookupDescription { get; set; }			
+        }
+
+		class Crud : DextopDataProxy&lt;GridEditorsModel&gt;
+		{
+			SortedDictionary&lt;int, GridEditorsModel&gt; list = new SortedDictionary&lt;int, GridEditorsModel&gt;();
+			int id = 0;
+
+			public override IList&lt;GridEditorsModel&gt; Create(IList&lt;GridEditorsModel&gt; data)
+			{
+				foreach (var row in data)
+				{
+					row.Id = ++id;
+					row.RemoteLookupDescription = String.IsNullOrEmpty(row.RemoteLookup) ? null : remoteData.Single(a =&gt; a.Code == row.RemoteLookup).Description;
+					list.Add(row.Id, row);
+				}
+				return data;
+			}
+
+			public override IList&lt;GridEditorsModel&gt; Update(IList&lt;GridEditorsModel&gt; data)
+			{
+				foreach (var row in data)
+				{
+					list[row.Id] = row;
+					row.RemoteLookupDescription = String.IsNullOrEmpty(row.RemoteLookup) ? null : remoteData.Single(a =&gt; a.Code == row.RemoteLookup).Description;
+				}
+				return data;
+			}
+
+			public override IList&lt;GridEditorsModel&gt; Destroy(IList&lt;GridEditorsModel&gt; data)
+			{
+				foreach (var d in data)
+					list.Remove(d.Id);
+				return new GridEditorsModel[0];
+			}
+
+			public override DextopReadResult&lt;GridEditorsModel&gt; Read(DextopReadFilter filter)
+			{
+				return DextopReadResult.Create(list.Values.ToArray());
+			}
+		}
+    }
+}
+
+</pre>
+</body>
+</html>

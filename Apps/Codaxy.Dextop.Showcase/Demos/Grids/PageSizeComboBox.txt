@@ -1,0 +1,14 @@
+﻿Page size combo
+=================
+
+This example shows how to use Ext.ux.PageSizeComboBox plugin which 
+enables convinient way to change the size of the page.
+
+Simply add 
+
+	{
+		xtype: 'pagesizecombo',
+		store: store
+	}
+
+to the toolbar or bbar items.

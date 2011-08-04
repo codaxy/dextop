@@ -1,0 +1,58 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using System.Threading;
+using Codaxy.Dextop.Remoting;
+
+namespace Codaxy.Dextop.Showcase.Demos.Remoting
+{
+    public class HelloRemotingWindow : DextopWindow
+    {
+        public override void InitRemotable(DextopRemote remote, DextopConfig config)
+        {
+            base.InitRemotable(remote, config);
+            Remote.RemoteHostType = &quot;Showcase.demos.HelloRemotingWindow&quot;;            
+        }
+
+        [DextopRemotable]
+        public String GetHelloWorldMessage() { return &quot;Hello World!&quot;; }
+
+        class SearchFilter
+        {
+            public String FirstName { get; set; }
+            public String LastName { get; set; }
+        }
+
+        [DextopRemotable]
+        String Search(SearchFilter data)
+        {
+            return String.Format(&quot;Information about &#39;{0} {1}&#39; not found in the database.&quot;, data.FirstName, data.LastName);
+        }
+
+        [DextopRemotable]
+        void RequestServerNotification()
+        {
+            ThreadPool.QueueUserWorkItem((state) =&gt;
+            {
+                try
+                {
+                    Thread.Sleep(3000);
+                    var msg = new { type = &quot;alert&quot;, msg = &quot;This is a notification you requested 3 seconds ago.&quot; };
+                    Remote.SendMessage(msg);
+                }
+                catch { }
+            });
+        }
+    }
+}
+
+</pre>
+</body>
+</html>

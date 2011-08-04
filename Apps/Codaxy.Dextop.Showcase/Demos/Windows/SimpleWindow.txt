@@ -1,0 +1,9 @@
+﻿Simple Window
+=============
+
+This is the simplest window possible.
+
+As there is no SimpleWindow defined on the client side 
+we have to specify RemoteHostType
+
+	Remote.RemoteHostType = "Dextop.Window";

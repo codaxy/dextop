@@ -1,0 +1,93 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Codaxy.Dextop.Data;
+
+namespace Codaxy.Dextop.Showcase.Demos.Grids
+{
+    public class RowEditableGridWindow : DextopWindow
+    {
+        public override void InitRemotable(DextopRemote remote, DextopConfig config)
+        {
+            base.InitRemotable(remote, config);          
+            Remote.RemoteHostType = &quot;Showcase.demos.RowEditableGridWindow&quot;;
+            Remote.AddStore(&quot;model&quot;, new Crud());
+        }
+
+        class Crud : DextopDataProxy&lt;RowEditableGridModel&gt;
+        {
+            SortedDictionary&lt;int, RowEditableGridModel&gt; records = new SortedDictionary&lt;int, RowEditableGridModel&gt;();
+            int id = 0;
+
+            public override IList&lt;RowEditableGridModel&gt; Create(IList&lt;RowEditableGridModel&gt; data)
+            {
+                foreach (var rec in data)
+                {
+					if (rec.Name == &quot;Neo&quot;)
+						throw new DextopErrorMessageException(&quot;Internal error.&quot;);
+                    rec.Id = ++id;
+                    records.Add(rec.Id, rec);
+                }
+                return data;
+            }
+
+            public override IList&lt;RowEditableGridModel&gt; Update(IList&lt;RowEditableGridModel&gt; data)
+            {
+				foreach (var rec in data)
+				{
+					if (rec.Name == &quot;Neo&quot;)
+						throw new DextopErrorMessageException(&quot;Internal error.&quot;);
+					records[rec.Id] = rec;
+				}
+                return data;
+            }
+
+            public override IList&lt;RowEditableGridModel&gt; Destroy(IList&lt;RowEditableGridModel&gt; data)
+            {
+				foreach (var rec in data)
+				{
+					if (rec.Name == &quot;Neo&quot;)
+						throw new DextopErrorMessageException(&quot;Internal error.&quot;);
+					records.Remove(rec.Id);
+				}
+                return new RowEditableGridModel[0];
+            }
+
+            public override DextopReadResult&lt;RowEditableGridModel&gt; Read(DextopReadFilter filter)
+            {
+                return DextopReadResult.Create(records.Values.ToArray());                
+            }            
+        }        
+
+        [DextopModel]
+        [DextopGrid]
+        class RowEditableGridModel
+        {
+            [DextopModelId]
+            [DextopGridColumn(width = 50, readOnly=true)] 
+            public int Id { get; set; }
+            
+            [DextopGridColumn(flex=1)]
+            public String Name { get; set; }
+            
+            [DextopGridColumn(width = 50)]            
+            public int Age { get; set; }
+
+            [DextopGridColumn(width = 50)]
+            public int Height { get; set; }
+        }
+    }
+}
+
+</pre>
+</body>
+</html>

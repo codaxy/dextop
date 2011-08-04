@@ -1,0 +1,62 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using Codaxy.Dextop.Data;
+using Codaxy.Dextop.Remoting;
+
+namespace Codaxy.Dextop.Showcase.Demos.Grids
+{
+    public class TreeWindow : DextopWindow
+    {
+        TreeNode rootNode = new TreeNode();
+
+        public override void InitRemotable(DextopRemote remote, DextopConfig config)
+        {
+            base.InitRemotable(remote, config);          
+            Remote.RemoteHostType = &quot;Showcase.demos.TreeWindow&quot;;
+            Remote.OnProcessAjaxRequest += ProcessAjaxRequest;
+        }
+
+        private void ProcessAjaxRequest(HttpContext context)
+        {
+            var id = context.Request.Params[&quot;node&quot;];
+
+            List&lt;TreeNode&gt; nodes = new List&lt;TreeNode&gt;();
+            for (int i = 0; i &lt; 3; i++)
+                nodes.Add(new TreeNode { id = id + i, text = &quot;node &quot; + id + i });
+
+            context.Response.ContentType = &quot;application/json&quot;;
+            context.Response.Write(Codaxy.Dextop.DextopUtil.Encode(nodes));
+        }
+
+
+        public class TreeNode
+        {
+            public string id { get; set; }
+            public string text { get; set; }
+            public string iconCls { get; set; }
+            public string cls { get; set; }
+            public bool leaf { get; set; }
+            public bool expanded { get; set; }
+            public bool singleClickExpand { get; set; }
+            public TreeNode[] children { get; set; }
+            public object tag { get; set; }
+            public string qtip { get; set; }
+        }
+     
+    }  
+}
+
+</pre>
+</body>
+</html>

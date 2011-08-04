@@ -1,0 +1,25 @@
+﻿# Getting Started with Dextop
+
+Before getting started with Dextop make sure you're familiar with Ext JS. 
+Sencha provides a large number od [demos](http://www.sencha.com/products/extjs/examples/) 
+and excellent [documentation](http://www.sencha.com/deploy/dev/docs/) that you 
+should not miss.
+
+## Source Code
+
+Dextop source code is hosted at [Google Code SVN repository](http://code.google.com/p/codaxy-dextop2/).
+Please report any bug at the Google Code [issue tracker](http://code.google.com/p/codaxy-dextop2/issues/list).
+
+## Dox
+
+Dextop API documentation is available [here](http://dextop.codaxy.com/dox).
+To learn more about Dox please visit the [Dox product page](http://www.codaxy.com/dox/overview).
+
+## NuGets
+
+Dextop offers a few NuGets packages. Creating new Dextop applications has never been easier. 
+Check the 'NuGets' guide to learn how to quickly setup your first Dextop application.
+
+## Forum
+
+For any questions regarding Dextop use the [Community forum](http://forum.codaxy.com).

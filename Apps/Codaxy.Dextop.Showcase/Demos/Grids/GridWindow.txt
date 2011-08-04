@@ -1,0 +1,8 @@
+﻿Basic Grid Window
+=================
+
+In order to create grid for viewing server-side data, you need to:
+
+1. Define the model class on the server-side;
+2. Define CRUD methods on the server-side (in this example grid only Read method is implemented as grid is readonly);
+3. Define the store and the grid on the client-side, using the model.

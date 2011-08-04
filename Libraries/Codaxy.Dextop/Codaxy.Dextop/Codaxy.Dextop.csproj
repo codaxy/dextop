@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A58493FD-7BD1-42B2-97AE-BBB10D2BAB79}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Codaxy.Dextop</RootNamespace>
+    <AssemblyName>Codaxy.Dextop</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Codaxy.Dextop.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Codaxy.Dextop.XML</DocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Codaxy.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Codaxy.Common.0.5.0\lib\Codaxy.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="EcmaScript.NET.modified, Version=0.1.1.0, Culture=neutral, PublicKeyToken=7d53ba4f537753a5, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\YUICompressor.NET.1.5.0.0\lib\NET35\EcmaScript.NET.modified.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.0.2.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\Newtonsoft.Json.4.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="Yahoo.Yui.Compressor, Version=1.5.0.0, Culture=neutral, PublicKeyToken=f8b4b81ec75097e2, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\YUICompressor.NET.1.5.0.0\lib\NET35\Yahoo.Yui.Compressor.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Data\DextopGrid.Attributes.Lookup.cs" />
+    <Compile Include="Data\DextopDataProxy.Adapter.Generic.cs" />
+    <Compile Include="Data\DextopDataProxy.Adapter.Read.cs" />
+    <Compile Include="Data\DextopDataProxy.Function.cs" />
+    <Compile Include="Data\DextopDataProxy.Generic.cs" />
+    <Compile Include="Data\DextopGrid.Attributes.cs" />
+    <Compile Include="Data\DextopGrid.Column.cs" />
+    <Compile Include="Data\DextopDataProxy.Interface.cs" />
+    <Compile Include="Data\DextopGrid.Builder.cs" />
+    <Compile Include="Data\DextopGrid.Preprocessor.cs" />
+    <Compile Include="Data\DextopLiveStore.cs" />
+    <Compile Include="Data\DextopDataProxy.Memory.cs" />
+    <Compile Include="Data\DextopObservableStore.cs" />
+    <Compile Include="Data\DextopObservableStore.Interface.cs" />
+    <Compile Include="Data\DextopModel.Serializer.Array.cs" />
+    <Compile Include="Data\DextopModel.cs" />
+    <Compile Include="Data\DextopModel.Manager.cs" />
+    <Compile Include="Data\DextopModel.Preprocessor.cs" />
+    <Compile Include="Data\DextopModel.Serializer.cs" />
+    <Compile Include="Data\DextopModel.TypeMeta.cs" />
+    <Compile Include="Data\DextopModel.Attributes.cs" />
+    <Compile Include="Data\DextopModel.FieldTypeMapper.cs" />
+    <Compile Include="Data\DextopModel.Validation.Attribute.cs" />
+    <Compile Include="Data\DextopReadResult.cs" />
+    <Compile Include="Data\DextopProxy.cs" />
+    <Compile Include="DextopApplication.cs" />
+    <Compile Include="DextopApplication.Models.cs" />
+    <Compile Include="DextopApplication.Modules.cs" />
+    <Compile Include="DextopApplication.Namespaces.cs" />
+    <Compile Include="DextopApplication.SessionManager.cs" />
+    <Compile Include="DextopAssemblyPreprocessor.Interface.cs" />
+    <Compile Include="DextopConfig.cs" />
+    <Compile Include="DextopContext.cs" />
+    <Compile Include="DextopDependencyResolver.cs" />
+    <Compile Include="DextopDependencyResolver.Interface.cs" />
+    <Compile Include="Remoting\DextopEnum.Attribute.cs" />
+    <Compile Include="DextopEnumerations.cs.cs" />
+    <Compile Include="DextopExceptions.cs" />
+    <Compile Include="DextopFile.cs" />
+    <Compile Include="DextopSession.Dependencies.cs" />
+    <Compile Include="Forms\DextopForm.Attributes.RemoteFilteredLookupCombo.cs" />
+    <Compile Include="Forms\DextopForm.Attributes.Container.cs" />
+    <Compile Include="Forms\DextopForm.Attributes.DateField.cs" />
+    <Compile Include="Forms\DextopForm.Attributes.Field.cs" />
+    <Compile Include="Forms\DextopForm.Attributes.FieldSet.cs" />
+    <Compile Include="Forms\DextopForm.Attributes.FileField.cs" />
+    <Compile Include="Forms\DextopForm.Attributes.NumberField.cs" />
+    <Compile Include="Forms\DextopForm.Attributes.Radio.cs" />
+    <Compile Include="Forms\DextopForm.Attributes.TextField.cs" />
+    <Compile Include="Forms\DextopForm.Attributes.TimeField.cs" />
+    <Compile Include="Forms\DextopForm.ILabelable.cs" />
+    <Compile Include="Modules\DextopModule.ExtDesktop.cs" />
+    <Compile Include="Modules\DextopModule.ExtJS.cs" />
+    <Compile Include="DextopModule.Optimization.cs" />
+    <Compile Include="DextopModule.Preprocessing.cs" />
+    <Compile Include="DextopModule.cs" />
+    <Compile Include="Modules\DextopModule.DextopCore.cs" />
+    <Compile Include="DextopModule.Namespaces.cs" />
+    <Compile Include="DextopModule.Resources.cs" />
+    <Compile Include="DextopResourcePackage.cs" />
+    <Compile Include="DextopRemote.Components.cs" />
+    <Compile Include="DextopRemote.cs" />
+    <Compile Include="DextopResourcePackage.Css.cs" />
+    <Compile Include="DextopResourcePackage.Js.cs" />
+    <Compile Include="DextopSession.cs" />
+    <Compile Include="DextopSession.Direct.cs" />
+    <Compile Include="DextopSession.Notifications.cs" />
+    <Compile Include="DextopSession.Remoting.cs" />
+    <Compile Include="DextopUtil.cs" />
+    <Compile Include="DextopUtil.DateTimeConverter.cs" />
+    <Compile Include="DextopUtil.TimeStampJsonConverter.cs" />
+    <Compile Include="DextopWindow.cs" />
+    <Compile Include="Forms\DextopForm.Attributes.Checkbox.cs" />
+    <Compile Include="Forms\DextopForm.Attributes.cs" />
+    <Compile Include="Forms\DextopForm.Attributes.LookupCombo.cs" />
+    <Compile Include="Forms\DextopForm.Attributes.RemoteLookupCombo.cs" />
+    <Compile Include="Forms\DextopForm.Attributes.TabPanel.cs" />
+    <Compile Include="Forms\DextopForm.Attributes.TextArea.cs" />
+    <Compile Include="Forms\DextopForm.Container.cs" />
+    <Compile Include="Forms\DextopForm.Field.cs" />
+    <Compile Include="Forms\DextopForm.Builder.cs" />
+    <Compile Include="Forms\DextopForm.Object.cs" />
+    <Compile Include="Forms\DextopForm.Preprocessor.cs" />
+    <Compile Include="Modules\DextopSoundModule.cs" />
+    <Compile Include="Remoting\DextopEnum.Preprocessor.cs" />
+    <Compile Include="Remoting\DextopHandler.LongPolling.cs" />
+    <Compile Include="Remoting\DextopHandler.Base.cs" />
+    <Compile Include="Remoting\DextopHandler.Polling.cs" />
+    <Compile Include="Remoting\DextopHandler.Remoting.cs" />
+    <Compile Include="Direct\Request.cs" />
+    <Compile Include="Direct\Response.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Remoting\DextopRemotable.Config.cs" />
+    <Compile Include="Remoting\DextopRemotableBase.cs" />
+    <Compile Include="Remoting\DextopRemotingPreprocessor.cs" />
+    <Compile Include="Remoting\DextopServerMessage.cs" />
+    <Compile Include="Remoting\DextopRemoteMethodInvoker.Interface.cs" />
+    <Compile Include="Remoting\DextopRemotable.Interface.cs" />
+    <Compile Include="Remoting\DextopRemotable.Attribute.cs" />
+    <Compile Include="Remoting\DextopRemoteMethodInvoker.Reflection.cs" />
+    <Compile Include="Tools\DextopJsObject.LocalizedText.cs" />
+    <Compile Include="Tools\DextopJsObject.Bag.cs" />
+    <Compile Include="Tools\DextopJsObject.Interface.cs" />
+    <Compile Include="Tools\DextopJsObject.RawJs.cs" />
+    <Compile Include="Tools\DextopJsWriter.cs" />
+    <Compile Include="Tools\DextopFileUtil.cs" />
+    <Compile Include="Tools\NullableUtil.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DateTime handling.txt" />
+    <Content Include="_Features.txt" />
+    <Content Include="_TODO.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>$(SolutionDir)Nuget\bin\nuget install $(ProjectDir)packages.config -o $(SolutionDir)Packages</PreBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

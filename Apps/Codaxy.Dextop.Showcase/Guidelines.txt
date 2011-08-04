@@ -1,0 +1,24 @@
+﻿Showcase application guidelines
+-------------------------------
+Ultimate goal is to have a large number of demos from which developers can learn and contribute.
+
+Goals:
+# Demos should be really simple to write and should just work
+# Demos should be used for playing with Dextop
+# Demos should be used to copy-paste some code to other projects
+# Demos should be easy to find
+# Demos should be standalone and isolated from other demos
+# Demos should be variously categorized 
+	# Remoting, Forms, Grids, Lookups, Plugins ...
+	# Beginer, Normal, Advanced
+	# Code Snippet, Tutorial, Best Practice, Design Pattern, Feature
+# Demos should have written explanation of important parts
+# Viewing JS source of the demo should be possible
+# Viewing CS source of the demo should be possible
+# Demo application should be reusable
+# Demos should look good on big screens
+
+
+Demos TODO
+--------
+Page N+1 Demo

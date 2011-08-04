@@ -1,0 +1,54 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.define(&#39;Showcase.demos.MessageExceptionsWindow&#39;, {
+	extend: &#39;Dextop.Window&#39;,
+	width: 150,
+	height: 150,
+	title: &#39;Message Exceptions&#39;,
+
+	initComponent: function () {
+
+		Ext.apply(this, {
+			bodyStyle: &#39;padding: 5px&#39;,
+			layout: {
+				type: &#39;vbox&#39;,
+				align: &#39;stretch&#39;
+			},
+			defaults: {
+				xtype: &#39;button&#39;,
+				margins: &#39;3 3 3 3&#39;,
+				flex: 1
+			},
+			items: [{
+				text: &#39;Error&#39;,
+				scope: this,
+				handler: function () {
+					this.remote.Error({ type: &#39;alert&#39; });
+				}
+			}, {
+				text: &#39;Warning&#39;,
+				scope: this,
+				handler: function () {
+					this.remote.Warning({ type: &#39;alert&#39; });
+				}
+			}, {
+				text: &#39;Info&#39;,
+				scope: this,
+				handler: function () {
+					this.remote.Info({ type: &#39;alert&#39; });
+				}
+			}]
+		});
+		this.callParent(arguments);
+	}
+});
+</pre>
+</body>
+</html>

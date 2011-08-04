@@ -1,0 +1,79 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Codaxy.Dextop.Data;
+
+namespace Codaxy.Dextop.Showcase.Demos.Grids
+{
+    public class GridActionsWindow : DextopWindow
+    {
+        public override void InitRemotable(DextopRemote remote, DextopConfig config)
+        {
+            base.InitRemotable(remote, config);			
+            Remote.AddStore(&quot;model&quot;, new Crud());
+        }
+
+        class Crud : DextopDataProxy&lt;GridActionModel&gt;
+        {
+            SortedDictionary&lt;int, GridActionModel&gt; list = new SortedDictionary&lt;int, GridActionModel&gt;();
+            int id = 0;
+
+            public override IList&lt;GridActionModel&gt; Create(IList&lt;GridActionModel&gt; data)
+            {
+                foreach (var row in data)
+                {
+                    row.Id = ++id;
+                    list.Add(row.Id, row);
+                }
+                return data;
+            }
+
+            public override IList&lt;GridActionModel&gt; Update(IList&lt;GridActionModel&gt; data)
+            {
+                foreach (var d in data)
+                    list[d.Id] = d;
+                return data;
+            }
+
+            public override IList&lt;GridActionModel&gt; Destroy(IList&lt;GridActionModel&gt; data)
+            {
+                foreach (var d in data)
+                    list.Remove(d.Id);
+                return new GridActionModel[0];
+            }
+
+            public override DextopReadResult&lt;GridActionModel&gt; Read(DextopReadFilter filter)
+            {
+                return DextopReadResult.Create(list.Values.ToArray());                
+            }            
+        }        
+
+        [DextopModel]
+        [DextopGrid]
+        class GridActionModel
+        {
+            [DextopModelId]
+            [DextopGridColumn(width = 50, readOnly=true)] 
+            public int Id { get; set; }
+            
+            [DextopGridColumn(flex=1)]
+            public String Name { get; set; }
+            
+            [DextopGridColumn(width = 50, text=&quot;Admin&quot;)]            
+            public bool IsAdministrator { get; set; }
+        }
+    }
+}
+
+</pre>
+</body>
+</html>

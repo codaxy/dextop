@@ -1,0 +1,1 @@
+bin\dox --p:xml --o:"json-Newtonsoft.Json Library API Reference.dox" --i:"..\Apps\Codaxy.Dextop.Showcase\bin\Newtonsoft.JSON.dll"

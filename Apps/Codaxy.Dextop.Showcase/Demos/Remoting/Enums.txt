@@ -1,0 +1,6 @@
+﻿Enums
+=====
+
+Using the [DextopEnum] attribute C# enumerations are generated in the JS code.
+
+Nested enumerations are not supported.

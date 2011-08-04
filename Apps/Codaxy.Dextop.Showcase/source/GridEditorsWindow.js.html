@@ -1,0 +1,73 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.ns(&#39;Showcase&#39;);
+
+Ext.define(&#39;Showcase.demos.GridEditorsWindow&#39;, {
+	extend: &#39;Dextop.Window&#39;,
+	width: 700,
+	height: 300,
+
+	title: &#39;All Grid Editors&#39;,
+	requires: &#39;Ext.grid.GridPanel&#39;,
+
+	initComponent: function () {
+
+		var store = this.remote.createStore(&#39;model&#39;, {
+			autoLoad: true,
+			autoSync: true
+		});
+
+		var columns = this.remote.createGridColumns(&#39;model&#39;, {
+			remote: this.remote,
+			checkEditor: false
+		});
+
+		var rowEditor = new Ext.grid.plugin.RowEditing({
+			clicksToEdit: 1,
+			removePhantomsOnCancel: true
+		})
+
+		var grid = Ext.create(&#39;Ext.grid.GridPanel&#39;, {
+			store: store,
+			columns: columns,
+			plugins: [rowEditor],
+			border: false,
+			tbar: [{
+				text: &#39;Add&#39;,
+				scope: this,
+				handler: function () {
+					var rec = Ext.create(store.model, {});
+					store.insertPhantom(0, rec);
+					rowEditor.startEdit(0, 0);
+				}
+			}, &#39;-&#39;, {
+				text: &#39;Remove&#39;,
+				scope: this,
+				handler: function () {
+					var s = grid.getSelectionModel().getSelection();
+					for (var i = 0; i &lt; s.length; i++)
+						store.remove(s[i]);
+				}
+			}]
+		});
+
+		Ext.apply(this, {
+			layout: &#39;fit&#39;,
+			items: grid
+		});
+
+		this.callParent(arguments);
+
+	}
+});
+
+</pre>
+</body>
+</html>

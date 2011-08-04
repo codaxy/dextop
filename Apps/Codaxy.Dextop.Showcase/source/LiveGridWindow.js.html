@@ -1,0 +1,49 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.ns(&#39;Showcase&#39;);
+
+Ext.define(&#39;Showcase.demos.LiveGridWindow&#39;, {
+    extend: &#39;Dextop.Window&#39;,
+    width: 500,
+    height: 300,
+
+    title: &#39;Live Grid Window&#39;,
+    requires: &#39;Ext.grid.GridPanel&#39;,
+
+    initComponent: function () {
+        var store = this.remote.createLiveStore(&#39;model&#39;, {
+            autoLoad: true,
+            autoSort: true,
+            sorters: [{
+            	property: &#39;Ticker&#39;,
+                direction: &#39;DESC&#39;
+            }]
+        });
+
+        var columns = this.remote.createGridColumns(&#39;model&#39;);
+
+        var grid = Ext.create(&#39;Ext.grid.GridPanel&#39;, {
+            store: store,
+            columns: columns
+        });
+
+        Ext.apply(this, {
+            layout: &#39;fit&#39;,
+            items: grid
+        });
+
+        this.callParent(arguments);
+
+    }
+});
+
+</pre>
+</body>
+</html>
