@@ -11,11 +11,11 @@ Dextop NuGet is available through the official NuGet channel.
 In order to start Dextop Showcase application Ext JS library 
 must to be included in folder 'Apps\Codaxy.Dextop.Showcase\client\lib\ext'.
 
-Ext JS can be found at [Sencha website].(http://www.sencha.com/products/extjs/download/)
+Ext JS can be found at [Sencha website](http://www.sencha.com/products/extjs/download/)
 
-## Dextop Features
+### Dextop Features
 
-### Remoting
+#### Remoting
 
 - Simple remote procedure calls using Ext.Direct
 - Automatic JSON encoding/decoding (thanks to JSON.NET)
@@ -23,7 +23,7 @@ Ext JS can be found at [Sencha website].(http://www.sencha.com/products/extjs/do
 - AJAX request handling
 - Server notifications by polling or long-polling technique
 
-### CodeGeneration
+#### CodeGeneration
 
 - Automatic concatenion and minification of js files (thanks to Yahoo.Yui.Compressor for .NET)
 - Automatic minification of css files
@@ -32,22 +32,22 @@ Ext JS can be found at [Sencha website].(http://www.sencha.com/products/extjs/do
 - Automatic generation of grid headers based on DextopGridHeaders attribute
 - Automatic generation of forms based on DextopForm attribute
 
-### Data
+#### Data
 
 - Array serialization/deserialization
 - Simplified data access interface
 
-### Grids
+#### Grids
 
 - Reflection based models
 - Reflection based headers
 - Paging helpers
 
-### Forms
+#### Forms
 
 - Powerfull form generation engine
 
-### Localization
+#### Localization
 
 - Client and server localization support
 - Localization tool
