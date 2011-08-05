@@ -2,12 +2,11 @@
 
 Dextop is RIA framework based on Sencha Ext JS and .NET/Mono platform.
 
-## NuGet
+### NuGet
 
-Dextop NuGets are available through the official channel.
+Dextop NuGet is available through the official NuGet channel.
 
-Installation notes
-------------------
+### Installation notes
 
 In order to start Dextop Showcase application Ext JS library 
 must to be included in folder 'Apps\Codaxy.Dextop.Showcase\client\lib\ext'.
