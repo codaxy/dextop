@@ -2,6 +2,16 @@
 
 Dextop is RIA framework based on Sencha Ext JS and .NET/Mono platform.
 
+### Links
+
+- [Demos](http://dextop.codaxy.com/showcase/)
+- [Documentation](http://dextop.codaxy.com/dox/)
+- [Product page](http//www.codaxy.com/dextop)
+
+### License
+
+Dextop is available under GPL v3 or Commercial license.
+
 ### NuGet
 
 Dextop NuGet is available through the official NuGet channel.
@@ -11,9 +21,9 @@ Dextop NuGet is available through the official NuGet channel.
 In order to start Dextop Showcase application Ext JS library 
 must to be included in folder 'Apps\Codaxy.Dextop.Showcase\client\lib\ext'.
 
-Ext JS can be found at [Sencha website](http://www.sencha.com/products/extjs/download/)
+Ext JS can be found at [Sencha's website](http://www.sencha.com/products/extjs/download/).
 
-### Dextop Features
+### Features
 
 #### Remoting
 
