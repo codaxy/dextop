@@ -1,0 +1,32 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using System.Threading;
+using Codaxy.Dextop.Remoting;
+
+namespace Codaxy.Dextop.Showcase.Demos.Remoting
+{
+    public class RemoteInstantiationWindow : DextopWindow
+    {
+        //Demo is required to have a public parameterless constructor
+        public RemoteInstantiationWindow() {}
+
+        //[DextopRemotableConstructor(alias=&quot;...&quot;)]
+        [DextopRemotable]
+        RemoteInstantiationWindow(DextopConfig config)
+        {
+
+        }
+    }
+}
+
+</pre>
+</body>
+</html>

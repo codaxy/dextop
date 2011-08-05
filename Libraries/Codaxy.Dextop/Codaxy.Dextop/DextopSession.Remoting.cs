@@ -81,8 +81,8 @@ namespace Codaxy.Dextop
 				if (!remotables.TryGetValue(call.RemoteId, out context))
 					throw new InvalidDextopRemoteMethodCallException();
 
-
-				var result = DextopApplication.RemoteMethodInvoker.Invoke(context.Remotable, call.MethodName, call.Arguments, call.FormSubmit);
+                DextopRemoteMethodInvokeResult result;
+				result = DextopApplication.RemoteMethodInvoker.Invoke(context.Remotable, call.MethodName, call.Arguments, call.FormSubmit);
 				if (result.Success)
 					return new DextopRemoteMethodCallResult
 					{

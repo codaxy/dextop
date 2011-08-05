@@ -99,6 +99,7 @@
     <Compile Include="Demos\Grids\SwissGrid.cs" />
     <Compile Include="Demos\Live\ChatRoom.cs" />
     <Content Include="Demos\Live\ChatRoom.txt" />
+    <Compile Include="Demos\Remoting\RemoteInstantiation.cs" />
     <Compile Include="Demos\Remoting\Enums.cs" />
     <Compile Include="Guides\GuidePreprocessor.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -537,6 +538,8 @@
     <Content Include="Demos\Grids\SwissGridWithFormEditor.js" />
     <Content Include="Demos\Grids\SwissGrid.js" />
     <Content Include="Demos\Live\ChatRoom.js" />
+    <Content Include="Demos\Remoting\RemoteInstantiation.js" />
+    <Content Include="Demos\Remoting\RemoteInstantiation.txt" />
     <Content Include="Demos\Remoting\Enums.txt" />
     <Content Include="Demos\Remoting\Enums.js" />
     <Content Include="Guides\articles\Features.txt" />
@@ -1120,6 +1123,9 @@
     <Content Include="source\RadioGroups.cs.html" />
     <Content Include="source\RadioGroups.html" />
     <Content Include="source\RadioGroups.js.html" />
+    <Content Include="source\RemoteInstantiation.cs.html" />
+    <Content Include="source\RemoteInstantiation.html" />
+    <Content Include="source\RemoteInstantiation.js.html" />
     <Content Include="source\RemotingCallbacks.cs.html" />
     <Content Include="source\RemotingCallbacks.html" />
     <Content Include="source\RemotingCallbacks.js.html" />

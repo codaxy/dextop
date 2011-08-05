@@ -98,6 +98,8 @@ namespace Codaxy.Dextop
         /// <returns>Object of type T</returns>
         public static object Decode(string s, Type type)
         {
+            if (s == null)
+                return null;
             using (var sr = new StringReader(s))
                 return jsonSerializer.Deserialize(sr, type);
         }

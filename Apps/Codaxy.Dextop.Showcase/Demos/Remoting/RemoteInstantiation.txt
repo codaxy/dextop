@@ -1,0 +1,47 @@
+﻿Remote Instantiation Demo
+===============================
+
+This demo shows how to instantiate a remote object on the server-side.
+
+### Server side
+
+Use attributes to mark remotable constructors.
+
+	[DextopRemotableConstructor(alias="...")]
+
+	or 
+
+    [DextopRemotable]
+
+NOTE: It's possible to use aliases to set friendly names for your classes.
+
+### Client side
+
+Use 
+
+	this.remote.Instantiate(type, config)
+
+to instantiate object on the server-side and get it's client-side configuration.
+
+*type* argument can be a string name or a JS hash containing additional parameters required for remote object registration.
+
+	{
+		type: '...',
+		own: true, //Dispose remote object when its parent is disposed
+		subRemote: true, //for client side first remote objects
+		remteId: ..., //for client side first remote objects
+	}
+
+NOTE: A Dextop window should be instantiated with *own:false* as it will be automatically disposed when closed.
+
+*config* argument should be a hash containing the data which will be passed to the class constructor (server-side).
+
+For multiple parameter constructors, arguments are decoded from the hash or array, e.g.
+
+		[DextopRemotableConstructor(alias="chat")]
+        ChatSession(string a, string b) 
+		
+		//use 
+		this.remote.Instantiate('chat', { a: 'Nick', b: 'John'}, ...);    
+		//or
+		this.remote.Instantiate('chat', ['Nick', 'John'], ...);    

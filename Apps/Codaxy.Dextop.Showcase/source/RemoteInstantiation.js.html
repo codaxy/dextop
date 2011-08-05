@@ -1,0 +1,56 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.define(&#39;Showcase.demos.RemoteInstantiationWindow&#39;, {
+	extend: &#39;Dextop.Window&#39;,
+	width: 200,
+	height: 80,
+	title: &#39;Dextop Remote Instantiation&#39;,
+
+	initComponent: function () {
+
+		Ext.apply(this, {
+			bodyStyle: &#39;padding: 5px&#39;,
+			layout: {
+				type: &#39;vbox&#39;,
+				align: &#39;stretch&#39;
+			},
+			defaults: {
+				xtype: &#39;button&#39;,
+				margins: &#39;3 3 3 3&#39;,
+				flex: 1,
+				scope: this
+			},
+			items: [{
+				text: &#39;Create Window&#39;,
+				handler: function () {
+					this.remote.Instantiate({
+						type: &#39;Showcase.demos.RemoteInstantiationWindow&#39;,
+						own: false
+					}, null, {
+						type: &#39;alert&#39;,
+						success: function (config) {
+							var win = Dextop.create(config, {
+								title: &#39;Remote Instantiated Window&#39;,
+								modal: true,
+								x: this.x + 50,
+								y: this.y + 50
+							});
+							win.show();
+						}
+					}, this);
+				}
+			}]
+		});
+		this.callParent(arguments);
+	}
+});
+</pre>
+</body>
+</html>

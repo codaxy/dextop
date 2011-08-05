@@ -181,6 +181,10 @@ Ext.define("Dextop.remoting.Proxy", {
 		this.invokeRemoteMethod(callback, scope, 'Dispose', []);
 	},
 
+	Instantiate: function (type, config, callback, scope) {
+		this.invokeRemoteMethod(callback, scope, 'Instantiate', [type, config]);
+	},
+
 	getSubRemoteId: function (subRemoteName) { return this.remoteId + '.' + subRemoteName; },
 
 	encodeArguments: function (a) {

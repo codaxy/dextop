@@ -75,14 +75,14 @@ namespace Codaxy.Dextop.Remoting
 	/// </summary>
     public interface IDextopRemotableMethodInvoker
     {
-		/// <summary>
-		/// Invokes the specified method.
-		/// </summary>
-		/// <param name="target">The target.</param>
-		/// <param name="methodName">Name of the method.</param>
-		/// <param name="methodArguments">The method arguments.</param>
-		/// <param name="form">The form submitted.</param>
-		/// <returns>Result of invocation.</returns>
-		DextopRemoteMethodInvokeResult Invoke(IDextopRemotable target, String methodName, String[] methodArguments, DextopFormSubmit form);
+        /// <summary>
+        /// Invokes the specified method.
+        /// </summary>
+        /// <param name="target">The target.</param>
+        /// <param name="methodName">Name of the method.</param>
+        /// <param name="methodArguments">The method arguments.</param>
+        /// <param name="form">The form submitted.</param>
+        /// <returns>Result of invocation.</returns>
+        DextopRemoteMethodInvokeResult Invoke(IDextopRemotable target, String methodName, String[] methodArguments, DextopFormSubmit form);
     }
 }

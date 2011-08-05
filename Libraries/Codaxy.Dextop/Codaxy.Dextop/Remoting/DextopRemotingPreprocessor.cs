@@ -66,6 +66,15 @@ namespace Codaxy.Dextop.Remoting
 
 			bool firstMethod = !constructor;
 
+            foreach (var mi in type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance))
+            {
+                DextopRemotableAttribute ra;
+                if (AttributeHelper.TryGetAttribute<DextopRemotableAttribute>(mi, out ra, false)) 
+                {
+                    ReflectionRemoteMethodInvoker.CacheConstructorInfo(application.MapTypeName(type), mi, ra);
+                }
+            }
+
             foreach (var mi in type.GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance))
             {
                 DextopRemotableAttribute ra;
