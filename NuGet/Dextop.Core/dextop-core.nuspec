@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata schemaVersion="2">
+    <id>Codaxy.Dextop.Core</id>    
+    <title>Dextop</title>
+    <version>0.7.0</version>
+    <authors>Codaxy</authors>
+    <description>Dextop Rich Internet Application Framework (Libraries)</description>
+	<projectUrl>https://github.com/codaxy/dextop</projectUrl>
+	<dependencies>
+		<dependency id="newtonsoft.json" />
+		<dependency id="yuicompressor.net" />
+		<dependency id="Codaxy.Common" />
+	</dependencies>	  	
+   </metadata>
+</package>
