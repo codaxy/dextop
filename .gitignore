@@ -13,3 +13,5 @@ cache/*.js
 /Apps/Codaxy.Dextop.Showcase/client/css/features-min.css
 /NuGet/Dextop/content/
 /NuGet/local.bat
+/NuGet/*/content
+/NuGet/*/lib
