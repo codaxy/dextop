@@ -1,6 +1,6 @@
 REM Creating NuGet : Dextop (just the libraries js & dll)
 
-mkdir Dextop.Core\lib
+mkdir Dextop.Core\lib\
 copy ..\Libraries\Codaxy.Dextop\Codaxy.Dextop\bin\Release\Codaxy.Dextop.* Dextop.Core\lib\
 
 robocopy ..\Apps\Codaxy.Dextop.Showcase\client\lib\dextop Dextop\content\client\lib\dextop /XD .svn /MIR
