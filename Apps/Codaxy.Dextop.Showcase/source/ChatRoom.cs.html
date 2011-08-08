@@ -25,6 +25,8 @@ namespace Codaxy.Dextop.Showcase.Demos.Live
 		static ConcurrentQueue&lt;ChatLine&gt; lines = new ConcurrentQueue&lt;ChatLine&gt;();
 		static ConcurrentDictionary&lt;ChatWindow, int&gt; windows = new ConcurrentDictionary&lt;ChatWindow, int&gt;();
 
+		bool registered;
+
 		public ChatWindow()
         {
 			store = new DextopObservableStore&lt;int, ChatLine&gt;(a =&gt; a.Id);
@@ -38,12 +40,28 @@ namespace Codaxy.Dextop.Showcase.Demos.Live
 			windows.TryAdd(this, 1);
         }
 
-		void RemoveOldLine(ChatLine data)
+		void AddLine(ChatLine line)
 		{
-			store.Set(data);
+			store.Set(line);
+			if (!registered)
+			{
+				registered = true;
+				if (windows.Count == 1)
+					EnterLine(new ChatLine
+					{
+						Name = &quot;Dextop&quot;,
+						Text = String.Format(&quot;Hi {0}, unfortunately you&#39;re alone here.&quot;, line.Name)
+					});
+				else
+					EnterLine(new ChatLine
+					{
+						Name = &quot;Dextop&quot;,
+						Text = String.Format(&quot;Hi {0}, there are {1} people in the room.&quot;, line.Name, windows.Count)
+					});
+			}
 		}
 
-		void AddNewLine(ChatLine data)
+		void RemoveLine(ChatLine data)
 		{
 			store.Remove(data);
 		}
@@ -61,13 +79,13 @@ namespace Codaxy.Dextop.Showcase.Demos.Live
 				ChatLine old;
 				lines.TryDequeue(out old);
 				foreach (var win in windows)
-					win.Key.AddNewLine(old);
+					win.Key.RemoveLine(old);
 			}
 
 			lines.Enqueue(data);
 			
 			foreach (var win in windows)
-				win.Key.RemoveOldLine(data);
+				win.Key.AddLine(data);
 		}
 
 		public override void Dispose()

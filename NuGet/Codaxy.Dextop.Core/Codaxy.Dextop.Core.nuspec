@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package>
   <metadata schemaVersion="2">
-    <id>Dextop.Core</id>    
-    <title>Dextop</title>
+    <id>Codaxy.Dextop.Core</id>    
+    <title>Dextop RIA Framework (Libraries)</title>
     <version>0.7.1</version>
     <authors>Codaxy</authors>
     <description>Dextop Rich Internet Application Framework (Libraries)</description>
