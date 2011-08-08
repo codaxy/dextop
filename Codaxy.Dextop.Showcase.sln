@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codaxy.Dextop.Template.Desk
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuSpec", "NuSpec", "{DFAE4A03-37F3-47AE-A2C3-399921374876}"
 	ProjectSection(SolutionItems) = preProject
-		NuGet\Dextop\dextop.nuspec = NuGet\Dextop\dextop.nuspec
+		NuGet\Codaxy.Dextop.Core\Codaxy.Dextop.Core.nuspec = NuGet\Codaxy.Dextop.Core\Codaxy.Dextop.Core.nuspec
 	EndProjectSection
 EndProject
 Global
