@@ -41,5 +41,14 @@ namespace Codaxy.Dextop.Modules
 				"");
 			RegisterCss("css/desktop.css");
 		}
+
+        /// <summary>
+        /// Override this module to register any of the assembly preprocessors.
+        /// </summary>
+        /// <param name="preprocessors">The preprocessors.</param>
+        protected override void RegisterAssemblyPreprocessors(Dictionary<string, IDextopAssemblyPreprocessor> preprocessors)
+        {
+
+        }
 	}
 }

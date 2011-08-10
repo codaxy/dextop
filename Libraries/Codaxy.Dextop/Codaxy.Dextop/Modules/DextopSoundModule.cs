@@ -90,5 +90,14 @@ namespace Codaxy.Dextop.Modules
 				config.Add("sounds", sounds);
 			return new DextopRemotableConfig("Dextop.modules.SoundModule", config);
 		}
+
+        /// <summary>
+        /// Override this module to register any of the assembly preprocessors.
+        /// </summary>
+        /// <param name="preprocessors">The preprocessors.</param>
+        protected override void RegisterAssemblyPreprocessors(Dictionary<string, IDextopAssemblyPreprocessor> preprocessors)
+        {
+
+        }
 	}
 }

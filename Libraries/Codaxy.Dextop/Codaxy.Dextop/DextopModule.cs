@@ -58,7 +58,7 @@ namespace Codaxy.Dextop
 		/// Override this module to register any of the assembly preprocessors.
 		/// </summary>
 		/// <param name="preprocessors">The preprocessors.</param>
-        protected virtual void RegisterAssemblyPreprocessors(Dictionary<String, IDextopAssemblyPreprocessor> preprocessors) { }
+        protected abstract void RegisterAssemblyPreprocessors(Dictionary<String, IDextopAssemblyPreprocessor> preprocessors);
 
 		/// <summary>
 		/// Initializes the module resources.
