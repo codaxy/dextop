@@ -85,7 +85,7 @@ namespace Codaxy.Dextop
                 if (File.Exists(fpath))
                     files.Add(virtualPath);
                 else if (throwIfNotFound)
-                    throw new InvalidDextopPackagePathException(virtualPath);
+                    throw new InvalidDextopPackagePathException(DextopUtil.CombinePaths(Module.VirtualPath, virtualPath));
             }
             else if (virtualPath.EndsWith("/"))
             {
@@ -101,7 +101,7 @@ namespace Codaxy.Dextop
                 }
             }
             else
-                throw new InvalidDextopPackagePathException(virtualPath);
+                throw new InvalidDextopPackagePathException(DextopUtil.CombinePaths(Module.VirtualPath, virtualPath));
             return files;
         }
 

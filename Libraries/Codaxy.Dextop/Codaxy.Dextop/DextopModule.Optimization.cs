@@ -21,5 +21,10 @@ namespace Codaxy.Dextop
         {
             
         }
+        
+        protected override void RegisterAssemblyPreprocessors(Dictionary<string, IDextopAssemblyPreprocessor> preprocessors)
+        {
+
+        }
     }
 }

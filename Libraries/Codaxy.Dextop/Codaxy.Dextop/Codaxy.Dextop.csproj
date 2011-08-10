@@ -87,6 +87,7 @@
     <Compile Include="DextopContext.cs" />
     <Compile Include="DextopDependencyResolver.cs" />
     <Compile Include="DextopDependencyResolver.Interface.cs" />
+    <Compile Include="DextopPanel.cs" />
     <Compile Include="Remoting\DextopEnum.Attribute.cs" />
     <Compile Include="DextopEnumerations.cs.cs" />
     <Compile Include="DextopExceptions.cs" />

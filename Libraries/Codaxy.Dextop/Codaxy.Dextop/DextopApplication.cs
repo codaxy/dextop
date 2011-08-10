@@ -90,6 +90,14 @@ namespace Codaxy.Dextop
                 throw new DextopException("Dextop application with the same key already exists.");
         }
 
+        /// <summary>
+        /// Registers the application.
+        /// </summary>
+        public void Register()
+        {
+            RegisterApplication(this);
+        }
+
 		/// <summary>
 		/// Gets the application.
 		/// </summary>

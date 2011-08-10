@@ -27,5 +27,10 @@ namespace Codaxy.Dextop.Showcase
             );
             
         }
+       
+        protected override void RegisterAssemblyPreprocessors(Dictionary<string, IDextopAssemblyPreprocessor> preprocessors)
+        {
+
+        }
     }
 }
