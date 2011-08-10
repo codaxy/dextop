@@ -1,4 +1,4 @@
-﻿Dextop = Dextop || {};
+﻿Ext.ns('Dextop');
 
 Ext.apply(Dextop, {
 

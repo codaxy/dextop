@@ -12,7 +12,7 @@ namespace Codaxy.Dextop
 		/// </summary>
 		/// <param name="ns">Name of the C# (server) namespace. If the name ends with *, prefix match is used.</param>
 		/// <returns>Client namespace.</returns>
-		public string MapNamespace(String ns)
+		public virtual string MapNamespace(String ns)
         {
             String res;
 			foreach (var m in Modules)
@@ -27,7 +27,7 @@ namespace Codaxy.Dextop
 		/// <param name="type">The type.</param>
 		/// <param name="namespaceSuffix">The namespace suffix.</param>
 		/// <returns>Client type name.</returns>
-		public string MapTypeName(Type type, params String[] namespaceSuffix)
+		public virtual string MapTypeName(Type type, params String[] namespaceSuffix)
 		{
 			var ns = MapNamespace(type.Namespace);
 			ns += String.Join("", GetNestedTypeNames(type));

@@ -1,7 +1,6 @@
-Ext.ns('Dextop');
-
-/* ItemFactory is used to easily override/complete server generated js. 
- */
+/* 
+ItemFactory is used to easily access and override server generated JS code. 
+*/
 
 Ext.define('Dextop.ItemFactory', {
 	
