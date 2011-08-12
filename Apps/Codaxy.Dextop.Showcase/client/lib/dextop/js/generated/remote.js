@@ -33,3 +33,7 @@ Ext.define('Dextop.Session.remoting.Proxy', {
 	RegisterLookupDataVersion: function(lookupName, version, callback, scope) { this.invokeRemoteMethod(callback, scope, 'RegisterLookupDataVersion', [lookupName, version]);}
 });
 
+Ext.define('Dextop.Panel.remoting.Proxy', {
+	extend: 'Dextop.RemotableBase.remoting.Proxy'
+});
+
