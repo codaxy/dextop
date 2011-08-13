@@ -31,6 +31,7 @@ namespace Codaxy.Dextop.Showcase.Demos
 				stream.WriteLine("<html>");
 				stream.WriteLine("<head>");
 				stream.WriteLine("<link href=\"../client/css/showcase.css\" type=\"text/css\" rel=\"stylesheet\" />");
+				stream.WriteLine("<meta name=\"robots\" content=\"noindex\">");
 				stream.WriteLine("</head>");
 				stream.WriteLine("<body>");
 				stream.WriteLine(aboutHtml);
@@ -75,6 +76,7 @@ namespace Codaxy.Dextop.Showcase.Demos
 					writer.WriteLine("<head>");
 					writer.WriteLine("<link href=\"../client/css/showcase.css\" type=\"text/css\" rel=\"stylesheet\" />");
 					writer.WriteLine("<link href=\"../client/lib/prettify/prettify.css\" type=\"text/css\" rel=\"stylesheet\" />");
+					writer.WriteLine("<meta name=\"robots\" content=\"noindex\">");
 					writer.WriteLine("</head>");
 
 
