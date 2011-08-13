@@ -5,21 +5,19 @@
 </head>
 <body>
 <h1>Shared Lookup Data</h1>
-
 <p>Dextop provides built-in mechanism for building and caching of lookup data which appears in random places
 throughout your applications. Lookup data can be cached accross multiple sessions which can improve
 application performance.</p>
-
 <pre><code>//Session.cs
 protected override object[] BuildLookupData(string name, out DextopSessionVariableSharing sharing)
 {
     switch (name)
     {
-        case "OnOff":               
+        case &quot;OnOff&quot;:               
             sharing = DextopSessionVariableSharing.Global;
             return new[] { 
-                new object[] { true, "On" },
-                new object[] { false, "Off" }
+                new object[] { true, &quot;On&quot; },
+                new object[] { false, &quot;Off&quot; }
             };
     }
     return base.BuildLookupData(name, out version, out sharing);

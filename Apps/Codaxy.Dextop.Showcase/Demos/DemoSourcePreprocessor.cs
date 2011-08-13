@@ -136,15 +136,15 @@ namespace Codaxy.Dextop.Showcase.Demos
 		public String ReadAndTransformMarkdownFile(String path)
 		{
 			var md = File.ReadAllText(path);
-			try
-			{
-				var markdown = new MarkdownSharp.Markdown();
-				return markdown.Transform(md);
-			}
-			catch
-			{
-				return md;
-			}
+            try
+            {
+                var markdown = new MarkdownDeep.Markdown();
+                return markdown.Transform(md);
+            }
+            catch
+            {
+                return md;
+            }
 		}
     }
 }

@@ -16,7 +16,6 @@ namespace Codaxy.Dextop.Showcase.Controllers
             var app = DextopApplication.GetApplication();
             var session = new ShowcaseSession();            
             var config = app.AddSession(session);
-			
 
 			return View(new Models.DextopAppConfig
 			{
@@ -25,6 +24,5 @@ namespace Codaxy.Dextop.Showcase.Controllers
 				SessionConfig = new HtmlString(DextopUtil.Encode(config))
 			});
         }
-
     }
 }
