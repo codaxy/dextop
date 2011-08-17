@@ -20,7 +20,7 @@
 				xtype: 'button',
 				margins: '3 3 3 3',
 				flex: 1,
-				scope: this,
+				scope: this
 			},
 			items: [exception, {				
 				text: 'Callback Function',				
