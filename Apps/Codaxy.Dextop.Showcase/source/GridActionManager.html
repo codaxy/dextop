@@ -2,36 +2,30 @@
 <head>
 <link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
 <link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+<meta name="robots" content="noindex">
 </head>
 <body>
 <h1>Grid Action Manager</h1>
-
 <p>Ext.ux.grid.plugin.ActionManager plugin provides two basic
 features. First one is enabling and disabling actions based
 on the selected rows int grid. Add </p>
-
 <pre><code>enableOnSingle:true 
 </code></pre>
 
 <p>or </p>
-
 <pre><code>enableOnMulti:true 
 </code></pre>
 
 <p>to your actions to enable this feature.</p>
-
 <p>For data sensitive enabling using following method:</p>
-
 <pre><code>enableOnSingle: function (rec) {
     return !rec.get('IsAdministrator');
 }
 </code></pre>
 
 <p>This way 'Administrators' can't be deleted.</p>
-
 <p>Second feature is context sensitive menu.
 Set bindContextMenu: false in plugin config to disable this feature.</p>
-
 <p>Use contextMenuConfig config property to pass special configuration 
 options to Ext.menu.Menu.</p>
 

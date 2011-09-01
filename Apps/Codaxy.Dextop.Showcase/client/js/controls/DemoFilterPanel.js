@@ -116,7 +116,7 @@ Ext.define('Showcase.DemoFilterPanel', {
 		
 		Ext.apply(this, {
 			defaults: {
-				margin: '2 2 2 2',
+				margin: '2 2 2 2'
 			},
 			items: [{
 				xtype: 'fieldset',

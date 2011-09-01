@@ -142,7 +142,7 @@ namespace Codaxy.Dextop.Showcase.Guides
 			var md = File.ReadAllText(path);
 			try
 			{
-				var markdown = new MarkdownSharp.Markdown();
+				var markdown = new MarkdownDeep.Markdown();
 				return markdown.Transform(md);
 			}
 			catch

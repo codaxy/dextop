@@ -209,7 +209,7 @@ Ext.define('Dextop.Session', {
 				title: Dextop.warningText
 			},
 			error: {
-				title: Dextop.errorText,
+				title: Dextop.errorText
 			}
 		};		
 		

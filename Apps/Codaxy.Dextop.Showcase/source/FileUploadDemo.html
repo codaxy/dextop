@@ -2,23 +2,20 @@
 <head>
 <link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
 <link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+<meta name="robots" content="noindex">
 </head>
 <body>
 <p><strong>NOTE:</strong> <em>This demo is obsolete due to new Dextop capabilites. Check 'File Upload Form Field' demo to learn about new Dextop features.</em></p>
-
 <h1>File Upload Demo</h1>
-
 <p>File upload is done using Dextop remotable methods. 
 To accept a file (or a form) method has to be attributed with [DextopRemotable] attribute and 
 it's first parameter has to be of type DextopFormSubmit.</p>
-
 <pre><code>[DextopRemotable]
 string UploadFile(DextopFormSubmit form)
 </code></pre>
 
 <p>Client part is a bit tricky. Since Ext 4, 'FormPanels' do not render HTML form elements, but form elements are generated on submit 
 and deleted immediately after submit. To get the form element we use api functions to intercept form submit calls.</p>
-
 <pre><code>xtype: 'form',
 api: {
     submit: Ext.bind(this.submit, this)
@@ -26,7 +23,6 @@ api: {
 </code></pre>
 
 <p>In intercepted call form element is available and can be used. </p>
-
 <pre><code>submit: function(form) {
     this.remote.UploadFile(form, function (r) {
         if (r &amp;&amp; r.success)
@@ -36,6 +32,7 @@ api: {
     });
 }
 </code></pre>
+
 
 </body>
 </html>

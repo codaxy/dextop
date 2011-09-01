@@ -2,17 +2,14 @@
 <head>
 <link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
 <link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+<meta name="robots" content="noindex">
 </head>
 <body>
 <h1>Remote Instantiation Demo</h1>
-
 <p>This demo shows how to instantiate a remote object on the server-side.</p>
-
 <h3>Server side</h3>
-
 <p>Use attributes to mark remotable constructors.</p>
-
-<pre><code>[DextopRemotableConstructor(alias="...")]
+<pre><code>[DextopRemotableConstructor(alias=&quot;...&quot;)]
 
 or 
 
@@ -20,18 +17,13 @@ or
 </code></pre>
 
 <p>NOTE: It's possible to use aliases to set friendly names for your classes.</p>
-
 <h3>Client side</h3>
-
 <p>Use </p>
-
 <pre><code>this.remote.Instantiate(type, config)
 </code></pre>
 
 <p>to instantiate object on the server-side and get it's client-side configuration.</p>
-
 <p><em>type</em> argument can be a string name or a JS hash containing additional parameters required for remote object registration.</p>
-
 <pre><code>{
     type: '...',
     own: true, //Dispose remote object when its parent is disposed
@@ -41,12 +33,9 @@ or
 </code></pre>
 
 <p>NOTE: A Dextop window should be instantiated with <em>own:false</em> as it will be automatically disposed when closed.</p>
-
 <p><em>config</em> argument should be a hash containing the data which will be passed to the class constructor (server-side).</p>
-
 <p>For multiple parameter constructors, arguments are decoded from the hash or array, e.g.</p>
-
-<pre><code>    [DextopRemotableConstructor(alias="chat")]
+<pre><code>    [DextopRemotableConstructor(alias=&quot;chat&quot;)]
     ChatSession(string a, string b) 
 
     //use 
@@ -54,6 +43,7 @@ or
     //or
     this.remote.Instantiate('chat', ['Nick', 'John'], ...);    
 </code></pre>
+
 
 </body>
 </html>

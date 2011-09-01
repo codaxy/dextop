@@ -19,7 +19,7 @@ Ext.define('Showcase.demos.PlaySoundWindow', {
 				xtype: 'button',
 				margins: '3 3 3 3',
 				flex: 1,
-				scope: this,
+				scope: this
 			},
 			items: [{				
 				text: 'Play',				
