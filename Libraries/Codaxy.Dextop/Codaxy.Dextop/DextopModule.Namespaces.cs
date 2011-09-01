@@ -7,27 +7,39 @@ namespace Codaxy.Dextop
 {
     public partial class DextopModule
     {
+        enum NamespaceMappingMode { Exact, PrefixExact, Prefix }
+
         class NamespaceMapping
         {
             public String Namespace { get; set; }
             public String ClientNamespace { get; set; }
-            public bool Prefix { get; set; }
+            public NamespaceMappingMode Mode { get; set; }
         }
-        List<NamespaceMapping> namespaceMapper = new List<NamespaceMapping>();
+        List<NamespaceMapping> namespaceMapping = new List<NamespaceMapping>();
 
         /// <summary>
-        /// Map C# (server) class namespace to JS (client) namespace.
+        /// Map C# (server) class namespace to JS (client) namespace. Use * and % to define prefix mappings.
         /// </summary>
-        /// <param name="ns">Name of the C# (server) namespace. If the name ends with *, prefix match is used. </param>
+        /// <param name="ns">Name of the C# (server) namespace. If the name ends with *, prefix match is used. If the name ends with % only that part of namespace is mapped. </param>
         /// <param name="cns">Name of the JS (client) namespace.</param>
         public void RegisterNamespaceMapping(String ns, String cns)
         {
-            namespaceMapper.Add(new NamespaceMapping
+            namespaceMapping.Add(new NamespaceMapping
             {
                 Namespace = ns.TrimEnd('*'),
-                ClientNamespace = cns,
-                Prefix = ns.EndsWith("*")
+                ClientNamespace = (cns ?? "").TrimEnd('*'),
+                Mode = GetNamespaceMappingMode(ns, cns)
             });
+        }
+
+        NamespaceMappingMode GetNamespaceMappingMode(String ns, String cns)
+        {
+            if (ns.EndsWith("*"))
+                if (cns.EndsWith("*"))
+                    return NamespaceMappingMode.Prefix;
+                else
+                    return NamespaceMappingMode.PrefixExact;            
+            return NamespaceMappingMode.Exact;
         }
 
 		/// <summary>
@@ -38,17 +50,31 @@ namespace Codaxy.Dextop
 		/// <returns></returns>
         public bool TryMapNamespace(String serverNs, out string clientNs)
         {
-            foreach (var m in namespaceMapper)
-                if (m.Namespace == serverNs)
+            foreach (var m in namespaceMapping)
+                switch (m.Mode)
                 {
-                    clientNs = m.ClientNamespace;
-                    return true;
-                }
-                else if (m.Prefix && serverNs.StartsWith(m.Namespace))
-                {
-                    clientNs = m.ClientNamespace;
-                    return true;
-                }
+                    case NamespaceMappingMode.Exact:
+                        if (m.Namespace == serverNs)
+                        {
+                            clientNs = m.ClientNamespace;
+                            return true;
+                        }
+                        break;
+                    case NamespaceMappingMode.Prefix:
+                        if (serverNs.StartsWith(m.Namespace))
+                        {
+                            clientNs = m.ClientNamespace + serverNs.Substring(m.Namespace.Length);
+                            return true;
+                        }
+                        break;
+                    case NamespaceMappingMode.PrefixExact:
+                        if (serverNs.StartsWith(m.Namespace))
+                        {
+                            clientNs = m.ClientNamespace;
+                            return true;
+                        }
+                        break;
+                }                
             clientNs = null;
             return false;
         }

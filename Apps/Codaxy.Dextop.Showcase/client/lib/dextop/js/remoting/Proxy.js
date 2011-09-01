@@ -288,6 +288,12 @@ Ext.define("Dextop.remoting.Proxy", {
 			throw "Could not create headers '" + name + "'. Component configuration is not defined.";
 		options = options || {};
 		options.remote = this;
-		return Dextop.data.GridColumnsFactory.create(model.replace('.model.', '.columns.'), options);
+		return Dextop.data.GridColumnsFactory.create(this.replaceLast(model, '.model.', '.columns.'), options);
+	},
+
+	replaceLast: function (str, search, replacement) {
+		var charpos = str.lastIndexOf(search);
+		if (charpos < 0) return str;
+		return str.substring(0, charpos) + replacement + str.substring(charpos + search.length);
 	}
 });
