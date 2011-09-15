@@ -23,9 +23,9 @@ Ext.define(&#39;Showcase.demos.RowEditableGridWindow&#39;, {
 		var store = this.remote.createStore(&#39;model&#39;, {
 			autoLoad: true,
 			autoSync: true,
+			autoRevert: true,
 			proxyOptions: {				
-				batchActions: false,
-				autoRevert: true,
+				batchActions: false,				
 				remoteCallbackOptions: {
 					type: &#39;notify&#39;
 				}
@@ -95,7 +95,7 @@ Ext.define(&#39;Showcase.demos.RowEditableGridWindow&#39;, {
 				listeners: {
 					scope: this,
 					&#39;toggle&#39;: function (toggle, pressed) {
-						store.proxy.autoRevert = pressed;
+						store.autoRevert = pressed;
 					}
 				}
 			}]

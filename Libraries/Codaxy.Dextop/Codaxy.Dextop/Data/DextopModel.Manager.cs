@@ -102,6 +102,7 @@ namespace Codaxy.Dextop.Data
             };
 
             List<String> idCandidates = new List<string>();
+            var dfat = new DextopModelFieldAttribute();
 
             foreach (var p in combined)
             {
@@ -116,7 +117,7 @@ namespace Codaxy.Dextop.Data
                     excludeFields.Add(p.Name);
                 if (!excludeFields.Contains(p.Name))
                 {
-                    var dva = AttributeHelper.GetCustomAttribute<DextopModelDefaultValueAttribute>(p, true);
+                    var fat = AttributeHelper.GetCustomAttribute<DextopModelFieldAttribute>(p, true) ?? dfat;
                     String ft;
                     if (!DextopModelFieldTypeMapper.TryGetFieldTypeName(fieldType, out ft))
                     {
@@ -126,9 +127,15 @@ namespace Codaxy.Dextop.Data
                     var field = new DextopModel.Field
                     {
                         name = p.Name,
-                        type = ft,
-                        defaultValue = dva != null ? dva.DefaultValue : null,
-                        useNull = true//fieldType.IsClass || Codaxy.Common.Nullable.IsNullableType(type) || fieldType == typeof(String)
+                        type = fat.type ?? ft,
+                        defaultValue = fat.defaultValue,
+                        useNull = fat.useNotNull ? false : true,//fieldType.IsClass || Codaxy.Common.Nullable.IsNullableType(type) || fieldType == typeof(String)
+                        dateFormat = fat.dateFormat,
+                        mapping = fat.mapping,
+                        sortDir = fat.sortDir,
+                        persist = fat.persist,
+                        convert = fat.convert,
+                        sortType = fat.sortType
                     };
                     model.Fields.Add(field);
                     if (meta.IdField == null)

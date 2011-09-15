@@ -2,7 +2,7 @@ Ext.ns('Showcase');
 
 Ext.define('Showcase.demos.EditableGridWindow', {
 	extend: 'Dextop.Window',
-	width: 500,
+	width: 600,
 	height: 300,
 
 	title: 'Editable Grid',
@@ -14,7 +14,7 @@ Ext.define('Showcase.demos.EditableGridWindow', {
 			autoLoad: true
 		});
 
-		var columns = this.remote.createGridColumns('model', {			
+		var columns = this.remote.createGridColumns('model', {
 			checkEditor: true
 		});
 
