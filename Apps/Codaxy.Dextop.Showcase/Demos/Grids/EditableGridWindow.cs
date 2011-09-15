@@ -25,6 +25,42 @@ namespace Codaxy.Dextop.Showcase.Demos.Grids
             });
         }
 
+        enum Gender { Male, Female };
+
+        [DextopModel]
+        [DextopGrid]
+        class GridModel
+        {
+            [DextopModelId]
+            [DextopGridColumn(width = 50, readOnly=true)] 
+            public int Id { get; set; }
+            
+            [DextopGridColumn(flex=1)]
+            public String FirstName { get; set; }
+
+            [DextopGridColumn(flex = 1)]
+            public String LastName { get; set; }
+
+            [DextopGridColumn(flex = 1, readOnly=true)]
+            //[DextopModelField(convert="function(v, rec) { return rec.data.FirstName + ' ' + rec.data.LastName; }")]
+            public String FullName { get { return FirstName + " " + LastName; } }
+
+            [DextopGridLookupColumn()]
+            public Gender Gender { get; set; }
+            
+            [DextopGridColumn(width = 50)]            
+            public int Age { get; set; }
+
+            [DextopGridColumn(width = 50)]
+            public int Height { get; set; }
+			
+			[DextopGridColumn]
+			public bool Basketball { get; set; }
+
+			[DextopGridColumn]
+			public bool Football { get; set; }
+        }
+
         class Crud : DextopDataProxy<GridModel>
         {
             SortedDictionary<int, GridModel> list = new SortedDictionary<int, GridModel>();
@@ -56,37 +92,8 @@ namespace Codaxy.Dextop.Showcase.Demos.Grids
 
             public override DextopReadResult<GridModel> Read(DextopReadFilter filter)
             {
-                return DextopReadResult.Create(list.Values.ToArray());                
-            }            
-        }
-
-        enum Gender { Male, Female };
-
-        [DextopModel]
-        [DextopGrid]
-        class GridModel
-        {
-            [DextopModelId]
-            [DextopGridColumn(width = 50, readOnly=true)] 
-            public int Id { get; set; }
-            
-            [DextopGridColumn(flex=1)]
-            public String Name { get; set; }
-
-            [DextopGridLookupColumn()]
-            public Gender Gender { get; set; }
-            
-            [DextopGridColumn(width = 50)]            
-            public int Age { get; set; }
-
-            [DextopGridColumn(width = 50)]
-            public int Height { get; set; }
-			
-			[DextopGridColumn]
-			public bool Basketball { get; set; }
-
-			[DextopGridColumn]
-			public bool Football { get; set; }
+                return DextopReadResult.Create(list.Values.ToArray());
+            }
         }
     }
 }

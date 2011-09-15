@@ -67,6 +67,11 @@ namespace Codaxy.Dextop.Data
             public string name { get; set; }
 
             /// <summary>
+            /// Used when converting received data into a Date when the type is specified as "date".
+            /// </summary>
+            public string dateFormat { get; set; }
+
+            /// <summary>
             /// The type of the field.
             /// </summary>
             public string type { get; set; }
@@ -81,6 +86,31 @@ namespace Codaxy.Dextop.Data
             /// </summary>
 			public bool? useNull { get; set; }
 
+            /// <summary>
+            ///  A path expression for use by the Ext.data.reader.Reader implementation that is creating the Model to extract the Field value from the data object. If the path expression is the same as the field name, the mapping may be omitted.
+            /// </summary>
+            public string mapping { get; set; }
+
+            /// <summary>
+            /// A function which converts a Field's value to a comparable value in order to ensure correct sort ordering. 
+            /// </summary>
+            public string sortType { get; set; }
+
+            /// <summary>
+            /// A function which converts the value provided by the Reader into an object that will be stored in the Model.
+            /// </summary>
+            public string convert { get; set; }
+
+            /// <summary>
+            /// False to exclude this field from the Ext.data.Model.modified fields in a model. This will also exclude the field from being written using a Ext.data.writer.Writer. This option is useful when model fields are used to keep state on the client but do not need to be persisted to the server. Defaults to true.
+            /// </summary>
+            public bool persist { get; set; }
+
+            /// <summary>
+            /// Initial direction to sort ("ASC" or "DESC"). Defaults to "ASC".
+            /// </summary>
+            public string sortDir { get; set; }
+
 			/// <summary>
 			/// Write the properties from the bag to the writer. This method can be overrided for advanced scenarios.
 			/// </summary>
@@ -92,6 +122,13 @@ namespace Codaxy.Dextop.Data
                 jw.DefaultProperty("defaultValue", defaultValue);
                 if (useNull == true)
                     jw.AddProperty("useNull", useNull);
+                if (persist == false)
+                    jw.AddProperty("persist", false);
+                jw.DefaultProperty("mapping", mapping);
+                jw.DefaultRawProperty("sortType", sortType);
+                jw.DefaultRawProperty("convert", convert);
+                jw.DefaultProperty("sortDir", sortDir);
+                        
                 base.WriteProperties(jw);
             }
         }
