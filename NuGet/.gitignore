@@ -1,3 +1,4 @@
 
 *.nupkg
-Dextop.Core/lib/
+Codaxy.Dextop.Core/lib/
+Codaxy.Dextop.Core/src/

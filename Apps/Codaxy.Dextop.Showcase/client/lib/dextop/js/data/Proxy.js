@@ -16,9 +16,6 @@ Ext.define('Dextop.data.Proxy', {
 	//callback options for remote method invocation
 	remoteCallbackOptions: undefined,
 
-	//auto revert changes rejected by the server
-	autoRevert: undefined,
-
 	constructor: function (config) {
 
 		config = config || {};
@@ -34,36 +31,7 @@ Ext.define('Dextop.data.Proxy', {
 		}
 
 		this.callParent(arguments);
-
-		this.mon(this, 'exception', function (proxy, response, operation, options) {
-			if (this.autoRevert)
-				this.revertFailedOperation(operation);
-		}, this);
 	},	
-
-	// Method for reverting changes rejected by the server.
-	// It's very useful when you want that failed data reappear in the grid/store.
-	revertFailedOperation: function (operation) {
-		var records = operation.getRecords();
-		if (records.length == 0)
-			return;
-		var store = records[0].store;
-		switch (operation.action) {
-			case "create":
-				store.remove(records);
-				break;
-			case "update":
-				for (var i = 0; i < records.length; i++)
-					records[i].reject();
-				break;
-			case "destroy":
-				store.removed = [];
-				store.loadRecords(records, { addRecords: true });
-				break;
-		}
-	},
-
-
 
 	applyEncoding: function (v) {
 		return v;

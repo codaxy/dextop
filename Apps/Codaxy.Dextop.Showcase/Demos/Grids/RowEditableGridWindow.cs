@@ -54,7 +54,7 @@ namespace Codaxy.Dextop.Showcase.Demos.Grids
             {
 				foreach (var rec in data)
 				{
-					if (rec.Name == "Neo")
+					if (rec.Name == "Delete")
 						throw new DextopErrorMessageException("Internal error.");
 					records.Remove(rec.Id);
 				}
