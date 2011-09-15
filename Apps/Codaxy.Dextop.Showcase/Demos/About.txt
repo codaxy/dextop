@@ -3,9 +3,11 @@
 
 Dextop is RIA open-source framework based on .NET/Mono and Sencha Ext JS.
 
-Checkout Dextop source code at <a href="http://code.google.com/p/codaxy-dextop2/" target="_blank">Google Code</a>.
+Checkout Dextop source code at <a href="https://github.com/codaxy/dextop" target="_blank">GitHub</a>.
 
 Browse <a href="http://dextop.codaxy.com/dox/" target="_blank">Dextop's documentation</a>.
+
+Ask questions about Dextop at <a href="http://stackoverflow.com" target="_blank">StackOverflow</a> (just mark them with [extjs] tag).
 
 Find out more about Codaxy at <a href="http://www.codaxy.com/" target="_blank">www.codaxy.com</a>.
 

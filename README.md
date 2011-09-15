@@ -1,6 +1,7 @@
 # Dextop
 
 Dextop is RIA framework based on Sencha Ext JS and .NET/Mono platform.
+Ask any question about Dextop at <a href="http://stackoverflow.com" target="_blank">StackOverflow</a> (just mark them with [extjs] tag).
 
 ### Links
 
