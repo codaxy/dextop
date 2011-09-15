@@ -1,11 +1,50 @@
 //useful for stores with autosync and roweditor
+//auto revert function
 
 Ext.override(Ext.data.Store, {
+
+	//auto revert changes rejected by the server
+	autoRevert: undefined,
+
 	insertPhantom: function (index, rec) {
 		var autoSync = this.autoSync;
 		this.autoSync = false;
 		this.insert(index, rec);
 		this.autoSync = autoSync;
+	},
+
+	// Method for reverting changes rejected by the server.
+	// It's very useful when you want that failed data reappear in the grid/store.
+	revertFailedOperation: function (operation) {
+		var records = operation.getRecords();
+		if (records.length == 0)
+			return;
+		var store = this;
+		switch (operation.action) {
+			case "create":
+				store.remove(records);
+				break;
+			case "update":
+				for (var i = 0; i < records.length; i++)
+					records[i].reject();
+				break;
+			case "destroy":
+				store.removed = [];
+				store.loadRecords(records, { addRecords: true });
+				break;
+		}
+	},
+
+	onBatchException: function (batch, operation) {
+		var reject = this.autoRevert || this.autoReject;
+		if (reject) {
+			if (this.operation)
+				this.revertFailedOperation(operation);
+			else {
+				for (var i = 0; i < batch.operations.length; i++)
+					this.revertFailedOperation(batch.operations[i]);
+			}
+		}
 	}
 });
 
