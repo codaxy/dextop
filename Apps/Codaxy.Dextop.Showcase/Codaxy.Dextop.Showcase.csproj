@@ -13,7 +13,7 @@
     <RootNamespace>Codaxy.Dextop.Showcase</RootNamespace>
     <AssemblyName>Codaxy.Dextop.Showcase</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <MvcBuildViews>false</MvcBuildViews>
+    <MvcBuildViews>true</MvcBuildViews>
     <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
