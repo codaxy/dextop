@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Diagnostics;
 
 namespace Codaxy.Dextop.Showcase
 {
@@ -34,15 +35,24 @@ namespace Codaxy.Dextop.Showcase
 
         protected void Application_Start()
         {
-            AreaRegistration.RegisterAllAreas();
+			try
+			{
+				AreaRegistration.RegisterAllAreas();
 
-            RegisterGlobalFilters(GlobalFilters.Filters);
-            RegisterRoutes(RouteTable.Routes);
+				RegisterGlobalFilters(GlobalFilters.Filters);
+				RegisterRoutes(RouteTable.Routes);
 
-            var app = new ShowcaseApplication();
-            app.Initialize();
+				var app = new ShowcaseApplication();
+				app.Initialize();
 
-            DextopApplication.RegisterApplication(app);
+				DextopApplication.RegisterApplication(app);
+			}
+			catch (Exception ex)
+			{
+				Debug.WriteLine(ex.ToString());
+				HttpRuntime.UnloadAppDomain();
+				throw;
+			}
         }		
     }
 }

@@ -1,0 +1,25 @@
+JSON.NET
+--------
+
+This software uses JSON.NET library provided by James Newton-King
+available under the MIT license.
+
+See http://json.codeplex.com/license.
+
+MarkdownDeep
+
+This software uses MarkdownDeep library by Topten Software 
+available which under the Apache License, Version 2.0.
+
+See
+http://www.toptensoftware.com/markdowndeep/license
+http://www.apache.org/licenses/LICENSE-2.0
+
+SoundManager2
+
+Dextop Showcase application is using SoundManager2 library written by Scott Schiller (schillmania.com), 
+which is available under the BSD license.
+
+See 
+http://www.schillmania.com/projects/soundmanager2/license.txt
+
