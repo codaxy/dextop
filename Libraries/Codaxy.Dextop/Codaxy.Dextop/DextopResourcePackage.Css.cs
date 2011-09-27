@@ -15,6 +15,11 @@ namespace Codaxy.Dextop
         DextopResourcePackage package;
 
 		/// <summary>
+		/// When enabled result js files will not be overriden until source files are modified.
+		/// </summary>
+		public bool SmartOverwrite { get; set; }
+
+		/// <summary>
 		/// Initializes a new instance of the <see cref="DextopCssResourcePackage"/> class.
 		/// </summary>
 		/// <param name="module">The module.</param>
@@ -73,15 +78,20 @@ namespace Codaxy.Dextop
         {
             for (var i = 0; i < files.Count; i++)
             {
-                var filePath = package.Module.MapPath(files[i]);
-                var cb = DextopFileUtil.CalculateCacheBuster(filePath);
+				var filePath = package.Module.MapPath(files[i]);
+			
+				DateTime lastWrite;
+                var cb = DextopFileUtil.CalculateCacheBuster(new [] { filePath }, out lastWrite);
                 if (Minify)
-                {
-                    var outputPath = filePath.Substring(0, filePath.Length - 4) + "-min.css";
-                    var css = File.ReadAllText(filePath);
-                    css = DextopFileUtil.MinifyCss(css);
-                    File.WriteAllText(outputPath, css);
-                    files[i] = files[i].Substring(0, files[i].Length - 4) + "-min.css";
+                {					
+					var outputPath = new FileInfo(filePath.Substring(0, filePath.Length - 4) + "-min.css");
+					if (!SmartOverwrite || !outputPath.Exists || outputPath.LastAccessTime <= lastWrite)
+					{
+						var css = File.ReadAllText(filePath);
+						css = DextopFileUtil.MinifyCss(css);
+						File.WriteAllText(outputPath.FullName, css);
+						files[i] = files[i].Substring(0, files[i].Length - 4) + "-min.css";
+					}
                 }
                 files[i] = files[i] + "?cb=" + cb;
             }

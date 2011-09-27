@@ -45,6 +45,11 @@ namespace Codaxy.Dextop
         public bool Minify { get; set; }
 
 		/// <summary>
+		/// When enabled result js files will not be overriden until source files are modified.
+		/// </summary>
+		public bool SmartOverwrite { get; set; }
+
+		/// <summary>
 		/// Registers the files the specified path prefix.
 		/// </summary>
 		/// <param name="pathPrefix">The path prefix to be applied to all paths.</param>
@@ -104,12 +109,17 @@ namespace Codaxy.Dextop
 
             var fileName = package.Module.ModuleName + "-" + PackageName + ".js";
             var filePaths = package.Files.Select(a => package.Module.MapPath(a)).ToArray();
-            int cacheBuster = DextopFileUtil.CalculateCacheBuster(filePaths);
-            var js = DextopFileUtil.ConcateFiles(filePaths);
-            if (Minify)
-                js = DextopFileUtil.MinifyJs(js, Obfuscate);
-
-            DextopFileUtil.WriteTextFile(context.OptimizationOutputModule.MapPath(fileName), js);
+			DateTime lastWrite;
+            int cacheBuster = DextopFileUtil.CalculateCacheBuster(filePaths, out lastWrite);			
+			var outputFile = new FileInfo(context.OptimizationOutputModule.MapPath(fileName));
+			if (!SmartOverwrite || !outputFile.Exists || outputFile.LastWriteTime <= lastWrite)
+			{
+				var js = DextopFileUtil.ConcateFiles(filePaths);
+				if (Minify)
+					js = DextopFileUtil.MinifyJs(js, Obfuscate);
+				DextopFileUtil.WriteTextFile(outputFile.FullName, js);
+			}
+            
             pkg.AddFiles(new[] { fileName + "?cb=" + cacheBuster });
 
             if (package.Localizations!=null)
@@ -117,11 +127,16 @@ namespace Codaxy.Dextop
                 {
                     fileName = package.Module.ModuleName + "-" + PackageName + String.Format(".locale-{0}.js", loc.Key);
                     filePaths = loc.Value.Select(a => package.Module.MapPath(a)).ToArray();
-                    cacheBuster = DextopFileUtil.CalculateCacheBuster(filePaths);
-                    js = DextopFileUtil.ConcateFiles(filePaths);
-                    if (Minify)
-                        js = DextopFileUtil.MinifyJs(js, Obfuscate);
-                    DextopFileUtil.WriteTextFile(context.OptimizationOutputModule.MapPath(fileName), js);
+					cacheBuster = DextopFileUtil.CalculateCacheBuster(filePaths, out lastWrite);
+					outputFile = new FileInfo(context.OptimizationOutputModule.MapPath(fileName));
+					if (!SmartOverwrite || !outputFile.Exists || outputFile.LastWriteTime <= lastWrite)
+					{
+						var js = DextopFileUtil.ConcateFiles(filePaths);
+						js = DextopFileUtil.ConcateFiles(filePaths);
+						if (Minify)
+							js = DextopFileUtil.MinifyJs(js, Obfuscate);
+						DextopFileUtil.WriteTextFile(outputFile.FullName, js);
+					}
                     pkg.AddLocalization(loc.Key, new[] { fileName + "?cb=" + cacheBuster });
                 }
 
