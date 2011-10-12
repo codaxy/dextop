@@ -21,6 +21,9 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
 
 	editOnDblClick: false, //Start editing when row is double-clicked
 
+	autoSelect: true, //AutoSelect plugin
+	preserveSelection: true, //AutoSelect plugin
+
 	confirmDeleteText: 'Are you sure you want to remove the selected records?',
 	pageSizeText: 'Size: ',
 
@@ -47,6 +50,13 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
 		this.actionManager = Ext.create('Ext.ux.grid.plugin.ActionManager');
 		this.plugins = Ext.Array.from(this.plugins) || [];
 		this.plugins.push(this.actionManager);
+
+		if (this.autoSelect) {
+			this.plugins.push(Ext.create('Ext.ux.grid.plugin.AutoSelect', {
+				autoSelect: this.autoSelect,
+				preserveSelection: this.preserveSelection
+			}));
+		}
 
 		if (this.paging) {
 			if (this.bbar)
