@@ -53,7 +53,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Codaxy.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Codaxy.Common.0.5.3\lib\Codaxy.Common.dll</HintPath>
+      <HintPath>..\..\packages\Codaxy.Common.0.5.9\lib\Codaxy.Common.dll</HintPath>
     </Reference>
     <Reference Include="MarkdownDeep">
       <HintPath>..\..\packages\MarkdownDeep.NET.1.4\lib\.NetFramework 3.5\MarkdownDeep.dll</HintPath>

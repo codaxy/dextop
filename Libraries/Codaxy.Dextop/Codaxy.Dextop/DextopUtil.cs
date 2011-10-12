@@ -123,7 +123,11 @@ namespace Codaxy.Dextop
 			if (type == typeof(TimeSpan))
 				return DecodeTime(value);					
 			if (type == typeof(TimeSpan?))
-				return (TimeSpan?)DecodeTime(value);	
+				return (TimeSpan?)DecodeTime(value);
+            if (type == typeof(Guid))
+                return new Guid(value);
+            if (type == typeof(Guid?))
+                return (Guid?)(new Guid(value));
             if (type.IsValueType)
                 return Codaxy.Common.Convert.ChangeTypeInvariant(value, type);
             return DextopUtil.Decode(value, type);
