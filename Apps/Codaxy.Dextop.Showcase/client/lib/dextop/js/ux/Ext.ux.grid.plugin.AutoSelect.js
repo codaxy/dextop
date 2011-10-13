@@ -1,14 +1,16 @@
 ﻿Ext.define('Ext.ux.grid.plugin.AutoSelect', {
 
 	autoSelect: true,
+	defaultLast: true,
 	preserveSelection: true,
-	firstLoad: true,
 
 	constructor: function (config) {
 		Ext.apply(this, config);
 	},
 
 	init: function (grid) {
+
+		this.firstLoad = grid.store.getCount() == 0; //this should be store.isLoaded()
 
 		this.grid = grid;
 
@@ -41,7 +43,10 @@
 				if (nrec)
 					newSelection.push(nrec);
 			}
-			selModel.select(newSelection);
+			if (this.defaultLast && newSelection.length == 0 && this.grid.store.getCount() > 0) {
+				selModel.select(this.grid.store.getAt(this.grid.store.getCount() - 1));
+			} else
+				selModel.select(newSelection);
 		} else {
 			if (this.grid.store.getCount() > 0) {
 				var rec = this.grid.store.getAt(0);
