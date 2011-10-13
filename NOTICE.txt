@@ -1,25 +1,10 @@
-﻿Dextop
-======
+JSON.NET
+--------
 
-Dextop is RIA open-source framework based on .NET/Mono and Sencha Ext JS.
-
-Checkout Dextop source code at <a href="https://github.com/codaxy/dextop" target="_blank">GitHub</a>.
-
-Browse <a href="http://dextop.codaxy.com/dox/" target="_blank">Dextop's documentation</a>.
-
-Ask questions about Dextop at <a href="http://stackoverflow.com" target="_blank">StackOverflow</a> (just mark them with [extjs] tag).
-
-Find out more about Codaxy at <a href="http://www.codaxy.com/" target="_blank">www.codaxy.com</a>.
-
-License
--------
-Dextop is available under GPL v3 or Commercial License.
-
-### JSON.NET
 This software uses JSON.NET library provided by James Newton-King
-available under the <a href="http://json.codeplex.com/license" target="_blank">MIT license</a>.
+available under the follwing MIT license:
 
-	Copyright (c) 2007 James Newton-King
+Copyright (c) 2007 James Newton-King
 
 	Permission is hereby granted, free of charge, to any person obtaining a copy
 	of this software and associated documentation files (the "Software"), to deal 
@@ -38,9 +23,39 @@ available under the <a href="http://json.codeplex.com/license" target="_blank">M
 	TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE 
 	USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-### SoundManager2
-Dextop Showcase application is using SoundManager2 library written by Scott Schiller (<a href="http://www.schillmania.com/" target="_blank">schillmania.com</a>), 
-which is available under the <a href="http://www.schillmania.com/projects/soundmanager2/license.txt" target="_blank">BSD license</a>.
+See http://json.codeplex.com/license.
+
+MarkdownDeep
+------------
+
+This software uses MarkdownDeep library by Topten Software 
+available under the Apache License, Version 2.0.
+
+	Copyright 2010-2011 Topten Software
+
+	Licensed under the Apache License, Version 2.0 (the "License"); you may not use this 
+	product except in compliance with the License. You may obtain a copy of the License at
+
+	http://www.apache.org/licenses/LICENSE-2.0
+
+	Unless required by applicable law or agreed to in writing, software distributed under 
+	the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF 
+	ANY KIND, either express or implied. See the License for the specific language governing 
+	permissions and limitations under the License.
+
+	Commerical Use
+
+	Commercial use of MarkdownDeep is permitted by the license however you're strongly 
+	encouraged to make a donation in this case.
+
+See
+http://www.toptensoftware.com/markdowndeep/license
+
+SoundManager2
+-------------
+
+Dextop Showcase application is using SoundManager2 library written by Scott Schiller (schillmania.com), 
+which is available under the following BSD license:
 
 	Software License Agreement (BSD License)
 
@@ -72,23 +87,6 @@ which is available under the <a href="http://www.schillmania.com/projects/soundm
 	(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-### MarkdownDeep
-Dextop Showcase application is using MarkdownDeep library developed by <a href="http://www.toptensoftware.com/markdowndeep/" target="_blank">Topten Software</a> 
-available under the <a href="http://www.toptensoftware.com/markdowndeep/license" target="_blank">Apache License v2</a>.
+See 
+http://www.schillmania.com/projects/soundmanager2/license.txt
 
-	Copyright 2010-2011 Topten Software
-
-	Licensed under the Apache License, Version 2.0 (the "License"); you may not use this 
-	product except in compliance with the License. You may obtain a copy of the License at
-
-	http://www.apache.org/licenses/LICENSE-2.0
-
-	Unless required by applicable law or agreed to in writing, software distributed under 
-	the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF 
-	ANY KIND, either express or implied. See the License for the specific language governing 
-	permissions and limitations under the License.
-
-	Commerical Use
-
-	Commercial use of MarkdownDeep is permitted by the license however you're strongly 
-	encouraged to make a donation in this case.

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Globalization;
+using System.Diagnostics;
+using Microsoft.Ajax.Utilities;
 
 namespace Codaxy.Dextop.Tools
 {
@@ -33,7 +35,8 @@ namespace Codaxy.Dextop.Tools
 		/// <returns>The cache buster value.</returns>
         public static int CalculateCacheBuster(params String[] filePath)
         {
-            return CalculateCacheBuster((IEnumerable<String>)filePath);
+			DateTime dummy;
+            return CalculateCacheBuster((IEnumerable<String>)filePath, out dummy);
         }
 
 		/// <summary>
@@ -41,11 +44,17 @@ namespace Codaxy.Dextop.Tools
 		/// </summary>
 		/// <param name="filePaths">List of file paths.</param>
 		/// <returns>The cache buster value.</returns>
-        public static int CalculateCacheBuster(IEnumerable<String> filePaths)
+        public static int CalculateCacheBuster(IEnumerable<String> filePaths, out DateTime latestFileWriteTime)
         {
+			latestFileWriteTime = DateTime.MinValue;
             int cacheBuster = 0;
-            foreach (var file in filePaths)
-                cacheBuster ^= File.GetLastWriteTime(file).GetHashCode();
+			foreach (var file in filePaths)
+			{
+				var writeTime = File.GetLastWriteTime(file);
+				cacheBuster ^= writeTime.GetHashCode();
+				if (writeTime > latestFileWriteTime)
+					latestFileWriteTime = writeTime;
+			}
             return Math.Abs(cacheBuster);
         }
 
@@ -57,9 +66,20 @@ namespace Codaxy.Dextop.Tools
 		/// <returns></returns>
         public static String MinifyJs(String js, bool obfuscate)
         {
-            if (String.IsNullOrWhiteSpace(js))
-                return js;
-            return Yahoo.Yui.Compressor.JavaScriptCompressor.Compress(js, true, obfuscate, true, true, 80, Encoding.UTF8, CultureInfo.InvariantCulture);
+			try
+			{
+				if (String.IsNullOrWhiteSpace(js))
+					return js;
+				var min = new Minifier();
+				return min.MinifyJavaScript(js);
+				//return Yahoo.Yui.Compressor.JavaScriptCompressor.Compress(js, true, obfuscate, true, true, 80, Encoding.UTF8, CultureInfo.InvariantCulture);				
+			}
+			catch (Exception ex)
+			{
+				Trace.WriteLine("JS code that could not be minified:"); //Minification is usually done in Release mode where Debug is not available
+				Trace.WriteLine(js);
+				throw new DextopException("JS minification failed. See inner exception for details.", ex);
+			}
         }
 
 		/// <summary>
@@ -71,7 +91,9 @@ namespace Codaxy.Dextop.Tools
         {
             if (String.IsNullOrWhiteSpace(css))
                 return css;
-            return Yahoo.Yui.Compressor.CssCompressor.Compress(css);
+			var min = new Minifier();
+			return min.MinifyStyleSheet(css);
+            //return Yahoo.Yui.Compressor.CssCompressor.Compress(css);
         }
 
 		/// <summary>
@@ -83,5 +105,5 @@ namespace Codaxy.Dextop.Tools
         {
             File.WriteAllText(filePath, fileContent, Encoding.UTF8);
         }
-    }
+	}
 }

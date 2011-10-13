@@ -18,12 +18,12 @@
 </head>
 <body>   
     <!-- Fields required for history management --> 
-    <form id="history-form" class="x-hide-display"> 
+    <form id="history-form" class="x-hide-display" action="#"> 
         <input type="hidden" id="x-history-field" /> 
         <iframe id="x-history-frame"></iframe> 
     </form>
 
-    <!-- To see source code go to http://code.google.com/p/codaxy-dextop2/ -->
+    <!-- To see source code go to https://github.com/codaxy/dextop -->
     <script type="text/javascript">       
         Ext.onReady(function() {            
             Dextop.Session.initialize(@Model.SessionConfig);
