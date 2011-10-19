@@ -19,7 +19,7 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
 	actionIconClsSuffix: undefined, //Suffix to be added to the action name to get the action icon class (e.g. '-icon' will transform 'add' to 'add-icon')
 	actionIconClsPrefix: undefined, //Suffix to be added to the action name to get the action icon class (e.g. 'icon-' will transform 'add' to 'icon-add')
 
-	editOnDblClick: false, //Start editing when row is double-clicked
+	editOnDblClick: false, //Start editing when row is double-clicked	
 
 	confirmDeleteText: 'Are you sure you want to remove the selected records?',
 	pageSizeText: 'Size: ',
@@ -27,6 +27,8 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
 	defaultRowEditingOptions: {
 		removePhantomsOnCancel: true
 	},
+
+	autoSelect: true, //use AutoSelect plugin, use autoSelect: {...} to configure plugin
 
 	initComponent: function () {
 
@@ -47,6 +49,12 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
 		this.actionManager = Ext.create('Ext.ux.grid.plugin.ActionManager');
 		this.plugins = Ext.Array.from(this.plugins) || [];
 		this.plugins.push(this.actionManager);
+
+		if (this.autoSelect) {
+			var as = this.autoSelect === true ? {} : this.autoSelect;
+			this.plugins.push(Ext.create('Ext.ux.grid.plugin.AutoSelect', as));
+			this.autoSelect = as;
+		}
 
 		if (this.paging) {
 			if (this.bbar)

@@ -53,7 +53,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Codaxy.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Codaxy.Common.0.5.3\lib\Codaxy.Common.dll</HintPath>
+      <HintPath>..\..\packages\Codaxy.Common.0.5.9\lib\Codaxy.Common.dll</HintPath>
     </Reference>
     <Reference Include="MarkdownDeep">
       <HintPath>..\..\packages\MarkdownDeep.NET.1.4\lib\.NetFramework 3.5\MarkdownDeep.dll</HintPath>
@@ -90,6 +90,7 @@
     <Content Include="client\lib\dextop\js\Ext.tweaks.js" />
     <Content Include="client\lib\dextop\js\Panel.js" />
     <Content Include="client\lib\dextop\js\ux\Ext.ux.FilteredCombo.js" />
+    <Content Include="client\lib\dextop\js\ux\Ext.ux.grid.plugin.AutoSelect.js" />
     <Content Include="client\lib\dextop\js\ux\Ext.ux.KeyMapPlugin.js" />
     <Compile Include="Demos\Forms\AppendedItems.cs" />
     <Compile Include="Demos\Forms\LinkedCombos.cs" />

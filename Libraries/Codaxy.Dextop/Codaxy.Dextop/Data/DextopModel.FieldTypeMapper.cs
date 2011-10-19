@@ -33,6 +33,8 @@ namespace Codaxy.Dextop.Data
             res[typeof(DateTime?)] = "date";
             res[typeof(TimeSpan)] = "time";
             res[typeof(TimeSpan?)] = "time";
+            res[typeof(Guid)] = "string";
+            res[typeof(Guid?)] = "string";
             return res;
         }
 
