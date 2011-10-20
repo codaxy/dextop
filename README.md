@@ -8,6 +8,7 @@ Ask any question regarding Dextop at <a href="http://stackoverflow.com" target="
 
 - [Demos](http://dextop.codaxy.com/showcase/)
 - [Documentation](http://dextop.codaxy.com/dox/)
+- [Pecunia Demo](http://dextop.codaxy.com/pecunia/)
 - [Product page](http//www.codaxy.com/dextop)
 
 ### License
