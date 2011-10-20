@@ -9,7 +9,7 @@ namespace Codaxy.Dextop
     /// <summary>
     /// Dextop utilities for path and Json manipulation.
     /// </summary>
-    public class DextopUtil
+    public static class DextopUtil
     {
         /// <summary>
         /// Maps virtual path to physical path on the disk.
@@ -161,5 +161,18 @@ namespace Codaxy.Dextop
 		{
 			return name + ".remoting.Proxy";
 		}		
+
+
+        /// <summary>
+        /// Add Content-Disposition: attachment header to the HttpResponse.
+        /// </summary>
+        /// <param name="response"></param>
+        /// <param name="filename"></param>
+        public static void ForceFileDownload(this HttpResponse response, String filename)
+        {
+            FileInfo fi = new FileInfo(filename);
+            response.ContentType = "application/force-download";
+            response.AddHeader("Content-Disposition", "attachment; filename=\"" + fi.Name + "\"");
+        }
 	}
 }

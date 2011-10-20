@@ -34,6 +34,12 @@ namespace Codaxy.Dextop
 			Remote = remote;
 			config.Add("direct", GetDirectConfig());
 
+            var appPath = HttpRuntime.AppDomainAppVirtualPath;
+            if (!appPath.EndsWith("/"))
+                appPath += "/";
+
+            config.Add("virtualAppPath", appPath);
+
 			DextopConfig modules = new DextopConfig();
 			foreach (var m in DextopApplication.GetModules())
 			{

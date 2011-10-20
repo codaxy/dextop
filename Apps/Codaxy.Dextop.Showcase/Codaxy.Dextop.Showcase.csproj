@@ -460,6 +460,7 @@
     <Content Include="client\lib\ext\resources\themes\images\default\window\window-default-corners.gif" />
     <Content Include="client\lib\ext\resources\themes\images\default\window\window-default-sides.gif" />
     <Content Include="Demos\Live\ChatRoom.txt" />
+    <Compile Include="Demos\Remoting\FileDownloadDemo.cs" />
     <Compile Include="Demos\Remoting\RemoteInstantiation.cs" />
     <Compile Include="Demos\Remoting\Enums.cs" />
     <Compile Include="Guides\GuidePreprocessor.cs" />
@@ -899,6 +900,8 @@
     <Content Include="Demos\Grids\SwissGridWithFormEditor.js" />
     <Content Include="Demos\Grids\SwissGrid.js" />
     <Content Include="Demos\Live\ChatRoom.js" />
+    <Content Include="Demos\Remoting\FileDownloadDemo.js" />
+    <Content Include="Demos\Remoting\FileDownloadDemo.txt" />
     <Content Include="Demos\Remoting\RemoteInstantiation.js" />
     <Content Include="Demos\Remoting\RemoteInstantiation.txt" />
     <Content Include="Demos\Remoting\Enums.txt" />
@@ -1069,6 +1072,9 @@
     <Content Include="source\FastPagingGridWindow.cs.html" />
     <Content Include="source\FastPagingGridWindow.html" />
     <Content Include="source\FastPagingGridWindow.js.html" />
+    <Content Include="source\FileDownloadDemo.cs.html" />
+    <Content Include="source\FileDownloadDemo.html" />
+    <Content Include="source\FileDownloadDemo.js.html" />
     <Content Include="source\FileUploadDemo.cs.html" />
     <Content Include="source\FileUploadDemo.html" />
     <Content Include="source\FileUploadDemo.js.html" />
@@ -1184,6 +1190,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Demos\Remoting\FileDownloadDemo.zip" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

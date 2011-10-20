@@ -232,7 +232,17 @@ Ext.define('Dextop.Session', {
 	
 	//virtual
 	playSound: function(sound) {
-		
+
+	},
+
+	getAbsolutePath: function(path) {
+		if (!path)
+			return path;
+		if (path.indexOf(this.virtualAppPath)==0)
+			return path;
+		if (path.charAt(0)=='/')
+			return this.virtualAppPath + path.substring(1);
+		return this.virtualAppPath + path;
 	},
 	
 	alert: function(msg) {
@@ -263,7 +273,7 @@ Ext.define('Dextop.Session', {
 		
 		msg.msg = msg.msg || msg.message || msg.exception || msg.text;		
 		
-		Ext.MessageBox.show(msg);			
+		Ext.MessageBox.show(msg);
 	},
 	
 	displayPopupNotification: function(notification) {    

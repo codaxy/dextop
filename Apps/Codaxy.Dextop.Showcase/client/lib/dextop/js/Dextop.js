@@ -128,5 +128,28 @@ Ext.apply(Dextop, {
 	*/
 	blockingConfirm: function (config) {
 		return confirm(config.msg || config);
+	},
+
+	absolutePath: function (path) {
+		return Dextop.getSession().getAbsolutePath(path);
+	},
+
+	downloadAttachment: function (url) {
+		//window.open(url);
+		// Create the form
+		var iframeEl = Ext.core.DomHelper.append(Ext.getBody(), {
+			tag: 'iframe',
+			src: url,
+			style: 'display:none',
+			width: 0,
+			height: 0,
+			frameborder: 0
+		});
+
+		var destroyFrameTask = new Ext.util.DelayedTask(function () {
+			Ext.removeNode(iframeEl);
+		});
+
+		destroyFrameTask.delay(1000);
 	}
 });
