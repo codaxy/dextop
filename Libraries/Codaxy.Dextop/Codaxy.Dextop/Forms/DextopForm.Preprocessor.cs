@@ -36,7 +36,7 @@ namespace Codaxy.Dextop.Forms
                         jw.Write("Ext.define('{0}', ", name);
                         jw.StartLocalizationScope();
                         jw.StartBlock();
-                        jw.AddProperty("extend", "Dextop.ItemFactory");
+                        jw.AddProperty("extend", "Dextop.ItemFactory");                        
                         jw.StartFunctionBlock("getDictionary", "options");
 						jw.WriteLine("options = options || {};");
 						jw.WriteLine("options.data = options.data || {};");

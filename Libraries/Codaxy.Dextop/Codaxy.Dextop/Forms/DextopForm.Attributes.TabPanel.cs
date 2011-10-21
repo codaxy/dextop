@@ -29,6 +29,11 @@ namespace Codaxy.Dextop.Forms
 		/// </summary>
         public int activeTab { get; set; }
 
+        /// <summary>
+        /// True to not show the full background on the TabBar.
+        /// </summary>
+        public bool plain { get; set; }
+
 		/// <summary>
 		/// Converts this attribute to a Dextop container.
 		/// </summary>
@@ -40,6 +45,8 @@ namespace Codaxy.Dextop.Forms
 			var container = base.ToContainer(memberName, memberType);
             if (activeTab>0)
                 container["activeTab"] = activeTab;
+            if (plain)
+                container["plain"] = plain;
             return container;
         }
     }

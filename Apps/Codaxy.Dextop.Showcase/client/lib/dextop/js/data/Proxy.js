@@ -31,7 +31,7 @@ Ext.define('Dextop.data.Proxy', {
 		}
 
 		this.callParent(arguments);
-	},	
+	},
 
 	applyEncoding: function (v) {
 		return v;
@@ -42,9 +42,8 @@ Ext.define('Dextop.data.Proxy', {
 
 		switch (operation.action) {
 			case 'read':
-				var params = this.getParams({
-					Params: operation.params
-				}, operation);
+				var params = this.getParams(operation);
+				params.Params = operation.params;				
 				args.push(params);
 				break;
 			case 'create':

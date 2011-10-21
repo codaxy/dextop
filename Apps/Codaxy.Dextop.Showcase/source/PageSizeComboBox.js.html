@@ -32,6 +32,7 @@ Ext.define(&#39;Showcase.demos.PageSizeComboBoxWindow&#39;, {
         var grid = Ext.create(&#39;Ext.grid.GridPanel&#39;, {
             store: store,
             columns: columns,
+			border: false,
             bbar: new Ext.PagingToolbar({
                 store: store,
                 displayInfo: true,

@@ -20,16 +20,16 @@ namespace Codaxy.Dextop.Showcase.Demos.Forms
         class ComplexForm
         {
             // Tab 1 (FieldSet)
-			[DextopFormTabPanelAttribute(0, border = false)]
+			[DextopFormTabPanel(0, border = false)]
 			[DextopFormContainer(1, title = &quot;FieldSet Examples&quot;, bodyStyle = &quot;padding: 5px;&quot;, border=false)]
 			[DextopFormFieldSet(2, title = &quot;Checkbox FieldSet&quot;, checkboxToggle = true)]
 			[DextopFormField(Dummy = true)] //This field is used by the field set
 			public bool Enabled { get; set; }
 
-            [DextopFormField]
+            [DextopFormField(anchor=&quot;0&quot;)]
             public String FirstName { get; set; }
             
-            [DextopFormField]
+            [DextopFormField(anchor=&quot;0&quot;)]
             public String LastName { get; set; }
 
             [DextopFormFieldSet(2, title = &quot;Collapsible FieldSet&quot;, collapsible = true)]
@@ -43,16 +43,22 @@ namespace Codaxy.Dextop.Showcase.Demos.Forms
             public double Number { get; set; }
 
             // Tab 2
-			[DextopFormContainer(1, title = &quot;Checkboxes&quot;, bodyStyle = &quot;padding: 5px;&quot;, border=false)]
+			[DextopFormContainer(1, title = &quot;Checkboxes&quot;, bodyStyle = &quot;padding: 5px;&quot;, border=false, layout=&quot;anchor&quot;)]
 			[DextopFormCheckboxGroup(2, vertical=true, columns=3)]
-            [DextopFormCheckbox(boxLabel=&quot;Checkbox 1&quot;)]
+            [DextopFormCheckbox(boxLabel = &quot;Checkbox 1&quot;, hideLabel = true)]
             public bool Checkbox1 { get; set; }
 
-			[DextopFormCheckbox(boxLabel = &quot;Checkbox 2&quot;)]
+            [DextopFormCheckbox(boxLabel = &quot;Checkbox 2&quot;, hideLabel = true)]
 			public bool Checkbox2 { get; set; }
 
-			[DextopFormCheckbox(boxLabel = &quot;Checkbox 3&quot;)]
+            [DextopFormCheckbox(boxLabel = &quot;Checkbox 3&quot;, hideLabel = true)]
 			public bool Checkbox3 { get; set; }
+
+            [DextopFormCheckbox(boxLabel = &quot;Checkbox 4&quot;, hideLabel = true)]
+            public bool Checkbox4 { get; set; }
+
+            [DextopFormCheckbox(boxLabel = &quot;Checkbox 5&quot;, hideLabel = true)]
+            public bool Checkbox5 { get; set; }
         }
 
 		[DextopRemotable]
