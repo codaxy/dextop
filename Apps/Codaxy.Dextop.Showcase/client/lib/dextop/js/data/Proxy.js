@@ -43,7 +43,7 @@ Ext.define('Dextop.data.Proxy', {
 		switch (operation.action) {
 			case 'read':
 				var params = this.getParams(operation);
-				params.Params = operation.params;				
+				params.Params = Ext.apply(operation.params || {}, this.extraParams);		
 				args.push(params);
 				break;
 			case 'create':
