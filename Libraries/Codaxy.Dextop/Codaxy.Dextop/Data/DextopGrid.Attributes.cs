@@ -24,10 +24,11 @@ namespace Codaxy.Dextop.Data
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DextopGridColumnAttribute"/> class.
 		/// </summary>
-        public DextopGridColumnAttribute()
-        {
-            width = -1;
-        }
+		public DextopGridColumnAttribute()
+		{
+			width = -1;
+			sortable = true;
+		}
         /// <summary>
         /// Sorting order
         /// </summary>
@@ -122,7 +123,7 @@ namespace Codaxy.Dextop.Data
 				text = text ?? memberName,
 				readOnly = NullableUtil.DefaultNull(readOnly, false),
 				required = NullableUtil.DefaultNull(required, false),
-				sortable = NullableUtil.DefaultNull(sortable, false),
+				sortable = NullableUtil.DefaultNull(sortable, true),
 				tooltip = tooltip,
 				tooltipTpl = tooltipTpl,
 				type = type ?? extType,
