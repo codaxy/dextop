@@ -35,11 +35,14 @@ namespace Codaxy.Dextop
 			try			
 			{
 				object v;
-				if (TryGetValue(property, out v))
-				{
-					value = (T)Codaxy.Common.Convert.ChangeType(v, typeof(T));
-					return true;
-				}
+                if (TryGetValue(property, out v) && v!=null)
+                {
+                    if (v is string)
+                        value = (T)DextopUtil.DecodeValue(v as string, typeof(T));
+                    else
+                        value = (T)Codaxy.Common.Convert.ChangeType(v, typeof(T));
+                    return true;
+                }
 			}
 			catch {}
 

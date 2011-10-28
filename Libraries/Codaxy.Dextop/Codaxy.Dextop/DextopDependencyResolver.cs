@@ -31,7 +31,7 @@ namespace Codaxy.Dextop
 		/// <param name="instance"></param>
 		public void RegisterInstance<T>(T instance)
 		{
-			Register((resolver) => { return new object[] { instance }; });
+            Register<T>((resolver) => { return instance; });
 		}
 
 		/// <summary>

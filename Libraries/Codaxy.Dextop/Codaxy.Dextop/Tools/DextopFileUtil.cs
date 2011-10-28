@@ -39,11 +39,14 @@ namespace Codaxy.Dextop.Tools
             return CalculateCacheBuster((IEnumerable<String>)filePath, out dummy);
         }
 
-		/// <summary>
-		/// Calculates the cache buster by observing the last write time property of the specified files.
-		/// </summary>
-		/// <param name="filePaths">List of file paths.</param>
-		/// <returns>The cache buster value.</returns>
+        /// <summary>
+        /// Calculates the cache buster by observing the last write time property of the specified files.
+        /// </summary>
+        /// <param name="filePaths">List of file paths.</param>
+        /// <param name="latestFileWriteTime">The latest file write time.</param>
+        /// <returns>
+        /// The cache buster value.
+        /// </returns>
         public static int CalculateCacheBuster(IEnumerable<String> filePaths, out DateTime latestFileWriteTime)
         {
 			latestFileWriteTime = DateTime.MinValue;

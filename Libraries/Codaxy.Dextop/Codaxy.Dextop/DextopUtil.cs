@@ -22,7 +22,7 @@ namespace Codaxy.Dextop
                 path = "~/" + path;
             var slash = Path.DirectorySeparatorChar.ToString();
 			var doubleSlash = slash + slash;
-            return path.Replace("~", HttpRuntime.AppDomainAppPath).Replace("/", slash).Replace(doubleSlash, slash);
+            return path.Replace("~", DextopEnvironment.PhysicalAppPath).Replace("/", slash).Replace(doubleSlash, slash);
         }
 
 		/// <summary>
@@ -30,10 +30,14 @@ namespace Codaxy.Dextop
 		/// </summary>
 		/// <param name="path">The path.</param>
 		/// <returns></returns>
-		public static String AbsolutePath(String path)
-		{
-			return CombinePaths(HttpRuntime.AppDomainAppVirtualPath, path);
-		}
+        public static String AbsolutePath(String path)
+        {
+            if (path == null)
+                return DextopEnvironment.VirtualAppPath;
+            if (path.StartsWith(DextopEnvironment.VirtualAppPath))
+                return path;
+            return CombinePaths(DextopEnvironment.VirtualAppPath, path);
+        }
 
         static Formatting jsonFormatting;
         static JsonSerializer jsonSerializer;
