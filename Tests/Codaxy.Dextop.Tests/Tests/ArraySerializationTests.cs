@@ -17,18 +17,19 @@ namespace Codaxy.Dextop.Tests.Tests
             public int Id { get; set; }
             public String Name { get; set; }
             public bool Bool { get; set; }
-        }       
+        }
+        
 
         [Test]
         public void ArraySerializationTest()
         {
             using (var app = new DextopTestApplication())
-            {                   
+            {
                 var arraySerializer = new DextopModelArraySerializer(app.ModelManager.GetModelMeta(typeof(Model)));
                 var data = arraySerializer.Serialize(new[] { new Model { Id = 1, Name = "Name", Bool = true } });
                 Assert.AreEqual("[[1,\"Name\",true]]", data);
             }
-        }
+        }      
 
         [Test]
         public void DynamicArraySerializationTest()
@@ -40,6 +41,8 @@ namespace Codaxy.Dextop.Tests.Tests
                 Assert.AreEqual("[[1,\"Name\",true]]", data);
             }
         }
+
+          
 
         [Test]
         public void ArraySerializationTest1()

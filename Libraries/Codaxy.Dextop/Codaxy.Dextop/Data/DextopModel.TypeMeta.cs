@@ -35,6 +35,9 @@ namespace Codaxy.Dextop.Data
 		/// </summary>		
 		public Type ModelType { get; set; }
 
+        /// <summary>
+        /// TODO: Implement switch to Dynamic serializer which offers better performance
+        /// </summary>
         IDextopModelSerializer arraySerializer;
 		/// <summary>
 		/// Gets the default array serializer associated with the model.
