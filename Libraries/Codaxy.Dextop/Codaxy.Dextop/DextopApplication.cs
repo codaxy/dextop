@@ -6,6 +6,7 @@ using System.Collections.Concurrent;
 using Codaxy.Dextop.Remoting;
 using System.Globalization;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Codaxy.Dextop
 {
@@ -40,9 +41,8 @@ namespace Codaxy.Dextop
         public void Initialize()
         {
             RegisterModules();
-            
-            foreach (var m in Modules)
-                m.Initialize();
+
+            Parallel.ForEach(Modules, (m) => { m.Initialize(); });                
 
             OnModulesInitialized();
             

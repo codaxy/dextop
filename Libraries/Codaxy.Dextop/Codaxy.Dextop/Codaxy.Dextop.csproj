@@ -52,6 +52,7 @@
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Data\DextopModel.Serializer.Array.Compiled.cs" />
     <Compile Include="Data\DextopGrid.Attributes.Lookup.cs" />
     <Compile Include="Data\DextopDataProxy.Adapter.Generic.cs" />
     <Compile Include="Data\DextopDataProxy.Adapter.Read.cs" />

@@ -148,7 +148,7 @@ namespace Codaxy.Dextop.Data
                         }
                         else
                         {
-                            if (p.Name.EndsWith("ID") || p.Name.EndsWith("_id") || p.Name.EndsWith("Id"))
+                            if (p.Name.EndsWith("ID") || p.Name.EndsWith("id") || p.Name.EndsWith("Id"))
                                 idCandidates.Add(p.Name);
                         }
                     }

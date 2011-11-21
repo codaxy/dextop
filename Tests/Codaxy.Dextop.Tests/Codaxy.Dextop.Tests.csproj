@@ -51,6 +51,7 @@
     <Compile Include="PetaTest.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\ArraySerializationTests.cs" />
     <Compile Include="Tests\DependencyResolverTests.cs" />
     <Compile Include="Tests\DextopConfigTests.cs" />
     <Compile Include="Tests\DisposeTests.cs" />
