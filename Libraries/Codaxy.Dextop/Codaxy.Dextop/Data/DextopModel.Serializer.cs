@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json.Linq;
 
 namespace Codaxy.Dextop.Data
 {
@@ -15,13 +16,13 @@ namespace Codaxy.Dextop.Data
 		/// </summary>
 		/// <param name="records">The records.</param>
 		/// <returns>JSON</returns>
-        string Serialize(IList<object> records);
+        object Serialize(IList<object> records);
 
 		/// <summary>
 		/// Deserializes the specified JSON string to records.
 		/// </summary>
 		/// <param name="json">The JSON.</param>
 		/// <returns></returns>
-		IList<object> Deserialize(String json);
+        IList<object> Deserialize(object json);
     }
 }

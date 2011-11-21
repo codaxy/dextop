@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Reflection;
+using Newtonsoft.Json.Linq;
+using Newtonsoft.Json.Serialization;
 
 namespace Codaxy.Dextop.Data
 {
@@ -13,8 +15,15 @@ namespace Codaxy.Dextop.Data
     {
         DextopModelTypeMeta Meta { get; set; }
 
-        List<Func<object, object>> Getters;
-        List<Action<object, object>> Setters;
+        class FieldInfo
+        {
+            public IValueProvider ValueProvider;
+            public Type PropertyType;
+            public bool CanRead;
+            public bool CanWrite;
+        }
+
+        List<FieldInfo> Fields;
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DextopModelArraySerializer"/> class.
@@ -23,22 +32,31 @@ namespace Codaxy.Dextop.Data
         public DextopModelArraySerializer(DextopModelTypeMeta meta)
         {
             Meta = meta;
-            Getters = new List<Func<object,object>>();
-            Setters = new List<Action<object,object>>();
+            Fields = new List<FieldInfo>();
+           
             foreach (var field in meta.Fields)
             {
-                Func<object, object> getter = null;
-                Action<object, object> setter = null;
                 var property = meta.ModelType.GetProperty(field);
-                if (property.CanRead)
-                    getter = (target) => { return property.GetValue(target, null); };
-                if (property.CanWrite)
-                    setter = (target, value) => { property.SetValue(target, ChangeType(value, property.PropertyType), null); };
-
-                Getters.Add(getter);
-                Setters.Add(setter);
-            }            
+                var vp = BuildValueProvider(property);
+                Fields.Add(new FieldInfo
+                {
+                    CanRead = property.CanRead,
+                    CanWrite = property.CanWrite,
+                    PropertyType = property.PropertyType,
+                    ValueProvider = vp
+                });
+            }
         }
+
+        /// <summary>
+        /// Builds value provider for getting and setting property values during serialization.
+        /// </summary>
+        /// <param name="property"></param>
+        /// <returns></returns>
+        protected virtual IValueProvider BuildValueProvider(PropertyInfo property)
+        {
+            return new ReflectionValueProvider(property);
+        }        
 
 		object ChangeType(object value, Type type)
 		{
@@ -56,9 +74,9 @@ namespace Codaxy.Dextop.Data
 		/// <returns>
 		/// JSON
 		/// </returns>
-        public string Serialize(IList<object> records)
+        public object Serialize(IList<object> records)
         {
-            return DextopUtil.Encode(records.Select(r => Getters.Select(a => a(r))));
+            return new JArray(records.Select(r => new JArray(Fields.Select(a => a.ValueProvider.GetValue(r)))));
         }
 
 		/// <summary>
@@ -66,18 +84,29 @@ namespace Codaxy.Dextop.Data
 		/// </summary>
 		/// <param name="json">The JSON.</param>
 		/// <returns></returns>
-        public IList<object> Deserialize(string json)
-        {            
-            var data = DextopUtil.Decode<object[][]>(json);
-            var res = new object[data.Length];
-            for (var k = 0; k < res.Length; k++)
+        public IList<object> Deserialize(object json)
+        {
+            JArray data;
+            if (json is string)
+                data = JArray.Parse((String)json);
+            else if (json is JArray)
+                data = (JArray)json;
+            else
+                throw new DextopException();
+            
+            var res = new List<object>();
+            foreach (JArray record in data)
             {
-                if (data[k].Length != Setters.Count)
-                    throw new DextopException("Could not deserialize JSON array to type '{0}'. Array length does not match the required number of fields.", Meta.ModelType);
-                res[k] = Activator.CreateInstance(Meta.ModelType);
-                for (var i = 0; i < data[k].Length; i++)
-                    if (Setters[i] != null)
-                        Setters[i](res[k], data[k][i]);
+                //if (record.Length != Setters.Count)
+                //throw new DextopException("Could not deserialize JSON array to type '{0}'. Array length does not match the required number of fields.", Meta.ModelType);
+                var row = Activator.CreateInstance(Meta.ModelType);
+                for (var i = 0; i < Fields.Count; i++)
+                    if (Fields[i].CanWrite)
+                    {
+                        var value = ChangeType(((JValue)record[i]).Value, Fields[i].PropertyType);
+                        Fields[i].ValueProvider.SetValue(row, value);
+                    }
+                res.Add(row);
             }
             return res;
         }

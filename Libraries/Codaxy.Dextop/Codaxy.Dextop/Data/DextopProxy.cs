@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Codaxy.Dextop.Remoting;
+using Newtonsoft.Json.Linq;
 
 namespace Codaxy.Dextop.Data
 {
@@ -13,7 +14,7 @@ namespace Codaxy.Dextop.Data
     {
         class ReadResult
         {
-            public string data { get; set; }
+            public object data { get; set; }
         }
 
         class EncodedReadResult : ReadResult

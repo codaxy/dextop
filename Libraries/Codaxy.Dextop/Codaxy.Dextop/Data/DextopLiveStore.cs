@@ -88,7 +88,7 @@ namespace Codaxy.Dextop.Data
         {
             if (data == null)
                 return null;
-            return serializer.Serialize(data);
+            return DextopUtil.Encode(serializer.Serialize(data));
         }
 
         private void DetachSourceHandlers()
