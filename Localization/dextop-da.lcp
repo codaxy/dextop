@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LocalizationProfile xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <LocalizerType>JavaScript</LocalizerType>
+    <InputFiles>js/
+-js/locale/
+</InputFiles>
+    <RootFolderPath>{WebClient}\client\lib\dextop\</RootFolderPath>
+    <ReferenceFilePath>{WebClient}\client\lib\dextop\js\locale\dextop-da.js</ReferenceFilePath>
+</LocalizationProfile>
