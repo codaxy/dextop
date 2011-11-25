@@ -67,7 +67,7 @@ namespace Codaxy.Dextop
             else
                 js.Register("ext-all.js");
 
-            js.RegisterLocalizations(new[] { "sr", "ru", "fr", "de" }, "locale/", "ext-lang-{0}.js");
+            js.RegisterLocalizations(new[] { "sr", "ru", "fr", "de", "da" }, "locale/", "ext-lang-{0}.js");
 
             var css = CreateCssPackage();
             css.Minify = false;

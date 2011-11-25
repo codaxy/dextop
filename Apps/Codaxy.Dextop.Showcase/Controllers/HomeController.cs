@@ -14,7 +14,7 @@ namespace Codaxy.Dextop.Showcase.Controllers
         public ActionResult Index()
         {
             var app = DextopApplication.GetApplication();
-            var session = new ShowcaseSession();            
+            var session = new ShowcaseSession();
             var config = app.AddSession(session);
 
 			return View(new Models.DextopAppConfig
