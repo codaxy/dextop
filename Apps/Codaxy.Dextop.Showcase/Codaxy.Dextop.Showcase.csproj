@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="client\images\article-icon.png" />
+    <Content Include="client\js\controls\Ext.ux.grid.plugin.AutoSelect.js" />
     <Content Include="client\js\controls\GuidesTreePanel.js" />
     <Content Include="client\lib\dextop\images\icons\add.png" />
     <Content Include="client\lib\dextop\images\icons\delete.png" />
