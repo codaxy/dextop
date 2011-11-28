@@ -42,7 +42,7 @@ namespace Codaxy.Dextop
                 "ux/",
                 "/"
             );
-            coreModule.RegisterLocalizations(new[] { "sr", "ru" }, "js/locale/", "dextop-{0}.js");
+            coreModule.RegisterLocalizations(new[] { "sr", "ru", "da" }, "js/locale/", "dextop-{0}.js");
 
 			RegisterCss("css/dextop.css");
         }
