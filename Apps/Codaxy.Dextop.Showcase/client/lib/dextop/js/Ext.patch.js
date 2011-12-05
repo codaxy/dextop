@@ -152,3 +152,24 @@ Ext.override(Ext.grid.View, {
 	}
 
 });
+
+Ext.override(Ext.data.AbstractStore, {
+	setProxy: function (proxy) {
+		var me = this;
+		if (proxy instanceof Ext.data.proxy.Proxy || proxy.setModel) {
+			proxy.setModel(me.model);
+		} else {
+			if (Ext.isString(proxy)) {
+				proxy = {
+					type: proxy
+				};
+			}
+			Ext.applyIf(proxy, {
+				model: me.model
+			});
+			proxy = Ext.createByAlias('proxy.' + proxy.type, proxy);
+		}
+		me.proxy = proxy;
+		return me.proxy;
+	}
+});

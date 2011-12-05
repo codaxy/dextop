@@ -59,7 +59,7 @@ namespace Codaxy.Dextop.Forms
                 jw.AddProperty("items", Items);
         }
 
-		internal void ApplyLabelable(IDextopFormLabelable labelable)
+		internal protected virtual void ApplyLabelable(IDextopFormLabelable labelable)
 		{
 			if (labelable.fieldLabel != null)
 				this["fieldLabel"] = labelable.fieldLabel;

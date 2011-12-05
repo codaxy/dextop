@@ -23,13 +23,21 @@ namespace Codaxy.Dextop.Showcase.Demos.Grids
             base.InitRemotable(remote, config);
 			var crud = new Crud();
 			crud.Create(new[] { new GridModel { 
-				Name = &quot;Player&quot;, 
+				Name = &quot;Player 1&quot;, 
 				Age = 30, 
 				Basketball = true, 
 				Football = true, 
 				Gender = Gender.Male, 
 				Height = 180, 
 				Weight = 100
+			}, new GridModel { 
+				Name = &quot;Player 2&quot;, 
+				Age = 29, 
+				Basketball = true, 
+				Football = true, 
+				Gender = Gender.Male, 
+				Height = 175, 
+				Weight = 90
 			} });
             Remote.AddStore(&quot;model&quot;, crud);
             Remote.AddLookupData(&quot;Gender&quot;, new[] {
