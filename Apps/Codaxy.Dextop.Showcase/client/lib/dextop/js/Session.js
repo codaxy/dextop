@@ -283,7 +283,7 @@ Ext.define('Dextop.Session', {
 		}        
         var m = Ext.core.DomHelper.append(this.msgCt, msg, true);
         m.hide();
-        m.slideIn('t').ghost("t", { delay: 1000, remove: true});        
+        m.slideIn('t').ghost("t", { delay: 4000, remove: true});        
 	},
 	
 	sharedLookupData: {},
