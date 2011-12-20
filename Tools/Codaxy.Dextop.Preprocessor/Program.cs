@@ -38,8 +38,7 @@ namespace Codaxy.Dextop.Preprocessor
             }
             catch (Exception ex)
             {
-                Console.Error.WriteLine(ex);
-                Console.Error.Flush();
+                Console.WriteLine("Dextop preprocessor error: " + ex);                
                 return 1;
             }
         }
