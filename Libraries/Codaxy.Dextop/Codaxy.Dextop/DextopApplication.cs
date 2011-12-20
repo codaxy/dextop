@@ -7,6 +7,7 @@ using Codaxy.Dextop.Remoting;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace Codaxy.Dextop
 {
@@ -48,6 +49,9 @@ namespace Codaxy.Dextop
             
             RegisterModels();            
         }
+
+        public bool PreprocessingEnabled { get; set; }
+        public bool PreprocessorMode { get; set; }
 
 		/// <summary>
 		/// This method is called when all modules have been successfully initialized.

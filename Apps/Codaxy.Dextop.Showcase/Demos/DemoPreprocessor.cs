@@ -13,7 +13,7 @@ namespace Codaxy.Dextop.Showcase.Demos
     public class DemoPreprocessor : IDextopAssemblyPreprocessor
     {
         public void ProcessAssemblies(DextopApplication application, IList<Assembly> assemblies, Stream output)
-        {
+        {            
             using (var tw = new StreamWriter(output))
             {
                 DextopJsWriter jw = new DextopJsWriter(tw);

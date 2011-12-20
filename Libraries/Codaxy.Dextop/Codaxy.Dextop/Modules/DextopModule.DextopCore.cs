@@ -53,9 +53,15 @@ namespace Codaxy.Dextop
 		/// <param name="preprocessors">The preprocessors.</param>
         protected override void RegisterAssemblyPreprocessors(Dictionary<string, IDextopAssemblyPreprocessor> preprocessors)
         {
-            preprocessors.Add("js/generated/remote.js", new Remoting.DextopRemotingPreprocessor());
+            if (!Application.PreprocessingEnabled || Application.PreprocessorMode)
+            {
+                preprocessors.Add("js/generated/remote.js", new Remoting.DextopRemotingPreprocessor());
+            }
         }
 
+        protected override void RegisterLoaders(Dictionary<string, IDextopFileLoader> loaders)
+        {
 
+        }
     }
 }

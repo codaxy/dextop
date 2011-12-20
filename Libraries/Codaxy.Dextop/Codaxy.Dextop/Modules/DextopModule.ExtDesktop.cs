@@ -50,5 +50,10 @@ namespace Codaxy.Dextop.Modules
         {
 
         }
+
+        protected override void RegisterLoaders(Dictionary<string, IDextopFileLoader> loaders)
+        {
+            
+        }
 	}
 }

@@ -13,3 +13,10 @@ mkdir Codaxy.Dextop.Core\src\
 copy ..\Libraries\Codaxy.Dextop\Codaxy.Dextop\bin\Release\Codaxy.Dextop.* Codaxy.Dextop.Core\lib\
 robocopy ..\Libraries\Codaxy.Dextop\Codaxy.Dextop Codaxy.Dextop.Core\src\ /MIR /XD obj bin
 ..\.nuget\nuget pack Codaxy.Dextop.Core\Codaxy.Dextop.Core.nuspec -Symbols
+
+mkdir Codaxy.Dextop.Preprocessor\lib\
+copy ..\Tools\Codaxy.Dextop.Preprocessor\bin\Release\Codaxy.Dextop.Preprocessor.exe Codaxy.Dextop.Preprocessor\lib\
+del Codaxy.Dextop.Preprocessor\lib\*.pdb
+..\.nuget\nuget pack Codaxy.Dextop.Preprocessor\Codaxy.Dextop.Preprocessor.nuspec
+
+pause

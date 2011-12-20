@@ -90,8 +90,11 @@
     <Compile Include="DextopDependencyResolver.Interface.cs" />
     <Compile Include="DextopEnvironment.cs" />
     <Compile Include="DextopEnvironment.Web.cs" />
+    <Compile Include="DextopFileLoader.Interface.cs" />
     <Compile Include="DextopPanel.cs" />
     <Compile Include="DextopEnvironment.Interface.cs" />
+    <Compile Include="Remoting\DextopRemotableConstructor.Loader.cs" />
+    <Compile Include="Remoting\DextopRemotableConstructor.Preprocessor.cs" />
     <Compile Include="Remoting\DextopEnum.Attribute.cs" />
     <Compile Include="DextopEnumerations.cs.cs" />
     <Compile Include="DextopExceptions.cs" />

@@ -27,7 +27,8 @@ namespace Codaxy.Dextop
 		/// Optimizes the modules.
 		/// </summary>
 		/// <param name="outputVirtualPath">The output virtual path.</param>
-        protected void OptimizeModules(String outputVirtualPath)
+        /// <param name="fakeOptimization">Forces fake optimization. (Preprocessor mode)</param>
+        protected void OptimizeModules(String outputVirtualPath, bool fakeOptimization = false)
         {
             var outputModule = new DextopResourceOptimizationModule()
             {
@@ -37,7 +38,8 @@ namespace Codaxy.Dextop
 
             var context = new DextopResourceOptimizationContext
             {
-                OptimizationOutputModule = outputModule
+                OptimizationOutputModule = outputModule,
+                FakeOptimization = fakeOptimization
             };
 
             foreach (var m in Modules)

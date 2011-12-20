@@ -86,7 +86,17 @@
     <Reference Include="System.Web.Services" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="client\css\features-min.css" />
+    <Content Include="client\css\theme-min.css" />
     <Content Include="client\images\article-icon.png" />
+    <Content Include="client\js\cache\dextop-core.js" />
+    <Content Include="client\js\cache\dextop-core.locale-da.js" />
+    <Content Include="client\js\cache\dextop-core.locale-ru.js" />
+    <Content Include="client\js\cache\dextop-core.locale-sr.js" />
+    <Content Include="client\js\cache\ext-dataview-pack.js" />
+    <Content Include="client\js\cache\showcase-app.js" />
+    <Content Include="client\js\cache\showcase-demos.js" />
+    <Content Include="client\js\cache\sound-scripts.js" />
     <Content Include="client\js\controls\GuidesTreePanel.js" />
     <Content Include="client\lib\dextop\images\icons\add.png" />
     <Content Include="client\lib\dextop\images\icons\delete.png" />
@@ -512,6 +522,7 @@
     <Compile Include="ShowcaseApplication.DemoLauncher.cs" />
     <Compile Include="ShowcaseApplication.ExtDataViewModule.cs" />
     <Compile Include="ShowcaseApplication.Module.cs" />
+    <Compile Include="ShowcasePreprocessorBootstrapper.cs" />
     <Compile Include="ShowcaseSession.cs" />
     <Compile Include="Demos\Forms\ComplexFormWindow.cs" />
     <Compile Include="Demos\Grids\GridWindow.cs" />
@@ -1188,6 +1199,10 @@
       <Project>{A58493FD-7BD1-42B2-97AE-BBB10D2BAB79}</Project>
       <Name>Codaxy.Dextop</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Tools\Codaxy.Dextop.Preprocessor\Codaxy.Dextop.Preprocessor.csproj">
+      <Project>{02C0357C-162D-46C5-887F-0E9AC520E7C0}</Project>
+      <Name>Codaxy.Dextop.Preprocessor</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Demos\Remoting\FileUploadDemo.txt" />
@@ -1227,7 +1242,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>1631</DevelopmentServerPort>
+          <DevelopmentServerPort>26157</DevelopmentServerPort>
           <DevelopmentServerVPath>/showcase</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>
@@ -1245,4 +1260,7 @@
 if $(ConfigurationName) == NuGet call local.bat</PreBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>Codaxy.Dextop.Preprocessor "$(TargetPath)"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

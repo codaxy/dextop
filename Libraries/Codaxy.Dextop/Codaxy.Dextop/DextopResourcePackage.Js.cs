@@ -96,57 +96,67 @@ namespace Codaxy.Dextop
 		/// <param name="context">The context.</param>
         public void Optimize(DextopResourceOptimizationContext context)
         {
-            if (!Concate)
+            if (Concate)
             {
-                AppendCacheBusters(package.Files);
-                if (package.Localizations != null)
-                    foreach (var pl in package.Localizations)
-                        AppendCacheBusters(pl.Value);
-                return;
-            }
-            
-            var pkg = new DextopResourcePackage(context.OptimizationOutputModule);
+                var pkg = new DextopResourcePackage(context.OptimizationOutputModule);
 
-            var fileName = package.Module.ModuleName + "-" + PackageName + ".js";
-            var filePaths = package.Files.Select(a => package.Module.MapPath(a)).ToArray();
-			DateTime lastWrite;
-            int cacheBuster = DextopFileUtil.CalculateCacheBuster(filePaths, out lastWrite);			
-			var outputFile = new FileInfo(context.OptimizationOutputModule.MapPath(fileName));
-			if (!SmartOverwrite || !outputFile.Exists || outputFile.LastWriteTime <= lastWrite)
-			{
-				var js = DextopFileUtil.ConcateFiles(filePaths);
-				if (Minify)
-					js = DextopFileUtil.MinifyJs(js, Obfuscate);
-				DextopFileUtil.WriteTextFile(outputFile.FullName, js);
-			}
-            
-            pkg.AddFiles(new[] { fileName + "?cb=" + cacheBuster });
+                var fileName = package.Module.ModuleName + "-" + PackageName + ".js";
 
-            if (package.Localizations!=null)
-                foreach (var loc in package.Localizations)
+                if (!context.FakeOptimization)
                 {
-                    fileName = package.Module.ModuleName + "-" + PackageName + String.Format(".locale-{0}.js", loc.Key);
-                    filePaths = loc.Value.Select(a => package.Module.MapPath(a)).ToArray();
-					cacheBuster = DextopFileUtil.CalculateCacheBuster(filePaths, out lastWrite);
-					outputFile = new FileInfo(context.OptimizationOutputModule.MapPath(fileName));
-					if (!SmartOverwrite || !outputFile.Exists || outputFile.LastWriteTime <= lastWrite)
-					{
-						var js = DextopFileUtil.ConcateFiles(filePaths);
-						js = DextopFileUtil.ConcateFiles(filePaths);
-						if (Minify)
-							js = DextopFileUtil.MinifyJs(js, Obfuscate);
-						DextopFileUtil.WriteTextFile(outputFile.FullName, js);
-					}
-                    pkg.AddLocalization(loc.Key, new[] { fileName + "?cb=" + cacheBuster });
+                    var filePaths = package.Files.Select(a => package.Module.MapPath(a)).ToArray();
+                    DateTime lastWrite;
+                    int cacheBuster = DextopFileUtil.CalculateCacheBuster(filePaths, out lastWrite);
+                    var outputFile = new FileInfo(context.OptimizationOutputModule.MapPath(fileName));
+                    if (!SmartOverwrite || !outputFile.Exists || outputFile.LastWriteTime <= lastWrite)
+                    {
+                        var js = DextopFileUtil.ConcateFiles(filePaths);
+                        if (Minify)
+                            js = DextopFileUtil.MinifyJs(js, Obfuscate);
+                        DextopFileUtil.WriteTextFile(outputFile.FullName, js);
+                    }
                 }
 
-            package = pkg;
+                pkg.AddFiles(new[] { fileName });
+
+                if (package.Localizations != null)
+                    foreach (var loc in package.Localizations)
+                    {
+                        fileName = package.Module.ModuleName + "-" + PackageName + String.Format(".locale-{0}.js", loc.Key);
+
+                        if (!context.FakeOptimization)
+                        {
+                            var filePaths = loc.Value.Select(a => package.Module.MapPath(a)).ToArray();
+                            DateTime lastWrite;
+                            var cacheBuster = DextopFileUtil.CalculateCacheBuster(filePaths, out lastWrite);
+                            var outputFile = new FileInfo(context.OptimizationOutputModule.MapPath(fileName));
+                            if (!SmartOverwrite || !outputFile.Exists || outputFile.LastWriteTime <= lastWrite)
+                            {
+                                var js = DextopFileUtil.ConcateFiles(filePaths);
+                                js = DextopFileUtil.ConcateFiles(filePaths);
+                                if (Minify)
+                                    js = DextopFileUtil.MinifyJs(js, Obfuscate);
+                                DextopFileUtil.WriteTextFile(outputFile.FullName, js);
+                            }
+                            fileName += "?cb=" + cacheBuster;
+                        }
+                        pkg.AddLocalization(loc.Key, new[] { fileName });
+                    }
+
+                package = pkg;
+            }
+
+            AppendCacheBusters(package.Files);
+            if (package.Localizations != null)
+                foreach (var pl in package.Localizations)
+                    AppendCacheBusters(pl.Value);
         }
 
         void AppendCacheBusters(List<string> list)
         {
             for (var i = 0; i < list.Count; i++)
-                list[i] += "?cb=" + DextopFileUtil.CalculateCacheBuster(package.Module.MapPath(list[i]));
+                if (!list[i].Contains("?cb="))
+                    list[i] += "?cb=" + DextopFileUtil.CalculateCacheBuster(package.Module.MapPath(list[i]));
         }
 
 		/// <summary>
