@@ -33,7 +33,7 @@ namespace Codaxy.Dextop.Preprocessor
                     var app = bootstrapper.CreateApplication();
                     app.Initialize();
                 }
-
+                Console.WriteLine("Dextop preprocessing complete.");      
                 return 0;
             }
             catch (Exception ex)
