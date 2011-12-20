@@ -39,6 +39,7 @@ namespace Codaxy.Dextop.Preprocessor
             catch (Exception ex)
             {
                 Console.Error.WriteLine(ex);
+                Console.Error.Flush();
                 return 1;
             }
         }
