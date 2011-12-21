@@ -26,9 +26,15 @@ namespace Codaxy.Dextop
 		/// </summary>	
         protected internal string VirtualPath { get; set; }        
 		internal String PhysicalPath { get; set; }
-        
-        
-        protected internal DextopApplication Application { get; set; }
+
+
+        /// <summary>
+        /// Gets or sets the application.
+        /// </summary>
+        /// <value>
+        /// The application.
+        /// </value>
+        protected internal DextopApplication Application { get; internal set; }
 
 		/// <summary>
 		/// Gets the name of the module.

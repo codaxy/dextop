@@ -30,8 +30,13 @@ namespace Codaxy.Dextop
                 preprocessors.Add(DextopUtil.CombinePaths(generatedFilesPath, "forms.js"), new DextopFormPreprocessor());
                 preprocessors.Add(DextopUtil.CombinePaths(generatedFilesPath, "enums.js"), new DextopEnumPreprocessor());
             }
-		}        
+		}
 
+        /// <summary>
+        /// Registers standard data loaders
+        /// </summary>
+        /// <param name="generatedFilesPath">The generated files path.</param>
+        /// <param name="loaders">The loaders.</param>
         protected void RegisterStandardFileLoaders(String generatedFilesPath, Dictionary<String, IDextopFileLoader> loaders)
         {
             if (Application.PreprocessingEnabled && !Application.PreprocessorMode)

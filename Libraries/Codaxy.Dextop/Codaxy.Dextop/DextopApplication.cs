@@ -50,7 +50,14 @@ namespace Codaxy.Dextop
             RegisterModels();            
         }
 
+        /// <summary>
+        /// Set True if application is using Preprocessor tool to generate and optimize resources in build time.
+        /// </summary>
         public bool PreprocessingEnabled { get; set; }
+
+        /// <summary>
+        /// Set True if application is bootstrapped for preprocessing.
+        /// </summary>
         public bool PreprocessorMode { get; set; }
 
 		/// <summary>

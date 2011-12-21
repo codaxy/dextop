@@ -10,11 +10,16 @@ using Newtonsoft.Json;
 namespace Codaxy.Dextop.Remoting
 {
 	/// <summary>
-	/// Generates remote proxies.
+	/// Load remotable constructors.
 	/// </summary>
     public class DextopRemotableConstructorLoader : IDextopFileLoader
     {
-
+        /// <summary>
+        /// Loads data from the input stream.
+        /// </summary>
+        /// <param name="application"></param>
+        /// <param name="module"></param>
+        /// <param name="inputStream"></param>
         public void Load(DextopApplication application, DextopModule module, Stream inputStream)
         {
             var invoker = application.RemoteMethodInvoker as ReflectionRemoteMethodInvoker;
