@@ -7,9 +7,14 @@ namespace Codaxy.Dextop.Preprocessor
 {
     class DextopPreprocessorEnvironment : IDextopEnvironment
     {
+        public DextopPreprocessorEnvironment()
+        {
+            VirtualAppPath = "/";
+        }
+
         public string VirtualAppPath
         {
-            get { return "/showcase"; }
+            get; set;
         }
 
         public string PhysicalAppPath

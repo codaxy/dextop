@@ -31,6 +31,6 @@ Ext.define('Showcase.DemoDetails', {
 
 	showDemoInfo: function (sourceUrl) {
 		this.url = sourceUrl;
-		this.update(this.iframeTpl.apply({ url: sourceUrl }));
+		this.update(this.iframeTpl.apply({ url: Dextop.absolutePath(sourceUrl) }));
 	}
 });
