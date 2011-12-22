@@ -1,0 +1,6 @@
+To install ext go to Apps\Codaxy.Dextop.Showcase\client\lib and edit 
+mklink-ext.bat.sample file. 
+
+After you set proper path to Ext, rename the file to mklink-ext.bat and execute it as administrator.
+
+Note: If ext folder already exists, delete it.
