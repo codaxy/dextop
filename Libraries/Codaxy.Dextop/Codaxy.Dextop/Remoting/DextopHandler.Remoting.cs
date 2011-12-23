@@ -136,13 +136,13 @@ namespace Codaxy.Dextop.Remoting
 
             return new[] { request };
         }
-
+        
         Request[] GetActionRequest(HttpContext context)
-        {
-            byte[] requestDataInByte = context.Request.BinaryRead(context.Request.TotalBytes);
+        {            
+            byte[] requestData = context.Request.BinaryRead(context.Request.TotalBytes);
             var enc = context.Request.ContentEncoding;
-            var requestData = enc.GetString(requestDataInByte);
-            var res = Request.DeserializeActions(requestData);
+            var requestDataString = enc.GetString(requestData);
+            var res = Request.DeserializeActions(requestDataString);
             return res;
         }
 
