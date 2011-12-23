@@ -157,21 +157,14 @@ namespace Codaxy.Dextop.Util
                     }
                 }
                 if (notify)
-                    ExecuteCallback();
+                    DoCallback();
             }
 
-            void ExecuteCallback()
-            {
-                if (Callback != null)
-                    if (!ThreadPool.QueueUserWorkItem(DoCallback))
-                        DoCallback(null);
-            }
-
-            void DoCallback(object dummy)
+            void DoCallback()
             {
                 if (Callback != null)
                     Callback(this);
-            }            
+            }
 
             void OnTimeout(object state)
             {
@@ -181,7 +174,7 @@ namespace Codaxy.Dextop.Util
                     waitHandle.Set();
 
                 if (!IsCompleted)
-                    ExecuteCallback();
+                    DoCallback();
             }
 
             void DisposeTimer()

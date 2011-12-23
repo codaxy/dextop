@@ -47,6 +47,8 @@ namespace Codaxy.Dextop.Tests.Tests
                 var data = queues[index].EndTake(ar);
             };
 
+            var initialThreadCount = Process.GetCurrentProcess().Threads.Count;
+
             for (var i = 0; i < 10000; i++)
             {
                 var q = new Util.LongPollingQueue<int>();
@@ -54,7 +56,7 @@ namespace Codaxy.Dextop.Tests.Tests
                 var ar = q.BeginTake(1000, callback, i);
             }
             var threadCount = Process.GetCurrentProcess().Threads.Count;
-            Assert.IsTrue(threadCount < 20);                        
+            Assert.IsTrue(threadCount - initialThreadCount < 5);                        
         }
 
         [Test(Active=false)]

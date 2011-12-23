@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
+using System.Diagnostics;
+using System.Threading;
 
 namespace Codaxy.Dextop.Remoting
 {
@@ -12,63 +14,66 @@ namespace Codaxy.Dextop.Remoting
     }
 
 	/// <summary>
-	/// A HTTP handler responsible for long-polling results.
+	/// An HTTP handler responsible for long-polling results.
 	/// </summary>
-    public class DextopLongPollingHandler : DextopHandlerBase
+    public class DextopLongPollingHandler : IHttpAsyncHandler
     {
-		/// <summary>
-		/// Enables processing of HTTP Web requests by a custom HttpHandler that implements the <see cref="T:System.Web.IHttpHandler"/> interface.
-		/// </summary>
-		/// <param name="context">An <see cref="T:System.Web.HttpContext"/> object that provides references to the intrinsic server objects (for example, Request, Response, Session, and Server) used to service HTTP requests.</param>
-        //public override void ProcessRequest(HttpContext context)
-        //{
-        //    LongPollingResult result;
-        //    try
-        //    {
-        //        var session = GetSession(context);
-        //        result = session.HandleLongPollingRequest(context);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        //Application should handle the request and give a valid result.
-        //        //Any exception is a sign that session is not valid anymore.
-        //        result = new LongPollingResult
-        //        {
-        //            type = "rpc",
-        //            name = "message",
-        //            success = false,
-        //            data = new DextopRemoteMethodCallException
-        //            {
-        //                exception = ex.Message,
-        //                type = "session"
-        //            }
-        //        };
-        //    }
-
-        //    context.Response.ContentType = "application/json";
-        //    DextopUtil.Encode(result, context.Response.Output);
-        //}
-        public override void ProcessRequest(HttpContext context)
-        {
-            throw new NotImplementedException();
-        }
-
         DextopSession session;
         HttpContext context;
         Action<HttpContext, Exception> errorHandler;
+        int start;
 
-        public override IAsyncResult BeginProcessRequest(HttpContext context, AsyncCallback cb, object extraData)
-        {
+        IAsyncResult IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, object extraData)
+        {            
             try
-            {
+            {                
+                if (!int.TryParse(context.Request["start"], out start))
+                    start = 0;
+
                 this.context = context;
                 this.session = GetSession(context);
-                return session.BeginHandleLongPollingRequest(context, cb, extraData);
+                var ar = session.BeginHandleLongPollingRequest(start, cb, extraData);
+                return ar;
             }
             catch (Exception ex)
             {
                 errorHandler = WriteException;
                 return errorHandler.BeginInvoke(context, ex, cb, extraData);
+            }
+        }
+
+        void IHttpAsyncHandler.EndProcessRequest(IAsyncResult asyncResult)
+        {
+            if (errorHandler != null)
+            {
+                errorHandler.EndInvoke(asyncResult);
+            }
+            else
+            {
+                LongPollingResult result;
+                try
+                {
+                    result = session.EndHandlingLongPollingRequest(asyncResult, start);
+                }
+                catch (Exception ex)
+                {
+                    //Application should handle the request and give a valid result.
+                    //Any exception is a sign that session is not valid anymore.
+                    result = new LongPollingResult
+                    {
+                        type = "rpc",
+                        name = "message",
+                        success = false,
+                        data = new DextopRemoteMethodCallException
+                        {
+                            exception = ex.Message,
+                            type = "session"
+                        }
+                    };
+                }
+
+                context.Response.ContentType = "application/json";
+                DextopUtil.Encode(result, context.Response.Output);
             }
         }
 
@@ -92,39 +97,20 @@ namespace Codaxy.Dextop.Remoting
             DextopUtil.Encode(result, context.Response.Output);
         }
 
-        public override void EndProcessRequest(IAsyncResult asyncResult)
+        DextopSession GetSession(HttpContext context)
         {
-            if (errorHandler != null)
-            {
-                errorHandler.EndInvoke(asyncResult);
-            }
-            else
-            {
-                LongPollingResult result;
-                try
-                {
-                    result = session.EndHandlingLongPollingRequest(asyncResult);
-                }
-                catch (Exception ex)
-                {
-                    //Application should handle the request and give a valid result.
-                    //Any exception is a sign that session is not valid anymore.
-                    result = new LongPollingResult
-                    {
-                        type = "rpc",
-                        name = "message",
-                        success = false,
-                        data = new DextopRemoteMethodCallException
-                        {
-                            exception = ex.Message,
-                            type = "session"
-                        }
-                    };
-                }
-
-                context.Response.ContentType = "application/json";
-                DextopUtil.Encode(result, context.Response.Output);              
-            }
+            var appKey = context.Request.QueryString["app"];
+            var app = DextopApplication.GetApplication(appKey);
+            var sessionId = context.Request.QueryString["sid"];
+            var session = app.GetSession(sessionId);
+            return session;
         }
+
+        void IHttpHandler.ProcessRequest(HttpContext context)
+        {
+            throw new NotImplementedException();
+        }
+
+        bool IHttpHandler.IsReusable { get { return false; } }
     }
 }

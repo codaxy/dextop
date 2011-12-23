@@ -146,7 +146,6 @@
     <Compile Include="Modules\DextopSoundModule.cs" />
     <Compile Include="Remoting\DextopEnum.Preprocessor.cs" />
     <Compile Include="Remoting\DextopHandler.LongPolling.cs" />
-    <Compile Include="Remoting\DextopHandler.Base.cs" />
     <Compile Include="Remoting\DextopHandler.Polling.cs" />
     <Compile Include="Remoting\DextopHandler.Remoting.cs" />
     <Compile Include="Direct\Request.cs" />
