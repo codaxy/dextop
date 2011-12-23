@@ -24,7 +24,7 @@ namespace Codaxy.Dextop.Tests.Tests.Dev
         }
     }
 
-    [TestFixture(Active=true)]
+    [TestFixture(Active=false)]
     public class ConstructorTests
     {
         [Test]

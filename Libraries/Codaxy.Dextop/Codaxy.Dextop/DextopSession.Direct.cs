@@ -90,8 +90,45 @@ namespace Codaxy.Dextop
             return responses;
         }
 
-        internal LongPollingResult HandleLongPollingRequest(HttpContext context)
+        //internal LongPollingResult HandleLongPollingRequest(HttpContext context)
+        //{
+        //    var result = new LongPollingResult
+        //    {
+        //        type = "rpc",
+        //        name = "message"
+        //    };
+        //    try
+        //    {
+        //        int start;
+        //        if (!int.TryParse(context.Request["start"], out start))
+        //            start = 0;
+
+        //        int nextStart;
+        //        var msgs = PopMessagesOrWait(start, out nextStart, TimeSpan.FromSeconds(20));
+        //        result.nextStart = nextStart;
+        //        result.data = msgs;
+        //        result.success = true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        result.success = false;
+        //        result.data = new DextopRemoteMethodCallException
+        //        {
+        //            type = "rpc",
+        //            exception = ex.Message,
+        //            stackTrace = ex.StackTrace
+        //        };
+        //    }
+        //    return result;
+        //}
+
+        internal IAsyncResult BeginHandleLongPollingRequest(HttpContext context, AsyncCallback callback, object state)
         {
+            return messageQueue.BeginTake(20000, callback, state);
+        }
+
+        internal LongPollingResult EndHandlingLongPollingRequest(IAsyncResult asyncResult) {
+
             var result = new LongPollingResult
             {
                 type = "rpc",
@@ -99,12 +136,9 @@ namespace Codaxy.Dextop
             };
             try
             {
-                int start;
-                if (!int.TryParse(context.Request["start"], out start))
-                    start = 0;
-
-                int nextStart;
-                var msgs = PopMessagesOrWait(start, out nextStart, TimeSpan.FromSeconds(20));
+                var start = 0;
+                int nextStart = 0;
+                var msgs = messageQueue.EndTake(asyncResult);
                 result.nextStart = nextStart;
                 result.data = msgs;
                 result.success = true;

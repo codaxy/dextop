@@ -236,72 +236,84 @@ namespace Codaxy.Dextop
                 RemotableContext c;
                 remotables.TryRemove(remoteId, out c);
             }
-        }
-
-        ManualResetEventSlim serverMessageEvent;
-        object serverMessagePopLock = new object();
+        }        
 
         IList<DextopServerMessage> PopMessages(int? start, out int nextStart)
         {
-            List<DextopServerMessage> res = new List<DextopServerMessage>();
-            lock (serverMessagePopLock)
-            {
-                //if there is large number of messages, split them to chunks
-                //in order to start processing on the client side sooner
-                var chunkLimit = serverMessages.Count > 100 ? 50 : 100;
-                DextopServerMessage sm;
-                if (start != null)
-                {
-                    //Free messages sent in previous turn
-                    while (serverMessageOffset < start.Value)
-                    {
-                        serverMessages.TryDequeue(out sm);
-                        serverMessageOffset++;
-                    }
-                    res.AddRange(serverMessages.Take(chunkLimit));
-                    nextStart = start.Value + res.Count;
-                }
-                else
-                {
-                    while (serverMessages.TryDequeue(out sm) && res.Count < chunkLimit)
-                    {
-                        res.Add(sm);
-                    }
-                    serverMessageOffset += res.Count;
-                    nextStart = serverMessageOffset;
-                }
-            }            
+            nextStart = start ?? serverMessageOffset;
+            var res = messageQueue.TakeAll();
             return res;
+
+            //lock (serverMessagePopLock)
+            //{
+            //    //if there is large number of messages, split them to chunks
+            //    //in order to start processing on the client side sooner
+            //    var chunkLimit = serverMessages.Count > 100 ? 50 : 100;
+            //    DextopServerMessage sm;
+            //    if (start != null)
+            //    {
+            //        //Free messages sent in previous turn
+            //        while (serverMessageOffset < start.Value)
+            //        {
+            //            serverMessages.TryDequeue(out sm);
+            //            serverMessageOffset++;
+            //        }
+            //        res.AddRange(serverMessages.Take(chunkLimit));
+            //        nextStart = start.Value + res.Count;
+            //    }
+            //    else
+            //    {
+            //        while (serverMessages.TryDequeue(out sm) && res.Count < chunkLimit)
+            //        {
+            //            res.Add(sm);
+            //        }
+            //        serverMessageOffset += res.Count;
+            //        nextStart = serverMessageOffset;
+            //    }
+            //}            
+            //return res;
         }
 
-        IList<DextopServerMessage> PopMessagesOrWait(int? start, out int nextStart, TimeSpan waitTimeout)
-        {
-            if (serverMessages.Count <= start - serverMessageOffset)
-            {
-                if (serverMessageEvent == null)
-                    serverMessageEvent = new ManualResetEventSlim();
-                if (serverMessageEvent.Wait(waitTimeout))
-                    serverMessageEvent.Reset();
-            }
-            var msgs = PopMessages(start, out nextStart);
-            return msgs;
-        }
+        //IList<DextopServerMessage> PopMessagesOrWait(int? start, out int nextStart, TimeSpan waitTimeout)
+        //{
+        //    List<DextopServerMessage> res = new List<DextopServerMessage>();
+        //    DextopServerMessage msg;
+        //    if (blockingCollection.TryTake(out msg, (int)waitTimeout.TotalMilliseconds))
+        //        res.Add(msg);
+        //    while (blockingCollection.TryTake(out msg))
+        //        res.Add(msg);
+        //    nextStart = start ?? serverMessageOffset;
+        //    return res;
+        //    //if (serverMessages.Count <= start - serverMessageOffset)
+        //    //{
+        //    //    if (serverMessageEvent == null)
+        //    //        serverMessageEvent = new ManualResetEventSlim();
+        //    //    if (serverMessageEvent.Wait(waitTimeout))
+        //    //        serverMessageEvent.Reset();
+        //    //}
+        //    //var msgs = PopMessages(start, out nextStart);
+        //    //return msgs;
+        //}        
 
-        ConcurrentQueue<DextopServerMessage> serverMessages = new ConcurrentQueue<DextopServerMessage>();
+        Util.LongPollingQueue<DextopServerMessage> messageQueue = new Util.LongPollingQueue<DextopServerMessage>();
         int serverMessageOffset = 0;
 
         internal void SendServerMessage(string remoteId, object[] msgs)
         {
-            foreach (var msg in msgs)
+            messageQueue.Add(msgs.Select(msg => new DextopServerMessage
             {
-                serverMessages.Enqueue(new DextopServerMessage
-                {
-                    remoteId = remoteId,
-                    message = msg
-                });
-            }
-            if (serverMessageEvent!=null)
-                serverMessageEvent.Set();
+                remoteId = remoteId,
+                message = msg
+            }));
+            //{
+            //    serverMessages.Enqueue(new DextopServerMessage
+            //    {
+            //        remoteId = remoteId,
+            //        message = msg
+            //    });
+            //}
+            //if (serverMessageEvent!=null)
+            //    serverMessageEvent.Set();
         }        
     }
 }

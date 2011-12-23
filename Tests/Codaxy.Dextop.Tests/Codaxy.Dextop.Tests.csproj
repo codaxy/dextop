@@ -61,6 +61,7 @@
     <Compile Include="Tests\Dev\ConstructorTests.cs" />
     <Compile Include="Tests\DextopConfigTests.cs" />
     <Compile Include="Tests\DisposeTests.cs" />
+    <Compile Include="Tests\LongPollingQueueTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
