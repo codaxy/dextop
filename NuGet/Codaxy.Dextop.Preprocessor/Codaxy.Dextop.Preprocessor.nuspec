@@ -2,7 +2,7 @@
 <package>
   <metadata schemaVersion="2">
     <id>Codaxy.Dextop.Preprocessor</id>    
-    <title>Dextop RIA Framework (Libraries)</title>
+    <title>Dextop - Preprocessor</title>
     <version>1.0.7.0</version>
     <authors>Codaxy</authors>
     <description>Generate JS, concenate, minify Dextop resources</description>
