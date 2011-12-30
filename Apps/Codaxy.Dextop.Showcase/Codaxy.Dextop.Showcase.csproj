@@ -98,6 +98,7 @@
     <Content Include="client\js\cache\showcase-demos.js" />
     <Content Include="client\js\cache\sound-scripts.js" />
     <Content Include="client\js\controls\GuidesTreePanel.js" />
+    <Content Include="client\lib\dextop\css\dextop-min.css" />
     <Content Include="client\lib\dextop\images\icons\add.png" />
     <Content Include="client\lib\dextop\images\icons\delete.png" />
     <Content Include="client\lib\dextop\images\icons\edit.png" />
