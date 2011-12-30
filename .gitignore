@@ -17,3 +17,4 @@ cache/*.js
 /NuGet/*/src
 /NuGet/*.nupkg
 /NuGet/local.bat
+mklink-ext.bat

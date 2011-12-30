@@ -35,11 +35,6 @@ namespace Codaxy.Dextop.Direct
             get;
             set;
         }
-
-        public static ActionRequest[] Deserialize(String requestData)
-        {
-            return requestData.StartsWith("[") ? DextopUtil.Decode<ActionRequest[]>(requestData) : new[] { DextopUtil.Decode<ActionRequest>(requestData) };
-        }
     }
 
     enum RequestType { Action, FormSubmit }
@@ -75,18 +70,5 @@ namespace Codaxy.Dextop.Direct
         public RequestType RequestType { get; set; }
 
         public DextopFormSubmit FormSubmit { get; set; }
-
-        public static Request[] DeserializeActions(String requestData)
-        {
-            return ActionRequest.Deserialize(requestData).Select(r => new Request
-            {
-                RequestType = RequestType.Action,
-                data = r.data,
-                action = r.action,
-                method = r.method,
-                tid = r.tid,
-                type = r.type
-            }).ToArray();
-        }
     }
 }
