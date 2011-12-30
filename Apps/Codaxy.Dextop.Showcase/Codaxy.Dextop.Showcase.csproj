@@ -530,7 +530,6 @@
     <Compile Include="Demos\Windows\SimpleWindow.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="client\js\controls\guides.js" />
     <Content Include="client\lib\dextop\js\locale\dextop-ru.js" />
     <Content Include="client\lib\dextop\js\locale\dextop-sr.js" />
     <Content Include="client\lib\dextop\js\ux\Dextop.ux.FormEditorWindow.js" />

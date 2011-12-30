@@ -40,7 +40,7 @@ namespace Codaxy.Dextop.Showcase
                 preprocessors.Add("client/js/generated/demos.js", new Demos.DemoPreprocessor());
                 //#if DEBUG
                 preprocessors.Add("source/dummy.txt", new Demos.DemoSourcePreprocessor());
-                preprocessors.Add("client/js/controls/guides.js", new Guides.GuidePreprocessor()); //generated to controls as it's included in project
+                preprocessors.Add("client/js/generated/guides.js", new Guides.GuidePreprocessor()); //generated to controls as it's included in project
                 //#endif
                 RegisterStandardAssemblyPreprocessors("client/js/generated/", preprocessors);
             }
