@@ -1,8 +1,6 @@
-To install ext go to Apps\Codaxy.Dextop.Showcase\client\lib and edit 
-mklink-ext.bat.sample file. 
+To install ext copy mklink-ext.bat.sample to mklink-ext.bat file and set valid path to Ext.
+Rembember to execute batch as an administrator.
 
-After you set proper path to Ext, rename the file to mklink-ext.bat and execute it as administrator.
+Note: If ext folder already exists in client/lib directory, delete it.
 
-Note: If ext folder already exists, delete it.
-
-If you're on XP and or mklink does not work for you, unpack Ext JS to the ext folder.
+If you're on XP and or mklink does not work for you, unpack Ext JS to the client/lib/ext folder of the Showcase app.

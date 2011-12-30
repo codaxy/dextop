@@ -144,7 +144,7 @@ namespace Codaxy.Dextop.Remoting
 
         Request[] GetActionRequest(HttpContext context)
         {            
-            var stream = UseBufferlessInputStream ? context.Request.GetBufferlessInputStream() : context.Request.InputStream;
+            var stream = UseBufferlessInputStream || true ? context.Request.GetBufferlessInputStream() : context.Request.InputStream;
             using (stream)
             using (var tr = new StreamReader(stream))
             using (var jr = new JsonTextReader(tr))
