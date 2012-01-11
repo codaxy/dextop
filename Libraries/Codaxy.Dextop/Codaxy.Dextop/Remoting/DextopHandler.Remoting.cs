@@ -14,13 +14,13 @@ namespace Codaxy.Dextop.Remoting
 	/// <summary>
 	/// A HTTP handler responsible for Ext.direct requests.
 	/// </summary>
-    public class DextopRemotingHandler : DextopHandlerBase
+    public class DextopRemotingHandler : IHttpHandler
     {
 		/// <summary>
 		/// Enables processing of HTTP Web requests by a custom HttpHandler that implements the <see cref="T:System.Web.IHttpHandler"/> interface.
 		/// </summary>
 		/// <param name="context">An <see cref="T:System.Web.HttpContext"/> object that provides references to the intrinsic server objects (for example, Request, Response, Session, and Server) used to service HTTP requests.</param>
-        public override void ProcessRequest(HttpContext context)
+        public void ProcessRequest(HttpContext context)
         {
             var ajax = context.Request.QueryString["ajax"] == "1";
             if (ajax)
@@ -90,6 +90,8 @@ namespace Codaxy.Dextop.Remoting
             }
         }
 
+        public bool IsReusable { get { return true; } }
+
         Request[] GetUploadRequest(HttpContext context)
         {
             var files = new Dictionary<String, DextopFile>();
@@ -135,13 +137,36 @@ namespace Codaxy.Dextop.Remoting
             return new[] { request };
         }
 
+        /// <summary>
+        /// This method provides an alternative to using the InputStream property. 
+        /// The InputStream property waits until the whole request has been received before it returns a Stream object. In contrast, the GetBufferlessInputStream method returns the Stream object immediately. You can use the method to begin processing the entity body before the complete contents of the body have been received.
+        /// NOTE: This method has unresolved IE problems.
+        /// </summary>
+        public static bool UseBufferlessInputStream { get; set; }
+
         Request[] GetActionRequest(HttpContext context)
         {
-            byte[] requestDataInByte = context.Request.BinaryRead(context.Request.TotalBytes);
-            var enc = context.Request.ContentEncoding;
-            var requestData = enc.GetString(requestDataInByte);
-            var res = Request.DeserializeActions(requestData);
-            return res;
+            var stream = UseBufferlessInputStream ? context.Request.GetBufferlessInputStream() : context.Request.InputStream;
+            using (stream)
+            using (var tr = new StreamReader(stream))
+            using (var jr = new JsonTextReader(tr))
+            {
+                var js = new JsonSerializer();
+                if (!jr.Read())
+                    return new Request[0];
+                if (jr.TokenType == JsonToken.StartObject)
+                    return new[] { js.Deserialize<Request>(jr) };
+                return js.Deserialize<Request[]>(jr);
+            }
+        }
+
+        DextopSession GetSession(HttpContext context)
+        {
+            var appKey = context.Request.QueryString["app"];
+            var app = DextopApplication.GetApplication(appKey);
+            var sessionId = context.Request.QueryString["sid"];
+            var session = app.GetSession(sessionId);
+            return session;
         }
     }        
 }

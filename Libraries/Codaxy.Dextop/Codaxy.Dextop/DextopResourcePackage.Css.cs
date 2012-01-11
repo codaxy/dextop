@@ -67,14 +67,14 @@ namespace Codaxy.Dextop
 		/// <param name="context">The context.</param>
         public void Optimize(DextopResourceOptimizationContext context)
         {
-            OptimizeFileList(package.Files);
+            OptimizeFileList(context, package.Files);
 
             if (package.Localizations != null)
                 foreach (var loc in package.Localizations)
-                    OptimizeFileList(loc.Value);
+                    OptimizeFileList(context, loc.Value);
         }
 
-        void OptimizeFileList(List<string> files)
+        void OptimizeFileList(DextopResourceOptimizationContext context, List<string> files)
         {
             for (var i = 0; i < files.Count; i++)
             {
@@ -83,15 +83,15 @@ namespace Codaxy.Dextop
 				DateTime lastWrite;
                 var cb = DextopFileUtil.CalculateCacheBuster(new [] { filePath }, out lastWrite);
                 if (Minify)
-                {					
-					var outputPath = new FileInfo(filePath.Substring(0, filePath.Length - 4) + "-min.css");
-					if (!SmartOverwrite || !outputPath.Exists || outputPath.LastAccessTime <= lastWrite)
-					{
-						var css = File.ReadAllText(filePath);
-						css = DextopFileUtil.MinifyCss(css);
-						File.WriteAllText(outputPath.FullName, css);
-						files[i] = files[i].Substring(0, files[i].Length - 4) + "-min.css";
-					}
+                {
+                    files[i] = files[i].Substring(0, files[i].Length - 4) + "-min.css";
+					var outputPath = new FileInfo(filePath.Substring(0, filePath.Length - 4) + "-min.css");                    
+                    if (!context.FakeOptimization && (!SmartOverwrite || !outputPath.Exists || outputPath.LastAccessTime <= lastWrite))
+                    {
+                        var css = File.ReadAllText(filePath);
+                        css = DextopFileUtil.MinifyCss(css);
+                        File.WriteAllText(outputPath.FullName, css);
+                    }
                 }
                 files[i] = files[i] + "?cb=" + cb;
             }

@@ -55,6 +55,14 @@ namespace Codaxy.Dextop
            
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="loaders"></param>
+        protected override void RegisterLoaders(Dictionary<string, IDextopFileLoader> loaders)
+        {
+            
+        }
+
 		/// <summary>
 		/// Initializes the module resources.
 		/// </summary>

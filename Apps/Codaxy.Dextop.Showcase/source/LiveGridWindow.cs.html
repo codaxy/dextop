@@ -12,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using Codaxy.Dextop.Data;
+using System.Diagnostics;
 
 
 namespace Codaxy.Dextop.Showcase.Demos.Live
@@ -20,10 +21,12 @@ namespace Codaxy.Dextop.Showcase.Demos.Live
     {
         DextopObservableStore&lt;string, LiveGridModel&gt; store;
         Timer timer;
+        Random r;
 
         public LiveGridWindow()
         {
             store = new DextopObservableStore&lt;string, LiveGridModel&gt;(a =&gt; a.Ticker);
+            r = new Random();
 #if DEBUG
             timer = new Timer(OnTimer, null, 100, 300);            
 #else
@@ -34,10 +37,10 @@ namespace Codaxy.Dextop.Showcase.Demos.Live
         void OnTimer(object state)
         {
             try
-            {
-                var r = new Random();
+            {                
                 var changes = new List&lt;LiveGridModel&gt;();
-                for (var i = 0; i &lt; r.Next(5); i++)
+                var n = r.Next(5) + 1;
+                for (var i = 0; i &lt; n; i++)
                 {
                     changes.Add(new LiveGridModel
                     {

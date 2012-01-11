@@ -54,7 +54,7 @@ namespace Codaxy.Dextop.Remoting
 		/// <returns>
 		/// An <see cref="T:System.IAsyncResult"/> that contains information about the status of the process.
 		/// </returns>
-        public IAsyncResult BeginProcessRequest(HttpContext context, AsyncCallback cb, object extraData)
+        public virtual IAsyncResult BeginProcessRequest(HttpContext context, AsyncCallback cb, object extraData)
         {
             processRequestAction = ProcessRequest;
             return processRequestAction.BeginInvoke(context, cb, extraData);
@@ -64,7 +64,7 @@ namespace Codaxy.Dextop.Remoting
 		/// Provides an asynchronous process End method when the process ends.
 		/// </summary>
 		/// <param name="result">An <see cref="T:System.IAsyncResult"/> that contains information about the status of the process.</param>
-        public void EndProcessRequest(IAsyncResult result)
+        public virtual void EndProcessRequest(IAsyncResult result)
         {
             processRequestAction.EndInvoke(result);
         }

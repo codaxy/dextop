@@ -270,6 +270,9 @@ namespace Codaxy.Dextop.Forms
 			if (memberType.IsAssignableFrom(typeof(int)))
 				return "numberfield";
 
+            if (memberType.IsAssignableFrom(typeof(double)))
+                return "numberfield";
+
 			if (memberType == typeof(DateTime))
 				return "datefield";
 

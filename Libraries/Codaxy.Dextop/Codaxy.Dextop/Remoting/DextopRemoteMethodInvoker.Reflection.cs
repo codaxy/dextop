@@ -30,7 +30,8 @@ namespace Codaxy.Dextop.Remoting
         }
         
         readonly static ConcurrentDictionary<String, RemotableMethod> methodCache = new ConcurrentDictionary<string, RemotableMethod>();
-        readonly static ConcurrentDictionary<String, RemotableConstructor> constructorCache = new ConcurrentDictionary<string, RemotableConstructor>();        
+        readonly static ConcurrentDictionary<String, RemotableConstructor> constructorCache = new ConcurrentDictionary<string, RemotableConstructor>();
+        readonly static ConcurrentDictionary<String, String> constructorType = new ConcurrentDictionary<string, string>();
 
         RemotableMethod GetMethod(Type type, String methodName)
         {
@@ -174,8 +175,11 @@ namespace Codaxy.Dextop.Remoting
                     config = arguments[1];
 
                 RemotableConstructor c;
-                if (options.type == null || !constructorCache.TryGetValue(options.type, out c))
+                if (options.type == null)
                     throw new InvalidDextopRemoteMethodCallException();
+                if (!constructorCache.TryGetValue(options.type, out c))
+                    c = LoadRemotableConstructor(options.type);                                    
+                    
                 object[] args;
                 if (c.Args == null || c.Args.Length == 0)
                     args = new object[0];
@@ -245,6 +249,33 @@ namespace Codaxy.Dextop.Remoting
                     Exception = ex
                 };
             }
+        }
+
+        private RemotableConstructor LoadRemotableConstructor(string alias)
+        {
+            String typeName;
+            if (!constructorType.TryGetValue(alias, out typeName))
+                throw new InvalidDextopRemoteMethodCallException();
+            var type = Type.GetType(typeName);
+            foreach (var mi in type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance))
+            {
+                DextopRemotableAttribute ra;
+                if (AttributeHelper.TryGetAttribute<DextopRemotableAttribute>(mi, out ra, false))
+                {
+                    CacheConstructorInfo(alias, mi, ra);
+                }
+            }
+            String dummy;
+            constructorType.TryRemove(alias, out dummy);
+            RemotableConstructor res;
+            if (constructorCache.TryGetValue(alias, out res))
+                return res;
+            throw new InvalidDextopRemoteMethodCallException();
+        }
+
+        internal void RegisterTypeAlias(string alias, string fullTypeName)
+        {
+            constructorType.TryAdd(alias, fullTypeName);
         }
     }
 }

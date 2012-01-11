@@ -88,26 +88,45 @@ namespace Codaxy.Dextop
 			HttpContext = null;
 
             return responses;
+        }        
+        
+        LongPollingResult previousLongPollingResult;
+
+        internal IAsyncResult BeginHandleLongPollingRequest(int start, AsyncCallback callback, object state)
+        {
+            //If, for some reason, last package was not recieved by the client, send same package again...
+            if (previousLongPollingResult != null && start < previousLongPollingResult.nextStart)
+                return ((Func<LongPollingResult>)GetPreviousLongPollingResult).BeginInvoke(callback, state);
+
+            return messageQueue.BeginTake(20000, callback, state);
         }
 
-        internal LongPollingResult HandleLongPollingRequest(HttpContext context)
+        LongPollingResult GetPreviousLongPollingResult()
         {
+            return previousLongPollingResult;
+        }
+
+        internal LongPollingResult EndHandlingLongPollingRequest(IAsyncResult asyncResult, int start) {
+
             var result = new LongPollingResult
             {
                 type = "rpc",
                 name = "message"
             };
             try
-            {
-                int start;
-                if (!int.TryParse(context.Request["start"], out start))
-                    start = 0;
-
-                int nextStart;
-                var msgs = PopMessagesOrWait(start, out nextStart, TimeSpan.FromSeconds(20));
-                result.nextStart = nextStart;
-                result.data = msgs;
-                result.success = true;
+            {                
+                if (previousLongPollingResult != null && start < previousLongPollingResult.nextStart)
+                {
+                    result = ((Func<LongPollingResult>)GetPreviousLongPollingResult).EndInvoke(asyncResult);                    
+                }
+                else
+                {
+                    var msgs = messageQueue.EndTake(asyncResult);                    
+                    result.nextStart = start + msgs.Count;
+                    result.data = msgs;
+                    result.success = true;
+                    previousLongPollingResult = result;                    
+                }
             }
             catch (Exception ex)
             {
@@ -117,8 +136,8 @@ namespace Codaxy.Dextop
                     type = "rpc",
                     exception = ex.Message,
                     stackTrace = ex.StackTrace
-                };
-            }
+                };                
+            }            
             return result;
         }
 

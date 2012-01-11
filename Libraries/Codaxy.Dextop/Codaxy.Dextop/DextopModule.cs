@@ -26,7 +26,15 @@ namespace Codaxy.Dextop
 		/// </summary>	
         protected internal string VirtualPath { get; set; }        
 		internal String PhysicalPath { get; set; }
-        internal DextopApplication Application { get; set; }
+
+
+        /// <summary>
+        /// Gets or sets the application.
+        /// </summary>
+        /// <value>
+        /// The application.
+        /// </value>
+        protected internal DextopApplication Application { get; internal set; }
 
 		/// <summary>
 		/// Gets the name of the module.
@@ -60,6 +68,12 @@ namespace Codaxy.Dextop
 		/// <param name="preprocessors">The preprocessors.</param>
         protected abstract void RegisterAssemblyPreprocessors(Dictionary<String, IDextopAssemblyPreprocessor> preprocessors);
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="loaders"></param>
+        protected abstract void RegisterLoaders(Dictionary<String, IDextopFileLoader> loaders);
+
 		/// <summary>
 		/// Initializes the module resources.
 		/// </summary>
@@ -69,14 +83,31 @@ namespace Codaxy.Dextop
 		/// <summary>
 		/// Initializes the module.
 		/// </summary>
-        public void Initialize()
-        {            
+        internal void Initialize()
+        {
             InitNamespaces();
+
             var assemblies = GetAssemblies();
             var preprocessors = new Dictionary<String, IDextopAssemblyPreprocessor>();
             RegisterAssemblyPreprocessors(preprocessors);
             PreprocessAssemblies(assemblies, preprocessors);
+
+            var loaders = new Dictionary<String, IDextopFileLoader>();
+            RegisterLoaders(loaders);
+            ExecuteLoaders(loaders);
             InitResources();
+        }
+
+        private void ExecuteLoaders(Dictionary<string, IDextopFileLoader> loaders)
+        {
+            foreach (var kv in loaders)
+            {
+                var filePath = MapPath(kv.Key);
+                if (!File.Exists(filePath))
+                    throw new DextopException("File '{0}' not found and therefore cannot be loaded.", kv.Key);
+                using (var fs = File.OpenRead(filePath))
+                    kv.Value.Load(Application, this, fs);
+            }
         }
 
 		/// <summary>
@@ -140,5 +171,10 @@ namespace Codaxy.Dextop
 		/// Gets or sets the output module.
 		/// </summary>		
         public DextopModule OptimizationOutputModule { get; set; }
+
+        /// <summary>
+        /// Set fake optimization to true if preprocessor is used to generate resources in build time.
+        /// </summary>
+        public bool FakeOptimization { get; set; }
     }
 }

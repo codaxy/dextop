@@ -14,7 +14,8 @@ Ext.define('Showcase.model.Demo', {
         { name: 'topic' },
         { name: 'level' },
         { name: 'category' },
-        { name: 'clientLauncher' }
+        { name: 'clientLauncher' },
+		{ name: 'sourceUrlBase' }
     ],
     idProperty: 'id',
 	

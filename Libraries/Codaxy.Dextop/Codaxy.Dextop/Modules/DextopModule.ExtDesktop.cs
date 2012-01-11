@@ -43,12 +43,21 @@ namespace Codaxy.Dextop.Modules
 		}
 
         /// <summary>
-        /// Override this module to register any of the assembly preprocessors.
+        /// Override this method to register any of the assembly preprocessors.
         /// </summary>
         /// <param name="preprocessors">The preprocessors.</param>
         protected override void RegisterAssemblyPreprocessors(Dictionary<string, IDextopAssemblyPreprocessor> preprocessors)
         {
 
+        }
+
+        /// <summary>
+        /// Override this method to register data loaders for this module.
+        /// </summary>
+        /// <param name="loaders"></param>
+        protected override void RegisterLoaders(Dictionary<string, IDextopFileLoader> loaders)
+        {
+            
         }
 	}
 }

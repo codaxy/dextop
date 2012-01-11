@@ -1,0 +1,4 @@
+call build.bat
+echo Deploying Nugets to local repository
+copy *.nupkg c:\code\nugets
+pause

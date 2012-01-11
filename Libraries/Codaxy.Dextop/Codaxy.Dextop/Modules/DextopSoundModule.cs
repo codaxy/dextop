@@ -99,5 +99,13 @@ namespace Codaxy.Dextop.Modules
         {
 
         }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="loaders"></param>
+        protected override void RegisterLoaders(Dictionary<string, IDextopFileLoader> loaders)
+        {
+            
+        }
 	}
 }

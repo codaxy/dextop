@@ -4,12 +4,33 @@ using System.Linq;
 using System.Web;
 using System.Collections.Concurrent;
 using Codaxy.Dextop.Remoting;
+using Codaxy.Common.Reflection;
+using Codaxy.Dextop.Showcase.Demos;
+using System.Reflection;
 
 namespace Codaxy.Dextop.Showcase
 {
     public partial class ShowcaseApplication
     {   
         ConcurrentDictionary<String, Type> demoTypes = new ConcurrentDictionary<string, Type>();
+
+        public void InitializeDemos()
+        {
+            try
+            {
+                if (PreprocessingEnabled && !PreprocessorMode)
+                {
+                    var data = AssemblyHelper.GetTypeAttributeDictionaryForAssembly<DemoAttribute>(this.GetType().Assembly, false);
+
+                    foreach (var entry in data)
+                        RegisterDemo(entry.Value.Id, entry.Key);
+                }
+            }
+            catch (ReflectionTypeLoadException ex)
+            {
+                throw ex.LoaderExceptions[0];
+            }
+        }
 
         public void RegisterDemo(String id, Type type)
         {

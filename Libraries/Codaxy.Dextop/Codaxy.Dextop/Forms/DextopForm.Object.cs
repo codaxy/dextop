@@ -59,6 +59,10 @@ namespace Codaxy.Dextop.Forms
                 jw.AddProperty("items", Items);
         }
 
+        /// <summary>
+        /// Applies the labelable data to the form object.
+        /// </summary>
+        /// <param name="labelable">The labelable.</param>
 		internal protected virtual void ApplyLabelable(IDextopFormLabelable labelable)
 		{
 			if (labelable.fieldLabel != null)

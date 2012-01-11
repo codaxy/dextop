@@ -14,7 +14,7 @@
     <AssemblyName>Codaxy.Dextop.Showcase</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
@@ -86,8 +86,19 @@
     <Reference Include="System.Web.Services" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="client\css\features-min.css" />
+    <Content Include="client\css\theme-min.css" />
     <Content Include="client\images\article-icon.png" />
+    <Content Include="client\js\cache\dextop-core.js" />
+    <Content Include="client\js\cache\dextop-core.locale-da.js" />
+    <Content Include="client\js\cache\dextop-core.locale-ru.js" />
+    <Content Include="client\js\cache\dextop-core.locale-sr.js" />
+    <Content Include="client\js\cache\ext-dataview-pack.js" />
+    <Content Include="client\js\cache\showcase-app.js" />
+    <Content Include="client\js\cache\showcase-demos.js" />
+    <Content Include="client\js\cache\sound-scripts.js" />
     <Content Include="client\js\controls\GuidesTreePanel.js" />
+    <Content Include="client\lib\dextop\css\dextop-min.css" />
     <Content Include="client\lib\dextop\images\icons\add.png" />
     <Content Include="client\lib\dextop\images\icons\delete.png" />
     <Content Include="client\lib\dextop\images\icons\edit.png" />
@@ -222,8 +233,10 @@
     <Content Include="client\lib\ext\resources\themes\images\default\dd\drop-no.gif" />
     <Content Include="client\lib\ext\resources\themes\images\default\dd\drop-yes.gif" />
     <Content Include="client\lib\ext\resources\themes\images\default\editor\tb-sprite.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\form-invalid-tip\form-invalid-tip-corners.gif" />
     <Content Include="client\lib\ext\resources\themes\images\default\form-invalid-tip\form-invalid-tip-default-corners.gif" />
     <Content Include="client\lib\ext\resources\themes\images\default\form-invalid-tip\form-invalid-tip-default-sides.gif" />
+    <Content Include="client\lib\ext\resources\themes\images\default\form-invalid-tip\form-invalid-tip-sides.gif" />
     <Content Include="client\lib\ext\resources\themes\images\default\form\checkbox.gif" />
     <Content Include="client\lib\ext\resources\themes\images\default\form\clear-trigger.gif" />
     <Content Include="client\lib\ext\resources\themes\images\default\form\date-trigger.gif" />
@@ -465,66 +478,6 @@
     <Content Include="client\lib\ext\resources\themes\images\default\window-header\window-header-default-top-sides.gif" />
     <Content Include="client\lib\ext\resources\themes\images\default\window\window-default-corners.gif" />
     <Content Include="client\lib\ext\resources\themes\images\default\window\window-default-sides.gif" />
-    <Content Include="Demos\Live\ChatRoom.txt" />
-    <Compile Include="Demos\Remoting\FileDownloadDemo.cs" />
-    <Compile Include="Demos\Remoting\RemoteInstantiation.cs" />
-    <Compile Include="Demos\Remoting\Enums.cs" />
-    <Compile Include="Guides\GuidePreprocessor.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Demos\CategoryAttribute.cs" />
-    <Compile Include="Demos\DemoAttribute.cs" />
-    <Compile Include="Demos\DemoPreprocessor.cs" />
-    <Compile Include="Demos\DemoSourcePreprocessor.cs" />
-    <Compile Include="Demos\Forms\AllFormFieldsWindow.cs" />
-    <Compile Include="Demos\Forms\CheckboxGroups.cs" />
-    <Compile Include="Demos\Forms\SharedLookupData.cs" />
-    <Compile Include="Demos\Forms\RadioGroups.cs" />
-    <Compile Include="Demos\Grids\ClientGridWindow.cs" />
-    <Compile Include="Demos\Grids\PageSizeComboBox.cs" />
-    <Compile Include="Demos\Grids\GridEditorsWindow.cs" />
-    <Compile Include="Demos\Grids\GridActionManager.cs" />
-    <Compile Include="Demos\Grids\ModelValidationGridWindow.cs" />
-    <Compile Include="Demos\Grids\FastPagingGridWindow.cs" />
-    <Compile Include="Demos\Grids\PagingGridWindow.cs" />
-    <Compile Include="Demos\Grids\RowEditableGridWindow.cs" />
-    <Compile Include="Demos\Grids\EditableGridWindow.cs" />
-    <Compile Include="Demos\Grids\GroupedGridHeaders.cs" />
-    <Compile Include="Demos\Live\LongOperation.cs" />
-    <Compile Include="Demos\Live\NotificationsWindow.cs" />
-    <Compile Include="Demos\Live\PlaySoundWindow.cs" />
-    <Compile Include="Demos\Live\LiveChartWindow.cs" />
-    <Compile Include="Demos\Live\LiveGridWindow.cs" />
-    <Compile Include="Demos\Remoting\AdvancedExceptionHandling.cs" />
-    <Compile Include="Demos\Remoting\MessageExceptions.cs" />
-    <Compile Include="Demos\Remoting\RemotingCallbacks.cs" />
-    <Compile Include="Demos\Remoting\FileUploadDemo.cs" />
-    <Compile Include="Demos\Remoting\HelloRemotingDemo.cs" />
-    <Compile Include="Demos\LevelAttribute.cs" />
-    <Compile Include="Demos\TopicAttribute.cs" />
-    <Compile Include="Demos\Trees\TreeWindow.cs" />
-    <Compile Include="Demos\Windows\WindowOnDemand.cs" />
-    <Compile Include="Global.asax.cs">
-      <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DextopAppConfig.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ShowcaseApplication.cs" />
-    <Compile Include="ShowcaseApplication.DemoLauncher.cs" />
-    <Compile Include="ShowcaseApplication.ExtDataViewModule.cs" />
-    <Compile Include="ShowcaseApplication.Module.cs" />
-    <Compile Include="ShowcaseSession.cs" />
-    <Compile Include="Demos\Forms\ComplexFormWindow.cs" />
-    <Compile Include="Demos\Grids\GridWindow.cs" />
-    <Compile Include="Demos\Forms\LoginFormWindow.cs" />
-    <Compile Include="Demos\Windows\SimpleWindow.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="client\js\controls\guides.js" />
-    <Content Include="client\lib\dextop\js\locale\dextop-ru.js" />
-    <Content Include="client\lib\dextop\js\locale\dextop-sr.js" />
-    <Content Include="client\lib\dextop\js\ux\Dextop.ux.FormEditorWindow.js" />
-    <Content Include="client\lib\dextop\js\ux\Dextop.ux.SwissArmyGrid.js" />
-    <Content Include="client\lib\ext\resources\css\ext-all-gray.css" />
     <Content Include="client\lib\ext\resources\themes\images\gray\boundlist\trigger-arrow.png" />
     <Content Include="client\lib\ext\resources\themes\images\gray\box\corners-blue.gif" />
     <Content Include="client\lib\ext\resources\themes\images\gray\box\corners.gif" />
@@ -894,6 +847,66 @@
     <Content Include="client\lib\ext\resources\themes\images\gray\window\icon-warning.gif" />
     <Content Include="client\lib\ext\resources\themes\images\gray\window\window-default-corners.gif" />
     <Content Include="client\lib\ext\resources\themes\images\gray\window\window-default-sides.gif" />
+    <Content Include="Demos\Live\ChatRoom.txt" />
+    <Compile Include="Demos\Remoting\FileDownloadDemo.cs" />
+    <Compile Include="Demos\Remoting\RemoteInstantiation.cs" />
+    <Compile Include="Demos\Remoting\Enums.cs" />
+    <Compile Include="Guides\GuidePreprocessor.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Demos\CategoryAttribute.cs" />
+    <Compile Include="Demos\DemoAttribute.cs" />
+    <Compile Include="Demos\DemoPreprocessor.cs" />
+    <Compile Include="Demos\DemoSourcePreprocessor.cs" />
+    <Compile Include="Demos\Forms\AllFormFieldsWindow.cs" />
+    <Compile Include="Demos\Forms\CheckboxGroups.cs" />
+    <Compile Include="Demos\Forms\SharedLookupData.cs" />
+    <Compile Include="Demos\Forms\RadioGroups.cs" />
+    <Compile Include="Demos\Grids\ClientGridWindow.cs" />
+    <Compile Include="Demos\Grids\PageSizeComboBox.cs" />
+    <Compile Include="Demos\Grids\GridEditorsWindow.cs" />
+    <Compile Include="Demos\Grids\GridActionManager.cs" />
+    <Compile Include="Demos\Grids\ModelValidationGridWindow.cs" />
+    <Compile Include="Demos\Grids\FastPagingGridWindow.cs" />
+    <Compile Include="Demos\Grids\PagingGridWindow.cs" />
+    <Compile Include="Demos\Grids\RowEditableGridWindow.cs" />
+    <Compile Include="Demos\Grids\EditableGridWindow.cs" />
+    <Compile Include="Demos\Grids\GroupedGridHeaders.cs" />
+    <Compile Include="Demos\Live\LongOperation.cs" />
+    <Compile Include="Demos\Live\NotificationsWindow.cs" />
+    <Compile Include="Demos\Live\PlaySoundWindow.cs" />
+    <Compile Include="Demos\Live\LiveChartWindow.cs" />
+    <Compile Include="Demos\Live\LiveGridWindow.cs" />
+    <Compile Include="Demos\Remoting\AdvancedExceptionHandling.cs" />
+    <Compile Include="Demos\Remoting\MessageExceptions.cs" />
+    <Compile Include="Demos\Remoting\RemotingCallbacks.cs" />
+    <Compile Include="Demos\Remoting\FileUploadDemo.cs" />
+    <Compile Include="Demos\Remoting\HelloRemotingDemo.cs" />
+    <Compile Include="Demos\LevelAttribute.cs" />
+    <Compile Include="Demos\TopicAttribute.cs" />
+    <Compile Include="Demos\Trees\TreeWindow.cs" />
+    <Compile Include="Demos\Windows\WindowOnDemand.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DextopAppConfig.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShowcaseApplication.cs" />
+    <Compile Include="ShowcaseApplication.DemoLauncher.cs" />
+    <Compile Include="ShowcaseApplication.ExtDataViewModule.cs" />
+    <Compile Include="ShowcaseApplication.Module.cs" />
+    <Compile Include="ShowcasePreprocessorBootstrapper.cs" />
+    <Compile Include="ShowcaseSession.cs" />
+    <Compile Include="Demos\Forms\ComplexFormWindow.cs" />
+    <Compile Include="Demos\Grids\GridWindow.cs" />
+    <Compile Include="Demos\Forms\LoginFormWindow.cs" />
+    <Compile Include="Demos\Windows\SimpleWindow.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="client\lib\dextop\js\locale\dextop-ru.js" />
+    <Content Include="client\lib\dextop\js\locale\dextop-sr.js" />
+    <Content Include="client\lib\dextop\js\ux\Dextop.ux.FormEditorWindow.js" />
+    <Content Include="client\lib\dextop\js\ux\Dextop.ux.SwissArmyGrid.js" />
+    <Content Include="client\lib\ext\resources\css\ext-all-gray.css" />
     <Content Include="Demos\Forms\AppendedItems.js" />
     <Content Include="Demos\Forms\AppendedItems.txt" />
     <Content Include="Demos\Forms\LinkedCombos.js" />
@@ -1188,6 +1201,10 @@
       <Project>{A58493FD-7BD1-42B2-97AE-BBB10D2BAB79}</Project>
       <Name>Codaxy.Dextop</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Tools\Codaxy.Dextop.Preprocessor\Codaxy.Dextop.Preprocessor.csproj">
+      <Project>{02C0357C-162D-46C5-887F-0E9AC520E7C0}</Project>
+      <Name>Codaxy.Dextop.Preprocessor</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Demos\Remoting\FileUploadDemo.txt" />
@@ -1200,6 +1217,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Demos\Remoting\FileDownloadDemo.zip" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="client\js\generated\constructors.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
@@ -1225,12 +1245,11 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
+          <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>1631</DevelopmentServerPort>
+          <DevelopmentServerPort>26157</DevelopmentServerPort>
           <DevelopmentServerVPath>/showcase</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
+          <IISUrl>http://localhost:26157/showcase</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
@@ -1245,4 +1264,7 @@
 if $(ConfigurationName) == NuGet call local.bat</PreBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>Codaxy.Dextop.Preprocessor "$(TargetPath)"</PostBuildEvent>
+  </PropertyGroup>
 </Project>

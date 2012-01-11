@@ -7,7 +7,7 @@ using Codaxy.Dextop.Modules;
 namespace Codaxy.Dextop.Showcase
 {
     public partial class ShowcaseApplication : DextopApplication
-    {       
+    {
         protected override void RegisterModules()
         {
 			RegisterModule("client/lib/ext", new DextopExtJSModule { CssThemeSuffix = "-gray" });
@@ -16,17 +16,21 @@ namespace Codaxy.Dextop.Showcase
 			
 			var soundModule = new DextopSoundModule();
 			soundModule.AddSound("error", "client/sound/notify.mp3");
-			RegisterModule("client/lib/sound", soundModule);            
-			
-			RegisterModule("", new ShowcaseApplicationModule());
+			RegisterModule("client/lib/sound", soundModule);
+
+            RegisterModule("", new ShowcaseApplicationModule());
         }
 
         protected override void OnModulesInitialized()
         {
             base.OnModulesInitialized();
-#if !DEBUG
-            OptimizeModules("client/js/cache");
-#endif
-        }
+            if (Optimize)
+                OptimizeModules("client/js/cache", !PreprocessorMode);
+
+            if (PreprocessingEnabled && !PreprocessorMode)
+                InitializeDemos();
+        }        
+
+        public bool Optimize { get; set; }        
     }
 }

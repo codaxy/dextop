@@ -32,5 +32,10 @@ namespace Codaxy.Dextop.Showcase
         {
 
         }
+
+        protected override void RegisterLoaders(Dictionary<string, IDextopFileLoader> loaders)
+        {
+            
+        }
     }
 }

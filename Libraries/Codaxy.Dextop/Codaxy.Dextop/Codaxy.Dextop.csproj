@@ -90,8 +90,11 @@
     <Compile Include="DextopDependencyResolver.Interface.cs" />
     <Compile Include="DextopEnvironment.cs" />
     <Compile Include="DextopEnvironment.Web.cs" />
+    <Compile Include="DextopFileLoader.Interface.cs" />
     <Compile Include="DextopPanel.cs" />
     <Compile Include="DextopEnvironment.Interface.cs" />
+    <Compile Include="Remoting\DextopRemotableConstructor.Loader.cs" />
+    <Compile Include="Remoting\DextopRemotableConstructor.Preprocessor.cs" />
     <Compile Include="Remoting\DextopEnum.Attribute.cs" />
     <Compile Include="DextopEnumerations.cs.cs" />
     <Compile Include="DextopExceptions.cs" />
@@ -143,7 +146,6 @@
     <Compile Include="Modules\DextopSoundModule.cs" />
     <Compile Include="Remoting\DextopEnum.Preprocessor.cs" />
     <Compile Include="Remoting\DextopHandler.LongPolling.cs" />
-    <Compile Include="Remoting\DextopHandler.Base.cs" />
     <Compile Include="Remoting\DextopHandler.Polling.cs" />
     <Compile Include="Remoting\DextopHandler.Remoting.cs" />
     <Compile Include="Direct\Request.cs" />
@@ -164,6 +166,7 @@
     <Compile Include="Tools\DextopJsWriter.cs" />
     <Compile Include="Tools\DextopFileUtil.cs" />
     <Compile Include="Tools\NullableUtil.cs" />
+    <Compile Include="Util\LongPollingQueue.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DateTime handling.txt" />

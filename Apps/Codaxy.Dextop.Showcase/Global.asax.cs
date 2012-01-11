@@ -35,24 +35,33 @@ namespace Codaxy.Dextop.Showcase
 
         protected void Application_Start()
         {
-			try
-			{
-				AreaRegistration.RegisterAllAreas();
+            try
+            {
+                //AreaRegistration.RegisterAllAreas();
 
-				RegisterGlobalFilters(GlobalFilters.Filters);
-				RegisterRoutes(RouteTable.Routes);
+                RegisterGlobalFilters(GlobalFilters.Filters);
+                RegisterRoutes(RouteTable.Routes);
 
-				var app = new ShowcaseApplication();
-				app.Initialize();
+#if DEBUG
+                var debug = true;
+#else
+                var debug = false;
+#endif
+                var app = new ShowcaseApplication
+                {
+                    Optimize = !debug,
+                    PreprocessingEnabled = !debug
+                };
 
-				DextopApplication.RegisterApplication(app);
-			}
-			catch (Exception ex)
-			{
-				Debug.WriteLine(ex.ToString());
-				HttpRuntime.UnloadAppDomain();
-				throw;
-			}
+                app.Initialize();
+                DextopApplication.RegisterApplication(app);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+                HttpRuntime.UnloadAppDomain();
+                throw;
+            }
         }		
     }
 }
