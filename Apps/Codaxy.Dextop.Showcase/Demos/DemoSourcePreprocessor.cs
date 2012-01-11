@@ -66,8 +66,8 @@ namespace Codaxy.Dextop.Showcase.Demos
 				content = ReadAndTransformMarkdownFile(mdsource);
             }
 
-
-			using (var writer = new StringWriter())
+		
+            using (var writer = new StringWriter())
 			{
 				writer.WriteLine("<html>");
 
@@ -101,7 +101,7 @@ namespace Codaxy.Dextop.Showcase.Demos
 				writer.WriteLine("</html>");
 
 				var newContent = writer.ToString();
-				if (!File.Exists(dest) || File.ReadAllText(dest) != newContent)
+				if (!File.Exists(dest) || (content != null && File.ReadAllText(dest) != newContent))
 					File.WriteAllText(dest, newContent);
 			}			
         }
