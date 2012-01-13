@@ -7,8 +7,8 @@ should not miss.
 
 ## Source Code
 
-Dextop source code is hosted at [Google Code SVN repository](http://code.google.com/p/codaxy-dextop2/).
-Please report any bug at the Google Code [issue tracker](http://code.google.com/p/codaxy-dextop2/issues/list).
+Dextop source code is hosted at <a href="https://github.com/codaxy/dextop" target="_blank">GitHub</a>..
+Please report any bug at the <a href="https://github.com/codaxy/dextop" target="_blank">GitHub's issue tracker</a>.
 
 ## Dox
 
@@ -18,8 +18,8 @@ To learn more about Dox please visit the [Dox product page](http://www.codaxy.co
 ## NuGets
 
 Dextop offers a few NuGets packages. Creating new Dextop applications has never been easier. 
-Check the 'NuGets' guide to learn how to quickly setup your first Dextop application.
 
-## Forum
+## Application Templates
 
-For any questions regarding Dextop use the [Community forum](http://forum.codaxy.com).
+Best way to quickly start with your new Dextop application is to copy one of the predefined application templates.
+Templates can be found on <a href="https://github.com/codaxy/dextop-templates" target="_blank">GitHub</a>.

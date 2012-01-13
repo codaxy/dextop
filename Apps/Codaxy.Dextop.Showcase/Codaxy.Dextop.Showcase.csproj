@@ -927,7 +927,6 @@
     <Content Include="Demos\Remoting\Enums.js" />
     <Content Include="Guides\articles\Features.txt" />
     <Content Include="Guides\articles\Getting Started.txt" />
-    <Content Include="Guides\articles\NuGets.txt" />
     <Content Include="Guides\html\dummy.txt" />
     <Content Include="browse.htm" />
     <Content Include="client\css\features.css" />
@@ -1054,7 +1053,6 @@
     <Content Include="Guides\html\Ext Symbolic Links.html" />
     <Content Include="Guides\html\Features.html" />
     <Content Include="Guides\html\Getting Started.html" />
-    <Content Include="Guides\html\NuGets.html" />
     <Content Include="Guides\images\NuGetContribGraphic.png" />
     <Content Include="source\About.html" />
     <Content Include="source\AdvancedExceptionHandling.cs.html" />
