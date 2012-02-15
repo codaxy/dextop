@@ -48,8 +48,10 @@
                 selModel.select(this.grid.store.getAt(this.grid.store.getCount() - 1));
             if (this.defaultFirst && newSelection.length == 0 && this.grid.store.getCount() > 0)
                 selModel.select(this.grid.store.getAt(0));
-            else
-                selModel.select(newSelection);
+            else if (newSelection.length > 0)
+                selModel.select(newSelection[0])
+			else 
+				selModel.deselectAll();
         } else {
             if (this.grid.store.getCount() > 0) {
                 var rec = this.grid.store.getAt(0);
