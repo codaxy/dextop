@@ -1,6 +1,6 @@
 ﻿/*
  * Auto-generated file
- * 11/25/2011 3:03:14 PM
+ * 2/14/2012 11:56:48 AM
 */
 
 Ext.apply(Dextop, {
@@ -9,22 +9,22 @@ Ext.apply(Dextop, {
 	,confirmText: 'Bekræftelse'
 	,infoText: 'Information'
 	,saveText: 'Gem'
-	,cancelText: 'Annuler'
+	,cancelText: 'Annuller'
 	,editText: 'Rediger'
 	,addText: 'Tilføj'
 	,removeText: 'Fjern'
 	,reloadText: 'Genindlæs'
 });
 
-Ext.apply(Dextop.Session.prototype, {
+Dextop.localize('Dextop.Session', {
 	sessionTerminatedReloadText: 'Din session er udløbet. Vil du starte en ny session?'
 });
 
-Ext.apply(Dextop.ux.FormEditorWindow.prototype, {
+Dextop.localize('Dextop.ux.FormEditorWindow', {
 	title: 'Rediger element'
 });
 
-Ext.apply(Dextop.ux.SwissArmyGrid.prototype, {
+Dextop.localize('Dextop.ux.SwissArmyGrid', {
 	confirmDeleteText: 'Er du sikker på at du vil fjerne det valgte element?'
 	,pageSizeText: 'Størrelse: '
 });
