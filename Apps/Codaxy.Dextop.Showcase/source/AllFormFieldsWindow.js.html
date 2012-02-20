@@ -16,36 +16,33 @@ Ext.define(&#39;Showcase.demos.AllFormFieldsWindow&#39;, {
 
 	initComponent: function () {
 
-		var formFields = Ext.create(this.getNestedTypeName(&#39;.form.Form&#39;)).getItems({
-			remote: this.remote,
-			data: this.data
-		});
-
 		Ext.apply(this, {
 			layout: &#39;fit&#39;,			
 			items: {
-				xtype: &#39;form&#39;,
+				xtype: &#39;dextopform&#39;,
 				itemId: &#39;form&#39;,
 				layout: &#39;fit&#39;,
 				border: false,
-				items: formFields,
-				buttons: [{
-					text: &#39;Send&#39;,
-					scope: this,
-					handler: function () {
-						var form = this.getComponent(&#39;form&#39;);
-						if (!form.getForm().isValid())
-							return;
-						var data = form.getForm().getFieldValues();
-						this.remote.Send(data, {
-							type: &#39;alert&#39;,
-							success: function () {
-								Dextop.infoAlert(&#39;Form has been successfully submited.&#39;);
-							}
-						});
-					}
-				}]
-			}
+				model: this.getNestedTypeName(&#39;.form.Form&#39;),
+				remote: this.remote,
+				data: this.data
+			},
+			buttons: [{
+				text: &#39;Send&#39;,
+				scope: this,
+				handler: function () {
+					var form = this.getComponent(&#39;form&#39;);
+					if (!form.getForm().isValid())
+						return;
+					var data = form.getForm().getFieldValues();
+					this.remote.Send(data, {
+						type: &#39;alert&#39;,
+						success: function () {
+							Dextop.infoAlert(&#39;Form has been successfully submited.&#39;);
+						}
+					});
+				}
+			}]
 		});
 
 		this.callParent(arguments);

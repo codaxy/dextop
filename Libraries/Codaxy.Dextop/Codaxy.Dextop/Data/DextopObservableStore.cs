@@ -137,5 +137,22 @@ namespace Codaxy.Dextop.Data
         }
 
         event EventHandler<DextopStoreEventArgs> DextopObservableStoreDataChanged;
+
+        /// <summary>
+        /// Gets the record by Id. 
+        /// Returns false if record is not found in the store.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="result"></param>
+        /// <returns></returns>
+        public bool TryGetRecordById(Id id, out Model result)
+        {
+            return data.TryGetValue(id, out result);
+        }
+
+        /// <summary>
+        /// Number of records in the store.
+        /// </summary>
+        public int Count { get { return data.Count; } }
     }
 }

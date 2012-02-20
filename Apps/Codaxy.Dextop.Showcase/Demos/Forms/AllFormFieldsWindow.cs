@@ -74,8 +74,8 @@ namespace Codaxy.Dextop.Showcase.Demos.Forms
 		class Form
 		{
 			// Tab 1 (FieldSet)
-			[DextopFormTabPanelAttribute(0, border = false)]
-			[DextopFormContainer(1, title = "Standard Fields", bodyStyle = "padding: 5px;")]
+			[DextopFormTabPanel(0, border = false)]
+			[DextopFormContainer(1, title = "Standard Fields", bodyStyle = "padding: 5px;", layout="anchor", border=false)]
 			[DextopFormField(anchor = "0")]
 			public String Text { get; set; }
 
@@ -94,7 +94,7 @@ namespace Codaxy.Dextop.Showcase.Demos.Forms
 			[DextopFormCheckbox(boxLabel = "Checkbox")]
 			public bool Checkbox { get; set; }
 
-			[DextopFormContainer(1, title = "Lookup Fields", bodyStyle = "padding: 5px;")]
+            [DextopFormContainer(1, title = "Lookup Fields", bodyStyle = "padding: 5px;", layout = "anchor", border = false)]
 			[DextopFormLookupCombo]
 			public string Lookup { get; set; }			
 

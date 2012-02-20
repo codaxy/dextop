@@ -105,6 +105,7 @@
     <Content Include="client\lib\dextop\images\icons\refresh.gif" />
     <Content Include="client\lib\dextop\images\icons\save.png" />
     <Content Include="client\lib\dextop\js\Ext.tweaks.js" />
+    <Content Include="client\lib\dextop\js\Form.js" />
     <Content Include="client\lib\dextop\js\Panel.js" />
     <Content Include="client\lib\dextop\js\ux\Ext.ux.FilteredCombo.js" />
     <Content Include="client\lib\dextop\js\ux\Ext.ux.grid.plugin.AutoSelect.js" />
