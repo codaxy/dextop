@@ -1,69 +1,70 @@
-////http://www.sencha.com/forum/showthread.php?130332-ArrayReader-idProperty-bug&p=591598#post591598
+//http://www.sencha.com/forum/showthread.php?130332-ArrayReader-idProperty-bug&p=591598#post591598
 
-// NOTE: Appears to be fixed in Ext 4.1.0 beta 2
+if (Ext.versions.extjs.version <= '4.0.7')  // NOTE: Appears to be fixed in Ext 4.1.0 beta 2
+{ 
+	Ext.override(Ext.data.reader.Array, {
+		getIdProperty: function () {
+			var m = this.model.prototype;
+			var prop = Ext.isDefined(this.idProperty) ? this.idProperty : m.idProperty;
 
-//Ext.override(Ext.data.reader.Array, {
-//	getIdProperty: function () {
-//		var m = this.model.prototype;
-//		var prop = Ext.isDefined(this.idProperty) ? this.idProperty : m.idProperty;		
+			if (typeof prop === 'string') {
+				//model uses string idProperty and array reader needs index...
+				var index = m.fields.indexOfKey(prop);
+				if (index == -1)
+					throw "Id property of the model '" + this.model.displayName + "' could not be found.";
+				prop = index;
+			}
+			return prop;
+		}
+	});
 
-//		if (typeof prop === 'string') {
-//			//model uses string idProperty and array reader needs index...
-//			var index = m.fields.indexOfKey(prop);
-//			if (index == -1)
-//				throw "Id property of the model '" + this.model.displayName + "' could not be found.";
-//			prop = index;
-//		}
-//		return prop;
-//	}
-//});
+	Ext.override(Ext.data.reader.Reader, {
 
-//Ext.override(Ext.data.reader.Reader, {
+		buildExtractors: function (force) {
+			var me = this,
+            idProp = me.getIdProperty(),
+            totalProp = me.totalProperty,
+            successProp = me.successProperty,
+            messageProp = me.messageProperty,
+            accessor;
 
-//	buildExtractors: function(force) {
-//        var me          = this,
-//            idProp      = me.getIdProperty(),
-//            totalProp   = me.totalProperty,
-//            successProp = me.successProperty,
-//            messageProp = me.messageProperty,
-//            accessor;
-//            
-//        if (force === true) {
-//            delete me.extractorFunctions;
-//        }
-//        
-//        if (me.extractorFunctions) {
-//            return;
-//        }   
+			if (force === true) {
+				delete me.extractorFunctions;
+			}
 
-//        //build the extractors for all the meta data
-//        if (totalProp) {
-//            me.getTotal = me.createAccessor(totalProp);
-//        }
+			if (me.extractorFunctions) {
+				return;
+			}
 
-//        if (successProp) {
-//            me.getSuccess = me.createAccessor(successProp);
-//        }
+			//build the extractors for all the meta data
+			if (totalProp) {
+				me.getTotal = me.createAccessor(totalProp);
+			}
 
-//        if (messageProp) {
-//            me.getMessage = me.createAccessor(messageProp);
-//        }
+			if (successProp) {
+				me.getSuccess = me.createAccessor(successProp);
+			}
 
-//        if (Ext.isDefined(idProp)) {
-//            accessor = me.createAccessor(idProp);
+			if (messageProp) {
+				me.getMessage = me.createAccessor(messageProp);
+			}
 
-//            me.getId = function(record) {
-//                var id = accessor.call(me, record);
-//                return (id === undefined || id === '') ? null : id;
-//            };
-//        } else {
-//            me.getId = function() {
-//                return null;
-//            };
-//        }
-//        me.buildFieldExtractors();
-//    }
-//});
+			if (Ext.isDefined(idProp)) {
+				accessor = me.createAccessor(idProp);
+
+				me.getId = function (record) {
+					var id = accessor.call(me, record);
+					return (id === undefined || id === '') ? null : id;
+				};
+			} else {
+				me.getId = function () {
+					return null;
+				};
+			}
+			me.buildFieldExtractors();
+		}
+	});
+}
 
 /// http://www.sencha.com/forum/showthread.php?131484-Ext.form.field.Checkbox-bug&p=595247#post595247
 Ext.override(Ext.form.field.Checkbox, {
