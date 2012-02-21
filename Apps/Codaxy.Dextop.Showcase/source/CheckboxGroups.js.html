@@ -16,33 +16,31 @@ Ext.define(&#39;Showcase.demos.CheckboxGroupsWindow&#39;, {
 
 	initComponent: function () {
 
-		var formFields = Ext.create(this.getNestedTypeName(&#39;.form.Form&#39;)).getItems();
-
 		Ext.apply(this, {
 			layout: &#39;fit&#39;,
 			items: {
-				xtype: &#39;form&#39;,
+				xtype: &#39;dextopform&#39;,
 				bodyStyle: &#39;padding: 5px&#39;,
 				border: false,
 				autoHeight: true,
-				items: formFields,				
-				buttons: [{
-					text: &#39;Send&#39;,
-					formBind: true,
-					scope: this,
-					handler: function (btn) {
-						var form = btn.up(&#39;form&#39;).getForm();
-						if (form.isValid())
-							this.remote.Send(form.getFieldValues(), {
-								type: &#39;alert&#39;,
-								scope: this,
-								success: function (result) {
-									Dextop.infoAlert(&#39;Form has been submited.&#39;);
-								}
-							});
-					}
-				}]
-			}
+				model: this.getNestedTypeName(&#39;.form.Form&#39;)	
+			},
+			buttons: [{
+				text: &#39;Send&#39;,
+				formBind: true,
+				scope: this,
+				handler: function (btn) {
+					var form = btn.up(&#39;form&#39;).getForm();
+					if (form.isValid())
+						this.remote.Send(form.getFieldValues(), {
+							type: &#39;alert&#39;,
+							scope: this,
+							success: function (result) {
+								Dextop.infoAlert(&#39;Form has been submited.&#39;);
+							}
+						});
+				}
+			}]
 		});
 
 		this.callParent(arguments);

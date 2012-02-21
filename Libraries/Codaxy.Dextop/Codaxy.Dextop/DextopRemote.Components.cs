@@ -216,11 +216,12 @@ namespace Codaxy.Dextop
 		/// <param name="store">The store.</param>
 		/// <param name="remoteId">The remote id.</param>
 		/// <param name="subRemote">if set to <c>true</c> [sub remote].</param>
-        public void AddLiveStore<Id, T>(String name, DextopObservableStore<Id, T> store, String remoteId = null, bool subRemote = true) where T : class
+        public DextopLiveStore AddLiveStore<Id, T>(String name, DextopObservableStore<Id, T> store, String remoteId = null, bool subRemote = true) where T : class
         {
-            var meta = Context.ModelManager.GetModelMeta(typeof(T));            
+            var meta = Context.ModelManager.GetModelMeta(typeof(T));
             var liveStore = new DextopLiveStore(meta, store);
-            AddLiveStore(name, liveStore, remoteId, subRemote);            
+            AddLiveStore(name, liveStore, remoteId, subRemote);
+            return liveStore;
         }
 
 		/// <summary>

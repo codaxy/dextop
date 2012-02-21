@@ -26,77 +26,77 @@ namespace Codaxy.Dextop.Showcase.Demos.Forms
 		class Form
 		{
 			[DextopFormCheckboxGroup(0, fieldLabel=&quot;One Check Required&quot;, allowBlank=false)]
-			[DextopFormCheckbox(boxLabel = &quot;Item 1&quot;)]
+            [DextopFormCheckbox(boxLabel = &quot;Item 1&quot;, hideEmptyLabel = true)]
 			public bool Checkbox1 { get; set; }
 
-			[DextopFormCheckbox(boxLabel = &quot;Item 2&quot;)]
+            [DextopFormCheckbox(boxLabel = &quot;Item 2&quot;, hideEmptyLabel = true)]
 			public bool Checkbox2 { get; set; }
 
-			[DextopFormCheckbox(boxLabel = &quot;Item 3&quot;)]
+            [DextopFormCheckbox(boxLabel = &quot;Item 3&quot;, hideEmptyLabel = true)]
 			public bool Checkbox3 { get; set; }
 
 			[DextopFormCheckboxGroup(0, fieldLabel = &quot;3 Columns&quot;, columns=3)]
-			[DextopFormCheckbox(boxLabel = &quot;Item 1&quot;)]
+            [DextopFormCheckbox(boxLabel = &quot;Item 1&quot;, hideEmptyLabel = true)]
 			public bool C1 { get; set; }
 
-			[DextopFormCheckbox(boxLabel = &quot;Item 2&quot;)]
+            [DextopFormCheckbox(boxLabel = &quot;Item 2&quot;, hideEmptyLabel = true)]
 			public bool C2 { get; set; }
 
-			[DextopFormCheckbox(boxLabel = &quot;Item 3&quot;)]
+            [DextopFormCheckbox(boxLabel = &quot;Item 3&quot;, hideEmptyLabel = true)]
 			public bool C3 { get; set; }
 
-			[DextopFormCheckbox(boxLabel = &quot;Item 4&quot;)]
+            [DextopFormCheckbox(boxLabel = &quot;Item 4&quot;, hideEmptyLabel = true)]
 			public bool C4 { get; set; }
 
-			[DextopFormCheckbox(boxLabel = &quot;Item 5&quot;)]
+            [DextopFormCheckbox(boxLabel = &quot;Item 5&quot;, hideEmptyLabel = true)]
 			public bool C5 { get; set; }
 
 			[DextopFormCheckboxGroup(0, fieldLabel = &quot;Vertical&quot;, columns = 3, vertical=true)]
-			[DextopFormCheckbox(boxLabel = &quot;Item 1&quot;)]
+            [DextopFormCheckbox(boxLabel = &quot;Item 1&quot;, hideEmptyLabel = true)]
 			public bool V1 { get; set; }
 
-			[DextopFormCheckbox(boxLabel = &quot;Item 2&quot;)]
+            [DextopFormCheckbox(boxLabel = &quot;Item 2&quot;, hideEmptyLabel = true)]
 			public bool V2 { get; set; }
 
-			[DextopFormCheckbox(boxLabel = &quot;Item 3&quot;)]
+            [DextopFormCheckbox(boxLabel = &quot;Item 3&quot;, hideEmptyLabel = true)]
 			public bool V3 { get; set; }
 
-			[DextopFormCheckbox(boxLabel = &quot;Item 4&quot;)]
+            [DextopFormCheckbox(boxLabel = &quot;Item 4&quot;, hideEmptyLabel = true)]
 			public bool V4 { get; set; }
 
-			[DextopFormCheckbox(boxLabel = &quot;Item 5&quot;)]
+            [DextopFormCheckbox(boxLabel = &quot;Item 5&quot;, hideEmptyLabel = true)]
 			public bool V5 { get; set; }
 
 			[DextopFormCheckboxGroup(0, fieldLabel = &quot;Custom Width&quot;, columnWidths = new [] {0.25, 0.5, 0.25}, vertical = true)]
-			[DextopFormCheckbox(boxLabel = &quot;Item 1&quot;)]
+            [DextopFormCheckbox(boxLabel = &quot;Item 1&quot;, hideEmptyLabel = true)]
 			public bool W1 { get; set; }
 
-			[DextopFormCheckbox(boxLabel = &quot;Item 2&quot;)]
+            [DextopFormCheckbox(boxLabel = &quot;Item 2&quot;, hideEmptyLabel = true)]
 			public bool W2 { get; set; }
 
-			[DextopFormCheckbox(boxLabel = &quot;Item 3&quot;)]
+            [DextopFormCheckbox(boxLabel = &quot;Item 3&quot;, hideEmptyLabel = true)]
 			public bool W3 { get; set; }
 
-			[DextopFormCheckbox(boxLabel = &quot;Item 4&quot;)]
+            [DextopFormCheckbox(boxLabel = &quot;Item 4&quot;, hideEmptyLabel = true)]
 			public bool W4 { get; set; }
 
-			[DextopFormCheckbox(boxLabel = &quot;Item 5&quot;)]
+            [DextopFormCheckbox(boxLabel = &quot;Item 5&quot;, hideEmptyLabel = true)]
 			public bool W5 { get; set; }
 
 			[DextopFormCheckboxGroup(0, fieldLabel = &quot;Pixel Widths&quot;, columnWidths = new double[] { 50, 100, 200 }, vertical = true)]
-			[DextopFormCheckbox(boxLabel = &quot;50 px&quot;)]
+			[DextopFormCheckbox(boxLabel = &quot;50 px&quot;, hideEmptyLabel=true)]
 			public bool CW1 { get; set; }
 
-			[DextopFormCheckbox(boxLabel = &quot;50 px&quot;)]
+            [DextopFormCheckbox(boxLabel = &quot;50 px&quot;, hideEmptyLabel = true)]
 			public bool CW2 { get; set; }
 
-			[DextopFormCheckbox(boxLabel = &quot;100 px&quot;)]
+            [DextopFormCheckbox(boxLabel = &quot;100 px&quot;, hideEmptyLabel = true)]
 			public bool CW3 { get; set; }
 
-			[DextopFormCheckbox(boxLabel = &quot;100 px&quot;)]
+            [DextopFormCheckbox(boxLabel = &quot;100 px&quot;, hideEmptyLabel = true)]
 			public bool CW4 { get; set; }
 
-			[DextopFormCheckbox(boxLabel = &quot;200 px&quot;)]
+            [DextopFormCheckbox(boxLabel = &quot;200 px&quot;, hideEmptyLabel = true)]
 			public bool CW5 { get; set; }
 		}
 	}

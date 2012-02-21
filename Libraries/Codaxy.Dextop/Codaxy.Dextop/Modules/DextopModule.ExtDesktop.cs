@@ -33,9 +33,10 @@ namespace Codaxy.Dextop.Modules
 		{
 			RegisterJs("core", "js/", 
 				"Module.js",
+                "ShortcutModel.js",
 				"StartMenu.js",
 				"Taskbar.js",
-				"FitAllLayout.js",
+				"Wallpaper.js",
 				"Desktop.js",
 				"App.js",				
 				"");
