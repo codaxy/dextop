@@ -30,7 +30,7 @@ Ext.define(&#39;Showcase.demos.CheckboxGroupsWindow&#39;, {
 				formBind: true,
 				scope: this,
 				handler: function (btn) {
-					var form = btn.up(&#39;form&#39;).getForm();
+					var form = this.down(&#39;form&#39;).getForm();
 					if (form.isValid())
 						this.remote.Send(form.getFieldValues(), {
 							type: &#39;alert&#39;,
