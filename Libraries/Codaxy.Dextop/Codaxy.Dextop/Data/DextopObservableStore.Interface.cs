@@ -13,7 +13,7 @@ namespace Codaxy.Dextop.Data
 		/// <summary>
 		/// Gets or sets a value indicating whether store data is cleard;
 		/// </summary>
-		public bool Clear { get; set; }
+        public IList<object> Load { get; set; }
 
 		/// <summary>
 		/// List of updated records.

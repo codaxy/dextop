@@ -46,12 +46,9 @@ namespace Codaxy.Dextop.Data
         [DextopRemotable]
         void Subscribe()
         {
-            subscribed = true;
+            subscribed = true; 
             var data = Source.Load();
-            Remote.SendMessage(new Message
-            {                
-                load = Serialize(data)
-            });
+            Send(new Message { load = Serialize(data) });
         }
 
         private void AttachSourceHandlers()
@@ -71,17 +68,13 @@ namespace Codaxy.Dextop.Data
         void OnSourceDataChanged(object sender, DextopStoreEventArgs e)
         {
             var remote = Remote;
-            if (subscribed && remote != null)
+            Send(new Message
             {
-                var msg = new Message
-                {
-                    load = e.Event.Clear ? Serialize(new object[0]) : null,
-                    add = Serialize(e.Event.Create),
-                    remove = Serialize(e.Event.Destroy),
-                    update = Serialize(e.Event.Update)
-                };
-                remote.SendMessage(msg);
-            }
+                load = Serialize(e.Event.Load),
+                add = Serialize(e.Event.Create),
+                remove = Serialize(e.Event.Destroy),
+                update = Serialize(e.Event.Update)
+            });
         }
 
         private string Serialize(IList<object> data)
@@ -119,9 +112,17 @@ namespace Codaxy.Dextop.Data
 		/// </summary>
         public void Dispose()
         {
-            DetachSourceHandlers();
+            subscribed = false;
+            DetachSourceHandlers();            
             if (Remote != null)
                 Remote.Dispose();
+        }
+
+        void Send(Message msg)
+        {
+            var remote = Remote;
+            if (subscribed && remote != null)
+                remote.SendMessage(msg);
         }
     }
 }

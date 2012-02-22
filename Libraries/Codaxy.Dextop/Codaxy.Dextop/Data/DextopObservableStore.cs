@@ -15,7 +15,7 @@ namespace Codaxy.Dextop.Data
     public class DextopObservableStore<Id, Model> : IDextopObservableStore where Model : class
     {
         Func<Model, Id> GetId;
-        ConcurrentDictionary<Id, Model> data;
+        ConcurrentDictionary<Id, Model> data;        
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DextopObservableStore&lt;Id, Model&gt;"/> class.
@@ -41,7 +41,7 @@ namespace Codaxy.Dextop.Data
             lock (lockObject)
             {
                 foreach (var d in records)
-                {
+                {                    
                     var id = GetId(d);
                     if (data.TryAdd(id, d))
                         add.Add(d);
@@ -55,7 +55,7 @@ namespace Codaxy.Dextop.Data
                 if (add.Count > 0 || update.Count > 0)
                     RaiseEvent(new DextopStoreEvent { Update = update, Create = add });
             }
-        }
+        }        
 
 		/// <summary>
 		/// Adds or updates the specified records.
@@ -116,6 +116,41 @@ namespace Codaxy.Dextop.Data
                 if (remove.Count > 0)
                     RaiseEvent(new DextopStoreEvent { Destroy = remove });
             }
+        }
+
+        /// <summary>
+        /// Clears the content of the store.
+        /// </summary>
+        public void Clear()
+        {
+            Load(new Model[0]);            
+        }
+
+        /// <summary>
+        /// Replaces the content of the store with the list of the specified records.
+        /// </summary>
+        public void Load(IEnumerable<Model> records)
+        {
+            lock (lockObject)
+            {
+                data.Clear();
+                if (records != null)
+                    foreach (var record in records)
+                        data[GetId(record)] = record;
+
+                Reload();
+            }
+        }        
+
+        /// <summary>
+        /// Notifies the observer with all records
+        /// </summary>
+        public void Reload()
+        {
+            RaiseEvent(new DextopStoreEvent
+            {
+                Load = data.Values.ToArray()
+            });
         }
 
         private void RaiseEvent(DextopStoreEvent ed)
