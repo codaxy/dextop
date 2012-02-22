@@ -14,14 +14,34 @@ namespace Codaxy.Dextop.Showcase.Demos.Remoting
 	[CategoryGettingStarted]
     public class RemoteInstantiationWindow : DextopWindow
     {
-        //Demo is required to have a public parameterless constructor
-        public RemoteInstantiationWindow() {}
+        String title;
 
         //[DextopRemotableConstructor(alias="...")]
         [DextopRemotable]
-        RemoteInstantiationWindow(DextopConfig config)
+        public RemoteInstantiationWindow()
         {
-
+            title = "Parameterless";
         }
+
+        [DextopRemotableConstructor(alias="array-instantiation")]
+        public RemoteInstantiationWindow(String a, String b)
+        {
+            title = String.Format("[{0} {1}]", a, b);
+        }
+
+        [DextopRemotableConstructor(alias = "dictionary-instantiation")]
+        public RemoteInstantiationWindow(DextopConfig dc)
+        {
+            title = DextopUtil.Encode(dc);            
+        }
+
+        public override void InitRemotable(DextopRemote remote, DextopConfig config)
+        {
+            base.InitRemotable(remote, config);
+            config["title"] = title;
+        }
+
+        
+        
     }
 }

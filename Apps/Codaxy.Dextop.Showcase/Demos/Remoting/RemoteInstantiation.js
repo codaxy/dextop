@@ -1,7 +1,7 @@
 ﻿Ext.define('Showcase.demos.RemoteInstantiationWindow', {
 	extend: 'Dextop.Window',
 	width: 200,
-	height: 80,
+	height: 150,
 	title: 'Dextop Remote Instantiation',
 
 	initComponent: function () {
@@ -19,23 +19,52 @@
 				scope: this
 			},
 			items: [{
-				text: 'Create Window',
+				text: 'Create Parameterless Window',
 				handler: function () {
-					this.remote.Instantiate({
-						type: 'Showcase.demos.RemoteInstantiationWindow',
-						own: false
-					}, null, {
+					Dextop.getSession().remote.Instantiate('Showcase.demos.RemoteInstantiationWindow', null, {
 						type: 'alert',
+						scope: this,
 						success: function (config) {
-							var win = Dextop.create(config, {
-								title: 'Remote Instantiated Window',
+							var win = Dextop.create(config, {								
 								modal: true,
 								x: this.x + 50,
 								y: this.y + 50
 							});
 							win.show();
 						}
-					}, this);
+					});
+				}
+			}, {
+				text: 'Specify params as an array',
+				handler: function () {
+					Dextop.getSession().remote.Instantiate('array-instantiation', [1, 2], {
+						type: 'alert',
+						scope: this,
+						success: function (config) {
+							var win = Dextop.create(config, {								
+								modal: true,
+								x: this.x + 50,
+								y: this.y + 50
+							});
+							win.show();
+						}
+					});
+				}
+			}, {
+				text: 'Send dictionary',
+				handler: function () {
+					Dextop.getSession().remote.Instantiate('dictionary-instantiation', { something: 1 }, {
+						type: 'alert',
+						scope: this,
+						success: function (config) {
+							var win = Dextop.create(config, {								
+								modal: true,
+								x: this.x + 50,
+								y: this.y + 50
+							});
+							win.show();
+						}
+					});
 				}
 			}]
 		});
