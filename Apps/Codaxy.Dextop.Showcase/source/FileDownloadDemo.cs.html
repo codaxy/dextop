@@ -12,6 +12,7 @@ using System;
 using Codaxy.Dextop.Remoting;
 using System.Linq;
 using System.Web;
+using System.Threading;
 
 namespace Codaxy.Dextop.Showcase.Demos.Remoting
 {
@@ -25,8 +26,23 @@ namespace Codaxy.Dextop.Showcase.Demos.Remoting
 
         void DownloadFileHandler(HttpContext context)
         {
-            context.Response.ForceFileDownload(&quot;Hello.txt&quot;);
-            context.Response.Output.Write(&quot;Hello, this file has been downloaded using an iframe injection technique.&quot;);
+            if (context.Request.QueryString[&quot;long&quot;] == &quot;1&quot;)
+            {
+                context.Response.ForceFileDownload(&quot;Long.txt&quot;);
+                DateTime start = DateTime.Now;
+                while ((DateTime.Now - start).TotalSeconds &lt; 60)
+                {
+                    context.Response.Output.WriteLine(&quot;Download of this file should last 60 seconds. Each line is added after one second pause. &quot;);
+                    context.Response.Output.Flush();
+                    context.Response.Flush();
+                    Thread.Sleep(1000);
+                }
+            }
+            else
+            {
+                context.Response.ForceFileDownload(&quot;Hello.txt&quot;);
+                context.Response.Output.Write(&quot;Hello, this file has been downloaded using an iframe injection technique.&quot;);
+            }
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿Ext.define('Showcase.demos.FileDownloadDemoWindow', {
 	extend: 'Dextop.Window',
 	width: 200,
-	height: 150,
+	height: 200,
 	title: 'File Download Demo',
 
 	initComponent: function () {
@@ -17,10 +17,15 @@
 				scope: this
 			},
 			bodyStyle: 'padding: 5px',
-			items: [{				
-				text: 'Download',				
+			items: [{
+				text: 'Download',
 				handler: function () {
 					Dextop.downloadAttachment(this.remote.getAjaxUrl());
+				}
+			}, {
+				text: '1 minute download',
+				handler: function () {
+					Dextop.downloadAttachment(this.remote.getAjaxUrl({ long: 1 }));
 				}
 			}, {
 				text: 'Download Zip file',
