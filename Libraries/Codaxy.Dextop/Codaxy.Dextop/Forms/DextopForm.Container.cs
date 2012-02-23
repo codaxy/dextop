@@ -42,15 +42,19 @@ namespace Codaxy.Dextop.Forms
             if (layout != null)
             {
                 jw.AddProperty("layout", layout);
-            }            
+            }
             jw.DefaultRawProperty("defaults", defaults);
             jw.DefaultRawProperty("fieldDefaults", fieldDefaults);
             jw.DefaultProperty("margins", margins);
             jw.DefaultProperty("style", style);
             jw.DefaultProperty("bodyStyle", bodyStyle);
             jw.DefaultProperty("border", border);
-			jw.DefaultProperty("autoHeight", autoHeight);
+            jw.DefaultProperty("autoHeight", autoHeight);
             jw.DefaultProperty("anchor", anchor);
+            jw.DefaultProperty("width", width);
+            jw.DefaultProperty("columnWidth", columnWidth);
+            jw.DefaultProperty("flex", flex);
+
             base.WriteProperties(jw);
         }
         /// <summary>
@@ -62,11 +66,6 @@ namespace Codaxy.Dextop.Forms
         /// 
         /// </summary>
         public string[] AppendItems { get; set; }
-
-        /// <summary>
-        /// This value is what tells the layout how an item should be anchored to the container. 
-        /// </summary>
-        public String anchor { get; set; }
 
 		/// <summary>
 		/// Writes the children to the items property.
@@ -161,5 +160,25 @@ namespace Codaxy.Dextop.Forms
 		/// Gets or sets the autoHeight.
 		/// </summary>		
 		public bool autoHeight { get; set; }
+
+        /// <summary>
+        /// This value is what tells the layout how an item should be anchored to the container. 
+        /// </summary>
+        public String anchor { get; set; }
+
+        /// <summary>
+        /// This configuration option is to be applied to child items of the container managed by this layout. Each child item with a flex property will be flexed horizontally according to each item's relative flex value compared to the sum of all items with a flex value specified. 
+        /// </summary>
+        public double? flex { get; set; }
+
+        /// <summary>
+        /// Percentage width for column layout.
+        /// </summary>
+        public double? columnWidth { get; set; }
+
+        /// <summary>
+        /// Width of the field.
+        /// </summary>
+        public int? width { get; set; }
 	}
 }

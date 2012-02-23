@@ -106,6 +106,21 @@ namespace Codaxy.Dextop.Forms
         /// </summary>
         public String anchor { get; set; }
 
+        /// <summary>
+        /// This configuration option is to be applied to child items of the container managed by this layout. Each child item with a flex property will be flexed horizontally according to each item's relative flex value compared to the sum of all items with a flex value specified. 
+        /// </summary>
+        public double flex { get; set; }
+
+        /// <summary>
+        /// Percentage width for column layout.
+        /// </summary>
+        public double columnWidth { get; set; }
+
+        /// <summary>
+        /// Width of the field.
+        /// </summary>
+        public int width { get; set; }
+
 		/// <summary>
 		/// Converts this attribute to a Dextop container.
 		/// </summary>
@@ -131,7 +146,11 @@ namespace Codaxy.Dextop.Forms
                 PrependItems = PrependItems,
                 AppendItems = AppendItems,
                 Raw = RawJS,
-                anchor = anchor
+                anchor = anchor,
+                flex = NullableUtil.DefaultNull(flex, 0),
+                columnWidth = NullableUtil.DefaultNull(columnWidth, 0),
+                width = NullableUtil.DefaultNull(width, 0),
+
             };
 			if (this is IDextopFormLabelable)
 				res.ApplyLabelable((IDextopFormLabelable)this);
