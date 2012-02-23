@@ -21,17 +21,40 @@ namespace Codaxy.Dextop.Remoting
             public int InvokeCount { get; set; }
         }
 
+        enum ConstructorArgments { 
+            Default = 1, //priority
+            Hash = 0, 
+            Array = 2 };
+
         class RemotableConstructor
         {
             public ConstructorInfo ConstructorInfo { get; set; }
             public ParameterInfo[] Args { get; set; }
             public Func<object, object[]> Delegate { get; set; }
             public int InvokeCount { get; set; }
+
+            ConstructorArgments? _at;
+
+            public ConstructorArgments ArgumentsType
+            {
+                get { if (!_at.HasValue) _at = DetermineArgumentsType(); return _at.Value; }
+            }
+
+            private ConstructorArgments DetermineArgumentsType()
+            {
+                if (Args == null || Args.Length == 0)
+                    return ConstructorArgments.Default;
+
+                if (Args.Length == 1 && typeof(DextopConfig).IsAssignableFrom(Args[0].ParameterType))
+                    return ConstructorArgments.Hash;
+
+                return ConstructorArgments.Array;
+            }
         }
         
         readonly static ConcurrentDictionary<String, RemotableMethod> methodCache = new ConcurrentDictionary<string, RemotableMethod>();
-        readonly static ConcurrentDictionary<String, RemotableConstructor> constructorCache = new ConcurrentDictionary<string, RemotableConstructor>();
-        readonly static ConcurrentDictionary<String, String> constructorType = new ConcurrentDictionary<string, string>();
+        readonly static ConcurrentDictionary<String, List<RemotableConstructor>> constructorCache = new ConcurrentDictionary<string, List<RemotableConstructor>>();
+        readonly static ConcurrentDictionary<String, String> constructorAliasType = new ConcurrentDictionary<string, string>();
 
         RemotableMethod GetMethod(Type type, String methodName)
         {
@@ -68,12 +91,24 @@ namespace Codaxy.Dextop.Remoting
                 ConstructorInfo = methodInfo,
                 Args = methodInfo.GetParameters().ToArray()
             };
-            constructorCache.TryAdd(typeName, m);
+
+            CacheRemotableConstructor(typeName, m);
+
             var ca = att as DextopRemotableConstructorAttribute;
-            if (ca!=null && ca.alias!=null)
-            {
-                constructorCache.TryAdd(ca.alias, m);
-            }
+            if (ca != null && ca.alias != null && ca.alias != typeName)
+                CacheRemotableConstructor(ca.alias, m);
+        }
+
+        static void CacheRemotableConstructor(String aliasOrTypeName, RemotableConstructor c)
+        {
+            List<RemotableConstructor> list;
+            if (!constructorCache.TryGetValue(aliasOrTypeName, out list))
+                constructorCache.TryAdd(aliasOrTypeName, list = new List<RemotableConstructor>());
+
+            if (list.Count > 0 && list[0].ConstructorInfo.DeclaringType != c.ConstructorInfo.DeclaringType)
+                throw new DextopException("Remotable constructor clash detected. Constructors for remotable types '{0}' and '{1} have the same alias '{2}'. Change alias for one of the types.", list[0].ConstructorInfo.DeclaringType, c.ConstructorInfo.DeclaringType, aliasOrTypeName);
+
+            list.Add(c);
         }
 
         static RemotableMethod CacheRemotableMethod(MethodInfo methodInfo, DextopRemotableAttribute att)
@@ -173,37 +208,79 @@ namespace Codaxy.Dextop.Remoting
                 String config = null;
                 if (arguments.Length > 1)
                     config = arguments[1];
-
-                RemotableConstructor c;
+                
                 if (options.type == null)
                     throw new InvalidDextopRemoteMethodCallException();
-                if (!constructorCache.TryGetValue(options.type, out c))
-                    c = LoadRemotableConstructor(options.type);                                    
-                    
-                object[] args;
-                if (c.Args == null || c.Args.Length == 0)
-                    args = new object[0];
-                else if (c.Args.Length == 1 && c.Args[0].ParameterType == typeof(DextopConfig))
-                {
-                    var rc = DextopUtil.Decode(config, c.Args[0].ParameterType);
-                    args = new object[] { rc };
-                }
-                else
-                {
-                    args = new object[c.Args.Length];
-                    if (config == null)
-                    {
 
-                    }
-                    else if (config.StartsWith("["))
+                List<RemotableConstructor> constructors;
+
+                if (!constructorCache.TryGetValue(options.type, out constructors))
+                    constructors = LoadRemotableConstructors(options.type);
+
+                if (constructors.Count==0)
+                    throw new InvalidDextopRemoteMethodCallException();
+                
+                object[] args;
+                RemotableConstructor c;
+
+                if (config == null)
+                {
+                    args = new object[0];
+                    c = constructors.FirstOrDefault(a => a.ArgumentsType == ConstructorArgments.Default);
+                    if (c == null)
                     {
-                        var argss = DextopUtil.Decode<String[]>(config);
-                        for (var i = 0; i < c.Args.Length && i < argss.Length; i++)
-                            args[i] = DextopUtil.DecodeValue(argss[i], c.Args[i].ParameterType);
+                        c = constructors.FirstOrDefault(a => a.ArgumentsType == ConstructorArgments.Hash);
+                        args = new object[1];
+                    }
+                }
+                else if (config.StartsWith("["))
+                {
+                    var argss = DextopUtil.Decode<String[]>(config);
+                    c = constructors.Where(a => a.ArgumentsType == ConstructorArgments.Array && a.Args.Length >= argss.Length).OrderBy(a => a.Args.Length).FirstOrDefault();
+                    if (c == null)
+                        c = constructors.Where(a => a.ArgumentsType == ConstructorArgments.Array).OrderByDescending(a => a.Args.Length).FirstOrDefault();
+                    if (c == null)
+                        c = constructors.FirstOrDefault(a => a.ArgumentsType == ConstructorArgments.Hash);
+                    if (c == null)
+                        c = constructors.FirstOrDefault(a => a.ArgumentsType == ConstructorArgments.Default);
+
+                    if (c == null)
+                        throw new InvalidDextopRemoteMethodCallException();
+
+                    args = new object[c.Args.Length];
+                    for (var i = 0; i < c.Args.Length && i < argss.Length; i++)
+                        args[i] = DextopUtil.DecodeValue(argss[i], c.Args[i].ParameterType);
+                }
+                else if (config.StartsWith("{"))
+                {
+                    c = constructors.FirstOrDefault(a => a.ArgumentsType == ConstructorArgments.Hash);
+                    if (c != null)
+                    {
+                        args = new object[1] { DextopUtil.Decode(config, c.Args[0].ParameterType) };
                     }
                     else
                     {
                         var configs = DextopUtil.Decode<Dictionary<String, String>>(config) ?? new Dictionary<String, String>();
+                        var candidates = constructors.Select(a => new
+                        {
+                            Constructor = a,
+                            ArgumentMatch = a.Args.Count(b => configs.ContainsKey(b.Name))
+                        }).OrderByDescending(x => x.ArgumentMatch).ToArray();
+
+                        c = null;
+                        foreach (var cand in candidates)
+                        {
+                            if (cand.ArgumentMatch == configs.Count && cand.Constructor.Args.Length == cand.ArgumentMatch)
+                            {
+                                c = cand.Constructor;
+                                break;
+                            }
+                        }
+
+                        if (c == null) // if we still don't have a match take the candidate with the biggest number of matching arguments, and prefer parameterless constructor if zero
+                            c = candidates.OrderByDescending(a => a.ArgumentMatch).ThenBy(a => (int)a.Constructor.ArgumentsType).First().Constructor;
+
+                        args = new object[c.Args.Length];
                         for (var i = 0; i < c.Args.Length; i++)
                         {
                             String argString;
@@ -211,6 +288,14 @@ namespace Codaxy.Dextop.Remoting
                                 args[i] = DextopUtil.Decode(argString, c.Args[i].ParameterType);
                         }
                     }
+                }
+                else
+                {
+                    c = constructors.Where(a => a.ArgumentsType == ConstructorArgments.Array && a.Args.Length >= 1).OrderBy(a => a.Args.Length).FirstOrDefault();
+                    if (c == null)
+                        throw new InvalidDextopRemoteMethodCallException();
+                    args = new object[c.Args.Length];
+                    args[0] = DextopUtil.DecodeValue(config, c.Args[0].ParameterType);
                 }
 
                 var remotable = (IDextopRemotable)c.ConstructorInfo.Invoke(args);
@@ -251,10 +336,10 @@ namespace Codaxy.Dextop.Remoting
             }
         }
 
-        private RemotableConstructor LoadRemotableConstructor(string alias)
+        private List<RemotableConstructor> LoadRemotableConstructors(string alias)
         {
             String typeName;
-            if (!constructorType.TryGetValue(alias, out typeName))
+            if (!constructorAliasType.TryGetValue(alias, out typeName))
                 throw new InvalidDextopRemoteMethodCallException();
             var type = Type.GetType(typeName);
             foreach (var mi in type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance))
@@ -266,16 +351,22 @@ namespace Codaxy.Dextop.Remoting
                 }
             }
             String dummy;
-            constructorType.TryRemove(alias, out dummy);
-            RemotableConstructor res;
+            constructorAliasType.TryRemove(alias, out dummy);
+            List<RemotableConstructor> res;
             if (constructorCache.TryGetValue(alias, out res))
                 return res;
+            
             throw new InvalidDextopRemoteMethodCallException();
         }
 
         internal void RegisterTypeAlias(string alias, string fullTypeName)
         {
-            constructorType.TryAdd(alias, fullTypeName);
+            if (!constructorAliasType.TryAdd(alias, fullTypeName))
+            {
+                String oldTypeName;
+                if (constructorAliasType.TryGetValue(alias, out oldTypeName) && oldTypeName != fullTypeName)
+                    throw new DextopException("Cannot register types '{0}' and '{1}' under the same alias '{2}'.", oldTypeName, fullTypeName, alias);
+            }
         }
     }
 }

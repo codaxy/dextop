@@ -18,7 +18,7 @@ namespace Codaxy.Dextop.Forms
 			: base()
 		{
 			xtype = "checkboxfield";
-			hideEmptyLabel = false;
+            hideEmptyLabel = false;
 		}
 	}
 

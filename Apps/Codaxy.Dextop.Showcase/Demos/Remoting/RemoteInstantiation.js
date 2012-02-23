@@ -1,7 +1,7 @@
 ﻿Ext.define('Showcase.demos.RemoteInstantiationWindow', {
 	extend: 'Dextop.Window',
-	width: 200,
-	height: 150,
+	width: 300,
+	height: 250,
 	title: 'Dextop Remote Instantiation',
 
 	initComponent: function () {
@@ -19,13 +19,29 @@
 				scope: this
 			},
 			items: [{
-				text: 'Create Parameterless Window',
+				text: 'Parameterless',
 				handler: function () {
 					Dextop.getSession().remote.Instantiate('Showcase.demos.RemoteInstantiationWindow', null, {
 						type: 'alert',
 						scope: this,
 						success: function (config) {
-							var win = Dextop.create(config, {								
+							var win = Dextop.create(config, {
+								modal: true,
+								x: this.x + 50,
+								y: this.y + 50
+							});
+							win.show();
+						}
+					});
+				}
+			}, {
+				text: 'Invoke using an alias',
+				handler: function () {
+					Dextop.getSession().remote.Instantiate('rinstant', null, {
+						type: 'alert',
+						scope: this,
+						success: function (config) {
+							var win = Dextop.create(config, {
 								modal: true,
 								x: this.x + 50,
 								y: this.y + 50
@@ -37,11 +53,11 @@
 			}, {
 				text: 'Specify params as an array',
 				handler: function () {
-					Dextop.getSession().remote.Instantiate('array-instantiation', [1, 2], {
+					Dextop.getSession().remote.Instantiate('Showcase.demos.RemoteInstantiationWindow', [1, 2], {
 						type: 'alert',
 						scope: this,
 						success: function (config) {
-							var win = Dextop.create(config, {								
+							var win = Dextop.create(config, {
 								modal: true,
 								x: this.x + 50,
 								y: this.y + 50
@@ -51,13 +67,29 @@
 					});
 				}
 			}, {
-				text: 'Send dictionary',
+				text: 'Specify params as a hash',
 				handler: function () {
-					Dextop.getSession().remote.Instantiate('dictionary-instantiation', { something: 1 }, {
+					Dextop.getSession().remote.Instantiate('Showcase.demos.RemoteInstantiationWindow', { a: 1, b: 2 }, {
 						type: 'alert',
 						scope: this,
 						success: function (config) {
-							var win = Dextop.create(config, {								
+							var win = Dextop.create(config, {
+								modal: true,
+								x: this.x + 50,
+								y: this.y + 50
+							});
+							win.show();
+						}
+					});
+				}
+			}, {
+				text: 'Send a hash',
+				handler: function () {
+					Dextop.getSession().remote.Instantiate('Showcase.demos.RemoteInstantiationWindow', { msg: 'Everything is allowed' }, {
+						type: 'alert',
+						scope: this,
+						success: function (config) {
+							var win = Dextop.create(config, {
 								modal: true,
 								x: this.x + 50,
 								y: this.y + 50

@@ -8,22 +8,16 @@
 <h1>Remote Instantiation Demo</h1>
 <p>This demo shows how to instantiate a remote object on the server-side.</p>
 <h3>Server side</h3>
-<p>Use attributes to mark remotable constructors.</p>
-<pre><code>[DextopRemotableConstructor(alias=&quot;...&quot;)]
-
-or 
-
-[DextopRemotable]
-</code></pre>
-
-<p>NOTE: It's possible to use aliases to set friendly names for your classes.</p>
+<p>Use <em>[DextopRemotable]</em> attributes to mark a remotable constructor.
+Alternatively <em>[DextopRemotableConstructor(alias=&quot;...&quot;)]</em> can be used 
+to specify an alias for the constructor.</p>
 <h3>Client side</h3>
 <p>Use </p>
-<pre><code>this.remote.Instantiate(type, config)
+<pre><code>this.remote.Instantiate(type, params, callback)
 </code></pre>
 
 <p>to instantiate object on the server-side and get it's client-side configuration.</p>
-<p><em>type</em> argument can be a string name or a JS hash containing additional parameters required for remote object registration.</p>
+<p>The <em>type</em> argument can be a string name or a JS hash containing additional parameters required for remote object registration.</p>
 <pre><code>{
     type: '...',
     own: true, //Dispose remote object when its parent is disposed
@@ -32,9 +26,11 @@ or
 }
 </code></pre>
 
-<p>NOTE: A Dextop window should be instantiated with <em>own:false</em> as it will be automatically disposed when closed.</p>
-<p><em>config</em> argument should be a hash containing the data which will be passed to the class constructor (server-side).</p>
-<p>For multiple parameter constructors, arguments are decoded from the hash or array, e.g.</p>
+<p>NOTE: Dextop windows should be instantiated with <em>own:false</em> as it will be automatically disposed when closed.</p>
+<p><em>params</em> argument contains the data which will be passed to the class constructor (on the server-side).
+It can be a <em>null</em> value, an <em>array</em> or a <em>hash</em>.</p>
+<p>Default constructors are prefered if <em>null</em> value is sent from the client side.</p>
+<p>For multiple parameter constructors, arguments are decoded from a hash or from an array, e.g.</p>
 <pre><code>    [DextopRemotableConstructor(alias=&quot;chat&quot;)]
     ChatSession(string a, string b) 
 
@@ -44,6 +40,14 @@ or
     this.remote.Instantiate('chat', ['Nick', 'John'], ...);    
 </code></pre>
 
+<h3>Hash constructors</h3>
+<p>Hash constructors have only one argument of type <em>DextopConfig</em>, like the one below:</p>
+<pre><code>[DextopRemotable]
+public RemoteInstantiationWindow(DextopConfig dc) {...}
+</code></pre>
+
+<p>Hash constructors have higher priority, and they will be invoked any time a hash is sent from the client side.
+If there are other constructors, beside hash constructor, they can be invoked only by specifing an array on the client side.</p>
 
 </body>
 </html>
