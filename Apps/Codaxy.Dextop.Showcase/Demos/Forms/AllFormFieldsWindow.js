@@ -7,7 +7,7 @@ Ext.define('Showcase.demos.AllFormFieldsWindow', {
 	initComponent: function () {
 
 		Ext.apply(this, {
-			layout: 'fit',			
+			layout: 'fit',
 			items: {
 				xtype: 'dextopform',
 				itemId: 'form',
@@ -15,7 +15,19 @@ Ext.define('Showcase.demos.AllFormFieldsWindow', {
 				border: false,
 				model: this.getNestedTypeName('.form.Form'),
 				remote: this.remote,
-				data: this.data
+				data: this.data,
+				itemsOptions: {
+					apply: {
+						'RemoteLookup': {
+							listeners: {
+								scope: this,
+								'change': function (combo, newValue, oldValue) {
+									Dextop.alert(newValue);
+								}
+							}
+						}
+					}
+				}
 			},
 			buttons: [{
 				text: 'Send',
