@@ -104,8 +104,10 @@
     <Content Include="client\lib\dextop\images\icons\edit.png" />
     <Content Include="client\lib\dextop\images\icons\refresh.gif" />
     <Content Include="client\lib\dextop\images\icons\save.png" />
+    <Content Include="client\lib\dextop\images\logger\sprites.png" />
     <Content Include="client\lib\dextop\js\Ext.tweaks.js" />
     <Content Include="client\lib\dextop\js\Form.js" />
+    <Content Include="client\lib\dextop\js\Logger.js" />
     <Content Include="client\lib\dextop\js\Panel.js" />
     <Content Include="client\lib\dextop\js\ux\Ext.ux.FilteredCombo.js" />
     <Content Include="client\lib\dextop\js\ux\Ext.ux.grid.plugin.AutoSelect.js" />
@@ -852,6 +854,7 @@
     <Compile Include="Demos\Remoting\FileDownloadDemo.cs" />
     <Compile Include="Demos\Remoting\RemoteInstantiation.cs" />
     <Compile Include="Demos\Remoting\Enums.cs" />
+    <Compile Include="Demos\Windows\LogWindow.cs" />
     <Compile Include="Guides\GuidePreprocessor.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Demos\CategoryAttribute.cs" />
@@ -926,6 +929,8 @@
     <Content Include="Demos\Remoting\RemoteInstantiation.txt" />
     <Content Include="Demos\Remoting\Enums.txt" />
     <Content Include="Demos\Remoting\Enums.js" />
+    <Content Include="Demos\Windows\LogWindow.txt" />
+    <Content Include="Demos\Windows\LogWindow.js" />
     <Content Include="Guides\articles\Features.txt" />
     <Content Include="Guides\articles\Getting Started.txt" />
     <Content Include="Guides\html\dummy.txt" />

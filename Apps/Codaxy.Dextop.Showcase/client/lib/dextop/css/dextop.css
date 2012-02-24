@@ -2,82 +2,254 @@
 /* Check column */
 
 .x-grid-row-editor .x-form-cb-wrap {
-   text-align: center;
+	text-align: center;
 }
 
 .x-grid-editor .x-form-cb-wrap {
-   text-align: center;
+	text-align: center;
 }
 
 .x-grid-checkheader .x-form-checkbox
 {
-    margin: auto;    
+	margin: auto;    
 }
 
 
 /* Popup message */
 
 .msg .x-box-mc {
-    font-size:14px;
+	font-size:14px;
 }
 #msg-div {
-    position:absolute;
-    left:35%;
-    top:10px;
-    width:300px;
-    z-index:20000;
+	position:absolute;
+	left:35%;
+	top:10px;
+	width:300px;
+	z-index:20000;
 }
 
 #msg-div .msg {
-    border-radius: 8px;
-    -moz-border-radius: 8px;
-    background: #F6F6F6;
-    border: 2px solid #ccc;
-    margin-top: 2px;
-    padding: 10px 15px;
-    color: #555;
+	border-radius: 8px;
+	-moz-border-radius: 8px;
+	background: #F6F6F6;
+	border: 2px solid #ccc;
+	margin-top: 2px;
+	padding: 10px 15px;
+	color: #555;
 }
 
 #msg-div .msg.warning
 {
-    background: #FFE2A6;
-    border-color: #FFCC66;
+	background: #FFE2A6;
+	border-color: #FFCC66;
 }
 
 #msg-div .msg.error
 {
-    background: #FFB380;
-    border-color: #FF6600;
+	background: #FFB380;
+	border-color: #FF6600;
 }
 
 #msg-div .msg h3 {
-    margin: 0 0 8px;
-    font-weight: bold;
-    font-size: 15px;
+	margin: 0 0 8px;
+	font-weight: bold;
+	font-size: 15px;
 }
 #msg-div .msg p {
-    margin: 0;
+	margin: 0;
 }
 
 /* Default icons */
 
 .add {
-    background-image:url(../images/icons/add.png) !important;
+	background-image:url(../images/icons/add.png) !important;
 }
 
 .edit {
-    background-image:url(../images/icons/edit.png) !important;
+	background-image:url(../images/icons/edit.png) !important;
 }
 
 .remove {
-    background-image:url(../images/icons/delete.png) !important;
+	background-image:url(../images/icons/delete.png) !important;
 }
 
 .save {
-    background-image:url(../images/icons/save.png) !important;
+	background-image:url(../images/icons/save.png) !important;
 }
 
 .reload 
 {
-    background-image:url(../images/icons/refresh.gif) !important;
+	background-image:url(../images/icons/refresh.gif) !important;
 }
+
+
+/*
+ * Logger
+ */
+
+.x-logger-container
+{
+}
+
+.x-logger-container.x-resizable-over 
+{
+	background: none;
+}
+
+.x-logger-container.on-top {
+	z-index: 20000 !important;
+}
+
+.x-logger 
+{
+	background: black;
+	overflow-y: auto;
+	overflow-x: visible;
+	padding: 5px;
+}
+
+.x-logger-container .x-btn
+{
+	background: none transparent !important;
+	border: none !important;
+}
+
+.x-logger-bt
+{
+	background: url(../images/logger/sprites.png) transparent no-repeat;	
+}
+
+/*
+ * Firefox: no background-position-x and -y :(
+ */
+
+.x-logger-bt.error
+{
+	background-position: 0 -16px;
+}
+
+.x-logger-bt.warning
+{
+	background-position: -16px -16px;
+}
+
+.x-logger-bt.info
+{
+	background-position: -32px -16px;
+}
+
+.x-logger-bt.debug
+{
+	background-position: -48px -16px;
+}
+
+.x-logger-bt.trace
+{
+	background-position: -64px -16px;
+}
+
+.x-logger-bt.top
+{
+	background-position: -80px -16px;
+}
+
+/*
+ * Pressed variants 
+ */
+.x-pressed .x-logger-bt.error
+{
+	background-position: 0 0;
+}
+
+.x-pressed .x-logger-bt.warning
+{
+	background-position: -16px 0;
+}
+
+.x-pressed .x-logger-bt.info
+{
+	background-position: -32px 0;
+}
+
+.x-pressed .x-logger-bt.debug
+{
+	background-position: -48px 0;
+}
+
+.x-pressed .x-logger-bt.trace
+{
+	background-position: -64px 0;
+}
+
+.x-pressed .x-logger-bt.top
+{
+	background-position: -80px 0;
+}
+
+/*
+ * Log entries 
+ */
+
+.x-logger .entry
+{
+	font-family: "consolas", "courier new";
+	cursor: text;
+	font-size: 9pt;
+	margin-bottom: 5px;
+	color: #cacaca;
+	display: none; /* enable only if parent contains proper class */
+}
+
+.x-logger .entry a
+{
+	color: #aaaaff !important;
+	font-weight: bold !important;
+	text-decoration: underline !important;	
+}
+
+.error .x-logger .entry.error
+{
+	display: block;
+	color: #ee5555;
+}
+
+.warning .x-logger .entry.warning
+{
+	display: block;
+	color: #eeee22;
+}
+
+.info .x-logger .entry.info
+{
+	display: block;
+	color: #cacaca;
+}
+
+.debug .x-logger .entry.debug
+{
+	display: block;
+	color: #22ff22;
+}
+
+.trace .x-logger .entry.trace
+{
+	display: block;
+	color: #ff44ff;
+}
+
+.x-logger .entry.always
+{
+	display: block;
+}
+
+/**
+ * Docked logger
+ */
+
+.x-logger-container.x-logger-docked {
+	position: absolute;
+	right: 10px;
+	bottom: 40px;
+	border: solid 1px #aaa;	
+}
+

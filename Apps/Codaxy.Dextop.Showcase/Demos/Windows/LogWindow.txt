@@ -1,0 +1,4 @@
+﻿Log Window
+==========
+
+This demo shows how to view the contents of shared client-side Dextop Logger.

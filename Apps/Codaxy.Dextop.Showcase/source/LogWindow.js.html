@@ -1,0 +1,50 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+<meta name="robots" content="noindex">
+</head>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.ns(&#39;Showcase.demos&#39;);
+
+Ext.define(&#39;Showcase.demos.LogWindow&#39;, {
+	extend: &#39;Dextop.Window&#39;,
+
+	title: &#39;Log&#39;,
+	width: 800,
+	height: 400,
+	layout: &#39;fit&#39;,
+	
+	initComponent: function() {
+		this.doLog();
+
+		Ext.apply(this, {
+			items: Ext.create(&#39;Dextop.logger.Panel&#39;),
+			buttons: [{
+				text: &#39;Log&#39;,
+				handler: this.doLog
+			}, {
+				text: &#39;Close&#39;,
+				handler: this.close,
+				scope: this
+			}]
+		});
+		
+		this.callParent(arguments);
+	},
+
+	doLog: function() {
+		Dextop.Logger.error(&#39;This is an error example&#39;);
+		Dextop.Logger.warning(&#39;This is a warning example&#39;);
+		Dextop.Logger.info(&#39;This is an info example&#39;);
+		Dextop.Logger.debug(&#39;This is a debug example&#39;);
+		Dextop.Logger.trace(&#39;This is a trace example&#39;);
+	}
+});
+
+</pre>
+</body>
+</html>
