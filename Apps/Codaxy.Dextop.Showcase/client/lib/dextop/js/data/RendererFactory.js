@@ -12,7 +12,7 @@ Ext.define('Dextop.data.RendererFactory', {
 			},
 
 			tooltipTpl: function (options) {
-				var options = options || {};
+				options = options || {};
 				var tpl = new Ext.XTemplate(options.tooltipTpl);
 				tpl.compile();
 				var renderer = options.renderer || Dextop.data.RendererFactory.defaultRenderer;
