@@ -71,7 +71,7 @@ namespace Codaxy.Dextop.Showcase.Demos.Grids
             [DextopGridColumn(width = 50, readOnly=true)] 
             public int Id { get; set; }
             
-            [DextopGridColumn(flex=1)]
+            [DextopGridColumn(flex=1, tooltipTpl="{Name}")]
             public String Name { get; set; }
 
             [DextopGridLookupColumn()]
