@@ -215,7 +215,11 @@ Ext.define('Dextop.Session', {
 		
 		Ext.applyIf(msg, defaults[msg.type]);
 		
-		msg.msg = msg.message = msg.msg || msg.message || msg.exception || msg.text;		
+		msg.msg = msg.message = msg.msg || msg.message || msg.exception || msg.text;
+
+		if (typeof Dextop.Logger[msg.type] === 'function') {
+			Dextop.Logger[msg.type](msg.msg);
+		}
 		
 		if (msg.sound) {
 			if (msg.sound === true)
