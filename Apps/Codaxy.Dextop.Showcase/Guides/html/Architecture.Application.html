@@ -1,0 +1,70 @@
+<html>
+<head>
+<link href="../../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+<meta name="robots" content="noindex">
+</head>
+<body onload="prettyPrint()">
+<h1>Dextop Application</h1>
+<p>Each Dextop application should be started by creating a global application class based on the DextopApplication class.</p>
+<h2>Global.asax</h2>
+<p>Application object should be created and registered during the App_Start in Global.asax.</p>
+<pre class="prettyprint"><code>protected void Application_Start()
+{
+    try
+    {
+        // MVC 3 or other app init stuff
+
+        var app = new MyDextopApplication();
+        app.Initialize();
+
+        DextopApplication.RegisterApplication(app);
+    }
+    catch (Exception ex)
+    {                
+        HttpRuntime.UnloadAppDomain();
+        throw;
+    }
+}       
+</code></pre><p>Application object should be disposed on Application_End</p>
+<pre class="prettyprint"><code>protected void Application_End()
+{
+    try
+    {
+        var app = DextopApplication.GetApplication();
+        app.Dispose();
+    }
+    catch (Exception ex)
+    {
+        Debug.WriteLine(&quot;Application_End error: &quot; + ex.ToString());
+    }
+}
+</code></pre><h2>Implementing DextopApplication</h2>
+<p>Application class should override some of the following base methods:</p>
+<pre class="prettyprint"><code>protected override void RegisterModules()
+{
+    RegisterModule(&quot;client/lib/ext&quot;, new DextopExtJSModule { CssThemeSuffix = &quot;-gray&quot; });
+    RegisterModule(&quot;client/lib/ext/examples&quot;, new ExtJSDataViewModule());
+    RegisterModule(&quot;client/lib/dextop&quot;, new DextopCoreModule());
+
+    var soundModule = new DextopSoundModule();
+    soundModule.AddSound(&quot;error&quot;, &quot;client/sound/notify.mp3&quot;);
+    RegisterModule(&quot;client/lib/sound&quot;, soundModule);
+
+    RegisterModule(&quot;&quot;, new ShowcaseApplicationModule());
+}
+</code></pre><p><em>RegisterModules</em> method should register all Dextop modules required by the application. 
+Note that DextopExtJSModule and DextopCoreModule modules are mandatory.</p>
+<pre class="prettyprint"><code>protected override void OnModulesInitialized()
+{
+#if !DEBUG
+    OptimizeModules(&quot;client/js/cache&quot;);
+#endif            
+}   
+</code></pre><p>After modules are initialized, its resources should be optimized using the OptimizeModules methods. 
+In DEBUG mode it's better not to optimize so that original source files are included which makes application easier to debug.</p>
+
+<script type="text/javascript" src="../../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+</body>
+</html>

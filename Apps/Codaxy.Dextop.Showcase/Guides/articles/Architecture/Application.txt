@@ -1,0 +1,73 @@
+﻿Dextop Application
+==================
+
+Each Dextop application should be started by creating a global application class based on the DextopApplication class.
+
+Global.asax
+-----------
+
+Application object should be created and registered during the App_Start in Global.asax.
+	
+	protected void Application_Start()
+    {
+        try
+        {
+			// MVC 3 or other app init stuff
+
+            var app = new MyDextopApplication();
+            app.Initialize();
+                
+			DextopApplication.RegisterApplication(app);
+        }
+        catch (Exception ex)
+        {                
+            HttpRuntime.UnloadAppDomain();
+            throw;
+        }
+    }		
+
+Application object should be disposed on Application_End
+
+	protected void Application_End()
+	{
+		try
+		{
+			var app = DextopApplication.GetApplication();
+			app.Dispose();
+		}
+		catch (Exception ex)
+		{
+			Debug.WriteLine("Application_End error: " + ex.ToString());
+		}
+	}
+
+Implementing DextopApplication
+------------------------------
+
+Application class should override some of the following base methods:
+
+	protected override void RegisterModules()
+    {
+		RegisterModule("client/lib/ext", new DextopExtJSModule { CssThemeSuffix = "-gray" });
+        RegisterModule("client/lib/ext/examples", new ExtJSDataViewModule());
+        RegisterModule("client/lib/dextop", new DextopCoreModule());
+			
+		var soundModule = new DextopSoundModule();
+		soundModule.AddSound("error", "client/sound/notify.mp3");
+		RegisterModule("client/lib/sound", soundModule);
+
+        RegisterModule("", new ShowcaseApplicationModule());
+    }
+
+*RegisterModules* method should register all Dextop modules required by the application. 
+Note that DextopExtJSModule and DextopCoreModule modules are mandatory.
+
+	protected override void OnModulesInitialized()
+    {
+    #if !DEBUG
+        OptimizeModules("client/js/cache");
+	#endif            
+    }   
+	
+After modules are initialized, its resources should be optimized using the OptimizeModules methods. 
+In DEBUG mode it's better not to optimize so that original source files are included which makes application easier to debug.

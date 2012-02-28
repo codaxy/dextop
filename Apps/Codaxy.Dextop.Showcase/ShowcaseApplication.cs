@@ -31,6 +31,6 @@ namespace Codaxy.Dextop.Showcase
                 InitializeDemos();
         }        
 
-        public bool Optimize { get; set; }        
+        public bool Optimize { get; set; }      
     }
 }

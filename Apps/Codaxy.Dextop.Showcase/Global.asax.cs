@@ -37,7 +37,7 @@ namespace Codaxy.Dextop.Showcase
         {
             try
             {
-                //AreaRegistration.RegisterAllAreas();
+                //AreaRegistration.RegisterAllAreas(); //slow on startup, not neccessary if areas are not used
 
                 RegisterGlobalFilters(GlobalFilters.Filters);
                 RegisterRoutes(RouteTable.Routes);
@@ -62,6 +62,19 @@ namespace Codaxy.Dextop.Showcase
                 HttpRuntime.UnloadAppDomain();
                 throw;
             }
-        }		
+        }
+
+        protected void Application_End()
+        {
+            try
+            {
+                var app = DextopApplication.GetApplication();
+                app.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.ToString());
+            }
+        }
     }
 }

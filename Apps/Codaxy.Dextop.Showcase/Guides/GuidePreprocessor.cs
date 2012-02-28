@@ -142,7 +142,13 @@ namespace Codaxy.Dextop.Showcase.Guides
 			var md = File.ReadAllText(path);
 			try
 			{
-				var markdown = new MarkdownDeep.Markdown();
+                var markdown = new MarkdownDeep.Markdown()
+                {
+                    FormatCodeBlock = (mdd, s) =>
+                    {
+                        return "<pre class=\"prettyprint\"><code>" + s + "</code></pre>";
+                    }
+                };
 				return markdown.Transform(md);
 			}
 			catch
@@ -153,17 +159,21 @@ namespace Codaxy.Dextop.Showcase.Guides
 
 		void WriteHtmlFile(String output, String html)
 		{
-			using (var stream = File.CreateText(output))
+			using (var writer = File.CreateText(output))
 			{
-				stream.WriteLine("<html>");
-				stream.WriteLine("<head>");
-				stream.WriteLine("<link href=\"../../client/css/showcase.css\" type=\"text/css\" rel=\"stylesheet\" />");                
-                stream.WriteLine("<meta name=\"robots\" content=\"noindex\">");
-				stream.WriteLine("</head>");
-				stream.WriteLine("<body>");
-				stream.WriteLine(html);
-				stream.WriteLine("</body>");
-				stream.WriteLine("</html>");
+				writer.WriteLine("<html>");
+				writer.WriteLine("<head>");
+				writer.WriteLine("<link href=\"../../client/css/showcase.css\" type=\"text/css\" rel=\"stylesheet\" />");
+                writer.WriteLine("<link href=\"../../client/lib/prettify/prettify.css\" type=\"text/css\" rel=\"stylesheet\" />");
+                writer.WriteLine("<meta name=\"robots\" content=\"noindex\">");
+				writer.WriteLine("</head>");
+                writer.WriteLine("<body onload=\"prettyPrint()\">");
+				//writer.WriteLine(html.Replace("<pre><code>", "<pre class=\"prettyprint\"><code>"));
+                writer.WriteLine(html);
+                writer.WriteLine("<script type=\"text/javascript\" src=\"../../client/lib/prettify/prettify.js\"></script>");
+                writer.WriteLine("<script type=\"text/javascript\">window['PR_TAB_WIDTH'] = 4;</script>");
+				writer.WriteLine("</body>");
+				writer.WriteLine("</html>");
 			}
 		}
     }

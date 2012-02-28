@@ -1,4 +1,0 @@
-﻿Dextop Application
-==================
-
-TODO

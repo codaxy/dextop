@@ -1,0 +1,156 @@
+﻿Dextop Forms
+============
+
+Dextop features powerful form generation engine. By using the Dextop forms, models are shared between client and server code which helps in keeping the code DRY.
+Form code looks like the example bellow.
+
+	[DextopForm]
+    class Form
+    {
+        // Tab 1 (FieldSet)
+        [DextopFormTabPanel(0, border = false)]
+        [DextopFormContainer(1, title = "Standard Fields", bodyStyle = "padding: 5px;", layout="anchor", border=false)]
+        [DextopFormField(anchor = "0")]
+        public String Text { get; set; }
+
+        [DextopFormTextArea(fieldLabel = "Text Area", grow = true, anchor = "0")]
+        public String TextArea { get; set; }
+
+        [DextopFormDateField()]
+        public DateTime? Date { get; set; }
+
+        [DextopFormTimeField()]
+        public TimeSpan? Time { get; set; }
+
+        [DextopFormNumberField(step = 2, minValue = -10, maxValue = 10)]
+        public double? Number { get; set; }
+
+        [DextopFormCheckbox(boxLabel = "Checkbox")]
+        public bool Checkbox { get; set; }
+
+        [DextopFormContainer(1, title = "Lookup Fields", bodyStyle = "padding: 5px;", layout = "anchor", border = false)]
+        [DextopFormLookupCombo]
+        public string Lookup { get; set; }          
+
+        [DextopFormRemoteLookupCombo("Code", "Description", valueNotFoundField = "RemoteLookupDescription", disableKeyFilter=true)]
+        public string RemoteLookup { get; set; }
+
+        public string RemoteLookupDescription { get; set; }
+    }
+
+Approximately, server code is translated to this JS code:
+
+	{ //level 0
+		xtype: 'tabpanel',
+		border: false,
+		items: [{ //level 1
+			title: "Standard Fields", 
+			bodyStyle: "padding: 5px;", 
+			layout: "anchor", 
+			border: false,
+			items: [{
+				xtype: 'textfield',
+				name: 'Text',
+				fieldLabel: 'Text',
+				anchor: '0'
+			}, {
+				xtype: 'textarea',
+				fieldLabel: "Text Area", 
+				grow: true, 
+				anchor: "0"
+			}, ...]
+		}, { // level 1
+			title: "Lookup Fields", 
+			bodyStyle: "padding: 5px;", 
+			layout: "anchor", 
+			border: false,
+			items: [...]
+		}]
+	}
+
+Form attributes
+-----------------------------------
+Use a [DextopForm] attribute to mark that class represents a form model.
+
+Container attributes are:
+
+- [DextopFormContainer] -> no xtype
+- [DextopFormTabPanel] -> tab panel
+- [DextopFormPanel] -> panel
+- [DextopFormCheckboxGroup] -> checkboxgroup
+- [DextopFormRadioGroup] -> radiogroup
+
+Use container's level property to define the tree.
+
+Field attributes are: 
+
+- [DextopFormField] -> auto xtype based on the property type
+- [DextopFormTextField] -> textfield
+- [DextopFormTextArea] -> textarea
+- [DextopFormNumberField] -> numberfield
+- [DextopFormDateField] -> datefield
+- [DextopFormTimeField] -> timefield
+- [DextopFormCheckbox] -> checkbox
+- [DextopFormRadio] -> radio
+- [DextopFormLookupCombo] -> combobox with mode:'local'
+- [DextopFormRemoteLookupCombo] -> combobox with mode:'remote'
+
+[DextopFormTextField] is sufficient most of the time. If type specific features are required, [DextopFormTextField] should be replaced with the 
+appropriate form field attribute which offers required features.
+
+Namespace mapping and nested classes
+------------------------------------
+Form namespace is calculated by mapping the C# class namespace to JS and appending '.form' suffix. For example,
+
+	namespace Test {	//maps to Test
+		[DextopForm]
+		class Form1 {
+			...
+		}
+	}
+
+will be mapped to *Test.form.Form1'.
+
+If form class is nested inside some other class, container class name will appear in the form's namespace.
+
+	namespace Test {	//maps to Test
+		class Window1 {
+
+			...
+
+			[DextopForm]
+			class Form1 {
+				...
+			}
+		}
+	}
+
+In this example form will be defined under the 'Test.Window1.form.Form1' name.
+
+Using the generated code on the client side
+---------------------------------------
+Generated forms can be instantiated by using the 'dextopform' widget (xtype).
+
+	{
+        xtype: 'dextopform',        
+        border: false,
+        model: this.getNestedTypeName('.form.Form'),
+        remote: this.remote,
+        data: this.data,
+        itemsOptions: {
+            apply: {
+                'RemoteLookup': {
+                    listeners: {
+                        scope: this,
+                        'change': function (combo, newValue, oldValue) {
+                            Dextop.alert(newValue);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+Specify form model using the *model* configuration options. 
+
+Also, apply any special field configuration options using the *itemOptions* and *apply* property.

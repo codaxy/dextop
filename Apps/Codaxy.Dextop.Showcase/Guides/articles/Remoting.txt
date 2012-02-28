@@ -14,7 +14,7 @@ Some of the features are:
 IDextopRemotable Interface
 ---------------------------
 *IDextopRemotable* interface is used to mark that class is remotable (can be accessed from the client side). 
-IDextopRemotable object instances **live in the server memory** while needed and while session is active.
+IDextopRemotable object instances **live in the server memory** while needed during the session lifetime.
 This way Dextop offers stateful programming model.
 
 Classes implementing IDextopRemotable interface must implement the *InitRemotable* method. This method should be used to init and assign the Remote property 
