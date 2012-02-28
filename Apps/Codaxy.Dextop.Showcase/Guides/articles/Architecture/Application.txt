@@ -1,12 +1,12 @@
 ﻿Dextop Application
 ==================
 
-Each Dextop application should be started by creating a global application class based on the DextopApplication class.
+Each Dextop application should be started by creating a global application class based on the <code>DextopApplication</code> class.
 
 Global.asax
 -----------
 
-Application object should be created and registered during the App_Start in Global.asax.
+Application object should be created and registered during the <code>App_Start</code> in the Global.asax file.
 	
 	protected void Application_Start()
     {
@@ -26,7 +26,7 @@ Application object should be created and registered during the App_Start in Glob
         }
     }		
 
-Application object should be disposed on Application_End
+Application object should be disposed on <code>Application_End</code>.
 
 	protected void Application_End()
 	{
@@ -59,8 +59,8 @@ Application class should override some of the following base methods:
         RegisterModule("", new ShowcaseApplicationModule());
     }
 
-*RegisterModules* method should register all Dextop modules required by the application. 
-Note that DextopExtJSModule and DextopCoreModule modules are mandatory.
+<code>RegisterModules</code> method should register all Dextop modules required by the application. 
+Note that <code>DextopExtJSModule</code> and <code>DextopCoreModule</code> modules are mandatory.
 
 	protected override void OnModulesInitialized()
     {
@@ -69,5 +69,5 @@ Note that DextopExtJSModule and DextopCoreModule modules are mandatory.
 	#endif            
     }   
 	
-After modules are initialized, its resources should be optimized using the OptimizeModules methods. 
-In DEBUG mode it's better not to optimize so that original source files are included which makes application easier to debug.
+After modules are initialized, all resources should be optimized using the <code>OptimizeModules</code> methods. 
+In <code>DEBUG</code> mode it's better not to optimize so that original source files are included which makes application easier to debug.

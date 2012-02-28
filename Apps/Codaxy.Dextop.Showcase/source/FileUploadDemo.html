@@ -4,26 +4,23 @@
 <link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
 <meta name="robots" content="noindex">
 </head>
+<body onload="prettyPrint()">
 <body>
 <p><strong>NOTE:</strong> <em>This demo is obsolete due to new Dextop capabilites. Check 'File Upload Form Field' demo to learn about new Dextop features.</em></p>
 <h1>File Upload Demo</h1>
 <p>File upload is done using Dextop remotable methods. 
 To accept a file (or a form) method has to be attributed with [DextopRemotable] attribute and 
 it's first parameter has to be of type DextopFormSubmit.</p>
-<pre><code>[DextopRemotable]
+<pre class="prettyprint"><code>[DextopRemotable]
 string UploadFile(DextopFormSubmit form)
-</code></pre>
-
-<p>Client part is a bit tricky. Since Ext 4, 'FormPanels' do not render HTML form elements, but form elements are generated on submit 
+</code></pre><p>Client part is a bit tricky. Since Ext 4, 'FormPanels' do not render HTML form elements, but form elements are generated on submit 
 and deleted immediately after submit. To get the form element we use api functions to intercept form submit calls.</p>
-<pre><code>xtype: 'form',
+<pre class="prettyprint"><code>xtype: 'form',
 api: {
     submit: Ext.bind(this.submit, this)
 }
-</code></pre>
-
-<p>In intercepted call form element is available and can be used. </p>
-<pre><code>submit: function(form) {
+</code></pre><p>In intercepted call form element is available and can be used. </p>
+<pre class="prettyprint"><code>submit: function(form) {
     this.remote.UploadFile(form, function (r) {
         if (r &amp;&amp; r.success)
             alert(r.result);
@@ -32,7 +29,7 @@ api: {
     });
 }
 </code></pre>
-
-
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
 </body>
 </html>

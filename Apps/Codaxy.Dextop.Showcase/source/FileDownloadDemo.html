@@ -4,15 +4,16 @@
 <link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
 <meta name="robots" content="noindex">
 </head>
+<body onload="prettyPrint()">
 <body>
 <h1>File Download Demo</h1>
 <p>Programmatic downloads are usually done using window.open(url) method, which opens a new tab in the browser.
 Using Dextop.downloadAttachment method it's possible to download files directly using injected iframe 
 element. However as iframe is not designed for downloading files, only files with </p>
-<pre><code>Content-Disposition: attachment
-</code></pre>
+<pre class="prettyprint"><code>Content-Disposition: attachment
+</code></pre><p>header can be downloaded this way, or static files which cannot be displayed inside iframe (e.g. .zip files).</p>
 
-<p>header can be downloaded this way, or static files which cannot be displayed inside iframe (e.g. .zip files).</p>
-
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
 </body>
 </html>

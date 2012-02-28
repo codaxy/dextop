@@ -4,18 +4,19 @@
 <link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
 <meta name="robots" content="noindex">
 </head>
+<body onload="prettyPrint()">
 <body>
 <h1>Page size combo</h1>
 <p>This example shows how to use Ext.ux.PageSizeComboBox plugin which 
 enables convinient way to change the size of the page.</p>
 <p>Simply add </p>
-<pre><code>{
+<pre class="prettyprint"><code>{
     xtype: 'pagesizecombo',
     store: store
 }
-</code></pre>
+</code></pre><p>to the toolbar or bbar items.</p>
 
-<p>to the toolbar or bbar items.</p>
-
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
 </body>
 </html>

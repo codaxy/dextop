@@ -4,12 +4,13 @@
 <link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
 <meta name="robots" content="noindex">
 </head>
+<body onload="prettyPrint()">
 <body>
 <h1>Shared Lookup Data</h1>
 <p>Dextop provides built-in mechanism for building and caching of lookup data which appears in random places
 throughout your applications. Lookup data can be cached accross multiple sessions which can improve
 application performance.</p>
-<pre><code>//Session.cs
+<pre class="prettyprint"><code>//Session.cs
 protected override object[] BuildLookupData(string name, out DextopSessionVariableSharing sharing)
 {
     switch (name)
@@ -23,9 +24,9 @@ protected override object[] BuildLookupData(string name, out DextopSessionVariab
     }
     return base.BuildLookupData(name, out version, out sharing);
 }
-</code></pre>
+</code></pre><p>Use <pre>session.InvalidateLookupData</pre> to invalidate cached version of the data.</p>
 
-<p>Use <pre>session.InvalidateLookupData</pre> to invalidate cached version of the data.</p>
-
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
 </body>
 </html>

@@ -4,48 +4,43 @@
 <link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
 <meta name="robots" content="noindex">
 </head>
+<body onload="prettyPrint()">
 <body>
 <h1>Introduction to Dextop Remoting</h1>
 <p>Dextop remoting features allow easy client-server communication in both ways.</p>
 <p>On the server side remote object is initialized in the InitRemote method. 
 Specify RemoteHostType to make sure that correct Ext JS class is instantated 
 on the client side. Use config argument to add any configuration options.</p>
-<pre><code>public override void InitRemote(DextopRemote remote, DextopConfig config)
+<pre class="prettyprint"><code>public override void InitRemote(DextopRemote remote, DextopConfig config)
 {
     base.InitRemote(remote, config);
     Remote.RemoteHostType = &quot;Showcase.demos.HelloRemotingWindow&quot;;            
 }
-</code></pre>
-
-<p>Use [DextopRemotable] attribute to mark any remotable method.</p>
-<pre><code>[DextopRemotable]
+</code></pre><p>Use [DextopRemotable] attribute to mark any remotable method.</p>
+<pre class="prettyprint"><code>[DextopRemotable]
 public String GetHelloWorldMessage() { return &quot;Hello World!&quot;; }
-</code></pre>
-
-<p>Dextop remoting preprocessors will generates remote JS proxies so you can invoke remotable methods from the client side.</p>
+</code></pre><p>Dextop remoting preprocessors will generates remote JS proxies so you can invoke remotable methods from the client side.</p>
 <p>On the client side class have to implement Dextop.remoting.Remotable mixin. 
 (In this demo base class is Dextop.Window which implements Dextop.remoting.Remotable)</p>
 <p>From class on the client you can call remote methods by using remote proxy.</p>
-<pre><code>this.remote.GetHelloWorldMessage(function (r) {
+<pre class="prettyprint"><code>this.remote.GetHelloWorldMessage(function (r) {
     if (r &amp;&amp; r.success)
         alert(r.result);
     else
         alert('failed');
 });
-</code></pre>
-
-<p>Specify all arguments that method recieves (none here).
+</code></pre><p>Specify all arguments that method recieves (none here).
 Last two arguments are the callback and scope. Callback is a function
 that recieves server response. Use success field to determine if 
 everything went ok and result field to get the method return result.</p>
 <p>To send notifications from the server use Remote.SendMessage method.
 Process server notifications by creating server message handler, like one below.</p>
-<pre><code>onServerMessage: function(m) {
+<pre class="prettyprint"><code>onServerMessage: function(m) {
     if (m.type === 'alert')
         alert(m.msg);   
 }
 </code></pre>
-
-
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
 </body>
 </html>

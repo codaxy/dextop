@@ -79,13 +79,10 @@ namespace Codaxy.Dextop.Showcase.Demos
 					writer.WriteLine("<meta name=\"robots\" content=\"noindex\">");
 					writer.WriteLine("</head>");
 
+                    writer.WriteLine("<body onload=\"prettyPrint()\">");
 
 					if (plain)
 					{
-						writer.WriteLine("<script type=\"text/javascript\" src=\"../client/lib/prettify/prettify.js\"></script>");
-						writer.WriteLine("<script type=\"text/javascript\">window['PR_TAB_WIDTH'] = 4;</script>");
-
-						writer.WriteLine("<body onload=\"prettyPrint()\">");
 						writer.WriteLine("<pre class=\"prettyprint\">");
 						writer.WriteLine(WebUtility.HtmlEncode(content));
 						writer.WriteLine("</pre>");
@@ -95,6 +92,9 @@ namespace Codaxy.Dextop.Showcase.Demos
 						writer.WriteLine("<body>");
 						writer.WriteLine(content);
 					}
+
+                    writer.WriteLine("<script type=\"text/javascript\" src=\"../client/lib/prettify/prettify.js\"></script>");
+                    writer.WriteLine("<script type=\"text/javascript\">window['PR_TAB_WIDTH'] = 4;</script>");
 
 					writer.WriteLine("</body>");
 				}
@@ -140,7 +140,13 @@ namespace Codaxy.Dextop.Showcase.Demos
 			var md = File.ReadAllText(path);
             try
             {
-                var markdown = new MarkdownDeep.Markdown();
+                var markdown = new MarkdownDeep.Markdown()
+                {
+                    FormatCodeBlock = (mdd, s) =>
+                    {
+                        return "<pre class=\"prettyprint\"><code>" + s + "</code></pre>";
+                    }
+                };
                 return markdown.Transform(md);
             }
             catch

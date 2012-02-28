@@ -6,9 +6,9 @@
 </head>
 <body onload="prettyPrint()">
 <h1>Dextop Application</h1>
-<p>Each Dextop application should be started by creating a global application class based on the DextopApplication class.</p>
+<p>Each Dextop application should be started by creating a global application class based on the <code>DextopApplication</code> class.</p>
 <h2>Global.asax</h2>
-<p>Application object should be created and registered during the App_Start in Global.asax.</p>
+<p>Application object should be created and registered during the <code>App_Start</code> in the Global.asax file.</p>
 <pre class="prettyprint"><code>protected void Application_Start()
 {
     try
@@ -26,7 +26,7 @@
         throw;
     }
 }       
-</code></pre><p>Application object should be disposed on Application_End</p>
+</code></pre><p>Application object should be disposed on <code>Application_End</code>.</p>
 <pre class="prettyprint"><code>protected void Application_End()
 {
     try
@@ -53,16 +53,16 @@
 
     RegisterModule(&quot;&quot;, new ShowcaseApplicationModule());
 }
-</code></pre><p><em>RegisterModules</em> method should register all Dextop modules required by the application. 
-Note that DextopExtJSModule and DextopCoreModule modules are mandatory.</p>
+</code></pre><p><code>RegisterModules</code> method should register all Dextop modules required by the application. 
+Note that <code>DextopExtJSModule</code> and <code>DextopCoreModule</code> modules are mandatory.</p>
 <pre class="prettyprint"><code>protected override void OnModulesInitialized()
 {
 #if !DEBUG
     OptimizeModules(&quot;client/js/cache&quot;);
 #endif            
 }   
-</code></pre><p>After modules are initialized, its resources should be optimized using the OptimizeModules methods. 
-In DEBUG mode it's better not to optimize so that original source files are included which makes application easier to debug.</p>
+</code></pre><p>After modules are initialized, all resources should be optimized using the <code>OptimizeModules</code> methods. 
+In <code>DEBUG</code> mode it's better not to optimize so that original source files are included which makes application easier to debug.</p>
 
 <script type="text/javascript" src="../../client/lib/prettify/prettify.js"></script>
 <script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>

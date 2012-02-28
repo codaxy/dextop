@@ -4,6 +4,7 @@
 <link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
 <meta name="robots" content="noindex">
 </head>
+<body onload="prettyPrint()">
 <body>
 <h1>Window On Demand</h1>
 <p>This demo shows one technique that can be used to create and show Dextop windows on user's demand.
@@ -11,5 +12,7 @@ Typically, one would have Window Factory in the server-side Session class, and c
 in a [DextopRemotable] method like CreateWindow. The type of the window (as well as all the required
 parameters) can be passed as the argument to the remote method, just like in this example.</p>
 
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
 </body>
 </html>

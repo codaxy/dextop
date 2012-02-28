@@ -4,6 +4,7 @@
 <link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
 <meta name="robots" content="noindex">
 </head>
+<body onload="prettyPrint()">
 <body>
 <h1>Advanced Exception Handlers</h1>
 <p>Remote method call may fail and result with an exception. 
@@ -12,5 +13,7 @@ Map exception method should return an object which will be sent to the client,
 or throw another exception, which will then be mapped by the session mapper.
 Note that session mapper is virtual and can be overriden.</p>
 
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
 </body>
 </html>

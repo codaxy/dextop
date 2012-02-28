@@ -4,6 +4,7 @@
 <link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
 <meta name="robots" content="noindex">
 </head>
+<body onload="prettyPrint()">
 <body>
 <h1>Swiss Army Grid</h1>
 <p>Swiss Army Grid is a Ext grid with built-in support for</p>
@@ -16,7 +17,7 @@
 </ul>
 <h3>Configuration properties</h3>
 <p>Copied from the source file.</p>
-<pre><code>Ext.define('Dextop.ux.SwissArmyGrid', {
+<pre class="prettyprint"><code>Ext.define('Dextop.ux.SwissArmyGrid', {
     extend: 'Ext.grid.Panel',   
 
     model: 'model', //Common name of store and column model as registered on the server side.
@@ -38,7 +39,7 @@
 
     editOnDblClick: false, //Start editing when row is double-clicked
 </code></pre>
-
-
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
 </body>
 </html>
