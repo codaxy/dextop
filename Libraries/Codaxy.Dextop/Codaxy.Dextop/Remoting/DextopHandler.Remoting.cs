@@ -20,7 +20,7 @@ namespace Codaxy.Dextop.Remoting
 		/// Enables processing of HTTP Web requests by a custom HttpHandler that implements the <see cref="T:System.Web.IHttpHandler"/> interface.
 		/// </summary>
 		/// <param name="context">An <see cref="T:System.Web.HttpContext"/> object that provides references to the intrinsic server objects (for example, Request, Response, Session, and Server) used to service HTTP requests.</param>
-        public void ProcessRequest(HttpContext context)
+        void IHttpHandler.ProcessRequest(HttpContext context)
         {
             var ajax = context.Request.QueryString["ajax"] == "1";
             if (ajax)
@@ -90,7 +90,7 @@ namespace Codaxy.Dextop.Remoting
             }
         }
 
-        public bool IsReusable { get { return true; } }
+        bool IHttpHandler.IsReusable { get { return true; } }
 
         Request[] GetUploadRequest(HttpContext context)
         {

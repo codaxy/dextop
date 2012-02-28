@@ -157,7 +157,8 @@ namespace Codaxy.Dextop.Showcase.Guides
 			{
 				stream.WriteLine("<html>");
 				stream.WriteLine("<head>");
-				stream.WriteLine("<link href=\"../../client/css/showcase.css\" type=\"text/css\" rel=\"stylesheet\" />");
+				stream.WriteLine("<link href=\"../../client/css/showcase.css\" type=\"text/css\" rel=\"stylesheet\" />");                
+                stream.WriteLine("<meta name=\"robots\" content=\"noindex\">");
 				stream.WriteLine("</head>");
 				stream.WriteLine("<body>");
 				stream.WriteLine(html);

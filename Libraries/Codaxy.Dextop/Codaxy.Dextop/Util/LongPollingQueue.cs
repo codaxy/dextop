@@ -7,16 +7,28 @@ using System.Diagnostics;
 
 namespace Codaxy.Dextop.Util
 {
+    /// <summary>
+    /// A queue which supports async take all method with timeout support.
+    /// Timers are used to keep the thread count low.    
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class LongPollingQueue<T>
     {
         Queue<T> data;
         int notifyPending;
-
+        
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public LongPollingQueue()
         {
             data = new Queue<T>();
         }
 
+        /// <summary>
+        /// Add items to the queue.
+        /// </summary>
+        /// <param name="a"></param>
         public void Add(IEnumerable<T> a)
         {
             lock (data)
@@ -56,6 +68,13 @@ namespace Codaxy.Dextop.Util
 
         List<Result> results = new List<Result>();
 
+        /// <summary>
+        /// Starts an asynchronous opperation of taking the pending items.
+        /// </summary>
+        /// <param name="timeoutMiliseconds"></param>
+        /// <param name="callback"></param>
+        /// <param name="state"></param>
+        /// <returns></returns>
         public IAsyncResult BeginTake(int timeoutMiliseconds, AsyncCallback callback, object state)
         {
             var result = new Result
@@ -77,6 +96,11 @@ namespace Codaxy.Dextop.Util
             return result;
         }
 
+        /// <summary>
+        /// Completes the asynchronous opperation of taking pending items.
+        /// </summary>
+        /// <param name="asyncResult"></param>
+        /// <returns></returns>
         public IList<T> EndTake(IAsyncResult asyncResult)
         {            
             var r = asyncResult as Result;
@@ -94,6 +118,10 @@ namespace Codaxy.Dextop.Util
             }
         }
 
+        /// <summary>
+        /// Removes all items from the list.
+        /// </summary>
+        /// <returns></returns>
         public IList<T> TakeAll()
         {
             lock (data)
