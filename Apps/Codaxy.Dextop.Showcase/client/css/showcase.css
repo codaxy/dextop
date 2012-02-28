@@ -26,3 +26,8 @@ h3
 pre {
 	font-size: 8pt;
 }
+
+p 
+{
+    max-width: 600px;
+}

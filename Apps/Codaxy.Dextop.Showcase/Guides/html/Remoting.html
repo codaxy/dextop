@@ -1,0 +1,152 @@
+<html>
+<head>
+<link href="../../client/css/showcase.css" type="text/css" rel="stylesheet" />
+</head>
+<body>
+<h1>Dextop Remoting Features</h1>
+<p>Dextop offers powerful remoting features, which make client-server communication very simple and straightforward.</p>
+<p>Some of the features are:</p>
+<ul>
+<li>Remote procedure calls using Ext.Direct</li>
+<li>Automatic JSON encoding/decoding (thanks to JSON.NET)</li>
+<li>File upload</li>
+<li>AJAX request handling</li>
+<li>Server notifications by polling or long-polling technique</li>
+</ul>
+<h2>IDextopRemotable Interface</h2>
+<p><em>IDextopRemotable</em> interface is used to mark that class is remotable (can be accessed from the client side). 
+IDextopRemotable object instances <strong>live in the server memory</strong> while needed and while session is active.
+This way Dextop offers stateful programming model.</p>
+<p>Classes implementing IDextopRemotable interface must implement the <em>InitRemotable</em> method. This method should be used to init and assign the Remote property 
+and fill other configuration data needed for the client side.</p>
+<pre><code>public virtual void InitRemotable(DextopRemote remote, DextopConfig config)
+{
+    Remote = remote;
+    config[&quot;title&quot;] = &quot;My Window&quot;;
+}
+</code></pre>
+
+<p><em>Dispose</em> method should be used to dispose and release the Remote object.</p>
+<pre><code>public virtual void Dispose()
+{
+    if (Remote != null)
+        Remote.Dispose();
+}
+</code></pre>
+
+<h3>Remote object</h3>
+<p>Remote property of IDextopRemotable provides access to the DextopRemote object. DextopRemote object provides ways for interacting with the client.
+On the client side any object implementing the mixin <em>Dextop.remoting.Remotable</em> can use this.remote object to access the Remote part on the server side.</p>
+<p>Use <em>Remote.Register</em> to register other remotable objects. After registration configuration is sent to the client to instantiate the object on the client side.</p>
+<p>Use <em>Remote.RemoteHostTypeProperty</em> to specify the type of the object to be created on the client side. If not defined, RemoteHostTypeProperty is 
+determined by using (mapping) the type name and the namespace of the remotable class.</p>
+<p>Use <em>Dextop.create</em> method to instantiate the method on the client side.</p>
+<pre><code>var win = Dextop.create(config, { /* put any additional config options here */});
+win.show();
+</code></pre>
+
+<p>Use <em>Remote.TrackDisposable</em> to track any disposable object which needs to be disposed together with its parent.</p>
+<p><em>DextopSession</em> is the root remotable object. On disposing the session, the whole tree of remotable children is disposed.</p>
+<h2>Remote procedure calls (RPC)</h2>
+<p>Use <em>[DextopRemotable]</em> attribute to mark that method is remotable. 
+Don't forget that a class or its base has to implement IDextopRemotable interface.</p>
+<pre><code>[DextopRemotable]
+public String GetHelloMessage(String name)
+{
+    return String.Format(&quot;Hello, {0}!&quot;, name);
+}
+</code></pre>
+
+<p>On Dextop application startup (or preprocess time) JS proxy classes are generated.</p>
+<p>Invoke the method from the client side like this:</p>
+<pre><code>this.remote.GetHelloWorldMessage('Marko', {
+    success: function(msg) { Dextop.alert(msg); },
+    failure: function(response) { Dextop.alert(response.exception); }
+});
+</code></pre>
+
+<p>For learn more about invoking the server and handling the results server check the <a href="../../#RemotingCallbacks" target="_blank">Remoting Callbacks</a> demo.</p>
+<h2>Automatic JSON encoding/decoding</h2>
+<p>Dextop offers automatic JSON encoding/decoding in your RPC calls.</p>
+<pre><code>[DextopRemotable]
+string DoLogin(Login login)
+{
+    return &quot;Hello &quot; + login.Username + &quot;!&quot;;
+}
+
+[DextopForm]
+class Login
+{
+    [DextopFormField(allowBlank = false, anchor = &quot;0&quot;)]
+    public String Username { get; set; }
+
+    [DextopFormField(inputType = &quot;password&quot;, anchor = &quot;0&quot;)]
+    public String Password { get; set; }
+}
+</code></pre>
+
+<p>Now objects can be sent from the client side and they will be automatically decoded to the corresponding object type on the server side.</p>
+<pre><code>doLogin: function () {
+    var form = this.down('form').getForm();
+    if (form.isValid())
+        this.remote.DoLogin(form.getFieldValues(), {
+            type: 'alert',
+            scope: this,                
+            success: function (result) {
+                this.close();
+                alert(result);
+            }
+        });
+}
+</code></pre>
+
+<h2>File upload</h2>
+<p>Check the <a href="../../#FileUploadForm" target="_blank">File Upload Form</a> demo to see how to handle file uploads. 
+Multiple files can be sent in the same time.</p>
+<h2>AJAX request handling</h2>
+<p>Any class implementing IDextopRemotable can define its own http handler.
+Define the handler in the InitRemotable method.</p>
+<pre><code>public override void InitRemotable(DextopRemote remote, DextopConfig config)
+{
+    base.InitRemotable(remote, config);
+    Remote.OnProcessAjaxRequest = DownloadFileHandler;
+}
+
+void DownloadFileHandler(HttpContext context)
+{
+    context.Response.ForceFileDownload(&quot;Hello.txt&quot;);
+    context.Response.Output.Write(&quot;...&quot;);        
+}
+</code></pre>
+
+<p>On the client side use:</p>
+<pre><code>this.remote.getAjaxUrl()
+</code></pre>
+
+<p>to get the url of the handler.
+Use</p>
+<pre><code>Dextop.downloadAttachment(this.remote.getAjaxUrl())
+</code></pre>
+
+<p>or</p>
+<pre><code>window.open(this.remote.getAjaxUrl())
+</code></pre>
+
+<p>to file downloads.</p>
+<h2>Server notifications</h2>
+<p>Dextop offers server-push messaging using the long-polling technique.</p>
+<p>To send a message to the client side, use the <em>SendMessage</em> method:</p>
+<pre><code>Remote.SendMessage(new { Time = Date.Now });
+</code></pre>
+
+<p>To handle the message on the client side, define the onServerMessage method.</p>
+<pre><code>onServerMessage: function(msg) {
+    //handle the message code
+}
+</code></pre>
+
+<p>Message can be any object. It will be JSON encoded/decoded before reaching the client.</p>
+<p>To see how to send popup notifications and alerts to the user check the <a href="../../#NotificationsWindow" target="_blank">Notifications</a> demo.</p>
+
+</body>
+</html>

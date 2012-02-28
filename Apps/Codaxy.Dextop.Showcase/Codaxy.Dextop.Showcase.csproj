@@ -14,7 +14,7 @@
     <AssemblyName>Codaxy.Dextop.Showcase</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
@@ -931,8 +931,14 @@
     <Content Include="Demos\Remoting\Enums.js" />
     <Content Include="Demos\Windows\LogWindow.txt" />
     <Content Include="Demos\Windows\LogWindow.js" />
+    <Content Include="Guides\articles\Remoting.txt" />
     <Content Include="Guides\articles\Features.txt" />
     <Content Include="Guides\articles\Getting Started.txt" />
+    <Content Include="Guides\articles\TODO\Application.txt" />
+    <Content Include="Guides\articles\TODO\Grids.txt" />
+    <Content Include="Guides\articles\TODO\Forms.txt" />
+    <Content Include="Guides\articles\TODO\Preprocessors.txt" />
+    <Content Include="Guides\articles\TODO\Modules.txt" />
     <Content Include="Guides\html\dummy.txt" />
     <Content Include="browse.htm" />
     <Content Include="client\css\features.css" />
@@ -1249,7 +1255,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>26157</DevelopmentServerPort>
           <DevelopmentServerVPath>/showcase</DevelopmentServerVPath>
