@@ -1,4 +1,55 @@
 ﻿Dextop Modules
-====================
+==============
 
-TODO
+Dextop module represents a set of resources used by a Dextop application. 
+
+Namespaces
+----------
+Dextop offers powerfull remoting features. In order to match server and client types, namespace mapping must be performed.
+Use <code>InitNamespaces()</code> to register all namespace mapping required for your module to work.
+
+	protected override void InitNamespaces()
+    {
+        RegisterNamespaceMapping("Codaxy.Dextop.Showcase.Demos*", "Showcase.demos");
+        RegisterNamespaceMapping("Codaxy.Dextop.Showcase.Windows*", "Showcase.window");
+        RegisterNamespaceMapping("Codaxy.Dextop.Showcase*", "Showcase");            
+    }
+
+Resources
+---------
+Each module should register all required .js and .css files.
+
+	protected override void InitResources()
+    {            
+        RegisterJs("app", "client/js/",
+			"generated/",
+            "controls/",
+            "");
+        RegisterJs("demos", "demos/", "*/");
+        RegisterCss("client/css/features.css");
+        RegisterCss("client/css/theme.css");
+    }
+
+Resources are registered in packages (bundles). In production, module resources are combined and minified for maximum performance.
+
+Assemblies & Preprocessors
+--------------------------
+Beside .js and .css resources, Dextop modules can register assemblies and preprocessors.
+Preprocessors use <code>System.Reflection</code> methods on registered assemblies to extract information and generate application resources.
+Standard Dextop preprocessors are:
+
+- Remoting preprocessor - looks for IDextopRemotable based classes and generate JS proxy classes for remote method calls.
+- Forms preprocessor - looks for classes marked with [DextopForm] and generates JS code - Ext JS forms.
+- Grid preprocessor - looks for classes marked with [DextopGrid] and generates JS code -Ext JS column models.
+- Model preprocessor - looks for classes marked with [DextopModel] and generates JS code - Ext JS data models.
+
+Use protected <code>DextopModule</code> method <code>RegisterStandardAssemblyPreprocessors</code> to register standard Dextop preprocessors in your module.
+
+Standard modules
+-----------------
+
+Standard, predefined modules, are:
+
+- DextopExtJsModule - includes basic Ext JS resources (ext-all.js, ext-all.css, ...)
+
+
