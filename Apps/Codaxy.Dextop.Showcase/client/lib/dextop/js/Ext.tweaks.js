@@ -182,3 +182,40 @@ Ext.override(Ext.form.field.ComboBox, {
 		return me;
 	}
 });
+
+Ext.override(Ext.grid.header.Container, {
+
+	afterRender: function () {
+		var me = this;
+
+		this.callParent();
+
+		var store = this.up('[store]').store,
+            sorters = store.sorters,
+            first = sorters.first(),
+            hd;
+
+		if (first) {
+			hd = this.down('gridcolumn[dataIndex=' + first.property + ']');
+			if (hd) {
+				hd.setSortState(first.direction, false, true);
+			}
+		}
+
+		this.tip = Ext.create('Ext.tip.ToolTip', {
+			target: this.el,
+			delegate: ".x-column-header",
+			trackMouse: true,
+			renderTo: Ext.getBody(),
+			listeners: {
+				beforeshow: function (tip) {
+					var c = me.down('gridcolumn[id=' + tip.triggerElement.id + ']');
+					if (c && c.tooltip)
+						tip.update(c.tooltip);
+					else
+						return false;
+				}
+			}
+		});
+	}
+});

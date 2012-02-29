@@ -40,7 +40,7 @@ namespace Codaxy.Dextop.Showcase.Demos.Grids
             [DextopGridColumn(width = 70)]            
             public int Age { get; set; }
 
-            [DextopGridColumn(width = 70, text="Height (cm)")]
+            [DextopGridColumn(width = 70, text="Height (cm)", tooltip="Height in centimeters")]
             public int Height { get; set; }
         }
     }
