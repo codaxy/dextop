@@ -1142,6 +1142,9 @@
     <Content Include="source\LoginFormWindow.cs.html" />
     <Content Include="source\LoginFormWindow.html" />
     <Content Include="source\LoginFormWindow.js.html" />
+    <Content Include="source\LogWindow.cs.html" />
+    <Content Include="source\LogWindow.html" />
+    <Content Include="source\LogWindow.js.html" />
     <Content Include="source\LongOperation.cs.html" />
     <Content Include="source\LongOperation.html" />
     <Content Include="source\LongOperation.js.html" />

@@ -1,7 +1,8 @@
 ﻿Dextop
 ======
 
-Dextop is RIA open-source framework based on .NET/Mono and Sencha Ext JS.
+Dextop is RIA open-source framework based on .NET/Mono and Sencha Ext JS. 
+Dextop provides a rich back-end, tailored for supporting rich Ext JS front-ends.
 
 Checkout Dextop source code at <a href="https://github.com/codaxy/dextop" target="_blank">GitHub</a>.
 
