@@ -51,5 +51,8 @@ Standard modules
 Standard, predefined modules, are:
 
 - DextopExtJsModule - includes basic Ext JS resources (ext-all.js, ext-all.css, ...)
+- DextopCoreModule - includes basic Dextop resources and provides mapping of Dextop namespace
+- DextopSoundModule - inlcudes Scott Schiller's SoundManager2 library and provides overrides Dextop sound functions
+- ExtDesktopModule - includes resources from the Ext JS desktop example for application based on Extop.
 
 

@@ -6,7 +6,138 @@
 </head>
 <body onload="prettyPrint()">
 <h1>Dextop Modules</h1>
-<p>TODO</p>
+<p>Dextop simplifies work with Ext JS grids in multiple ways:</p>
+<ul>
+<li>Data model generation</li>
+<li>Column model generation</li>
+<li>IDextopDataProxy</li>
+<li>Grid plugins and extensions</li>
+</ul>
+<h2>Data model generation</h2>
+<p>Use <code>[DextopModel]</code> to mark classes as Ext data model classes.</p>
+<pre class="prettyprint"><code>[DextopModel]
+[DextopGrid]
+class GridModel
+{
+    [DextopModelId]
+    public int Id { get; set; }
+
+    [DextopGridColumn(flex=1)]
+    public String Name { get; set; }
+
+    [DextopGridColumn(width = 70)]            
+    public int Age { get; set; }
+
+    [DextopGridColumn(width = 70, text=&quot;Height (cm)&quot;, tooltip=&quot;Height in centimeters&quot;)]
+    public int Height { get; set; }
+}
+</code></pre><p>Use <code>[DextopModelId]</code> to explicitely mark the id property. If id property is not set, Id property is determined by looking
+for the first property ending with a word 'Id'.</p>
+<p>Generated JS code looks like this:</p>
+<pre class="prettyprint"><code>Ext.define('Demo.model.GridModel',
+{
+    extend: 'Ext.data.Model',
+    fields: [{
+        name: 'Id',
+        type: 'int',
+        useNull: true
+    }, {
+        name: 'Name',
+        type: 'string',
+        useNull: true
+    }, {
+        name: 'Age',
+        type: 'int',
+        useNull: true
+    }, {
+        name: 'Height',
+        type: 'int',
+        useNull: true
+    }],
+    idProperty: 'Id'
+});
+</code></pre><h2>Column model generation</h2>
+<p>Dextop supports generation of column models based on the [DextopGridColumn] attributes. 
+Column models can be instatniated on the client side using the following syntax:</p>
+<pre class="prettyprint"><code>var columns = Dextop.data.GridColumnsFactory.create('Demo.columns.GridModel', { 
+    renderers: {
+        Height: function(value) { return value + ' cm'; }
+    },
+    apply: {
+        Age: {
+            tooltip: 'Person's age in years'
+        }
+    }   
+    /* Other options supported by the Dextop.ItemFactory */
+});
+</code></pre><p>Dextop supports type specific column attributes which can provide more options when required.</p>
+<h2>IDextopDataProxy</h2>
+<p>To add read and write functionality for the Ext JS grid, a class with IDextopDataProxy interface should be implemented and registered.</p>
+<pre class="prettyprint"><code>class Crud : DextopDataProxy&lt;GridModel&gt;
+{
+    SortedDictionary&lt;int, GridModel&gt; list = new SortedDictionary&lt;int, GridModel&gt;();
+    int id = 0;
+
+    public override IList&lt;GridModel&gt; Create(IList&lt;GridModel&gt; data)
+    {
+        foreach (var row in data)
+        {
+            row.Id = ++id;
+            list.Add(row.Id, row);
+        }
+        return data;
+    }
+
+    public override IList&lt;GridModel&gt; Update(IList&lt;GridModel&gt; data)
+    {
+        foreach (var d in data)
+            list[d.Id] = d;
+        return data;
+    }
+
+    public override IList&lt;GridModel&gt; Destroy(IList&lt;GridModel&gt; data)
+    {
+        foreach (var d in data)
+            list.Remove(d.Id);
+        return new GridModel[0];
+    }
+
+    public override DextopReadResult&lt;GridModel&gt; Read(DextopReadFilter filter)
+    {
+        return DextopReadResult.Create(list.Values.ToArray());
+    }
+}
+</code></pre><p>Use Remote object to register the store on the server side.</p>
+<pre class="prettyprint"><code>Remote.RegisterStore(&quot;model&quot;, new Crud());
+</code></pre><p>use this.remote.createStore method to instantiate a store on the client side.</p>
+<pre class="prettyprint"><code>var store = this.remote.createStore('model', {
+    autoLoad: true
+});
+</code></pre><p>For stores supporting only the Read functionality, full <code>DextopDataProxy</code> is not required,
+read method delegate can be passed to the <code>Remote.RegisterStore</code> method.</p>
+<pre class="prettyprint"><code>public override void InitRemotable(DextopRemote remote, DextopConfig config)
+{
+    base.InitRemotable(remote, config);
+    Remote.AddStore(&quot;model&quot;, Read);
+}
+
+GridModel[] Read(DextopReadFilter filter)
+{
+    return new[] {
+        new GridModel { Id = 1, Name = &quot;Bill&quot;, Age = 30, Height=180 },
+        new GridModel { Id = 2, Name = &quot;Bob&quot;, Age = 26, Height=175 }               
+    };
+}   
+</code></pre><h2>Grid plugins and extensions</h2>
+<p>Dextop implements a few grid plugins:</p>
+<ul>
+<li>ActionManager - grid context menu and selection based toolbar item enabling/disabling</li>
+<li>AutoSelect - automatic selection of the first record in the grid (on load)</li>
+<li>PageSizeCombol - variable page size (used with the paging toolbar)</li>
+</ul>
+<p><code>SwissArmyGrid</code> is an implementation of the grid which supports automatic creation 
+of its store and model, paging, cell/row/form editor and all of the plugins from above.</p>
+<p>To see <code>SwissArmyGrid</code> in practice see this <a href="../../#SwissGridWithFormEditor" target="_blank">demo</a>.</p>
 
 <script type="text/javascript" src="../../client/lib/prettify/prettify.js"></script>
 <script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>

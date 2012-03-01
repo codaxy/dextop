@@ -13,7 +13,7 @@ or
 
 to your actions to enable this feature.
 
-For data sensitive enabling using following method:
+For data sensitive enabling use the following method:
 
 	enableOnSingle: function (rec) {
 		return !rec.get('IsAdministrator');
@@ -21,8 +21,8 @@ For data sensitive enabling using following method:
 
 This way 'Administrators' can't be deleted.
 
-Second feature is context sensitive menu.
-Set bindContextMenu: false in plugin config to disable this feature.
+Second feature is the context sensitive menu.
+Set bindContextMenu: false in plugin's config to disable this feature.
 
 Use contextMenuConfig config property to pass special configuration 
-options to Ext.menu.Menu.
+options to the <code>Ext.menu.Menu</code>.

@@ -32,7 +32,11 @@ namespace Codaxy.Dextop.Showcase.Demos.Grids
 
             List&lt;TreeNode&gt; nodes = new List&lt;TreeNode&gt;();
             for (int i = 0; i &lt; 3; i++)
-                nodes.Add(new TreeNode { id = id + i, text = &quot;node &quot; + id + i });
+                nodes.Add(new TreeNode
+                {
+                    id = id + i,
+                    text = &quot;node &quot; + id + i
+                });
 
             context.Response.ContentType = &quot;application/json&quot;;
             context.Response.Write(Codaxy.Dextop.DextopUtil.Encode(nodes));

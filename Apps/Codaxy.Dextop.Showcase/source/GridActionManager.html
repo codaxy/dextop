@@ -14,15 +14,15 @@ on the selected rows int grid. Add </p>
 </code></pre><p>or </p>
 <pre class="prettyprint"><code>enableOnMulti:true 
 </code></pre><p>to your actions to enable this feature.</p>
-<p>For data sensitive enabling using following method:</p>
+<p>For data sensitive enabling use the following method:</p>
 <pre class="prettyprint"><code>enableOnSingle: function (rec) {
     return !rec.get('IsAdministrator');
 }
 </code></pre><p>This way 'Administrators' can't be deleted.</p>
-<p>Second feature is context sensitive menu.
-Set bindContextMenu: false in plugin config to disable this feature.</p>
+<p>Second feature is the context sensitive menu.
+Set bindContextMenu: false in plugin's config to disable this feature.</p>
 <p>Use contextMenuConfig config property to pass special configuration 
-options to Ext.menu.Menu.</p>
+options to the <code>Ext.menu.Menu</code>.</p>
 
 <script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
 <script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>

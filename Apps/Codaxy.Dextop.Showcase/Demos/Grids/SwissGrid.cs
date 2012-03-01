@@ -27,6 +27,34 @@ namespace Codaxy.Dextop.Showcase.Demos.Grids
             });
         }
 
+        enum Gender { Male, Female };
+
+        [DextopModel]
+        [DextopGrid]
+        class GridModel
+        {            
+            [DextopGridColumn(width = 50, readOnly=true)] 
+            public int Id { get; set; }
+            
+            [DextopGridColumn(flex=1, tooltipTpl="{Name}")]
+            public String Name { get; set; }
+
+            [DextopGridLookupColumn()]
+            public Gender Gender { get; set; }
+            
+            [DextopGridColumn(width = 50)]            
+            public int Age { get; set; }
+
+            [DextopGridColumn(width = 50)]
+            public int Height { get; set; }
+			
+			[DextopGridColumn]
+			public bool Basketball { get; set; }
+
+			[DextopGridColumn]
+			public bool Football { get; set; }
+        }
+
         class Crud : DextopDataProxy<GridModel>
         {
             SortedDictionary<int, GridModel> list = new SortedDictionary<int, GridModel>();
@@ -58,36 +86,8 @@ namespace Codaxy.Dextop.Showcase.Demos.Grids
 
             public override DextopReadResult<GridModel> Read(DextopReadFilter filter)
             {
-                return DextopReadResult.CreatePage(list.Values.AsQueryable(), filter);                
-            }            
-        }
-
-        enum Gender { Male, Female };
-
-        [DextopModel]
-        [DextopGrid]
-        class GridModel
-        {            
-            [DextopGridColumn(width = 50, readOnly=true)] 
-            public int Id { get; set; }
-            
-            [DextopGridColumn(flex=1, tooltipTpl="{Name}")]
-            public String Name { get; set; }
-
-            [DextopGridLookupColumn()]
-            public Gender Gender { get; set; }
-            
-            [DextopGridColumn(width = 50)]            
-            public int Age { get; set; }
-
-            [DextopGridColumn(width = 50)]
-            public int Height { get; set; }
-			
-			[DextopGridColumn]
-			public bool Basketball { get; set; }
-
-			[DextopGridColumn]
-			public bool Football { get; set; }
+                return DextopReadResult.CreatePage(list.Values.AsQueryable(), filter);
+            }
         }
     }
 }
