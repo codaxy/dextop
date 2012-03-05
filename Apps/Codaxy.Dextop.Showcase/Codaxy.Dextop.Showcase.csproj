@@ -107,6 +107,8 @@
     <Content Include="client\lib\dextop\images\logger\sprites.png" />
     <Content Include="client\lib\dextop\js\Ext.tweaks.js" />
     <Content Include="client\lib\dextop\js\Form.js" />
+    <Content Include="client\lib\dextop\js\locale\dextop-da.js" />
+    <Content Include="client\lib\dextop\js\locale\ext-patch-sr.js" />
     <Content Include="client\lib\dextop\js\Logger.js" />
     <Content Include="client\lib\dextop\js\Panel.js" />
     <Content Include="client\lib\dextop\js\ux\Ext.ux.FilteredCombo.js" />

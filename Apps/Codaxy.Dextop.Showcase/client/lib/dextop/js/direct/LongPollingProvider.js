@@ -30,69 +30,70 @@ var pollB = Ext.direct.Manager.getProvider('pollB-provider');
  * 
  */
 Ext.define('Dextop.direct.LongPollingProvider', {
-    
-    /* Begin Definitions */
-    
-    extend: 'Ext.direct.JsonProvider',
-    
-    alias: 'direct.longpollingprovider',
-    
-    uses: ['Ext.direct.ExceptionEvent'],
-    
-    requires: ['Ext.Ajax'],
-    
-    /* End Definitions */        
-    
-    connected: false,
-	
+
+	/* Begin Definitions */
+
+	extend: 'Ext.direct.JsonProvider',
+
+	alias: 'direct.longpollingprovider',
+
+	uses: ['Ext.direct.ExceptionEvent'],
+
+	requires: ['Ext.Ajax'],
+
+	/* End Definitions */
+
+	connected: false,
+
 	nextStart: 0,
-	
+
 	interval: 3000,
 
-    /**
-     * @cfg {Object} baseParams An object containing properties which are to be sent as parameters
-     * on every polling request
-     */
-    
-    /**
-     * @cfg {String/Function} url
-     * The url which the PollingProvider should contact with each request. This can also be
-     * an imported Ext.Direct method which will accept the baseParams as its only argument.
-     */
+	/**
+	* @cfg {Object} baseParams An object containing properties which are to be sent as parameters
+	* on every polling request
+	*/
 
-    // private
-    constructor : function(config){
-        this.callParent(arguments);
-        this.addEvents(
-            /**
-             * @event beforepoll
-             * Fired immediately before a poll takes place, an event handler can return false
-             * in order to cancel the poll.
-             * @param {Ext.direct.PollingProvider}
-             */
-            'beforepoll',            
-            /**
-             * @event poll
-             * This event has not yet been implemented.
-             * @param {Ext.direct.PollingProvider}
-             */
+	/**
+	* @cfg {String/Function} url
+	* The url which the PollingProvider should contact with each request. This can also be
+	* an imported Ext.Direct method which will accept the baseParams as its only argument.
+	*/
+
+	// private
+	constructor: function (config) {
+		this.callParent(arguments);
+		this.addEvents(
+		/**
+		* @event beforepoll
+		* Fired immediately before a poll takes place, an event handler can return false
+		* in order to cancel the poll.
+		* @param {Ext.direct.PollingProvider}
+		*/
+            'beforepoll',
+		/**
+		* @event poll
+		* This event has not yet been implemented.
+		* @param {Ext.direct.PollingProvider}
+		*/
             'poll'
         );
-    },
+	},
 
-    // inherited
-    isConnected: function(){
-        return this.connected;
-    },
-    
-    poll: function() {
-		if (this.connected) {		
-			
-			this.baseParams = this.baseParams || {};			
+	// inherited
+	isConnected: function () {
+		return this.connected;
+	},
+
+	poll: function () {
+		if (this.connected) {
+
+			this.baseParams = this.baseParams || {};
 			Ext.apply(this.baseParams, {
-				start: this.nextStart}
+				start: this.nextStart
+			}
 			);
-					
+
 			if (this.fireEvent('beforepoll', this) !== false) {
 				if (typeof this.url == 'function') {
 					this.url(this.baseParams);
@@ -106,60 +107,69 @@ Ext.define('Dextop.direct.LongPollingProvider', {
 					});
 				}
 			}
-		}		
+		}
 	},
 
-    /**
-     * Connect to the server-side and begin the polling process. To handle each
-     * response subscribe to the data event.
-     */    
-    
-    connect: function(){
+	/**
+	* Connect to the server-side and begin the polling process. To handle each
+	* response subscribe to the data event.
+	*/
+
+	connect: function () {
 		if (!this.url)
 			throw 'Error initializing LongPollingProvider, no url configured.';
 		this.connected = true;
 		this.fireEvent('connect', this);
-		this.poll();        
-    },
+		this.poll();
+	},
 
-    /**
-     * Disconnect from the server-side and stop the polling process. The disconnect
-     * event will be fired on a successful disconnect.
-     */
-    disconnect: function(){
-        if(this.connected){
+	/**
+	* Disconnect from the server-side and stop the polling process. The disconnect
+	* event will be fired on a successful disconnect.
+	*/
+	disconnect: function () {
+		if (this.connected) {
 			this.connected = false;
-            this.fireEvent('disconnect', this);
-        }
-    },
+			this.fireEvent('disconnect', this);
+		}
+	},
 
-    // private
-    onData: function(opt, success, response){
-        var me = this, 
-            i = 0, 
+	// private
+	onData: function (opt, success, response) {
+		var me = this,
+            i = 0,
             len,
-            events;
-        
-        if (success) {        	
-            events = me.createEvents(response);
-            for (len = events.length; i < len; ++i) {
-            	if (events[i].nextStart > this.nextStart) 
-					this.nextStart = events[i].nextStart;
-				success &= events[i].success;
-                me.fireEvent('data', me, events[i]);
-            }  
-            if (success)
-        		Ext.defer(this.poll, 10, this);
-        	else
-        		Ext.defer(this.poll, this.interval, this);          
-        } else {
-        	Ext.defer(this.poll, this.interval, this);
-            me.fireEvent('data', me, Ext.create('Ext.direct.ExceptionEvent', {
-                data: null,
-                code: Ext.direct.Manager.self.exceptions.TRANSPORT,
-                message: 'Unable to connect to the server.',
-                xhr: response
-            }));            
-        }			
-    }
+            events,
+			recover = true;
+
+		try {
+			if (success) {
+				events = me.createEvents(response);
+				for (len = events.length; i < len; ++i) {
+					try {
+						if (events[i].nextStart > this.nextStart)
+							this.nextStart = events[i].nextStart;
+						me.fireEvent('data', me, events[i]);
+					} catch (e) {
+						//swallow errors on event handling
+						//long polling should not be stopped because of a bug in the handler
+					}
+				}
+				Ext.defer(this.poll, 10, this);
+				recover = false;
+			} else {
+				me.fireEvent('data', me, Ext.create('Ext.direct.ExceptionEvent', {
+					data: null,
+					code: Ext.direct.Manager.self.exceptions.TRANSPORT,
+					message: 'Unable to connect to the server.',
+					xhr: response
+				}));
+			}
+		} catch (e) {
+			//long polling will not be stopped in case of the invalid response
+		}
+
+		if (recover)
+			Ext.defer(this.poll, this.interval, this);
+	}
 });
