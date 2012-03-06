@@ -21,17 +21,17 @@ Ext.define(&#39;Showcase.demos.LoginFormWindow&#39;, {
 				bodyStyle: &#39;padding: 5px&#39;,
 				border: false,
 				autoHeight: true,
-				model: this.getNestedTypeName(&#39;.form.Login&#39;),				
+				model: this.getNestedTypeName(&#39;.form.Login&#39;),
 				fieldDefaults: {
 					labelWidth: 70
 				},
-				keyMap: [{
+				plugins: new Ext.ux.KeyMapPlugin(),
+				keys: [{
 					key: Ext.EventObject.ENTER,
 					scope: this,
 					handler: this.doLogin
 				}]
 			},
-			plugins: new Ext.ux.KeyMapPlugin(),
 			buttons: [{
 				text: &#39;Login&#39;,
 				formBind: true,

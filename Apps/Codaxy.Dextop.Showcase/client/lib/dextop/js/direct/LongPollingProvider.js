@@ -149,14 +149,17 @@ Ext.define('Dextop.direct.LongPollingProvider', {
 					try {
 						if (events[i].nextStart > this.nextStart)
 							this.nextStart = events[i].nextStart;
+						success = success && events[i].success;
 						me.fireEvent('data', me, events[i]);
 					} catch (e) {
 						//swallow errors on event handling
 						//long polling should not be stopped because of a bug in the handler
 					}
 				}
-				Ext.defer(this.poll, 10, this);
-				recover = false;
+				if (success) {
+					Ext.defer(this.poll, 10, this);
+					recover = false;
+				}
 			} else {
 				me.fireEvent('data', me, Ext.create('Ext.direct.ExceptionEvent', {
 					data: null,

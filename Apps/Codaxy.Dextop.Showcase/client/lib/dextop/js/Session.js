@@ -46,7 +46,7 @@ Ext.define('Dextop.Session', {
 				run: this.extendExpiry,
 				interval: 4 * 60 * 1000
 			});
-		}, 2 * 60 * 1000, this);		
+		}, 2 * 60 * 1000, this);
 
 		Ext.apply(this, config);
 	},
@@ -67,39 +67,38 @@ Ext.define('Dextop.Session', {
 		}, this);
 	},
 
-	terminate: function () 
-	{		
+	terminate: function () {
 		if (this.terminated)
 			return;
 		this.terminated = true;
-		
+
 		if (this.extendSessionTask) {
 			Ext.TaskManager.stop(this.extendSessionTask);
 			delete this.extendSessionTask;
 		}
-		
+
 		this.stopDirect();
 	},
 
-	handleSessionTermination: function() {
-		
+	handleSessionTermination: function () {
+
 		if (this.terminated)
 			return;
 		this.terminate();
 
-		Dextop.warningAlert({ 
-			msg: this.sessionTerminatedReloadText, 
+		Dextop.warningAlert({
+			msg: this.sessionTerminatedReloadText,
 			buttons: Ext.MessageBox.YESNO,
 			scope: this,
-			fn: function(btn) {
-				if (btn=='yes') 
-					this.restartSession();	
+			fn: function (btn) {
+				if (btn == 'yes')
+					this.restartSession();
 			}
 		});
-		
+
 	},
 
-	restartSession: function() {
+	restartSession: function () {
 		window.location.reload();
 	},
 
@@ -183,84 +182,86 @@ Ext.define('Dextop.Session', {
 		}
 
 		if (this.pollingProvider) {
+			if (this.pollingProvider.disconnect)
+				this.pollingProvider.disconnect();
 			Ext.Direct.removeProvider(this.pollingProvider);
 			delete this.pollingProvider;
 		}
 	},
-	
-	onServerMessage: function(msg) {
+
+	onServerMessage: function (msg) {
 		if (msg.type === 'notification')
 			this.notify(msg.data);
 	},
-	
-	notify: function(msg) {
-		
+
+	notify: function (msg) {
+
 		if (typeof msg === 'string')
 			msg = {
-				type: 'info',				
+				type: 'info',
 				msg: msg
 			};
-			
-		var	defaults = {
+
+		var defaults = {
 			info: {
 				title: Dextop.infoText
-			}, 
+			},
 			warning: {
 				title: Dextop.warningText
 			},
 			error: {
 				title: Dextop.errorText
 			}
-		};		
-		
+		};
+
 		Ext.applyIf(msg, defaults[msg.type]);
-		
+
 		msg.msg = msg.message = msg.msg || msg.message || msg.exception || msg.text;
 
 		if (typeof Dextop.Logger[msg.type] === 'function') {
 			Dextop.Logger[msg.type](msg.msg);
 		}
-		
+
 		if (msg.sound) {
 			if (msg.sound === true)
 				this.playSound(msg.type);
 			else
 				this.playSound(msg.sound);
 		}
-		
-		if (msg.alert) 
+
+		if (msg.alert)
 			this.alert(msg);
 		else
-			this.displayPopupNotification(msg);				
-	},	
-	
+			this.displayPopupNotification(msg);
+	},
+
 	//virtual
-	playSound: function(sound) {
+	playSound: function (sound) {
 
 	},
 
-	getAbsolutePath: function(path) {
+	getAbsolutePath: function (path) {
 		if (!path)
 			return path;
-		if (path.indexOf(this.virtualAppPath)==0)
+		if (path.indexOf(this.virtualAppPath) == 0)
 			return path;
-		if (path.charAt(0)=='/')
+		if (path.charAt(0) == '/')
 			return this.virtualAppPath + path.substring(1);
 		return this.virtualAppPath + path;
 	},
-	
-	alert: function(msg) {
+
+	alert: function (msg) {
 		if (typeof msg === 'string')
-			msg = {						
+			msg = {
 				msg: msg
 			};
-			
-		var	alertDefaults = {
+
+		var alertDefaults = {
 			info: {
 				title: Dextop.infoText,
 				icon: Ext.MessageBox.INFO,
 				buttons: Ext.MessageBox.OK
-			}, 
+			},
 			warning: {
 				title: Dextop.warningText,
 				icon: Ext.MessageBox.WARNING,
@@ -271,44 +272,44 @@ Ext.define('Dextop.Session', {
 				icon: Ext.MessageBox.ERROR,
 				buttons: Ext.MessageBox.OK
 			}
-		};		
-		
+		};
+
 		Ext.applyIf(msg, alertDefaults[msg.type || 'info']);
-		
-		msg.msg = msg.msg || msg.message || msg.exception || msg.text;		
-		
+
+		msg.msg = msg.msg || msg.message || msg.exception || msg.text;
+
 		Ext.MessageBox.show(msg);
 	},
-	
-	displayPopupNotification: function(notification) {    
-        var msg = '<div class="msg ' + notification.type + '"><h3>' + notification.title + '</h3><p>' + notification.message + '</p></div>';
-        if(!this.msgCt){
-        	this.msgCt = Ext.core.DomHelper.insertFirst(document.body, {id:'msg-div'}, true);
-		}        
-        var m = Ext.core.DomHelper.append(this.msgCt, msg, true);
-        m.hide();
-        m.slideIn('t').ghost("t", { delay: 4000, remove: true});        
+
+	displayPopupNotification: function (notification) {
+		var msg = '<div class="msg ' + notification.type + '"><h3>' + notification.title + '</h3><p>' + notification.message + '</p></div>';
+		if (!this.msgCt) {
+			this.msgCt = Ext.core.DomHelper.insertFirst(document.body, { id: 'msg-div' }, true);
+		}
+		var m = Ext.core.DomHelper.append(this.msgCt, msg, true);
+		m.hide();
+		m.slideIn('t').ghost("t", { delay: 4000, remove: true });
 	},
-	
+
 	sharedLookupData: {},
-	
+
 	//lookups
-	getSharedLookupData: function(name) {
+	getSharedLookupData: function (name) {
 		var data = this.sharedLookupData[name];
 		if (!data)
 			throw "Shared lookup data '" + name + "' not found.";
 		return data.data;
-	},	
-	
-	setSharedLookupData: function(data) {
+	},
+
+	setSharedLookupData: function (data) {
 		var old = this.sharedLookupData[data.name];
 		if (data.data && (!old || old.version != data.version || !old.registered)) {
 			this.remote.RegisterLookupDataVersion(data.name, data.version, {
-				success: function() {
+				success: function () {
 					data.registered = true;
 				}
 			});
 			this.sharedLookupData[data.name] = data;
-		}			
+		}
 	}
 });
