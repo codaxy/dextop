@@ -36,7 +36,7 @@ namespace Codaxy.Dextop.Forms
             jw.DefaultProperty("itemId", itemId);
             jw.DefaultProperty("xtype", xtype);
             if (itemId != null)
-                jw.AddLocalizationProperty("title", title, itemId + "Title");
+                jw.AddLocalizationProperty("title", title, itemId + "TitleText");
             else
                 jw.DefaultProperty("title", title);
             if (layout != null)
