@@ -12,7 +12,7 @@
 
 2. CodeGeneration
 ---------------------
-- Automatic concatenion and minification of js files (thanks to Yahoo.Yui.Compressor for .NET)
+- Automatic concatenation and minification of js files (thanks to Yahoo.Yui.Compressor for .NET)
 - Automatic minification of css files
 - Automatic remoting Proxy class generation based on DextopRemotable attribute
 - Automatic generation of Ext models based on DextopModel attribute
@@ -26,13 +26,13 @@
 
 4. Grids
 ---------------------
-- Reflection based models
-- Reflection based headers
+- Reflection-based models
+- Reflection-based headers
 - Paging helpers
 
 5. Forms
 ------------------
-- Powerfull form generation engine
+- Powerful form generation engine
 
 6. Localization
 ------------------

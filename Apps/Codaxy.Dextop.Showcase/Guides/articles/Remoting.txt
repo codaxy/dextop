@@ -51,7 +51,7 @@ Use *Dextop.create* method to instantiate the method on the client side.
 
 Use *Remote.TrackDisposable* to track any disposable object which needs to be disposed together with its parent.
 
-*DextopSession* is the root remotable object. On disposing the session, the whole tree of remotable children is disposed.
+*DextopSession* is the root remotable object. On disposing the session, entire tree of remotable children is disposed.
 
 Remote procedure calls (RPC)
 ----------------------------
@@ -138,7 +138,13 @@ On the client side use:
 	
 	this.remote.getAjaxUrl()
 
-to get the url of the handler.
+to get the URL of the handler. If you want to pass query parameters to http handler, 
+you can use this:
+
+	this.remote.getAjaxUrl({
+		'id': reportId
+	})
+
 Use
 
 	Dextop.downloadAttachment(this.remote.getAjaxUrl())
@@ -147,7 +153,7 @@ or
 
 	window.open(this.remote.getAjaxUrl())
 
-to file downloads.
+for file downloads. 
 
 Server notifications
 --------------------
