@@ -9,9 +9,10 @@ Ext.define('Dextop.Window', {
 
 	requires: ['Ext.window.Window', 'Dextop.remoting.Remotable'],
 
-	// property
-	hasWindowState: false,
 	initialWindowState: null,
+	
+	// set by Session.instantiate
+	instantiateOptions: null,
 		
 	constructor: function (config) {
 
@@ -33,12 +34,15 @@ Ext.define('Dextop.Window', {
 
 	// virtual
 	getWindowState: function() {
-		if (!this.el) // never rendered, nothing could have changed
+		if (!this.el) {
+			// never rendered, nothing could have changed
 			return this.initialWindowState
+		}
 			
-		// TODO When we have multiple pages, set up x, y and page index accordingly
 		var state = {
+			// This will be passed as remote instantiation config parameter
 			config: this.getBox(),
+			// This will be used to instantiate remote object
 			instantiateOptions: this.instantiateOptions
 		};
 

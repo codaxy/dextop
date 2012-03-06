@@ -58,8 +58,8 @@ Ext.define('Dextop.data.GridColumnsFactory', {
 				field: {
 					xtype: 'textfield'
 				},
-				renderer: function(v) {
-					if (!v) 
+				renderer: function (v) {
+					if (!v)
 						return v;
 					return Ext.util.Format.date(v, Ext.Date.defaultFormat + ' g:i A');
 				}
@@ -157,6 +157,10 @@ Ext.define('Dextop.data.GridColumnsFactory', {
 				});
 				delete c.tooltipTpl;
 			}
+
+			//sometimes header text is too long, so it's useful to display the tooltip with header text
+			if (!c.tooltip && c.text)
+				c.tooltip = c.text;
 
 			if (c.columns)
 				c.columns = Dextop.data.GridColumnsFactory.create(c.columns, options);

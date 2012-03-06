@@ -30,7 +30,7 @@ namespace Codaxy.Dextop.Showcase.Demos.Forms
             [DextopFormField(anchor="0")]
             public String LastName { get; set; }
 
-            [DextopFormFieldSet(2, title = "Collapsible FieldSet", collapsible = true)]
+            [DextopFormFieldSet(2, title = "Collapsible FieldSet", collapsible = true, itemId="fs1")]
             [DextopFormDateField(showToday=false)]
             public DateTime Birth { get; set; }
         

@@ -44,41 +44,6 @@ namespace Codaxy.Dextop.Showcase.Demos.Grids
             });
         }
 
-        class Crud : DextopDataProxy<GridModel>
-        {
-            SortedDictionary<int, GridModel> list = new SortedDictionary<int, GridModel>();
-            int id = 0;
-
-            public override IList<GridModel> Create(IList<GridModel> data)
-            {
-                foreach (var row in data)
-                {
-                    row.Id = ++id;
-                    list.Add(row.Id, row);
-                }
-                return data;
-            }
-
-            public override IList<GridModel> Update(IList<GridModel> data)
-            {
-                foreach (var d in data)
-                    list[d.Id] = d;
-                return data;
-            }
-
-            public override IList<GridModel> Destroy(IList<GridModel> data)
-            {
-                foreach (var d in data)
-                    list.Remove(d.Id);
-                return new GridModel[0];
-            }
-
-            public override DextopReadResult<GridModel> Read(DextopReadFilter filter)
-            {
-                return DextopReadResult.Create(list.Values.ToArray());                
-            }            
-        }
-
         enum Gender { Male, Female };
 
         [DextopModel]
@@ -122,6 +87,41 @@ namespace Codaxy.Dextop.Showcase.Demos.Grids
 
 			[DextopFormField(boxLabel = "Volleyball")]
 			public bool Volleyball { get; set; }
+        }
+
+        class Crud : DextopDataProxy<GridModel>
+        {
+            SortedDictionary<int, GridModel> list = new SortedDictionary<int, GridModel>();
+            int id = 0;
+
+            public override IList<GridModel> Create(IList<GridModel> data)
+            {
+                foreach (var row in data)
+                {
+                    row.Id = ++id;
+                    list.Add(row.Id, row);
+                }
+                return data;
+            }
+
+            public override IList<GridModel> Update(IList<GridModel> data)
+            {
+                foreach (var d in data)
+                    list[d.Id] = d;
+                return data;
+            }
+
+            public override IList<GridModel> Destroy(IList<GridModel> data)
+            {
+                foreach (var d in data)
+                    list.Remove(d.Id);
+                return new GridModel[0];
+            }
+
+            public override DextopReadResult<GridModel> Read(DextopReadFilter filter)
+            {
+                return DextopReadResult.Create(list.Values.ToArray());
+            }
         }
     }
 }

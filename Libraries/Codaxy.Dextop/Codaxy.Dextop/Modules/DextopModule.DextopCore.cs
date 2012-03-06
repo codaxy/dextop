@@ -36,15 +36,19 @@ namespace Codaxy.Dextop
             var coreModule = CreateJsPackage("core");
             coreModule.Register("js/",
                 "direct/",
-                "remoting/",				
+                "remoting/",
                 "generated/",
                 "data/",
                 "ux/",
                 "/"
             );
-            coreModule.RegisterLocalizations(new[] { "sr", "ru", "da" }, "js/locale/", "dextop-{0}.js");
 
-			RegisterCss("css/dextop.css");
+            var supportedLanguages = new[] { "sr", "ru", "da" };
+
+            coreModule.RegisterLocalizations(supportedLanguages, "js/locale/", "dextop-{0}.js");
+            coreModule.RegisterLocalizations(supportedLanguages, "js/locale/", "ext-patch-{0}.js");
+
+            RegisterCss("css/dextop.css");
         }
 
 		/// <summary>

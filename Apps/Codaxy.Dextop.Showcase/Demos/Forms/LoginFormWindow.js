@@ -6,32 +6,30 @@ Ext.define('Showcase.demos.LoginFormWindow', {
 
 	initComponent: function () {
 
-		var formFields = Ext.create(this.getNestedTypeName('.form.Login')).getItems();
-
 		Ext.apply(this, {
 			layout: 'fit',
 			items: {
-				xtype: 'form',
+				xtype: 'dextopform',
 				bodyStyle: 'padding: 5px',
 				border: false,
 				autoHeight: true,
-				items: formFields,
-				plugins: new Ext.ux.KeyMapPlugin(),
+				model: this.getNestedTypeName('.form.Login'),
 				fieldDefaults: {
 					labelWidth: 70
 				},
-				keyMap: [{
+				plugins: new Ext.ux.KeyMapPlugin(),
+				keys: [{
 					key: Ext.EventObject.ENTER,
 					scope: this,
 					handler: this.doLogin
-				}],
-				buttons: [{
-					text: 'Login',
-					formBind: true,
-					scope: this,
-					handler: this.doLogin
 				}]
-			}
+			},
+			buttons: [{
+				text: 'Login',
+				formBind: true,
+				scope: this,
+				handler: this.doLogin
+			}]
 		});
 
 		this.callParent(arguments);

@@ -19,7 +19,7 @@ Ext.define('Dextop.data.RendererFactory', {
 				return function (value, meta, record) {
 					var v = renderer(value, meta, record) || '';
 					var ttip = tpl.apply(record.data) || '';
-					if (ttip)
+					if (ttip && ttip != 'null')
 						return '<div data-qtip=\"' + ttip + '\">' + v + '</div>';
 					return v;
 				}
