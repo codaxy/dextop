@@ -10,7 +10,7 @@ Ext.define('Showcase.demos.BufferedGridWindow', {
 
 	initComponent: function () {
 		var store = this.remote.createStore('model', {
-			autoLoad: false,
+			autoLoad: true,
 			buffered: true,			
 			pageSize: 100,
 			remoteSort: true
@@ -22,19 +22,13 @@ Ext.define('Showcase.demos.BufferedGridWindow', {
 			border: false,
 			store: store,
 			columns: columns,
-			verticalScroller: {
-				xtype: 'paginggridscroller'
-			},
-			disableSelection: true,
-			invalidateScrollerOnRefresh: false
+			disableSelection: false //it works but selection is lost on scrolling
 		});
 
 		Ext.apply(this, {
 			layout: 'fit',
 			items: grid
 		});
-
-		store.guaranteeRange(0, store.pageSize-1);
 
 		this.callParent(arguments);
 	}

@@ -7,8 +7,9 @@ Ext.define('Showcase.demos.LogWindow', {
 	width: 800,
 	height: 400,
 	layout: 'fit',
-	
-	initComponent: function() {
+
+	initComponent: function () {
+
 		this.doLog();
 
 		Ext.apply(this, {
@@ -22,8 +23,10 @@ Ext.define('Showcase.demos.LogWindow', {
 				scope: this
 			}]
 		});
-		
+
 		this.callParent(arguments);
+
+		
 	},
 
 	doLog: function() {

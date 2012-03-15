@@ -2,59 +2,61 @@ Ext.define('Dextop.Logger', {
 	extend: 'Ext.util.Observable',
 	singleton: true,
 	logTpl: new Ext.Template('<p class="entry {level}">[{time:date("H:i:s")}]: {text}</p>'),
-	
+
 	levels: ['error', 'warning', 'info', 'debug', 'trace'],
 	maxEntries: 1000,
 	entries: [
 	/*
-		'<p class="entry error">:: Errors enabled</p>',
-		'<p class="entry warning">:: Warnings enabled</p>',
-		'<p class="entry info">:: Info enabled</p>',
-		'<p class="entry debug">:: Debug enabled</p>',
-		'<p class="entry trace">:: Trace enabled</p>',
-		'<p class="entry always" />'
+	'<p class="entry error">:: Errors enabled</p>',
+	'<p class="entry warning">:: Warnings enabled</p>',
+	'<p class="entry info">:: Info enabled</p>',
+	'<p class="entry debug">:: Debug enabled</p>',
+	'<p class="entry trace">:: Trace enabled</p>',
+	'<p class="entry always" />'
 	*/
 	],
 
-	constructor: function() {
+	constructor: function () {
 		this.addEvents({
 			'update': true,
 			'clear': true
 		});
 
 		this.init();
+
+		this.callParent(arguments);
 	},
 
 	/**
-	 * Reinitializes logger with custom configuration
-	 */
-	init: function(config) {
+	* Reinitializes logger with custom configuration
+	*/
+	init: function (config) {
 		Ext.apply(this, config);
 	},
 
 	/**
-	 * Clears log
-	 */
-	clear: function() {
+	* Clears log
+	*/
+	clear: function () {
 		this.entries = [];
 		this.fireEvent('clear', this);
 	},
 
 	/**
-	 * Adds new entry in log
-	 *
-	 * @param {Object} msg			Log message object, e.g. {time: new Date(), text: 'Message'}, or just 'Message' (current time will be used)
-	 * @param {Object} level		Log message level ('error', 'warning', 'info', 'debug', 'trace')
-	 * @param {Object} htmlEncode	If true, first do html encoding of log message (default: <em>true</em>
-	 */
-	log: function(msg, level, htmlEncode) {
+	* Adds new entry in log
+	*
+	* @param {Object} msg			Log message object, e.g. {time: new Date(), text: 'Message'}, or just 'Message' (current time will be used)
+	* @param {Object} level		Log message level ('error', 'warning', 'info', 'debug', 'trace')
+	* @param {Object} htmlEncode	If true, first do html encoding of log message (default: <em>true</em>
+	*/
+	log: function (msg, level, htmlEncode) {
 		var msg = msg || '?';
 
 		if (typeof msg === 'object') {
 			if (!msg.text)
 				msg = msg.toSource ? msg.toSource() : Ext.encode(msg);
 		}
-		else if (typeof msg === 'string') 
+		else if (typeof msg === 'string')
 			msg = { text: msg };
 
 		Ext.applyIf(msg, {
@@ -74,27 +76,27 @@ Ext.define('Dextop.Logger', {
 		this.fireEvent('update', this, entry);
 	},
 
-	error: function(msg, htmlEncode) {
+	error: function (msg, htmlEncode) {
 		this.log(msg, 'error', htmlEncode);
 	},
 
-	warning: function(msg, htmlEncode) {
+	warning: function (msg, htmlEncode) {
 		this.log(msg, 'warning', htmlEncode);
 	},
 
-	info: function(msg, htmlEncode) {
+	info: function (msg, htmlEncode) {
 		this.log(msg, 'info', htmlEncode);
 	},
 
-	debug: function(msg, htmlEncode) {
+	debug: function (msg, htmlEncode) {
 		this.log(msg, 'debug', htmlEncode);
 	},
 
-	trace: function(msg, htmlEncode) {
+	trace: function (msg, htmlEncode) {
 		this.log(msg, 'trace', htmlEncode);
 	},
 
-	exception: function(ex, htmlEncode) {
+	exception: function (ex, htmlEncode) {
 		this.error(ex.exception, htmlEncode);
 		if (ex.stackTrace)
 			this.trace(ex.stackTrace, htmlEncode);
