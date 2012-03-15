@@ -311,5 +311,29 @@ Ext.define('Dextop.Session', {
 			});
 			this.sharedLookupData[data.name] = data;
 		}
+	},
+
+	instantiate: function(options) {
+		if (Ext.isString(options)) {
+			options = {
+				type: options
+			};
+		}
+
+		this.remote.Instantiate(options.type, options.params, {
+			type: 'alert',
+			scope: this,
+			success: function (config) {
+				Ext.apply(config, options.config);
+				var obj = Dextop.create(config);
+				obj.instantiateOptions = {
+					type: options.type,
+					params: options.params
+				};
+
+				if (Ext.isFunction(options.callback))
+					options.callback.call(options.scope || window, obj);
+			}
+		});
 	}
 });
