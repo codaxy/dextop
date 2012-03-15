@@ -1,12 +1,12 @@
 <html>
 <head>
 <link href="../../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+<meta name="robots" content="noindex">
 </head>
-<body>
+<body onload="prettyPrint()">
 <h1>List of Dextop Features</h1>
-
 <h2>1. Remoting</h2>
-
 <ul>
 <li>Simple remote procedure calls using Ext.Direct</li>
 <li>Automatic JSON encoding/decoding (thanks to JSON.NET)</li>
@@ -14,45 +14,37 @@
 <li>AJAX request handling</li>
 <li>Server notifications by polling or long-polling technique</li>
 </ul>
-
 <h2>2. CodeGeneration</h2>
-
 <ul>
-<li>Automatic concatenion and minification of js files (thanks to Yahoo.Yui.Compressor for .NET)</li>
+<li>Automatic concatenation and minification of js files (thanks to Yahoo.Yui.Compressor for .NET)</li>
 <li>Automatic minification of css files</li>
 <li>Automatic remoting Proxy class generation based on DextopRemotable attribute</li>
 <li>Automatic generation of Ext models based on DextopModel attribute</li>
 <li>Automatic generation of grid headers based on DextopGridHeaders attribute</li>
 <li>Automatic generation of forms based on DextopForm attribute</li>
 </ul>
-
 <h2>3. Data</h2>
-
 <ul>
 <li>Array serialization/deserialization</li>
 <li>Simplified data access interface</li>
 </ul>
-
 <h2>4. Grids</h2>
-
 <ul>
-<li>Reflection based models</li>
-<li>Reflection based headers</li>
+<li>Reflection-based models</li>
+<li>Reflection-based headers</li>
 <li>Paging helpers</li>
 </ul>
-
 <h2>5. Forms</h2>
-
 <ul>
-<li>Powerfull form generation engine</li>
+<li>Powerful form generation engine</li>
 </ul>
-
 <h2>6. Localization</h2>
-
 <ul>
 <li>Client and server localization support</li>
 <li>Localization tool</li>
 </ul>
 
+<script type="text/javascript" src="../../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
 </body>
 </html>
