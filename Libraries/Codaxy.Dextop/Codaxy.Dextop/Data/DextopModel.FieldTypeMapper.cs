@@ -46,11 +46,16 @@ namespace Codaxy.Dextop.Data
 		/// <returns>True if type can be mapped to a field.</returns>
         public static bool TryGetFieldTypeName(Type type, out String typeName)
         {
+            if (Common.Nullable.IsNullableType(type))
+            {
+                return TryGetFieldTypeName(Common.Nullable.GetUnderlyingType(type), out typeName);
+            }
+
             if (type.IsEnum)
             {
                 typeName = "int";
                 return true;
-            }
+            }            
 
             if (extFieldType == null)
                 extFieldType = GenerateExtFieldTypeMapping();

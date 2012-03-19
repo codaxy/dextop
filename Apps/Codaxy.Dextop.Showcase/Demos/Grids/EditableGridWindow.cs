@@ -46,7 +46,7 @@ namespace Codaxy.Dextop.Showcase.Demos.Grids
             public String FullName { get { return FirstName + " " + LastName; } }
 
             [DextopGridLookupColumn()]
-            public Gender Gender { get; set; }
+            public Gender? Gender { get; set; }
             
             [DextopGridColumn(width = 50)]            
             public int Age { get; set; }
