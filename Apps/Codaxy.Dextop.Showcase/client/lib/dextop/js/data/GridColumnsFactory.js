@@ -49,7 +49,7 @@ Ext.define('Dextop.data.GridColumnsFactory', {
 				renderer: function (v) {
 					if (!v)
 						return v;
-					return Ext.util.Format.date(v, 'g:i A');
+					return Ext.util.Format.date(v, Ext.form.field.Time.prototype.format || 'g:i A');
 				},
 				width: 80
 			},
@@ -61,7 +61,7 @@ Ext.define('Dextop.data.GridColumnsFactory', {
 				renderer: function (v) {
 					if (!v)
 						return v;
-					return Ext.util.Format.date(v, Ext.Date.defaultFormat + ' g:i A');
+					return Ext.util.Format.date(v, Ext.util.Format.dateFormat + ' ' + (Ext.form.field.Time.prototype.format || 'g:i A'));
 				}
 			},
 			'boolean': {
