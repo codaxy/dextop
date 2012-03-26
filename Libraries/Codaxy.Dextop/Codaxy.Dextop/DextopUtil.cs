@@ -117,9 +117,10 @@ namespace Codaxy.Dextop
         public static object DecodeValue(String value, Type type)
         {
             if (value == null)
-                return type.IsValueType ? Activator.CreateInstance(type) : null;
+                return type.IsValueType ? Activator.CreateInstance(type) : null;            
             if (type == typeof(String))
                 return value;
+            value = value.Trim('"');
 			if (type == typeof(DateTime))
 				return DecodeDate(value);
 			if (type == typeof(DateTime?))
