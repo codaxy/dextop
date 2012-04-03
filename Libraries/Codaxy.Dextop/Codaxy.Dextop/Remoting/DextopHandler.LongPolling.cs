@@ -57,6 +57,7 @@ namespace Codaxy.Dextop.Remoting
                 }
                 catch (Exception ex)
                 {
+                    Debug.WriteLine("Long polling exception.", ex);
                     //Application should handle the request and give a valid result.
                     //Any exception is a sign that session is not valid anymore.
                     result = new LongPollingResult

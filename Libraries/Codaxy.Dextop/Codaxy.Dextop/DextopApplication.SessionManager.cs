@@ -49,7 +49,14 @@ namespace Codaxy.Dextop
             if (nextSessionExpiryCheck < DateTime.Now)
             {
                 nextSessionExpiryCheck = DateTime.Now.AddMinutes(1);
-                RemoveExpiredSessions();
+                try
+                {
+                    RemoveExpiredSessions();
+                }
+                catch (Exception ex)
+                {
+                    Debug.WriteLine("DextopApplication.CheckExpiredSessions exception.", ex);
+                }
             }
         }
 
