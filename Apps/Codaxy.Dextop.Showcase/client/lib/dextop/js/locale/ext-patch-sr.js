@@ -8,4 +8,8 @@
 		Ext.apply(Ext.Date, {
 			defaultFormat: 'd.m.Y'
 		});
+
+	Dextop.localize('Ext.form.field.Number', {
+		decimalSeparator: ','
+	});
 });

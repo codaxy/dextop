@@ -19,14 +19,14 @@ Ext.define('Dextop.data.GridColumnsFactory', {
 				field: {
 					xtype: 'numberfield'
 				},
-				renderer: Ext.util.Format.numberRenderer()
+				renderer: 'number'
 			},
 			'float': {
 				align: 'right',
 				field: {
 					xtype: 'numberfield'
 				},
-				renderer: Ext.util.Format.numberRenderer()
+				renderer: 'number'
 			},
 			'string': {
 				field: {
@@ -141,8 +141,14 @@ Ext.define('Dextop.data.GridColumnsFactory', {
 			if (c.readonly)
 				delete c.field;
 
-			if (typeof c.renderer === 'string')
+			if (typeof c.renderer === 'string') {
+				c.rendererOptions = c.rendererOptions || {};
+				if (c.format) {
+					c.rendererOptions.format = c.format;
+					delete c.format;
+				}
 				c.renderer = Dextop.data.RendererFactory.create(c.renderer, c.rendererOptions);
+			}
 
 			if (options && options.renderers && options.renderers[c.dataIndex])
 				c.renderer = options.renderers[c.dataIndex];

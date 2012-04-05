@@ -17,6 +17,9 @@ namespace Codaxy.Dextop.Showcase.Controllers
             var session = new ShowcaseSession();
             var config = app.AddSession(session);
 
+            if (!String.IsNullOrEmpty(Request.QueryString["culture"]))
+                session.Culture = new System.Globalization.CultureInfo(Request.QueryString["culture"]);
+
 			return View(new Models.DextopAppConfig
 			{
 				CssFiles = app.GetCssFiles(session.Culture),

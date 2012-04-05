@@ -104,6 +104,11 @@ namespace Codaxy.Dextop.Data
 		/// </summary>
 		public string renderer { get; set; }
 
+        /// <summary>
+        /// Undocumented Ext feature
+        /// </summary>
+        public string format { get; set; }
+
 		/// <summary>
 		/// Converts this attribute to the column object.
 		/// </summary>
@@ -128,7 +133,8 @@ namespace Codaxy.Dextop.Data
 				tooltipTpl = tooltipTpl,
 				type = type ?? extType,
 				width = NullableUtil.DefaultNull(width, -1),
-				renderer = renderer
+				renderer = renderer, 
+                format = format
 			};
         }
         

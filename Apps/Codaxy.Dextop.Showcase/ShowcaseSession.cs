@@ -16,7 +16,7 @@ namespace Codaxy.Dextop.Showcase
             base.InitRemotable(remote, config);
             Remote.RemoteHostType = "Showcase.Session";
 
-			config["aboutPageUrl"] = DextopUtil.AbsolutePath("source/About.html?cb=" + DateTime.Now.Ticks);
+			config["aboutPageUrl"] = DextopUtil.AbsolutePath("source/About.html?cb=" + DateTime.Now.Ticks);            
         }
 
         [DextopRemotable]

@@ -136,7 +136,7 @@ Ext.apply(Dextop, {
 
 	downloadAttachment: function (url) {
 		//window.open(url); 
-		
+
 		var iframeEl = Ext.core.DomHelper.append(Ext.getBody(), {
 			tag: 'iframe',
 			src: url,
@@ -152,13 +152,13 @@ Ext.apply(Dextop, {
 
 		// give download task 5 minutes to start
 		// after download starts it is safe to remove the iframe		
-		destroyFrameTask.delay(5 * 60 * 1000); 
-		
+		destroyFrameTask.delay(5 * 60 * 1000);
+
 	},
 
 	localize: function (className, localizationData) {
 		var c = Ext.ClassManager.get(className);
 		if (c && c.prototype)
 			Ext.apply(c.prototype, localizationData);
-	}
+	}	
 });

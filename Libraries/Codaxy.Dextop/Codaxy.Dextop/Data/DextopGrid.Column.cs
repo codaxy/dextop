@@ -121,6 +121,7 @@ namespace Codaxy.Dextop.Data
             jw.DefaultProperty("flex", flex);
             jw.DefaultProperty("width", width);
 			jw.DefaultProperty("renderer", renderer);
+            jw.DefaultProperty("format", format);
 
             if (_columns == null || _columns.Count == 0)
             {
@@ -159,5 +160,7 @@ namespace Codaxy.Dextop.Data
 		/// Gets a value indicating whether this instance has nested columns.
 		/// </summary>
         public bool HasColumns { get { return _columns != null && _columns.Count > 0; } }
+
+        public string format { get; set; }
     }
 }

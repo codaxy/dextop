@@ -8,11 +8,24 @@ Ext.define('Dextop.data.RendererFactory', {
 
 		types: {
 			number: function (options) {
-				return Ext.util.Format.numberRenderer();
+				if (Ext.isString(options))
+					options = {
+						format: options
+					};
+				else
+					options = options || {};
+
+				if (!options.format && Ext.util.Format.decimalSeparator != '.') {
+					return function (value) {
+						var res = value ? value.toString() : '';
+						res = res.replace('.', Ext.util.Format.decimalSeparator);
+						return res;
+					}
+				}
+				return Ext.util.Format.numberRenderer(options.format);
 			},
 
 			tooltipTpl: function (options) {
-				options = options || {};
 				var tpl = new Ext.XTemplate(options.tooltipTpl);
 				tpl.compile();
 				var renderer = options.renderer || Dextop.data.RendererFactory.defaultRenderer;
