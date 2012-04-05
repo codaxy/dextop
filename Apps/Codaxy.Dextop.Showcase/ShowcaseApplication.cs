@@ -10,8 +10,25 @@ namespace Codaxy.Dextop.Showcase
     {
         protected override void RegisterModules()
         {
-			RegisterModule("client/lib/ext", new DextopExtJSModule { CssThemeSuffix = "-gray" });
-            RegisterModule("client/lib/ext/examples", new ExtJSDataViewModule());
+            //Uncomment to use local ext resources
+            //RegisterModule("client/lib/ext", new DextopExtJSModule
+            //{
+            //    CssThemeSuffix = "-gray"
+            //});
+
+            //RegisterModule("client/lib/ext/examples", new ExtJSDataViewModule());
+
+            RegisterModule("http://dextop.codaxy.com/ext/extjs-4.1.0-rc2", new DextopExtJSModule
+            {
+                CssThemeSuffix = "-gray",
+                UsingExternalResources = true
+            });
+            
+            RegisterModule("http://dextop.codaxy.com/ext/extjs-4.1.0-rc2/examples", new ExtJSDataViewModule
+            {
+                UsingExternalResources = true
+            });
+            
             RegisterModule("client/lib/dextop", new DextopCoreModule());
 			
 			var soundModule = new DextopSoundModule();

@@ -79,6 +79,11 @@ namespace Codaxy.Dextop.Data
 		/// </summary>
 		public string renderer { get; set; }
 
+        /// <summary>
+        /// Undocumented feature
+        /// </summary>
+        public string format { get; set; }
+
         String _align;
 
         /// <summary>
@@ -160,7 +165,5 @@ namespace Codaxy.Dextop.Data
 		/// Gets a value indicating whether this instance has nested columns.
 		/// </summary>
         public bool HasColumns { get { return _columns != null && _columns.Count > 0; } }
-
-        public string format { get; set; }
     }
 }

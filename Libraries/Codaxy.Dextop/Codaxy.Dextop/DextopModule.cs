@@ -27,6 +27,11 @@ namespace Codaxy.Dextop
         protected internal string VirtualPath { get; set; }        
 		internal String PhysicalPath { get; set; }
 
+        /// <summary>
+        /// Set to true if resources cannot be found in this project
+        /// </summary>
+        public bool UsingExternalResources { get; set; }
+
 
         /// <summary>
         /// Gets or sets the application.

@@ -28,14 +28,27 @@ namespace Codaxy.Dextop
             package = new DextopResourcePackage(module);
         }
 
+        /// <summary>
+        /// Set to true if resources are not in this project
+        /// </summary>
+        public bool External { get; set; }
+
 		/// <summary>
 		/// Registers the CSS files with specified virtual paths.
 		/// </summary>
 		/// <param name="virtualPaths">The virtual paths.</param>
         public void Register(params string[] virtualPaths)
         {
-            foreach (var vpath in virtualPaths)
-                package.AddFiles(package.SearchServer(vpath, ".css", true));
+            if (External)
+            {
+                foreach (var vpath in virtualPaths)
+                    package.AddFiles(virtualPaths);
+            }
+            else
+            {
+                foreach (var vpath in virtualPaths)
+                    package.AddFiles(package.SearchServer(vpath, ".css", true));
+            }
         }
 
 		/// <summary>
@@ -76,12 +89,14 @@ namespace Codaxy.Dextop
 
         void OptimizeFileList(DextopResourceOptimizationContext context, List<string> files)
         {
+            if (External)
+                return;
+
             for (var i = 0; i < files.Count; i++)
             {
-				var filePath = package.Module.MapPath(files[i]);
-			
+				var filePath = package.Module.MapPath(files[i]);			
 				DateTime lastWrite;
-                var cb = DextopFileUtil.CalculateCacheBuster(new [] { filePath }, out lastWrite);
+                var cb = DextopFileUtil.CalculateCacheBuster(new[] { filePath }, out lastWrite);
                 if (Minify)
                 {
                     files[i] = files[i].Substring(0, files[i].Length - 4) + "-min.css";

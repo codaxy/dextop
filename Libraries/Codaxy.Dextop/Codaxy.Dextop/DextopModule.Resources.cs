@@ -30,12 +30,13 @@ namespace Codaxy.Dextop
 		/// <returns></returns>
         public DextopJsResourcePackage CreateJsPackage(String package)
         {
-			var p = new DextopJsResourcePackage(this, package)
-			{
-				Concate = true,
-				Minify = true,
-				SmartOverwrite = SmartOverwrite
-			};
+            var p = new DextopJsResourcePackage(this, package)
+            {
+                Concate = true,
+                Minify = true,
+                SmartOverwrite = SmartOverwrite,
+                External = UsingExternalResources
+            };
             if (JsPackages == null)
                 JsPackages = new List<DextopJsResourcePackage>();
             JsPackages.Add(p);
@@ -48,11 +49,12 @@ namespace Codaxy.Dextop
 		/// <returns></returns>
         public DextopCssResourcePackage CreateCssPackage()
         {
-			var p = new DextopCssResourcePackage(this)
-			{
-				Minify = true,
-				SmartOverwrite = SmartOverwrite
-			};
+            var p = new DextopCssResourcePackage(this)
+            {
+                Minify = true,
+                SmartOverwrite = SmartOverwrite,
+                External = UsingExternalResources
+            };
             if (CssPackages == null)
                 CssPackages = new List<DextopCssResourcePackage>();
             CssPackages.Add(p);

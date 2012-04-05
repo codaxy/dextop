@@ -49,6 +49,11 @@ namespace Codaxy.Dextop
 		/// </summary>
 		public bool SmartOverwrite { get; set; }
 
+        /// <summary>
+        /// Set to true if resources are not in this project
+        /// </summary>
+        public bool External { get; set; }
+
 		/// <summary>
 		/// Registers the files the specified path prefix.
 		/// </summary>
@@ -61,8 +66,16 @@ namespace Codaxy.Dextop
                 virtualPaths = new[] { pathPrefix };
                 pathPrefix = "";
             }
-            foreach (var vpath in virtualPaths)
-                package.AddFiles(package.SearchServer(DextopUtil.CombinePaths(pathPrefix, vpath), ".js", true));
+
+            if (External)
+            {
+                package.AddFiles(virtualPaths.Select(vpath=>DextopUtil.CombinePaths(pathPrefix, vpath)));
+            }
+            else
+            {
+                foreach (var vpath in virtualPaths)
+                    package.AddFiles(package.SearchServer(DextopUtil.CombinePaths(pathPrefix, vpath), ".js", true));
+            }
         }
 
 		/// <summary>
@@ -96,6 +109,9 @@ namespace Codaxy.Dextop
 		/// <param name="context">The context.</param>
         public void Optimize(DextopResourceOptimizationContext context)
         {
+            if (External)
+                return;
+
             if (Concate)
             {
                 var pkg = new DextopResourcePackage(context.OptimizationOutputModule);
