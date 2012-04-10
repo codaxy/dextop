@@ -17,8 +17,8 @@ Ext.define('Showcase.demos.LongOperationWindow', {
 				type: 'vbox',
 				align: 'stretch'
 			},
-			items: this.progressBar,			
-			buttons: [{				
+			items: this.progressBar,
+			buttons: [{
 				scope: this,
 				text: 'Start',
 				handler: function () {
@@ -46,7 +46,7 @@ Ext.define('Showcase.demos.LongOperationWindow', {
 		this.callParent(arguments);
 	},
 
-	onServerMessage: function (data) {
+	onServerMessage: function (data) {		
 		this.progressBar.updateProgress(data.progress, data.message);
 	}
 });

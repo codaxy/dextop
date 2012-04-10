@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Collections;
+using System.Globalization;
 
 namespace Codaxy.Dextop.Tools
 {
@@ -44,7 +45,7 @@ namespace Codaxy.Dextop.Tools
 		/// <param name="options">The writer options.</param>
         public DextopJsWriter(TextWriter output, DextopJsWriterOptions options = DextopJsWriterOptions.None)
         {
-            writer = output;
+            writer = output;            
             Options = options;
         }
 
@@ -94,7 +95,7 @@ namespace Codaxy.Dextop.Tools
         }
 
 		void WriteValue(object value, bool quote = true)
-		{
+		{            
 			if (value == null)
 				Write("null");
 			else
@@ -119,7 +120,7 @@ namespace Codaxy.Dextop.Tools
                     else if (value.GetType().IsArray)
                         WriteArray((IEnumerable)value);
                     else
-                        Write(value.ToString());
+                        Write(String.Format(CultureInfo.InvariantCulture, "{0}", value));
 			}
 		}
 
@@ -249,7 +250,7 @@ namespace Codaxy.Dextop.Tools
         /// <param name="p">The params.</param>
         public void WriteLine(String format, params object[] p)
         {
-            WriteLine(String.Format(format, p));
+            WriteLine(String.Format(CultureInfo.InvariantCulture, format, p));
         }
 
         /// <summary>
@@ -260,7 +261,7 @@ namespace Codaxy.Dextop.Tools
         {
             if (blockStart)
                 WriteLine();
-            Indent();
+            Indent();            
             writer.Write(text);
         }
 
@@ -284,7 +285,7 @@ namespace Codaxy.Dextop.Tools
         /// <param name="p">The params.</param>
         public void Write(String format, params object[] p)
         {
-            Write(String.Format(format, p));
+            Write(String.Format(CultureInfo.InvariantCulture, format, p));
         }
 
         /// <summary>

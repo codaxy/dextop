@@ -91,8 +91,7 @@ Ext.define('Dextop.direct.LongPollingProvider', {
 			this.baseParams = this.baseParams || {};
 			Ext.apply(this.baseParams, {
 				start: this.nextStart
-			}
-			);
+			});
 
 			if (this.fireEvent('beforepoll', this) !== false) {
 				if (typeof this.url == 'function') {

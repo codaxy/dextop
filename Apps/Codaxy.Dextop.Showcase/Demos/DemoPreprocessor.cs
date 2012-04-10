@@ -6,6 +6,8 @@ using System.Reflection;
 using System.IO;
 using Codaxy.Dextop.Tools;
 using Codaxy.Common.Reflection;
+using System.Globalization;
+using Codaxy.Common.Globalization;
 
 
 namespace Codaxy.Dextop.Showcase.Demos

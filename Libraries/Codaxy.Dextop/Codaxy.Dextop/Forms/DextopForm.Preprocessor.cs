@@ -6,6 +6,8 @@ using Codaxy.Common.Reflection;
 using System.IO;
 using Codaxy.Dextop.Tools;
 using Codaxy.Dextop.Data;
+using Codaxy.Common.Globalization;
+using System.Globalization;
 
 namespace Codaxy.Dextop.Forms
 {
@@ -21,7 +23,7 @@ namespace Codaxy.Dextop.Forms
 		/// <param name="assemblies">The assemblies.</param>
 		/// <param name="outputStream">The output stream.</param>
         public void ProcessAssemblies(DextopApplication application, IList<System.Reflection.Assembly> assemblies, Stream outputStream)
-        {
+        {            
             using (var w = new StreamWriter(outputStream))
             {
                 var jw = new DextopJsWriter(w, DextopJsWriterOptions.Localization);

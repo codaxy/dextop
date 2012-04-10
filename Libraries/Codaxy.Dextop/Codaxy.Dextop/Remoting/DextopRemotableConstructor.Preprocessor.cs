@@ -6,6 +6,8 @@ using System.Reflection;
 using System.IO;
 using Codaxy.Common.Reflection;
 using Newtonsoft.Json;
+using Codaxy.Common.Globalization;
+using System.Globalization;
 
 namespace Codaxy.Dextop.Remoting
 {
@@ -22,7 +24,7 @@ namespace Codaxy.Dextop.Remoting
 		/// <param name="outputStream">The output stream.</param>
         public void ProcessAssemblies(DextopApplication application, IList<Assembly> assemblies, Stream outputStream)
         {
-            List<Constructor> data = new List<Constructor>();
+            List<Constructor> data = new List<Constructor>();            
 			using (var sw = new StreamWriter(outputStream))
             {
                 foreach (var assembly in assemblies)
