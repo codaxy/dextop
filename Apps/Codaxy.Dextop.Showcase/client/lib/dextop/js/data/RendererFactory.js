@@ -17,7 +17,7 @@ Ext.define('Dextop.data.RendererFactory', {
 
 				if (!options.format && Ext.util.Format.decimalSeparator != '.') {
 					return function (value) {
-						var res = value ? value.toString() : '';
+						var res = value || value === 0 ? value.toString() : '';
 						res = res.replace('.', Ext.util.Format.decimalSeparator);
 						return res;
 					}
