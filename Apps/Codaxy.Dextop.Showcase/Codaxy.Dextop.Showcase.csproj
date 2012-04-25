@@ -117,12 +117,15 @@
     <Content Include="client\lib\dextop\js\ux\Ext.ux.grid.plugin.AutoSelect.js" />
     <Content Include="client\lib\dextop\js\ux\Ext.ux.KeyMapPlugin.js" />
     <Compile Include="Demos\Forms\AppendedItems.cs" />
+    <Compile Include="Demos\Forms\RemoteLookupCombo.cs" />
     <Compile Include="Demos\Forms\LinkedCombos.cs" />
     <Compile Include="Demos\Forms\FileUploadForm.cs" />
     <Compile Include="Demos\Grids\BufferedGrid.cs" />
     <Compile Include="Demos\Grids\SwissGridWithFormEditor.cs" />
     <Compile Include="Demos\Grids\SwissGrid.cs" />
     <Compile Include="Demos\Live\ChatRoom.cs" />
+    <Content Include="Demos\Forms\RemoteLookupCombo.js" />
+    <Content Include="Demos\Forms\RemoteLookupCombo.txt" />
     <Content Include="Demos\Live\ChatRoom.txt" />
     <Compile Include="Demos\Remoting\FileDownloadDemo.cs" />
     <Compile Include="Demos\Remoting\RemoteInstantiation.cs" />

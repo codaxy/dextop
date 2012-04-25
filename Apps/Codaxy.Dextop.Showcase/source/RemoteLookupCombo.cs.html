@@ -1,0 +1,86 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+<meta name="robots" content="noindex">
+</head>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using System.Linq;
+using Codaxy.Dextop.Forms;
+using Codaxy.Dextop.Remoting;
+using Codaxy.Dextop.Data;
+
+namespace Codaxy.Dextop.Showcase.Demos.Forms
+{
+	public class RemoteLookupCombo : DextopWindow
+    {
+        public override void InitRemotable(DextopRemote remote, DextopConfig config)
+        {
+            base.InitRemotable(remote, config);
+
+			Remote.AddLookupData(&quot;Lookup&quot;, new[] {
+				new object[] { &quot;1&quot;, &quot;Item 1&quot; },
+				new object[] { &quot;2&quot;, &quot;Item 2&quot; },
+			});
+
+			Remote.AddStore(&quot;RemoteLookup&quot;, RemoteLookup);
+
+            config[&quot;data&quot;] = new Form
+            {
+                RemoteLookup2 = &quot;Blue&quot;,
+                RemoteLookup = &quot;Red&quot;,
+                RemoteLookupDescription = &quot;Code Red&quot;
+            };
+        }
+
+		RemoteLookupModel[] RemoteLookup(DextopReadFilter filter)
+		{
+			String query = filter.Params.SafeGet&lt;String&gt;(&quot;query&quot;);
+
+			var data = new [] { 
+				new RemoteLookupModel { Code = &quot;Red&quot;, Description = &quot;Code Red&quot;},
+				new RemoteLookupModel { Code = &quot;Blue&quot;, Description = &quot;Code Blue&quot;},
+				new RemoteLookupModel { Code = &quot;Green&quot;, Description = &quot;Code Green&quot;},
+			};
+
+			if (String.IsNullOrWhiteSpace(query))
+				return data;
+
+			return data.Where(a =&gt; a.Code.StartsWith(query) || a.Description.Contains(query)).ToArray();
+		}
+
+		[DextopModel]
+		class RemoteLookupModel
+		{
+			[DextopModelId]
+			public String Code { get; set; }
+			public String Description { get; set; }
+		}
+
+		[DextopRemotable]
+		void Send(Form form)
+		{
+
+		}
+
+		[DextopForm]
+		class Form
+		{
+			[DextopFormRemoteLookupCombo(&quot;Code&quot;, &quot;Description&quot;, valueNotFoundField = &quot;RemoteLookupDescription&quot;, disableKeyFilter=true)]
+			public string RemoteLookup { get; set; }
+
+			public string RemoteLookupDescription { get; set; }
+
+            [DextopFormRemoteLookupCombo(&quot;Code&quot;, &quot;Description&quot;, disableKeyFilter = true, lookupId = &quot;RemoteLookup&quot;, forceSelection=false)]
+            public string RemoteLookup2 { get; set; }
+		}
+    }
+}
+
+</pre>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+<meta name="robots" content="noindex">
+</head>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.define(&#39;Showcase.demos.RemoteLookupCombo&#39;, {
+	extend: &#39;Dextop.Window&#39;,
+	width: 400,	
+	title: &#39;Remote Lookup Field&#39;,
+
+	initComponent: function () {
+
+		Ext.apply(this, {
+			layout: &#39;fit&#39;,
+			items: {
+				xtype: &#39;dextopform&#39;,
+				bodyPadding: 5,
+				itemId: &#39;form&#39;,				
+				border: false,
+				autoHeight: true,
+				model: this.getNestedTypeName(&#39;.form.Form&#39;),
+				remote: this.remote,
+				data: this.data
+			},
+			buttons: [{
+				text: &#39;Send&#39;,
+				scope: this,
+				handler: function () {
+					var form = this.getComponent(&#39;form&#39;);
+					if (!form.getForm().isValid())
+						return;
+					var data = form.getForm().getFieldValues();
+					this.remote.Send(data, {
+						type: &#39;alert&#39;,
+						success: function () {
+							Dextop.infoAlert(&#39;Form has been successfully submited.&#39;);
+						}
+					});
+				}
+			}]
+		});
+
+		this.callParent(arguments);
+	}
+});
+
+</pre>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+</body>
+</html>

@@ -18,13 +18,13 @@ namespace Codaxy.Dextop.Showcase
 
             //RegisterModule("client/lib/ext/examples", new ExtJSDataViewModule());
 
-            RegisterModule("http://dextop.codaxy.com/ext/extjs-4.1.0-rc2", new DextopExtJSModule
+            RegisterModule("http://dextop.codaxy.com/ext/extjs-4.1.0", new DextopExtJSModule
             {
                 CssThemeSuffix = "-gray",
                 UsingExternalResources = true
             });
             
-            RegisterModule("http://dextop.codaxy.com/ext/extjs-4.1.0-rc2/examples", new ExtJSDataViewModule
+            RegisterModule("http://dextop.codaxy.com/ext/extjs-4.1.0/examples", new ExtJSDataViewModule
             {
                 UsingExternalResources = true
             });
