@@ -40,7 +40,7 @@
             var newSelection = [];
             for (var i = 0; i < this.selection.length; i++) {
                 var rec = this.selection[i];
-                var nrec = this.grid.store.getById(rec.internalId);
+                var nrec = this.grid.store.getById(rec.getId());
                 if (nrec)
                     newSelection.push(nrec);
             }
