@@ -1,6 +1,6 @@
 ﻿Showcase application guidelines
 -------------------------------
-Ultimate goal is to have a large number of demos from which developers can learn and contribute.
+Ultimate goal is to have a large number of demos from which developers can learn and where developers can contribute.
 
 Goals:
 # Demos should be really simple to write and should just work
