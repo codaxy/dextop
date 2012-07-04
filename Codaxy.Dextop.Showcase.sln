@@ -6,9 +6,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codaxy.Dextop.Showcase", "Apps\Codaxy.Dextop.Showcase\Codaxy.Dextop.Showcase.csproj", "{3A1B5EE6-BB5A-4BA6-873A-6C291221C3FB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuSpec", "NuSpec", "{DFAE4A03-37F3-47AE-A2C3-399921374876}"
-	ProjectSection(SolutionItems) = preProject
-		NuGet\Codaxy.Dextop.Core\Codaxy.Dextop.Core.nuspec = NuGet\Codaxy.Dextop.Core\Codaxy.Dextop.Core.nuspec
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codaxy.Dextop.Tests", "Tests\Codaxy.Dextop.Tests\Codaxy.Dextop.Tests.csproj", "{C91FC0CD-8714-45DC-83E5-4BC640FABA2D}"
 EndProject

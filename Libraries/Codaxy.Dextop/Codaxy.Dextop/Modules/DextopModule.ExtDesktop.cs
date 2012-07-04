@@ -32,14 +32,14 @@ namespace Codaxy.Dextop.Modules
 		protected override void InitResources()
 		{
 			RegisterJs("core", "js/", 
-				"Module.js",
+                "Module.js",
                 "ShortcutModel.js",
 				"StartMenu.js",
 				"Taskbar.js",
 				"Wallpaper.js",
 				"Desktop.js",
-				"App.js",				
-				"");
+				"App.js");
+
 			RegisterCss("css/desktop.css");
 		}
 
