@@ -36,16 +36,16 @@
     <DocumentationFile>bin\Release\Codaxy.Dextop.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxMin, Version=4.30.4295.16112, Culture=neutral, PublicKeyToken=21ef50ce11b5d80f, processorArchitecture=MSIL">
+    <Reference Include="AjaxMin, Version=4.59.4576.13504, Culture=neutral, PublicKeyToken=21ef50ce11b5d80f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\AjaxMin.4.30.4295.16112\lib\AjaxMin.dll</HintPath>
+      <HintPath>..\..\..\packages\AjaxMin.4.59.4576.13504\lib\net20\AjaxMin.dll</HintPath>
     </Reference>
     <Reference Include="Codaxy.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\..\packages\Codaxy.Common.0.5.9\lib\Codaxy.Common.dll</HintPath>
+      <HintPath>..\..\..\packages\Codaxy.Common.0.5.16.0\lib\Codaxy.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.0.4.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Newtonsoft.Json.4.0.4\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.4.5.7\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
