@@ -66,7 +66,7 @@ namespace Codaxy.Dextop.Showcase.Demos.Grids
 			[DextopModelId]
 			public int Id { get; set; }
 
-            [DextopGridColumn(flex=1)]
+            [DextopGridColumn(flex=1, required=true)]
             public String Text { get; set; }
 
 			[DextopGridColumn(width = 50)]

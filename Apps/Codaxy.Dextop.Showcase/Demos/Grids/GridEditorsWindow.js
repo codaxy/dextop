@@ -29,7 +29,7 @@ Ext.define('Showcase.demos.GridEditorsWindow', {
 			store: store,
 			columns: columns,
 			plugins: [rowEditor],
-			border: false,
+			border: true,
 			tbar: [{
 				text: 'Add',
 				scope: this,
@@ -51,6 +51,7 @@ Ext.define('Showcase.demos.GridEditorsWindow', {
 
 		Ext.apply(this, {
 			layout: 'fit',
+			border: false,
 			items: grid
 		});
 

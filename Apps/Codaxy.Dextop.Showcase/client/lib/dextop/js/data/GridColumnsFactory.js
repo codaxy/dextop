@@ -138,8 +138,12 @@ Ext.define('Dextop.data.GridColumnsFactory', {
 					else
 						Ext.applyIf(c, defaults);
 			}
+
 			if (c.readonly)
 				delete c.field;
+
+			if (c.field && c.required)
+				c.field.allowBlank = false;
 
 			if (typeof c.renderer === 'string') {
 				c.rendererOptions = c.rendererOptions || {};
