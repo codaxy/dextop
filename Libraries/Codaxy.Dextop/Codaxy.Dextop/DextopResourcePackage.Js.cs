@@ -81,13 +81,22 @@ namespace Codaxy.Dextop
 		/// <summary>
 		/// Registers the localization files.
 		/// </summary>
-		/// <param name="lanuage">The language code.</param>
+		/// <param name="language">The language code.</param>
 		/// <param name="pathPrefix">The path prefix to be applied to all paths.</param>
 		/// <param name="virtualPathFormats">The virtual path formats.</param>
-        public void RegisterLocalization(string lanuage, String pathPrefix, params string[] virtualPathFormats)
+        public void RegisterLocalization(string language, String pathPrefix, params string[] virtualPathFormats)
         {
             foreach (var vpath in virtualPathFormats)
-                package.AddLocalization(lanuage, package.SearchServer(DextopUtil.CombinePaths(pathPrefix, String.Format(vpath, lanuage)), ".js", false));
+            {
+                if (External)
+                {
+                    if (vpath.EndsWith("/"))
+                        throw new DextopException("Folders are not allowed on external modules.");
+                    package.AddLocalization(language, new[] { DextopUtil.CombinePaths(pathPrefix, String.Format(vpath, language)) });
+                }
+                else
+                    package.AddLocalization(language, package.SearchServer(DextopUtil.CombinePaths(pathPrefix, String.Format(vpath, language)), ".js", false));
+            }
         }
 
 		/// <summary>
