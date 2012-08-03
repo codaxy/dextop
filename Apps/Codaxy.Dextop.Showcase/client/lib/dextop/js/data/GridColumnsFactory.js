@@ -136,7 +136,7 @@ Ext.define('Dextop.data.GridColumnsFactory', {
 					if (defaults.factory)
 						defaults.factory(c, options);
 					else
-						Ext.applyIf(c, defaults);
+						Ext.applyIf(c, Ext.clone(defaults));
 			}
 
 			if (c.readonly)
