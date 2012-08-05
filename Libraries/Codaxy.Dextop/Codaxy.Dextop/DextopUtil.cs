@@ -118,10 +118,12 @@ namespace Codaxy.Dextop
 		/// <returns></returns>
         public static object DecodeValue(String value, Type type)
         {
-            if (value == null)
-                return type.IsValueType ? Activator.CreateInstance(type) : null;            
             if (type == typeof(String))
                 return value;
+
+            if (String.IsNullOrEmpty(value))
+                return type.IsValueType ? Activator.CreateInstance(type) : null;            
+            
             value = value.Trim('"');
 			if (type == typeof(DateTime))
 				return DecodeDate(value);
@@ -139,6 +141,7 @@ namespace Codaxy.Dextop
                 return Codaxy.Common.Convert.ChangeTypeInvariant(value, type);
             return DextopUtil.Decode(value, type);
         }
+        
 
 		static DateTime DecodeDate(string value)
 		{

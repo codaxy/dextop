@@ -58,15 +58,6 @@ namespace Codaxy.Dextop.Data
             return new ReflectionValueProvider(property);
         }        
 
-		object ChangeType(object value, Type type)
-		{
-			if (value == null)
-				return type.IsValueType ? Activator.CreateInstance(type) : null;
-			if (value is String)
-				return DextopUtil.DecodeValue((String)value, type);
-			return Codaxy.Common.Convert.ChangeTypeInvariant(value, type);
-		}
-
 		/// <summary>
 		/// Serializes the specified records to JSON string.
 		/// </summary>
@@ -76,7 +67,7 @@ namespace Codaxy.Dextop.Data
 		/// </returns>
         public object Serialize(IList<object> records)
         {
-            return new JArray(records.Select(r => new JArray(Fields.Select(a => a.ValueProvider.GetValue(r)))));
+            return new JArray(records.Select(r => new JArray(Fields.Select(a => WriteValue(a.ValueProvider.GetValue(r))))));
         }
 
 		/// <summary>
@@ -88,7 +79,10 @@ namespace Codaxy.Dextop.Data
         {
             JArray data;
             if (json is string)
-                data = JArray.Parse((String)json);
+            {
+                var values = DextopUtil.Decode<object[][]>((string)json);
+                data = new JArray(values.Select(a => (object)new JArray(a)).ToArray());
+            }
             else if (json is JArray)
                 data = (JArray)json;
             else
@@ -103,12 +97,52 @@ namespace Codaxy.Dextop.Data
                 for (var i = 0; i < Fields.Count; i++)
                     if (Fields[i].CanWrite)
                     {
-                        var value = ChangeType(((JValue)record[i]).Value, Fields[i].PropertyType);
+                        var value = ReadValue(((JValue)record[i]).Value, Fields[i].PropertyType);
                         Fields[i].ValueProvider.SetValue(row, value);
                     }
                 res.Add(row);
             }
             return res;
+        }
+
+       
+        static object ReadValue(object value, Type type)
+        {
+            if (value == null)
+                return type.IsValueType ? Activator.CreateInstance(type) : null;
+
+            if (value is string)
+                return DextopUtil.DecodeValue((string)value, type);
+
+            if (type == typeof(TimeSpan))
+                if (value is DateTime)
+                    return ((DateTime)value).TimeOfDay;
+
+            if (type == typeof(TimeSpan?))
+                if (value is DateTime)
+                    return (TimeSpan?)(((DateTime)value).TimeOfDay);
+
+            return Codaxy.Common.Convert.ChangeTypeInvariant(value, type);
+        }
+
+
+        /// <summary>
+        /// Convert value to a form which will be recognized by the client.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        static object WriteValue(object value)
+        {
+            if (value == null)
+                return null;
+
+            if (value is TimeSpan)
+                return new DateTime(2008, 1, 1).Add((TimeSpan)value);
+
+            if (value is TimeSpan?)
+                return new DateTime(2008, 1, 1).Add((TimeSpan)value);
+
+            return value;
         }
     }
 }
