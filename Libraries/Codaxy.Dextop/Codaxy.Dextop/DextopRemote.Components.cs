@@ -164,12 +164,22 @@ namespace Codaxy.Dextop
             AddComponent(name + "GridColumns", meta.ModelName);
         }
 
-		/// <summary>
-		/// Adds the lookup data.
-		/// </summary>
-		/// <param name="name">The name.</param>
-		/// <param name="data">The data.</param>
-        public void AddLookupData(String name, params object[] data)
+        ///// <summary>
+        ///// Adds the lookup data.
+        ///// </summary>
+        ///// <param name="name">The name.</param>
+        ///// <param name="data">The data.</param>
+        //public void AddLookupData(String name, IList<object> data)
+        //{
+        //    AddComponent(name + "LookupData", data);
+        //}
+
+        /// <summary>
+        /// Adds the lookup data.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <param name="data">The data.</param>
+        public void AddLookupData(String name, IList<object[]> data)
         {
             AddComponent(name + "LookupData", data);
         }
