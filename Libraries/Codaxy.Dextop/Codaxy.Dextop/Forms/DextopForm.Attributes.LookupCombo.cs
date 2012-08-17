@@ -42,6 +42,7 @@ namespace Codaxy.Dextop.Forms
 			res["forceSelection"] = forceSelection;
 			res["disableKeyFilter"] = disableKeyFilter;
 			res["editable"] = editable;
+            res["hideTrigger"] = hideTrigger;
 			return res;
 		}
 
@@ -60,5 +61,10 @@ namespace Codaxy.Dextop.Forms
 		/// Specify true to enable lookup editing.
 		/// </summary>
 		public bool editable { get; set; }
+
+        /// <summary>
+        /// Specify true to hide the trigger element and display only the base text field.
+        /// </summary>
+        public bool hideTrigger { get; set; }
 	}
 }
