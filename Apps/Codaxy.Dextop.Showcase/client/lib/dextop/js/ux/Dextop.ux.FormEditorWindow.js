@@ -45,6 +45,7 @@ Ext.define('Dextop.ux.FormEditorWindow', {
                 formBind: true,
                 text: Dextop.saveText,
                 scope: this,
+                disabled: this.readOnly,
                 handler: function () {
                     if (this.form.getForm().isValid()) {
                         var values = this.form.getForm().getFieldValues();
