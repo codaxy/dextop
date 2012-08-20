@@ -20,7 +20,6 @@ Ext.define('Dextop.ux.FormEditorWindow', {
         this.addEvents(['save']);
 
         this.formConfig = this.formConfig || {};
-
         if (!this.formItemsType)
             throw 'FormEditor requires formItemsType property to be configured.';
 
