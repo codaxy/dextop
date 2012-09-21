@@ -12,4 +12,8 @@
 	Dextop.localize('Ext.form.field.Number', {
 		decimalSeparator: ','
 	});
+
+	Dextop.localize('Ext.form.field.Time', {
+		format: 'H:i'
+	});
 });

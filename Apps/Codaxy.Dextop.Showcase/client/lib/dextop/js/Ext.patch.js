@@ -177,7 +177,7 @@ Ext.override(Ext.data.AbstractStore, {
 	}
 });
 
-if (Ext.versions.extjs.version >= '4.1.0')
+if (Ext.versions.extjs.version == '4.1.0')
 	Ext.override(Ext.panel.Panel, {
 		getKeyMap: function () {
 			if (!this.keyMap) {
