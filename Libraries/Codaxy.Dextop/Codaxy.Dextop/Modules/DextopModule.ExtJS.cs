@@ -38,6 +38,11 @@ namespace Codaxy.Dextop
             get { return "ext"; }
         }
 
+        /// <summary>
+        /// Don't load Ext CSS files. Useful when using custom themes.
+        /// </summary>
+        public bool SkipCss { get; set; }
+
 		/// <summary>
 		/// Setup mapping of module's namespaces.
 		/// </summary>
@@ -85,8 +90,8 @@ namespace Codaxy.Dextop
 			//    css.Register("resources/css/ext-all-debug.css");
 			//else
 			//    css.Register("resources/css/ext-all.css");
-
-			css.Register("resources/css/ext-all" + CssThemeSuffix + ".css");
+            if (!SkipCss)
+                css.Register("resources/css/ext-all" + CssThemeSuffix + ".css");
         }
     }
 }
