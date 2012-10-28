@@ -64,10 +64,11 @@ Ext.define('Dextop.ux.FormEditorWindow', {
     },
 
     applyReadOnlyOnItems: function (items) {
+		var i;
         for (i = 0; i < items.length; i++) {
             items[i].readOnly = true
             if (Ext.isArray(items[i].items))
-                applyReadOnlyOnItems(items[i].items);
+                this.applyReadOnlyOnItems(items[i].items);
         }
     },
 
