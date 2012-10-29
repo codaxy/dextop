@@ -46,12 +46,7 @@ Ext.define('Dextop.ux.FormEditorWindow', {
                 text: Dextop.saveText,
                 scope: this,
                 disabled: this.readOnly,
-                handler: function () {
-                    if (this.form.getForm().isValid()) {
-                        var values = this.form.getForm().getFieldValues();
-                        this.fireEvent('save', this, this.form, values);
-                    }
-                }
+                handler: this.onSave
             }, {
                 text: Dextop.cancelText,
                 scope: this,
@@ -63,6 +58,13 @@ Ext.define('Dextop.ux.FormEditorWindow', {
 
         this.callParent();
     },
+
+	onSave: function() {
+		if (this.form.getForm().isValid()) {
+			var values = this.form.getForm().getFieldValues();
+			this.fireEvent('save', this, this.form, values);
+		}
+	},
 
     applyReadOnlyOnItems: function (items) {
 		var i;
