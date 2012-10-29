@@ -14,6 +14,7 @@ Ext.define('Dextop.ux.FormEditorWindow', {
     formItemsConfig: undefined,
 
     readOnly: undefined,
+    buttons: undefined,
 
     initComponent: function () {
 
@@ -40,7 +41,7 @@ Ext.define('Dextop.ux.FormEditorWindow', {
         Ext.apply(this, {
             layout: 'fit',
             items: [this.form],
-            buttons: [{
+            buttons: Ext.isDefined(this.buttons) ? this.buttons : [{
                 formBind: true,
                 text: Dextop.saveText,
                 scope: this,
