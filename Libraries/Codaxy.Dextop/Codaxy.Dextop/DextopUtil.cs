@@ -48,7 +48,7 @@ namespace Codaxy.Dextop
         {
             jsonSerializer = new JsonSerializer() 
             {
-                DefaultValueHandling = DefaultValueHandling.Ignore,
+                DefaultValueHandling = DefaultValueHandling.Include,
                 NullValueHandling = NullValueHandling.Ignore                
             };
 
