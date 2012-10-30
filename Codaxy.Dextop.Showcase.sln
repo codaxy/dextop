@@ -1,17 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codaxy.Dextop", "Libraries\Codaxy.Dextop\Codaxy.Dextop\Codaxy.Dextop.csproj", "{A58493FD-7BD1-42B2-97AE-BBB10D2BAB79}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codaxy.Dextop.Showcase", "Apps\Codaxy.Dextop.Showcase\Codaxy.Dextop.Showcase.csproj", "{3A1B5EE6-BB5A-4BA6-873A-6C291221C3FB}"
-EndProject
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuSpec", "NuSpec", "{DFAE4A03-37F3-47AE-A2C3-399921374876}"
 	ProjectSection(SolutionItems) = preProject
 		NuGet\Codaxy.Dextop.Core\Codaxy.Dextop.Core.nuspec = NuGet\Codaxy.Dextop.Core\Codaxy.Dextop.Core.nuspec
 		NuGet\Codaxy.Dextop\Codaxy.Dextop.nuspec = NuGet\Codaxy.Dextop\Codaxy.Dextop.nuspec
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codaxy.Dextop.Tests", "Tests\Codaxy.Dextop.Tests\Codaxy.Dextop.Tests.csproj", "{C91FC0CD-8714-45DC-83E5-4BC640FABA2D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Legal", "Legal", "{CC85981C-D55A-45F0-93D6-EC4D0F04778A}"
 	ProjectSection(SolutionItems) = preProject
@@ -21,6 +15,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Legal", "Legal", "{CC85981C
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{13AD9D20-7129-4B69-AB49-B4E32C0E0D86}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codaxy.Dextop", "Libraries\Codaxy.Dextop\Codaxy.Dextop\Codaxy.Dextop.csproj", "{A58493FD-7BD1-42B2-97AE-BBB10D2BAB79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codaxy.Dextop.Showcase", "Apps\Codaxy.Dextop.Showcase\Codaxy.Dextop.Showcase.csproj", "{3A1B5EE6-BB5A-4BA6-873A-6C291221C3FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codaxy.Dextop.Tests", "Tests\Codaxy.Dextop.Tests\Codaxy.Dextop.Tests.csproj", "{C91FC0CD-8714-45DC-83E5-4BC640FABA2D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codaxy.Dextop.Preprocessor", "Tools\Codaxy.Dextop.Preprocessor\Codaxy.Dextop.Preprocessor.csproj", "{02C0357C-162D-46C5-887F-0E9AC520E7C0}"
 EndProject
