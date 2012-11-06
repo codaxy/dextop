@@ -78,11 +78,20 @@ namespace Codaxy.Dextop.Data
 		/// Builds the model for given type.
 		/// </summary>
 		/// <param name="type">The type.</param>
-		/// <param name="meta">The meta.</param>
+        /// <param name="modelAttribute">The model attribute.</param>
 		/// <returns></returns>
-        public DextopModel BuildModel(Type type, DextopModelTypeMeta meta = null)
+        public DextopModel BuildModel(Type type, DextopModelAttribute modelAttribute = null)
         {
-            if (meta == null)
+            DextopModelTypeMeta meta;
+            
+            if (modelAttribute!=null)
+                meta = new DextopModelTypeMeta
+                {
+                    IdField = modelAttribute.Id,
+                    ModelName = modelAttribute.Name,
+                    DefaultSerializerType = modelAttribute.DefaultSerializer
+                };
+            else
                 meta = new DextopModelTypeMeta();
 
             if (meta.ModelType != null && meta.ModelType != type)
@@ -177,7 +186,7 @@ namespace Codaxy.Dextop.Data
 				meta.ModelName = Application.MapTypeName(type, ".model");
             meta.ExcludedFields = excludeFields.Count == 0 ? null : excludeFields.ToArray();
             meta.Fields = model.Fields.Select(a => a.name).ToArray();
-            meta.ModelType = type;
+            meta.ModelType = type;            
             
             if (!metas.TryAdd(type, meta))
                 throw new DextopException("Model for type '{0}' already registered.", type);

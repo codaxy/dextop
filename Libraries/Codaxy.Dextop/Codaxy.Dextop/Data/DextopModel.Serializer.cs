@@ -24,5 +24,10 @@ namespace Codaxy.Dextop.Data
 		/// <param name="json">The JSON.</param>
 		/// <returns></returns>
         IList<object> Deserialize(object json);
+
+        /// <summary>
+        /// Serializer type. It should correspond to Ext JS reader/writer class type.
+        /// </summary>
+        String Type { get; }
     }
 }

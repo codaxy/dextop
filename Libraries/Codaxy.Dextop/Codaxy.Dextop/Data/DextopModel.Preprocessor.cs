@@ -37,11 +37,7 @@ namespace Codaxy.Dextop.Data
                     var list = AssemblyHelper.GetTypeAttributeDictionaryForAssembly<DextopModelAttribute>(a, false);
                     foreach (var t in list)
                     {
-                        var model = application.ModelManager.BuildModel(t.Key, new DextopModelTypeMeta
-                        {
-                            IdField = t.Value.Id,
-                            ModelName = t.Value.Name
-                        });
+                        var model = application.ModelManager.BuildModel(t.Key, t.Value);
                         WriteModel(jw, model);
                     }
                 }

@@ -44,6 +44,8 @@ namespace Codaxy.Dextop
         static Formatting jsonFormatting;
         static JsonSerializer jsonSerializer;
 
+        internal static JsonSerializer JsonSerializer { get { return jsonSerializer; } }
+
         static DextopUtil()
         {
             jsonSerializer = new JsonSerializer() 

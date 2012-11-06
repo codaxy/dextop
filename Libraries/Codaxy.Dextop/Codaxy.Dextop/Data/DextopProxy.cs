@@ -36,7 +36,7 @@ namespace Codaxy.Dextop.Data
         {
             this.proxy = dataProxy;
             this.meta = meta;
-            this.serializer = serializer ?? meta.ArraySerializer;             
+            this.serializer = serializer ?? meta.DefaultSerializer;             
         }
 
 		/// <summary>
@@ -57,7 +57,9 @@ namespace Codaxy.Dextop.Data
         {
             Remote = remote;
             Remote.RemoteHostType = "Dextop.data.Proxy";
-            config["model"] = meta.ModelName; 
+            config["model"] = meta.ModelName;
+            config["reader"] = serializer.Type;
+            config["writer"] = serializer.Type;
         }
 
         [DextopRemotable]

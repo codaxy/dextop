@@ -5,6 +5,26 @@ using System.Text;
 
 namespace Codaxy.Dextop.Data
 {
+    /// <summary>
+    /// Enumeration of available serializer
+    /// </summary>
+    public enum DextopSerializerType
+    {
+        /// <summary>
+        /// Array serializer
+        /// </summary>
+        Array,
+        /// <summary>
+        /// Array serializer with compiled getters and setters. Offers better serialization performance but has creation penalty.
+        /// </summary>
+        DynamicArray,
+
+        /// <summary>
+        /// Json serializer
+        /// </summary>
+        Json
+    }
+
 	/// <summary>
 	/// Mark that class is a model class.
 	/// </summary>
@@ -20,6 +40,11 @@ namespace Codaxy.Dextop.Data
         /// Optinal custom model name
         /// </summary>
         public String Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets type of the default serializer.
+        /// </summary>
+        public DextopSerializerType DefaultSerializer { get; set; }
     }
 
     /// <summary>

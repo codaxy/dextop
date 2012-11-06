@@ -18,13 +18,14 @@ Ext.define('Dextop.data.Proxy', {
 
 	constructor: function (config) {
 
-		config = config || {};
-
-		if (!config.reader || config.reader === 'array')
-			config.reader = Ext.create('Ext.data.ArrayReader', {
-				root: 'data',
-				totalProperty: 'total'
-			});
+	    config = config || {};    
+        
+	    if (!config.reader || typeof config.reader === 'string')
+	        config.reader = {
+	            type: config.reader,
+	            root: 'data',
+	            totalProperty: 'total'
+	        };
 
 		if (config.remote) {
 			this.initRemote(config.remote);

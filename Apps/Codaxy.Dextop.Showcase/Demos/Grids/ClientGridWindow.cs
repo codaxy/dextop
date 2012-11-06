@@ -17,7 +17,7 @@ namespace Codaxy.Dextop.Showcase.Demos.Grids
         public override void InitRemotable(DextopRemote remote, DextopConfig config)
         {
             base.InitRemotable(remote, config);                      
-            Remote.AddStore("model", new Crud(), Remote.IsClientInitiated ? "store" : null);
+            Remote.AddStore("model", new Crud(), remoteId: Remote.IsClientInitiated ? "store" : null);
         }
 
         class Crud : DextopDataProxy<Model>

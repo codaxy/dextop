@@ -132,11 +132,13 @@
     <Compile Include="Demos\Forms\LinkedCombos.cs" />
     <Compile Include="Demos\Forms\FileUploadForm.cs" />
     <Compile Include="Demos\Grids\BufferedGrid.cs" />
+    <Compile Include="Demos\Grids\JsonGridWindow.cs" />
     <Compile Include="Demos\Grids\SwissGridWithFormEditor.cs" />
     <Compile Include="Demos\Grids\SwissGrid.cs" />
     <Compile Include="Demos\Live\ChatRoom.cs" />
     <Content Include="Demos\Forms\RemoteLookupCombo.js" />
     <Content Include="Demos\Forms\RemoteLookupCombo.txt" />
+    <Content Include="Demos\Grids\JsonGridWindow.js" />
     <Content Include="Demos\Live\ChatRoom.txt" />
     <Compile Include="Demos\Remoting\FileDownloadDemo.cs" />
     <Compile Include="Demos\Remoting\RemoteInstantiation.cs" />
@@ -453,6 +455,9 @@
     <Content Include="source\RemoteInstantiation.cs.html" />
     <Content Include="source\RemoteInstantiation.html" />
     <Content Include="source\RemoteInstantiation.js.html" />
+    <Content Include="source\RemoteLookupCombo.cs.html" />
+    <Content Include="source\RemoteLookupCombo.html" />
+    <Content Include="source\RemoteLookupCombo.js.html" />
     <Content Include="source\RemotingCallbacks.cs.html" />
     <Content Include="source\RemotingCallbacks.html" />
     <Content Include="source\RemotingCallbacks.js.html" />

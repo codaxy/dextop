@@ -68,6 +68,7 @@
     <Compile Include="Data\DextopGrid.Preprocessor.cs" />
     <Compile Include="Data\DextopLiveStore.cs" />
     <Compile Include="Data\DextopDataProxy.Memory.cs" />
+    <Compile Include="Data\DextopModel.Serializer.Json.cs" />
     <Compile Include="Data\DextopObservableStore.cs" />
     <Compile Include="Data\DextopObservableStore.Interface.cs" />
     <Compile Include="Data\DextopModel.Serializer.Array.cs" />

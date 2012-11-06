@@ -75,14 +75,15 @@ namespace Codaxy.Dextop
 		/// <typeparam name="T"></typeparam>
 		/// <param name="name">The name.</param>
 		/// <param name="crud">The crud.</param>
+        /// <param name="serializer">The serializer.</param>
 		/// <param name="remoteId">The remote id.</param>
 		/// <param name="subRemote">if set to <c>true</c> [sub remote].</param>
 		/// <param name="own">if set to <c>true</c> [own].</param>
-        public void AddStore<T>(String name, IDextopDataProxy<T> crud, String remoteId = null, bool subRemote = true, bool own = true) where T : class
+        public void AddStore<T>(String name, IDextopDataProxy<T> crud, IDextopModelSerializer serializer = null, String remoteId = null, bool subRemote = true, bool own = true) where T : class
         {
             var meta = Context.ModelManager.GetModelMeta(typeof(T));
             var proxy = new DextopDataProxyAdapter<T>(crud);
-            AddRemotableComponent(name + "Proxy", new DextopProxy(proxy, meta), remoteId, subRemote, own);
+            AddRemotableComponent(name + "Proxy", new DextopProxy(proxy, meta, serializer), remoteId, subRemote, own);
         }
 
 		/// <summary>
@@ -91,14 +92,15 @@ namespace Codaxy.Dextop
 		/// <typeparam name="T"></typeparam>
 		/// <param name="name">The name.</param>
 		/// <param name="crud">The crud.</param>
+        /// <param name="serializer">The serializer.</param>
 		/// <param name="remoteId">The remote id.</param>
 		/// <param name="subRemote">if set to <c>true</c> [sub remote].</param>
 		/// <param name="own">if set to <c>true</c> [own].</param>
-        public void AddStore<T>(String name, IDextopReadProxy<T> crud, String remoteId = null, bool subRemote = true, bool own = true) where T : class
+        public void AddStore<T>(String name, IDextopReadProxy<T> crud, IDextopModelSerializer serializer = null, String remoteId = null, bool subRemote = true, bool own = true) where T : class
         {
             var meta = Context.ModelManager.GetModelMeta(typeof(T));
             var proxy = new DextopReadProxyAdapter<T>(crud);
-            AddRemotableComponent(name + "Proxy", new DextopProxy(proxy, meta), remoteId, subRemote, own);
+            AddRemotableComponent(name + "Proxy", new DextopProxy(proxy, meta, serializer), remoteId, subRemote, own);
         }
 
 		/// <summary>
@@ -111,7 +113,7 @@ namespace Codaxy.Dextop
 		/// <param name="subRemote">if set to <c>true</c> [sub remote].</param>
         public void AddStore<T>(String name, Func<DextopReadFilter, DextopReadResult<T>> read, String remoteId = null, bool subRemote = true) where T : class
         {
-            AddStore(name, new DextopFunctionDataProxy<T>(read), remoteId, subRemote);
+            AddStore(name, new DextopFunctionDataProxy<T>(read), remoteId: remoteId, subRemote: subRemote);
         }
 
 		/// <summary>
@@ -124,7 +126,7 @@ namespace Codaxy.Dextop
 		/// <param name="subRemote">if set to <c>true</c> [sub remote].</param>
 		public void AddStore<T>(String name, Func<DextopReadFilter, IEnumerable<T>> read, String remoteId = null, bool subRemote = true) where T : class
 		{
-			AddStore(name, a => DextopReadResult.Create(read(a)), remoteId, subRemote);
+            AddStore(name, a => DextopReadResult.Create(read(a)), remoteId: remoteId, subRemote: subRemote);
 		}
 
 		/// <summary>
@@ -137,7 +139,7 @@ namespace Codaxy.Dextop
 		/// <param name="subRemote">if set to <c>true</c> [sub remote].</param>
         public void AddStore<T>(String name, Func<DextopReadFilter, IList<T>> read, String remoteId = null, bool subRemote = true) where T : class
         {
-            AddStore(name, (filter) => { return DextopReadResult.Create(read(filter)); }, remoteId, subRemote);
+            AddStore(name, (filter) => { return DextopReadResult.Create(read(filter)); }, remoteId: remoteId, subRemote: subRemote);
         }
 
 		/// <summary>

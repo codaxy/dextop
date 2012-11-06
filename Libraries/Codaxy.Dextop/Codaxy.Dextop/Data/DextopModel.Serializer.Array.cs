@@ -15,6 +15,11 @@ namespace Codaxy.Dextop.Data
     {
         DextopModelTypeMeta Meta { get; set; }
 
+        /// <summary>
+        /// "array"
+        /// </summary>
+        public string Type { get { return "array"; } }
+
         class FieldInfo
         {
             public IValueProvider ValueProvider;
