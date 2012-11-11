@@ -97,11 +97,15 @@ namespace Codaxy.Dextop
 					};
 
 				var map = context.Remotable.Remote.OnMapRemotingException ?? MapRemotingException;
+                
+                var mappedEx = map(result.Exception);
+                if (mappedEx is Exception) 
+                    mappedEx = MapRemotingException((Exception)mappedEx);
 
 				return new DextopRemoteMethodCallResult
 				{
 					success = false,
-					result = map(result.Exception)
+                    result = mappedEx
 				};
 			}
 			catch (Exception ex)
