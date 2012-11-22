@@ -167,8 +167,6 @@ namespace Codaxy.Dextop.Forms
                     jw.AddRawProperty("value", String.Format("options.data['{0}']", name));
                     break;
             }
-			jw.AddRawProperty(xtype == "checkboxfield" ? "checked" : "value", String.Format("options.data['{0}']", name));
-
             base.WriteProperties(jw);
         }
 

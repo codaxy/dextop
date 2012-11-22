@@ -20,11 +20,6 @@ namespace Codaxy.Dextop.Showcase.Demos.Forms
         {
             base.InitRemotable(remote, config);
 
-			Remote.AddLookupData(&quot;Lookup&quot;, new[] {
-				new object[] { &quot;1&quot;, &quot;Item 1&quot; },
-				new object[] { &quot;2&quot;, &quot;Item 2&quot; },
-			});
-
 			Remote.AddStore(&quot;RemoteLookup&quot;, RemoteLookup);
 
             config[&quot;data&quot;] = new Form
@@ -68,7 +63,7 @@ namespace Codaxy.Dextop.Showcase.Demos.Forms
 		[DextopForm]
 		class Form
 		{
-			[DextopFormRemoteLookupCombo(&quot;Code&quot;, &quot;Description&quot;, initialLookupValueField = &quot;RemoteLookupDescription&quot;, disableKeyFilter=true)]
+			[DextopFormRemoteLookupCombo(&quot;Code&quot;, &quot;Description&quot;, initialLookupValueField = &quot;RemoteLookupDescription&quot;, disableKeyFilter=false, forceSelection=true, hideTrigger=true)]
 			public string RemoteLookup { get; set; }
 
 			public string RemoteLookupDescription { get; set; }
