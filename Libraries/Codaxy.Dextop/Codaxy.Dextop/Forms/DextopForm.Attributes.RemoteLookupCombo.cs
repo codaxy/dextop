@@ -34,8 +34,12 @@ namespace Codaxy.Dextop.Forms
 		/// <returns></returns>
 		public override DextopFormField ToField(string memberName, Type memberType)
 		{
-			var res = base.ToField(memberName, memberType);			
-			res["valueField"] = valueField;
+			var res = base.ToField(memberName, memberType);
+
+            if (initialLookupValueField != null)
+                res["store"] = new DextopRawJs("options.remote.createStore('{0}', {{ data: !Ext.isDefined(options.data['{1}']) ? undefined : [[options.data['{1}'], options.data['{2}']]] }})", lookupId ?? res.name, res.name, initialLookupValueField);
+			
+            res["valueField"] = valueField;
 			res["displayField"] = displayField;
 			res["queryMode"] = "remote";
 			res["minChars"] = minChars;
@@ -65,11 +69,18 @@ namespace Codaxy.Dextop.Forms
 		/// <summary>
 		/// Used for record editing. Specifies the field to be used as lookup text when lookup store doesn't contain lookup value.
 		/// </summary>
+        [Obsolete("valueNotFoundField is obsolete. Use initialLookupValueField instead which offers better combo box behaviour.")]
 		public String valueNotFoundField { get; set; }
 		
 		/// <summary>
 		/// When using a name/value combo, if the value passed to setValue is not found in the store, valueNotFoundText will be displayed as the field text if defined (defaults to undefined). If this default text is used, it means there is no value set and no validation will occur on this field.
 		/// </summary>
 		public String valueNotFoundText { get; set; }
+
+
+        /// <summary>
+        /// Used to initialy populate lookup value based on the value
+        /// </summary>
+        public String initialLookupValueField { get; set; }
 	}
 }

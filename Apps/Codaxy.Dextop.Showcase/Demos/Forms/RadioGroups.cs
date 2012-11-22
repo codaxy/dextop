@@ -14,10 +14,23 @@ namespace Codaxy.Dextop.Showcase.Demos.Forms
 	[CategoryDemo]
 	public class RadioGroupsWindow : DextopWindow
 	{
+        public override void InitRemotable(DextopRemote remote, DextopConfig config)
+        {
+            base.InitRemotable(remote, config);
+            config["data"] = new Form
+            {
+                R1 = "B",
+                R2 = 0,
+                R3 = 2,
+                R4 = 3,
+                R5 = 1
+            };
+        }
+
 		[DextopRemotable]
 		void Send(Form form)
 		{
-			
+            throw new DextopInfoMessageException(DextopUtil.Encode(form));
 		}
 
 		[DextopForm]

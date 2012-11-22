@@ -98,7 +98,7 @@ namespace Codaxy.Dextop.Showcase.Demos.Forms
 			[DextopFormLookupCombo]
 			public string Lookup { get; set; }			
 
-			[DextopFormRemoteLookupCombo("Code", "Description", valueNotFoundField = "RemoteLookupDescription", disableKeyFilter=true)]
+			[DextopFormRemoteLookupCombo("Code", "Description", initialLookupValueField = "RemoteLookupDescription", disableKeyFilter=true)]
 			public string RemoteLookup { get; set; }
 
 			public string RemoteLookupDescription { get; set; }

@@ -13,7 +13,8 @@ Ext.define('Showcase.demos.RadioGroupsWindow', {
 				bodyStyle: 'padding: 5px',
 				border: false,
 				autoHeight: true,
-				model: this.getNestedTypeName('.form.Form')			
+				model: this.getNestedTypeName('.form.Form'),
+                data: this.data			
 			},
 			buttons: [{
 				text: 'Send',

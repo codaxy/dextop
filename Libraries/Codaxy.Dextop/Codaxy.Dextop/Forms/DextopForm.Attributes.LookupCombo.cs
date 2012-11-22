@@ -35,7 +35,7 @@ namespace Codaxy.Dextop.Forms
 		public override DextopFormField ToField(string memberName, Type memberType)
 		{
 			var res = base.ToField(memberName, memberType);
-			res["store"] = new DextopRawJs("options.remote.createStore('{0}')", lookupId ?? res.name);
+            res["store"] = new DextopRawJs("options.remote.createStore('{0}')", lookupId ?? res.name);
 			res["valueField"] = "id";
 			//res["displayField"] = "text"; //combo default
 			res["queryMode"] = "local";

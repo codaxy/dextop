@@ -18,7 +18,7 @@ Ext.define('Showcase.demos.AllFormFieldsWindow', {
 				data: this.data,
 				itemsOptions: {
 					apply: {
-						'RemoteLookup': {
+					    'Lookup': {
 							listeners: {
 								scope: this,
 								'change': function (combo, newValue, oldValue) {

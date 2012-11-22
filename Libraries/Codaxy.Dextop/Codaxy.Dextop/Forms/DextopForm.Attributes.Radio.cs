@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Codaxy.Dextop.Tools;
 
 namespace Codaxy.Dextop.Forms
 {
@@ -48,6 +49,8 @@ namespace Codaxy.Dextop.Forms
 			field.fieldLabel = field.boxLabel = null;
 			field.Properties.Remove("fieldLabel");
 			field.Properties.Remove("boxLabel");
+
+            field["checked"] = new DextopRawJs("options.data['{0}'] === {1}", field.name, DextopUtil.Encode(field["inputValue"]));
 			
 			if (fieldLabels != null && index<fieldLabels.Length)
 				field.fieldLabel = fieldLabels[index];

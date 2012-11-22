@@ -156,6 +156,17 @@ namespace Codaxy.Dextop.Forms
             jw.DefaultProperty("cls", cls);
             jw.DefaultProperty("fieldCls", fieldCls);
 
+            switch (xtype)
+            {
+                case "checkboxfield":                    
+                    jw.AddRawProperty("checked", String.Format("options.data['{0}']", name));
+                    break;
+                case "radio":
+                    break;                    
+                default:
+                    jw.AddRawProperty("value", String.Format("options.data['{0}']", name));
+                    break;
+            }
 			jw.AddRawProperty(xtype == "checkboxfield" ? "checked" : "value", String.Format("options.data['{0}']", name));
 
             base.WriteProperties(jw);
