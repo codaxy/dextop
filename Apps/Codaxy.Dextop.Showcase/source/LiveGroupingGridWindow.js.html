@@ -8,12 +8,12 @@
 <pre class="prettyprint">
 Ext.ns(&#39;Showcase&#39;);
 
-Ext.define(&#39;Showcase.demos.LiveGridWindow&#39;, {
+Ext.define(&#39;Showcase.demos.LiveGroupingGridWindow&#39;, {
     extend: &#39;Dextop.Window&#39;,
     width: 500,
     height: 300,
 
-    title: &#39;Live Grid Window&#39;,
+    title: &#39;Live Grouping Grid&#39;,
     requires: &#39;Ext.grid.GridPanel&#39;,
     maximizable: true,
 
@@ -24,14 +24,16 @@ Ext.define(&#39;Showcase.demos.LiveGridWindow&#39;, {
             sorters: [{
             	property: &#39;Ticker&#39;,
                 direction: &#39;DESC&#39;
-            }]
+            }],
+            groupField: &#39;Group&#39;
         });
 
         var columns = this.remote.createGridColumns(&#39;model&#39;);
 
         var grid = Ext.create(&#39;Ext.grid.GridPanel&#39;, {
             store: store,
-            columns: columns
+            columns: columns,
+            features: [{ ftype: &#39;grouping&#39; }]
         });
 
         Ext.apply(this, {

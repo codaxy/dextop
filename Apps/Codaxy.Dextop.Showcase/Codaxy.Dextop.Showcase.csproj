@@ -140,6 +140,7 @@
     <Content Include="Demos\Forms\RemoteLookupCombo.txt" />
     <Content Include="Demos\Grids\JsonGridWindow.js" />
     <Content Include="Demos\Live\ChatRoom.txt" />
+    <Compile Include="Demos\Live\LiveGroupingGridWindow.cs" />
     <Compile Include="Demos\Remoting\FileDownloadDemo.cs" />
     <Compile Include="Demos\Remoting\RemoteInstantiation.cs" />
     <Compile Include="Demos\Remoting\Enums.cs" />
@@ -211,6 +212,7 @@
     <Content Include="Demos\Grids\SwissGridWithFormEditor.js" />
     <Content Include="Demos\Grids\SwissGrid.js" />
     <Content Include="Demos\Live\ChatRoom.js" />
+    <Content Include="Demos\Live\LiveGroupingGridWindow.js" />
     <Content Include="Demos\Remoting\FileDownloadDemo.js" />
     <Content Include="Demos\Remoting\FileDownloadDemo.txt" />
     <Content Include="Demos\Remoting\RemoteInstantiation.js" />

@@ -274,7 +274,9 @@ Ext.define("Dextop.remoting.Proxy", {
 
 	createLiveStore: function (name, options) {
 		var config = this.getComponentConfig(name + 'LiveStore');
-		return Dextop.create(Ext.apply(Ext.clone(config), options));
+		return Dextop.create(Ext.apply({
+		   autoDestroy: true
+		}, config, options));
 	},
 
 	createGridColumns: function (name, options) {

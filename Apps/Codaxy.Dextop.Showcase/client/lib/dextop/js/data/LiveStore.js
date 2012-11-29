@@ -51,69 +51,82 @@ Ext.define('Dextop.data.LiveStore', {
 
 	onServerMessage: function (data) {
 
-		if (data.load) {
-			var r = Ext.decode(data.load);
-			var result = this.reader.read({
-				data: r
-			});
+	    if (data.load) {
+	        var r = Ext.decode(data.load);
+	        var result = this.reader.read({
+	            data: r
+	        });
 
-			this.loadRecords(result.records, {
-				addRecords: false
-			});
+	        this.loadRecords(result.records, {
+	            addRecords: false
+	        });
 
-			if (this.loading) {
-				this.loading = false;
-				this.fireEvent('load', this, result.records, true);
-			}
-		}
+	        if (this.loading) {
+	            this.loading = false;
+	            this.fireEvent('load', this, result.records, true);
+	        }
+	    }
 
-		if (data.remove) {
-			var r = Ext.decode(data.remove);
-			var result = this.reader.read({
-				data: r
-			});
-			var storeRecords = [];
-			for (var i = 0; i < result.records.length; i++) {
-				var r = this.getById(result.records[i].getId());
-				if (r)
-					storeRecords.push(r);
-			}
-			this.remove(storeRecords);
-		}
+	    var suspendEvents = this.groupField || (this.autoSort && this.sorters && this.sorters.getCount() > 0);
 
-		if (data.update) {
-			var r = Ext.decode(data.update);
-			var result = this.reader.read({
-				data: r
-			});
-			for (var i = 0; i < result.records.length; i++) {
-				var rec = result.records[i];
-				var recId = rec.getId();
-				var original = this.getById(recId);
-				if (original) {
-					original.beginEdit();
-					original.set(rec.data); //easier way
-					// for (var j = 0; j<rec.fields.getCount(); j++) {
-					// 	var field = rec.fields.getAt(j).name;    
-					//     original.set(field, rec.get(field));
-					// }
-					original.endEdit();
-					original.commit();
-				}
-			}
-		}
+        if (suspendEvents)
+	        this.suspendEvents();
 
-		if (data.add) {
-			var r = Ext.decode(data.add);
-			var result = this.reader.read({
-				data: r
-			});
-			this.insert(this.getCount(), result.records);
-		}
+	    try {
 
-		if (this.autoSort)
-			this.sort();
+	        if (data.remove) {
+	            var r = Ext.decode(data.remove);
+	            var result = this.reader.read({
+	                data: r
+	            });
+	            var storeRecords = [];
+	            for (var i = 0; i < result.records.length; i++) {
+	                var r = this.getById(result.records[i].getId());
+	                if (r)
+	                    storeRecords.push(r);
+	            }
+	            this.remove(storeRecords);
+	        }
 
-		//this.fireEvent('datachanged', this);
+	        if (data.update) {
+	            var r = Ext.decode(data.update);
+	            var result = this.reader.read({
+	                data: r
+	            });
+	            for (var i = 0; i < result.records.length; i++) {
+	                var rec = result.records[i];
+	                var recId = rec.getId();
+	                var original = this.getById(recId);
+	                if (original) {
+	                    original.beginEdit();
+	                    original.set(rec.data); //easier way					
+	                    original.endEdit();
+	                    original.commit();
+	                }
+	            }
+	        }
+
+	        if (data.add) {
+	            var r = Ext.decode(data.add);
+	            var result = this.reader.read({
+	                data: r
+	            });
+	            this.insert(this.getCount(), result.records);
+	        }
+
+	        if (this.autoSort) 
+	            this.sort();
+
+	        if (suspendEvents) {
+	            this.resumeEvents();
+	            this.fireEvent('datachanged', this);
+	            this.fireEvent('refresh', this);
+	        }
+
+	    } catch (e) {
+	        if (suspendEvents)
+	            this.resumeEvents();
+	        throw e;
+	    }
 	}
 })

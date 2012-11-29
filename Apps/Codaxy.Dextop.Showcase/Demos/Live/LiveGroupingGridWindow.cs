@@ -7,21 +7,21 @@ using System.Diagnostics;
 
 namespace Codaxy.Dextop.Showcase.Demos.Live
 {
-    [Demo("LiveGridWindow",
-        Title = "Live Grid",
-        Description = "Grid with live data.",
+    [Demo("LiveGroupingGridWindow",
+        Title = "Live Grid Grouping",
+        Description = "Grid with live data and grouping.",
         Path = "~/Demos/Live"
     )]
     [LevelMedium]
     [TopicDextopLive]
     [CategoryCodeSnippet]
-    public class LiveGridWindow : DextopWindow
+    public class LiveGroupingGridWindow : DextopWindow
     {
         DextopObservableStore<string, LiveGridModel> store;
         Timer timer;
         Random r;
 
-        public LiveGridWindow()
+        public LiveGroupingGridWindow()
         {
             store = new DextopObservableStore<string, LiveGridModel>(a => a.Ticker);
             r = new Random();
@@ -43,6 +43,7 @@ namespace Codaxy.Dextop.Showcase.Demos.Live
                     changes.Add(new LiveGridModel
                     {
                         Ticker = "Ticker " + r.Next(200),
+                        Group = "G" + r.Next(10),
                         Price = Math.Round(r.NextDouble() * 1000, 2)
                     });
                 }
@@ -63,8 +64,7 @@ namespace Codaxy.Dextop.Showcase.Demos.Live
 
         public override void InitRemotable(DextopRemote remote, DextopConfig config)
         {
-            base.InitRemotable(remote, config);          
-            Remote.RemoteHostType = "Showcase.demos.LiveGridWindow";
+            base.InitRemotable(remote, config);                      
             Remote.AddLiveStore("model", store);
         }
 
@@ -72,6 +72,8 @@ namespace Codaxy.Dextop.Showcase.Demos.Live
         [DextopGrid]
         class LiveGridModel
         {
+            public String Group { get; set; }
+
             [DextopModelId]
             [DextopGridColumn(flex=1)]
             public String Ticker { get; set; }
