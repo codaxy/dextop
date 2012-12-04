@@ -37,12 +37,12 @@ namespace Codaxy.Dextop.Showcase.Demos.Live
             try
             {                
                 var changes = new List&lt;LiveGridModel&gt;();
-                var n = r.Next(5) + 1;
+                var n = r.Next(100) + 1;
                 for (var i = 0; i &lt; n; i++)
                 {
                     changes.Add(new LiveGridModel
                     {
-                        Ticker = &quot;Ticker &quot; + r.Next(10),
+                        Ticker = &quot;Ticker &quot; + r.Next(200),
                         Price = Math.Round(r.NextDouble() * 1000, 2)
                     });
                 }

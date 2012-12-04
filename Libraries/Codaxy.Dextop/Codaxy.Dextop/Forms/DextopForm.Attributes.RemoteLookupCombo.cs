@@ -37,7 +37,7 @@ namespace Codaxy.Dextop.Forms
 			var res = base.ToField(memberName, memberType);
 
             if (initialLookupValueField != null)
-                res["store"] = new DextopRawJs("options.remote.createStore('{0}', {{ data: !Ext.isDefined(options.data['{1}']) ? undefined : [[options.data['{1}'], options.data['{2}']]] }})", lookupId ?? res.name, res.name, initialLookupValueField);
+                res["store"] = new DextopRawJs("options.remote.createStore('{0}', !Ext.isDefined(options.data['{1}']) ? {{}} : {{ data: [[options.data['{1}'], options.data['{2}']]] }})", lookupId ?? res.name, res.name, initialLookupValueField);
 			
             res["valueField"] = valueField;
 			res["displayField"] = displayField;

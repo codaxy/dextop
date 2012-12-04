@@ -1,11 +1,11 @@
 Ext.ns('Showcase');
 
-Ext.define('Showcase.demos.LiveGridWindow', {
+Ext.define('Showcase.demos.LiveGroupingGridWindow', {
     extend: 'Dextop.Window',
     width: 500,
     height: 300,
 
-    title: 'Live Grid Window',
+    title: 'Live Grouping Grid',
     requires: 'Ext.grid.GridPanel',
     maximizable: true,
 
@@ -16,14 +16,16 @@ Ext.define('Showcase.demos.LiveGridWindow', {
             sorters: [{
             	property: 'Ticker',
                 direction: 'DESC'
-            }]
+            }],
+            groupField: 'Group'
         });
 
         var columns = this.remote.createGridColumns('model');
 
         var grid = Ext.create('Ext.grid.GridPanel', {
             store: store,
-            columns: columns
+            columns: columns,
+            features: [{ ftype: 'grouping' }]
         });
 
         Ext.apply(this, {
