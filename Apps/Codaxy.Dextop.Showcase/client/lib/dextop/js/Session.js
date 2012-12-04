@@ -78,24 +78,20 @@ Ext.define('Dextop.Session', {
 		}
 
 		this.stopDirect();
+
+		Dextop.warningAlert({
+		    msg: this.sessionTerminatedReloadText,
+		    buttons: Ext.MessageBox.YESNO,
+		    scope: this,
+		    fn: function (btn) {
+		        if (btn == 'yes')
+		            this.restartSession();
+		    }
+		});
 	},
 
 	handleSessionTermination: function () {
-
-		if (this.terminated)
-			return;
-		this.terminate();
-
-		Dextop.warningAlert({
-			msg: this.sessionTerminatedReloadText,
-			buttons: Ext.MessageBox.YESNO,
-			scope: this,
-			fn: function (btn) {
-				if (btn == 'yes')
-					this.restartSession();
-			}
-		});
-
+	    this.terminate();
 	},
 
 	restartSession: function () {
