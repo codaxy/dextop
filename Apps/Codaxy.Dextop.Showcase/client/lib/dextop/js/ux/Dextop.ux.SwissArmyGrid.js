@@ -178,7 +178,7 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
 				iconCls: this.getActionIconCls(action),
 				key: [Ext.EventObject.NUM_MINUS, Ext.EventObject.DELETE],
 				enableOnSingle: true,
-				enableOnMultiple: true,
+				enableOnMulti: true,
 				scope: this,
 				handler: function () {
 					this.cancelEditing();
