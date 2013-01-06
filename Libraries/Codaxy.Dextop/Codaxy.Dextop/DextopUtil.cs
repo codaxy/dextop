@@ -186,5 +186,17 @@ namespace Codaxy.Dextop
             response.ContentType = "application/force-download";
             response.AddHeader("Content-Disposition", "attachment; filename=\"" + fi.Name + "\"");
         }
+
+        /// <summary>
+        /// Add Content-Disposition: attachment header to the HttpResponse.
+        /// </summary>
+        /// <param name="response"></param>
+        /// <param name="filename"></param>
+        public static void ForceFileDownload(this HttpResponseBase response, String filename)
+        {
+            FileInfo fi = new FileInfo(filename);
+            response.ContentType = "application/force-download";
+            response.AddHeader("Content-Disposition", "attachment; filename=\"" + fi.Name + "\"");
+        }
 	}
 }
