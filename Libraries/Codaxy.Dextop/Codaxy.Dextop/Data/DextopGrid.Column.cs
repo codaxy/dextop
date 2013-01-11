@@ -73,7 +73,6 @@ namespace Codaxy.Dextop.Data
         /// </summary>        
         public double? flex { get; set; }
 
-
 		/// <summary>
 		/// Name of the renderer.
 		/// </summary>
@@ -83,6 +82,11 @@ namespace Codaxy.Dextop.Data
         /// Undocumented feature
         /// </summary>
         public string format { get; set; }
+
+        /// <summary>
+        /// Mark that column menu is disabled
+        /// </summary>        
+        public bool? menuDisabled { get; set; }
 
         String _align;
 
@@ -135,6 +139,7 @@ namespace Codaxy.Dextop.Data
                 jw.DefaultProperty("required", required);
                 jw.DefaultProperty("tooltipTpl", tooltipTpl);
                 jw.DefaultProperty("readonly", readOnly);
+                jw.DefaultProperty("menuDisabled", menuDisabled);
             }
             else
             {

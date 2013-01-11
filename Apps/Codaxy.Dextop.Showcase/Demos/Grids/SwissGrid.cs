@@ -32,8 +32,8 @@ namespace Codaxy.Dextop.Showcase.Demos.Grids
         [DextopModel]
         [DextopGrid]
         class GridModel
-        {            
-            [DextopGridColumn(width = 50, readOnly=true)] 
+        {
+            [DextopGridColumn(width = 50, readOnly = true)]
             public int Id { get; set; }
             
             [DextopGridColumn(flex=1, tooltipTpl="{Name}")]

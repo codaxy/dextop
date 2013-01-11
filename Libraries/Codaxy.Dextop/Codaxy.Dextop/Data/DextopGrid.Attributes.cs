@@ -28,6 +28,7 @@ namespace Codaxy.Dextop.Data
 		{
 			width = -1;
 			sortable = true;
+            menuDisabled = true;
 		}
         /// <summary>
         /// Sorting order
@@ -109,6 +110,11 @@ namespace Codaxy.Dextop.Data
         /// </summary>
         public string format { get; set; }
 
+        /// <summary>
+        /// Mark that column menu is disabled
+        /// </summary>        
+        public bool menuDisabled { get; set; }
+
 		/// <summary>
 		/// Converts this attribute to the column object.
 		/// </summary>
@@ -134,7 +140,8 @@ namespace Codaxy.Dextop.Data
 				type = type ?? extType,
 				width = NullableUtil.DefaultNull(width, -1),
 				renderer = renderer, 
-                format = format
+                format = format,
+                menuDisabled = NullableUtil.DefaultNull(menuDisabled, true)
 			};
         }
         
