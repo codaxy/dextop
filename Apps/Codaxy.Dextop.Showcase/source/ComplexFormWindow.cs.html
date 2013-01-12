@@ -14,6 +14,16 @@ namespace Codaxy.Dextop.Showcase.Demos.Forms
 {
     public class ComplexFormWindow : DextopWindow
     {
+        public override void InitRemotable(DextopRemote remote, DextopConfig config)
+        {
+            base.InitRemotable(remote, config);
+            config[&quot;data&quot;] = new ComplexForm
+            {
+                Time = DateTime.Now,
+                Number = 2,
+                Date = DateTime.Today
+            };
+        }
         [DextopForm]
         class ComplexForm
         {
@@ -32,7 +42,7 @@ namespace Codaxy.Dextop.Showcase.Demos.Forms
 
             [DextopFormFieldSet(2, title = &quot;Collapsible FieldSet&quot;, collapsible = true, itemId=&quot;fs1&quot;)]
             [DextopFormDateField(showToday=false)]
-            public DateTime Birth { get; set; }
+            public DateTime? Date { get; set; }
         
             [DextopFormTimeField( format = &quot;H:i&quot;, minValue = &quot;8:00&quot;, maxValue = &quot;16:00&quot; )]
             public DateTime Time { get; set; }

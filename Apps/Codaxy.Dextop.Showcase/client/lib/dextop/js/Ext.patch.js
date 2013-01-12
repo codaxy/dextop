@@ -178,11 +178,11 @@ Ext.override(Ext.data.AbstractStore, {
 });
 
 if (Ext.versions.extjs.version == '4.1.0')
-	Ext.override(Ext.panel.Panel, {
-		getKeyMap: function () {
-			if (!this.keyMap) {
-				this.keyMap = new Ext.KeyMap(this.el, this.keys);
-			}
-			return this.keyMap;
-		}
-	});
+    Ext.override(Ext.panel.Panel, {
+        getKeyMap: function () {
+            if (!this.keyMap) {
+                this.keyMap = new Ext.KeyMap(this.el, this.keys);
+            }
+            return this.keyMap;
+        }
+    });

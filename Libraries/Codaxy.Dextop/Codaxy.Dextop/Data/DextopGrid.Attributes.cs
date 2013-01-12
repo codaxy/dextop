@@ -80,6 +80,12 @@ namespace Codaxy.Dextop.Data
         /// </summary>
         public string tooltipTpl { get; set; }
 
+
+        /// <summary>
+        /// XTemplate based renderer.
+        /// </summary>
+        public string tpl { get; set; }
+
         /// <summary>
         /// Value is required (data entry)
         /// </summary>        
@@ -137,6 +143,7 @@ namespace Codaxy.Dextop.Data
 				sortable = NullableUtil.DefaultNull(sortable, true),
 				tooltip = tooltip,
 				tooltipTpl = tooltipTpl,
+                tpl = tpl,
 				type = type ?? extType,
 				width = NullableUtil.DefaultNull(width, -1),
 				renderer = renderer, 

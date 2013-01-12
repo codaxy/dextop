@@ -88,6 +88,12 @@ namespace Codaxy.Dextop.Data
         /// </summary>        
         public bool? menuDisabled { get; set; }
 
+
+        /// <summary>
+        /// XTemplate based renderer.
+        /// </summary>
+        public string tpl { get; set; }
+
         String _align;
 
         /// <summary>
@@ -131,6 +137,7 @@ namespace Codaxy.Dextop.Data
             jw.DefaultProperty("width", width);
 			jw.DefaultProperty("renderer", renderer);
             jw.DefaultProperty("format", format);
+            jw.DefaultProperty("tpl", tpl);
 
             if (_columns == null || _columns.Count == 0)
             {

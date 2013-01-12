@@ -132,12 +132,15 @@
     <Compile Include="Demos\Forms\LinkedCombos.cs" />
     <Compile Include="Demos\Forms\FileUploadForm.cs" />
     <Compile Include="Demos\Grids\BufferedGrid.cs" />
+    <Compile Include="Demos\Grids\GridColumnRenderers.cs" />
     <Compile Include="Demos\Grids\JsonGridWindow.cs" />
     <Compile Include="Demos\Grids\SwissGridWithFormEditor.cs" />
     <Compile Include="Demos\Grids\SwissGrid.cs" />
     <Compile Include="Demos\Live\ChatRoom.cs" />
     <Content Include="Demos\Forms\RemoteLookupCombo.js" />
     <Content Include="Demos\Forms\RemoteLookupCombo.txt" />
+    <Content Include="Demos\Grids\GridColumnRenderers.js" />
+    <Content Include="Demos\Grids\GridColumnRenderers.txt" />
     <Content Include="Demos\Grids\JsonGridWindow.js" />
     <Content Include="Demos\Live\ChatRoom.txt" />
     <Compile Include="Demos\Live\LiveGroupingGridWindow.cs" />

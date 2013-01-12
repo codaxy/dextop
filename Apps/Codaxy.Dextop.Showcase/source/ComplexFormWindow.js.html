@@ -14,7 +14,9 @@ Ext.define(&#39;Showcase.demos.ComplexFormWindow&#39;, {
 
 	initComponent: function () {
 
-		var formFields = Ext.create(&#39;Showcase.demos.ComplexFormWindow.form.ComplexForm&#39;).getItems();
+	    var formFields = Ext.create(&#39;Showcase.demos.ComplexFormWindow.form.ComplexForm&#39;).getItems({
+	        data: this.data
+	    });
 
 		Ext.apply(this, {
 			layout: &#39;fit&#39;,

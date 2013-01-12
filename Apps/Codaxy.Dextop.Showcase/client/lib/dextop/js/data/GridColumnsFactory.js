@@ -38,7 +38,7 @@ Ext.define('Dextop.data.GridColumnsFactory', {
 				field: {
 					xtype: 'datefield'
 				},
-				renderer: Ext.util.Format.dateRenderer(),
+				renderer: 'date',
 				width: 90
 			},
 			'time': {
@@ -46,11 +46,7 @@ Ext.define('Dextop.data.GridColumnsFactory', {
 				field: {
 					xtype: 'timefield'
 				},
-				renderer: function (v) {
-					if (!v)
-						return v;
-					return Ext.util.Format.date(v, Ext.form.field.Time.prototype.format || 'g:i A');
-				},
+				renderer: 'time',
 				width: 80
 			},
 			'datetime': {
@@ -158,7 +154,12 @@ Ext.define('Dextop.data.GridColumnsFactory', {
 				c.renderer = options.renderers[c.dataIndex];
 
 			if (!Ext.isDefined(c.menuDisabled))
-				c.menuDisabled = true;
+			    c.menuDisabled = true;
+
+			if (c.tpl) {
+			    c.renderer = Dextop.data.RendererFactory.create('tpl', { tpl: c.tpl });
+			    delete c.tpl;
+			}
 
 			if (c.tooltipTpl) {
 				c.renderer = Dextop.data.RendererFactory.create('tooltipTpl', {

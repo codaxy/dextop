@@ -25,6 +25,32 @@ Ext.define('Dextop.data.RendererFactory', {
 				return Ext.util.Format.numberRenderer(options.format);
 			},
 
+			time: function (options) {
+			    var format = options.format || Ext.form.field.Time.prototype.format || 'g:i A';
+			    return function (v) {
+			        if (!v)
+			            return v;
+			        return Ext.util.Format.date(v, format);
+			    }
+			},
+
+			date: function (options) {
+			    return Ext.util.Format.dateRenderer(options.format);
+			},
+
+			tpl: function (options) {
+			    var format = options.tpl || options.format;
+			    if (!format)
+			        return Dextop.data.RendererFactory.defaultRenderer;
+
+			    var tpl = new Ext.XTemplate(format);
+			    tpl.compile();			    
+			    return function (value, meta, record) {
+			        var v = tpl.apply(record.data) || '';
+			        return v;
+			    }
+			},
+
 			tooltipTpl: function (options) {
 				var tpl = new Ext.XTemplate(options.tooltipTpl);
 				tpl.compile();

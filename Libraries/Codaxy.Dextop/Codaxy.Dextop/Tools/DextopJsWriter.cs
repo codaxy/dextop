@@ -103,7 +103,7 @@ namespace Codaxy.Dextop.Tools
 				if (value is String)
 				{
 					if (quote)
-						Write("'{0}'", value);
+						Write("'{0}'", ((String)value).Replace("'", "\\'"));
 					else
 						Write(value.ToString());
                 }
