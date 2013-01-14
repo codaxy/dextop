@@ -281,27 +281,24 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
 		this.rowEditing.startEdit(this.store.indexOf(rec), this.rowEditing.firstEditor);
 	},
 
-	formEdit: function (rec, insert) {
-		this.editingOptions = this.editingOptions || {};
-		if (!this.editingOptions.formItemsType)
-			this.editingOptions.formItemsType = this.store.model.modelName.replace('.model.', '.form.');
-		var formEditor = Ext.create('Dextop.ux.FormEditorWindow', Ext.apply({
-			remote: this.remote,
-			data: rec.data,
-			listeners: {
-				scope: this,
-				save: function (w, form, fieldValues) {
-					form.getForm().updateRecord(rec);
-					if (insert) {
-						var index = this.store.getCount();
-						this.store.insert(index, rec);
-					}
-					w.close();
-				}
-			}
-		}, this.editingOptions));
-		formEditor.show();
-	},
+    formEdit: function (rec, insert) {
+        this.editingOptions = this.editingOptions || {};
+        if (!this.editingOptions.formItemsType)
+            this.editingOptions.formItemsType = this.store.model.modelName.replace('.model.', '.form.');
+        var formEditor = Ext.create('Dextop.ux.FormEditorWindow', Ext.apply({
+            remote: this.remote,
+            data: rec.data
+        }, this.editingOptions));
+        formEditor.on('save', function (w, form, fieldValues) {
+            form.getForm().updateRecord(rec);
+            if (insert) {
+                var index = this.store.getCount();
+                this.store.insert(index, rec);
+            }
+            w.close();
+        }, this);
+        formEditor.show();
+    },
 
 	getSelectedRecords: function () {
 		return this.getSelectionModel().getSelection();
