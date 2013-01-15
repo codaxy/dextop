@@ -409,6 +409,9 @@
     <Content Include="source\GridEditorsWindow.cs.html" />
     <Content Include="source\GridEditorsWindow.html" />
     <Content Include="source\GridEditorsWindow.js.html" />
+    <Content Include="source\GridRenderers.cs.html" />
+    <Content Include="source\GridRenderers.html" />
+    <Content Include="source\GridRenderers.js.html" />
     <Content Include="source\GridWindow.cs.html" />
     <Content Include="source\GridWindow.html" />
     <Content Include="source\GridWindow.js.html" />
@@ -418,6 +421,9 @@
     <Content Include="source\HelloRemotingDemo.cs.html" />
     <Content Include="source\HelloRemotingDemo.html" />
     <Content Include="source\HelloRemotingDemo.js.html" />
+    <Content Include="source\JsonGridWindow.cs.html" />
+    <Content Include="source\JsonGridWindow.html" />
+    <Content Include="source\JsonGridWindow.js.html" />
     <Content Include="source\LinkedCombos.cs.html" />
     <Content Include="source\LinkedCombos.html" />
     <Content Include="source\LinkedCombos.js.html" />
@@ -427,6 +433,9 @@
     <Content Include="source\LiveGridWindow.cs.html" />
     <Content Include="source\LiveGridWindow.html" />
     <Content Include="source\LiveGridWindow.js.html" />
+    <Content Include="source\LiveGroupingGridWindow.cs.html" />
+    <Content Include="source\LiveGroupingGridWindow.html" />
+    <Content Include="source\LiveGroupingGridWindow.js.html" />
     <Content Include="source\LoginFormWindow.cs.html" />
     <Content Include="source\LoginFormWindow.html" />
     <Content Include="source\LoginFormWindow.js.html" />
