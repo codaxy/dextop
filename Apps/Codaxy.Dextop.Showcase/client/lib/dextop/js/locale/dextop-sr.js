@@ -17,12 +17,14 @@ Ext.apply(Dextop, {
 });
 
 Ext.apply(Dextop.ux.FormEditorWindow.prototype, {
-	title: 'Izmjena zapisa'
+    title: 'Izmjena zapisa',
 });
 
 Ext.apply(Dextop.ux.SwissArmyGrid.prototype, {
 	confirmDeleteText: 'Jeste li sigurni da želite da obrišete izabrani red?'
 	,pageSizeText: 'Redova:'
 	,pageText: 'Strana:'
+    ,addText: 'Dodavanje zapisa'
+	,editText: 'Izmjena zapisa'
 });
 

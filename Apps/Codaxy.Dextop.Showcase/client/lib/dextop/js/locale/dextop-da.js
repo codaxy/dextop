@@ -27,5 +27,7 @@ Dextop.localize('Dextop.ux.FormEditorWindow', {
 Dextop.localize('Dextop.ux.SwissArmyGrid', {
 	confirmDeleteText: 'Er du sikker på at du vil fjerne det valgte element?'
 	,pageSizeText: 'Størrelse: '
+    ,addText: 'Tilføj element'
+	,editText: 'Rediger element'
 });
 

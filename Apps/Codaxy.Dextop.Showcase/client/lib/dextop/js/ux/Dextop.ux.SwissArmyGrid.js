@@ -4,6 +4,9 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
 
 	model: 'model', //Common name of store and column model as registered on the server side.
 
+	addText: 'Add Record',
+	editText: 'Edit Record',
+
 	editing: undefined, //One of the 'cell', 'row', 'form'	 
 	editingOptions: undefined, //special options to be passed to the editing plugin
 
@@ -286,6 +289,8 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
         if (!this.editingOptions.formItemsType)
             this.editingOptions.formItemsType = this.store.model.modelName.replace('.model.', '.form.');
         var formEditor = Ext.create('Dextop.ux.FormEditorWindow', Ext.apply({
+            title: insert ? this.addText : this.editText,
+            insert: insert,
             remote: this.remote,
             data: rec.data
         }, this.editingOptions));

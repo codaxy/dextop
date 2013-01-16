@@ -23,5 +23,7 @@ Ext.apply(Dextop.ux.FormEditorWindow.prototype, {
 Ext.apply(Dextop.ux.SwissArmyGrid.prototype, {
 	confirmDeleteText: 'Вы уверены, что хотите удалить выбранные записи?'
 	,pageSizeText: 'Длина: '
+    ,addText: 'Добавить запись'
+	,editText: 'Редактировать записи'
 });
 
