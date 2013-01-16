@@ -3,7 +3,6 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
 	alias: 'widget.swissarmygrid',
 
 	model: 'model', //Common name of store and column model as registered on the server side.
-
 	addText: 'Add Record',
 	editText: 'Edit Record',
 
