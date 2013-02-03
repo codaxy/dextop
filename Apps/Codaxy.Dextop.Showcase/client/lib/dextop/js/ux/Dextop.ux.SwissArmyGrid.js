@@ -43,6 +43,8 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
 			delete this.storeOptions;
 		}
 
+		this.addEvents('newrecord');
+
 		this.columnModelOptions = this.columnModelOptions || {};
 		Ext.apply(this.columnModelOptions, {
 			remote: this.remote,
@@ -128,8 +130,14 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
 		return Ext.create('Ext.grid.plugin.RowEditing', this.editingOptions);
 	},
 
+	getNewRecordData: function() {
+	    return {};
+	},
+
 	createNewRecord: function () {
-		return Ext.create(this.store.model, {});
+	    var data = this.getNewRecordData() || {};
+	    this.fireEvent('newrecord', this, data);
+		return Ext.create(this.store.model, data);
 	},
 
 	convertStringActions: function (actions) {
