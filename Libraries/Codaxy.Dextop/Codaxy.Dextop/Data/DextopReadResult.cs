@@ -98,7 +98,7 @@ namespace Codaxy.Dextop.Data
 
         static bool IsAscendingDirection(String direction)
         {
-            return direction.Length == 0 || (direction[0] != 'D' && direction[0] != 'd');
+            return String.IsNullOrEmpty(direction) || (direction[0] != 'D' && direction[0] != 'd');
         }
 
 		static IQueryable<T> ApplySort<T>(IQueryable<T> source, DextopReadFilter filter) where T : class
