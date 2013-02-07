@@ -18,12 +18,12 @@ Ext.define('Dextop.ItemFactory', {
 
 	getItems: function (options) {
 		options = options || {};
-		var copy = Ext.merge({}, this.getDictionary(options), this.itemOverrides, options.apply);
+		var copy = Ext.merge(this.getDictionary(options), this.itemOverrides, options.apply);
 		return this.buildItems(copy);
 	},
 
 	//abstract
 	buildItems: function (dict) {
-		throw 'Dextop.ItemFactory.buildItems method is abstract and therefore should be overriden.';
+		throw 'Dextop.ItemFactory.buildItems method is abstract and therefore it should be overriden.';
 	}
 });

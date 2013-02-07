@@ -13,7 +13,8 @@ Ext.define('Showcase.demos.LogWindow', {
 		this.doLog();
 
 		Ext.apply(this, {
-			items: Ext.create('Dextop.logger.Panel'),
+		    items: Ext.create('Dextop.logger.Panel'),
+            border: false,
 			buttons: [{
 				text: 'Log',
 				handler: this.doLog
