@@ -106,7 +106,7 @@
 	overflow-y: auto;
 	overflow-x: visible;
 	padding: 5px;
-    border: 1px solid gray;
+    border: 1px solid #aaa;
 }
 
 .x-logger-container .x-btn
@@ -250,7 +250,6 @@
 .x-logger-container.x-logger-docked {
 	position: absolute;
 	right: 10px;
-	bottom: 40px;
-	border: solid 1px #aaa;	
+	bottom: 40px;	
 }
 
