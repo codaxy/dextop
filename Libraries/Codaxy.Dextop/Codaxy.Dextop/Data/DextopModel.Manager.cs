@@ -127,8 +127,8 @@ namespace Codaxy.Dextop.Data
                 if (!excludeFields.Contains(p.Name))
                 {
                     var fat = AttributeHelper.GetCustomAttribute<DextopModelFieldAttribute>(p, true) ?? dfat;
-                    String ft;
-                    if (!DextopModelFieldTypeMapper.TryGetFieldTypeName(fieldType, out ft))
+                    String ft, et;
+                    if (!DextopModelFieldTypeMapper.TryGetFieldTypeName(fieldType, out ft, out et))
                     {
                         excludeFields.Add(p.Name);
                         continue;

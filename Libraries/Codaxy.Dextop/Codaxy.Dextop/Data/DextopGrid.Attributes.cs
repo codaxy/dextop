@@ -129,8 +129,8 @@ namespace Codaxy.Dextop.Data
 		/// <returns></returns>
         public virtual DextopGridColumn ToGridHeader(String memberName, Type memberType)
         {
-            string extType;
-            DextopModelFieldTypeMapper.TryGetFieldTypeName(memberType, out extType);
+            string extType, editorType;
+            DextopModelFieldTypeMapper.TryGetFieldTypeName(memberType, out extType, out editorType);
 			return new DextopGridColumn
 			{
 				align = align,
@@ -144,7 +144,7 @@ namespace Codaxy.Dextop.Data
 				tooltip = tooltip,
 				tooltipTpl = tooltipTpl,
                 tpl = tpl,
-				type = type ?? extType,
+                type = type ?? editorType ?? extType,
 				width = NullableUtil.DefaultNull(width, -1),
 				renderer = renderer, 
                 format = format,

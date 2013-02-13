@@ -80,7 +80,7 @@ namespace Codaxy.Dextop.Showcase.Demos.Grids
 			public DateTime? Date { get; set; }
 
 			[DextopGridColumn]
-			public TimeSpan? Time { get; set; }
+			public TimeSpan Time { get; set; }
 
             [DextopGridLookupColumn(tooltipTpl="{Text}")]
 			public Lookup Lookup { get; set; }

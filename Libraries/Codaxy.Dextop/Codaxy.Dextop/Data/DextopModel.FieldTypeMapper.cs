@@ -7,34 +7,34 @@ namespace Codaxy.Dextop.Data
 {
     class DextopModelFieldTypeMapper
     {
-        static Dictionary<Type, String> extFieldType;
+        static Dictionary<Type, Tuple<String, String>> extFieldType;
 
-        static Dictionary<Type, String> GenerateExtFieldTypeMapping()
+        static Dictionary<Type, Tuple<String, String>> GenerateExtFieldTypeMapping()
         {
-            Dictionary<Type, String> res = new Dictionary<Type, string>();
-            res[typeof(string)] = "string";
-            res[typeof(char)] = "string";
-            res[typeof(char?)] = "string";
-            res[typeof(int)] = "int";
-            res[typeof(int?)] = "int";
-            res[typeof(short)] = "int";
-            res[typeof(short?)] = "int";
-            res[typeof(long)] = "int";
-            res[typeof(long?)] = "int";
-            res[typeof(float)] = "float";
-            res[typeof(float?)] = "float";
-            res[typeof(double)] = "float";
-            res[typeof(double?)] = "float";
-            res[typeof(decimal)] = "float";
-            res[typeof(decimal?)] = "float";
-            res[typeof(bool)] = "boolean";
-            res[typeof(bool?)] = "boolean";
-            res[typeof(DateTime)] = "date";
-            res[typeof(DateTime?)] = "date";
-            res[typeof(TimeSpan)] = "time";
-            res[typeof(TimeSpan?)] = "time";
-            res[typeof(Guid)] = "string";
-            res[typeof(Guid?)] = "string";
+            var res = new Dictionary<Type, Tuple<String, String>>();
+            res[typeof(string)] = Tuple.Create("string", "string");
+            res[typeof(char)] = Tuple.Create("string", "string");
+            res[typeof(char?)] = Tuple.Create("string", "string");
+            res[typeof(int)] = Tuple.Create("int", "int");
+            res[typeof(int?)] = Tuple.Create("int", "int");
+            res[typeof(short)] = Tuple.Create("int", "int");
+            res[typeof(short?)] = Tuple.Create("int", "int");
+            res[typeof(long)] = Tuple.Create("int", "int");
+            res[typeof(long?)] = Tuple.Create("int", "int");
+            res[typeof(float)] = Tuple.Create("float", "float");
+            res[typeof(float?)] = Tuple.Create("float", "float");
+            res[typeof(double)] = Tuple.Create("float", "float");
+            res[typeof(double?)] = Tuple.Create("float", "float");
+            res[typeof(decimal)] = Tuple.Create("float", "float");
+            res[typeof(decimal?)] = Tuple.Create("float", "float");
+            res[typeof(bool)] = Tuple.Create("boolean", "boolean");
+            res[typeof(bool?)] = Tuple.Create("boolean", "boolean");
+            res[typeof(DateTime)] = Tuple.Create("date", "boolean");
+            res[typeof(DateTime?)] = Tuple.Create("date", "boolean");
+            res[typeof(TimeSpan)] = Tuple.Create("timestamp", "time");
+            res[typeof(TimeSpan?)] = Tuple.Create("date", "time");
+            res[typeof(Guid)] = Tuple.Create("string", "string");
+            res[typeof(Guid?)] = Tuple.Create("string", "string");
             return res;
         }
 
@@ -44,23 +44,34 @@ namespace Codaxy.Dextop.Data
 		/// <param name="type">The type.</param>
 		/// <param name="typeName">Name of the type.</param>
 		/// <returns>True if type can be mapped to a field.</returns>
-        public static bool TryGetFieldTypeName(Type type, out String typeName)
+        public static bool TryGetFieldTypeName(Type type, out String typeName, out string editorType)
         {
             if (Common.Nullable.IsNullableType(type))
             {
-                return TryGetFieldTypeName(Common.Nullable.GetUnderlyingType(type), out typeName);
+                return TryGetFieldTypeName(Common.Nullable.GetUnderlyingType(type), out typeName, out editorType);
             }
 
             if (type.IsEnum)
             {
                 typeName = "int";
+                editorType = typeName;
                 return true;
             }            
 
             if (extFieldType == null)
                 extFieldType = GenerateExtFieldTypeMapping();
 
-            return extFieldType.TryGetValue(type, out typeName);
+            Tuple<String, String> typeData;
+            if (extFieldType.TryGetValue(type, out typeData))
+            {
+                typeName = typeData.Item1;
+                editorType = typeData.Item2;
+                return true;
+            }
+
+            typeName = null;
+            editorType = null;
+            return false;
         }
 
         /// <summary>
@@ -68,6 +79,6 @@ namespace Codaxy.Dextop.Data
         /// </summary>
 		/// <param name="type">The type.</param>
 		/// <returns>True if type can be mapped to a field.</returns>
-        public static bool HasExtJsFieldType(Type type) { String name; return TryGetFieldTypeName(type, out name); }
+        public static bool HasExtJsFieldType(Type type) { String ft, et; return TryGetFieldTypeName(type, out ft, out et); }
     }
 }

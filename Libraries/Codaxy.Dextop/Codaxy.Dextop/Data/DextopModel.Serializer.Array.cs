@@ -141,11 +141,11 @@ namespace Codaxy.Dextop.Data
             if (value == null)
                 return null;
 
-            if (value is TimeSpan)
-                return new DateTime(2008, 1, 1).Add((TimeSpan)value);
+            if (value is TimeSpan || value is TimeSpan?)
+                return String.Format("{0:HH:mm}", DateTime.Today.Add((TimeSpan)value));            
 
-            if (value is TimeSpan?)
-                return new DateTime(2008, 1, 1).Add((TimeSpan)value);
+            //if (value is TimeSpan?)
+            //    return new DateTime(2008, 1, 1).Add((TimeSpan)value);
 
             return value;
         }
