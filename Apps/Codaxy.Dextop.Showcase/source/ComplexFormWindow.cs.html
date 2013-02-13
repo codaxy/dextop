@@ -19,7 +19,7 @@ namespace Codaxy.Dextop.Showcase.Demos.Forms
             base.InitRemotable(remote, config);
             config[&quot;data&quot;] = new ComplexForm
             {
-                Time = DateTime.Now,
+                Time = DateTime.Now.TimeOfDay,
                 Number = 2,
                 Date = DateTime.Today
             };
@@ -45,7 +45,7 @@ namespace Codaxy.Dextop.Showcase.Demos.Forms
             public DateTime? Date { get; set; }
         
             [DextopFormTimeField( format = &quot;H:i&quot;, minValue = &quot;8:00&quot;, maxValue = &quot;16:00&quot; )]
-            public DateTime Time { get; set; }
+            public TimeSpan Time { get; set; }
 
             [DextopFormNumberField(step = 2, allowDecimals = true, minValue = 0, maxValue = 10)]
             public double Number { get; set; }

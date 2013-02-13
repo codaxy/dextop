@@ -54,10 +54,11 @@ namespace Codaxy.Dextop
                 NullValueHandling = NullValueHandling.Ignore                
             };
 
-			var dateConverter = new DextopDateTimeConverter();
+            jsonSerializer.Converters.Add(new TimeSpanConverter());            
 
+			var dateConverter = new DextopDateTimeConverter();
             jsonSerializer.Converters.Add(dateConverter);
-			jsonSerializer.Converters.Add(new TimeSpanConverter(dateConverter));            
+			
 #if DEBUG
             jsonFormatting = Formatting.Indented;
 #else
