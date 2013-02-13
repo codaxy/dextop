@@ -29,8 +29,8 @@ namespace Codaxy.Dextop.Data
             res[typeof(decimal?)] = Tuple.Create("float", "float");
             res[typeof(bool)] = Tuple.Create("boolean", "boolean");
             res[typeof(bool?)] = Tuple.Create("boolean", "boolean");
-            res[typeof(DateTime)] = Tuple.Create("date", "boolean");
-            res[typeof(DateTime?)] = Tuple.Create("date", "boolean");
+            res[typeof(DateTime)] = Tuple.Create("date", "date");
+            res[typeof(DateTime?)] = Tuple.Create("date", "date");
             res[typeof(TimeSpan)] = Tuple.Create("timestamp", "time");
             res[typeof(TimeSpan?)] = Tuple.Create("date", "time");
             res[typeof(Guid)] = Tuple.Create("string", "string");
