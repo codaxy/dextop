@@ -132,12 +132,14 @@
     <Compile Include="Demos\Forms\LinkedCombos.cs" />
     <Compile Include="Demos\Forms\FileUploadForm.cs" />
     <Compile Include="Demos\Grids\BufferedGrid.cs" />
+    <Content Include="Demos\Grids\GridWidthCollapsibleFormEditor.js" />
     <Compile Include="Demos\Grids\JsonGridWindow.cs" />
     <Compile Include="Demos\Grids\SwissGridWithFormEditor.cs" />
     <Compile Include="Demos\Grids\SwissGrid.cs" />
     <Compile Include="Demos\Live\ChatRoom.cs" />
     <Content Include="Demos\Forms\RemoteLookupCombo.js" />
     <Content Include="Demos\Forms\RemoteLookupCombo.txt" />
+    <Compile Include="Demos\Grids\GridWidthCollapsibleFormEditor.cs" />
     <Content Include="Demos\Grids\JsonGridWindow.js" />
     <Content Include="Demos\Live\ChatRoom.txt" />
     <Compile Include="Demos\Live\LiveGroupingGridWindow.cs" />
@@ -406,6 +408,9 @@
     <Content Include="source\GridEditorsWindow.cs.html" />
     <Content Include="source\GridEditorsWindow.html" />
     <Content Include="source\GridEditorsWindow.js.html" />
+    <Content Include="source\GridWidthCollapsibleFormEditor.cs.html" />
+    <Content Include="source\GridWidthCollapsibleFormEditor.html" />
+    <Content Include="source\GridWidthCollapsibleFormEditor.js.html" />
     <Content Include="source\GridWindow.cs.html" />
     <Content Include="source\GridWindow.html" />
     <Content Include="source\GridWindow.js.html" />
