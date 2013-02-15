@@ -224,7 +224,7 @@ if (Ext.versions.extjs.version < '4.1.1')
 Ext.data.Types.TIMESTAMP = {
     convert: function (v, data) {
         if (v && Ext.isString(v)) {
-            return Ext.Date.parse(v, 'h:i');
+            return Ext.Date.parse(v, 'H:i');
         }
         return v;
     },
