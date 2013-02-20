@@ -1,0 +1,314 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+<meta name="robots" content="noindex">
+</head>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.ns(&#39;Showcase&#39;);
+
+Ext.define(&#39;Showcase.demos.GridWithCollapsibleFormEditor&#39;, {
+    extend: &#39;Dextop.Window&#39;,
+    width: 700,
+    minWidth: 700,
+    height: 400,
+    minHeight: 400,    
+    maximizable: true,
+    minimizable: true,
+    listeners: {
+        &quot;minimize&quot;: function( window, opts ) {
+            window.collapse();
+            window.setWidth( 150 );
+            window.alignTo( Ext.getBody(), &#39;bl-bl&#39;)
+        }                 
+    },
+    tools: [
+        {  
+            type: &#39;restore&#39;,
+            handler: function( evt,toolEl,owner,tool ) {
+                var window = owner.up( &#39;window&#39; );
+                window.setWidth( 700 );   
+                window.expand(&#39;&#39;,false);
+                window.center(); 
+            }                                
+        }                            
+    ],
+
+    title: &#39;Grid + Collapsible Form Editor&#39;,
+    store: undefined,    
+
+    initComponent: function () {
+        this.createStore();
+
+        Ext.apply(this, {
+            layout: &#39;fit&#39;,
+            items: this.createRootPanel()
+        });
+
+        this.callParent(arguments);
+    },    
+
+    actions: function (action) {
+        var grid = Ext.getCmp(&#39;grid&#39;);
+        var form = Ext.getCmp(&#39;editForm&#39;).getForm();
+        var button = Ext.getCmp(&#39;saveOrUpdateButton&#39;);
+        var regionEast = Ext.getCmp(&#39;regionEast&#39;);
+        var selectedRecord = grid.getSelectionModel().getSelection()[0];        
+
+        switch (action) {
+            case &#39;add&#39;:
+                this.resetForm();
+                regionEast.expand();
+                break;
+            case &#39;remove&#39;:
+                regionEast.collapse();
+                this.store.remove(selectedRecord);
+                this.resetForm();                
+                break;
+            case &#39;read&#39;:                
+                button.setText(&#39;Update&#39;);                
+                form.loadRecord(selectedRecord);
+                regionEast.expand();
+                break;
+            case &#39;save&#39;:
+                regionEast.collapse();
+                form.updateRecord();
+                if (button.text == &#39;Save&#39;) {
+                    var index = this.store.getCount();
+                    this.store.insert(index, form.getRecord());
+                }
+                this.resetForm();                
+                break;
+            case &#39;cancel&#39;:
+                regionEast.collapse();
+                this.resetForm();                
+                break;
+        }
+    },
+
+    createForm: function () {
+        var window = this;        
+
+        var formFields = Ext.create(&#39;Showcase.demos.GridWithCollapsibleFormEditor.form.GridModel&#39;).getItems({
+            remote: this.remote            
+        });
+
+        var editForm = Ext.create(&#39;Ext.form.Panel&#39;, {
+            id: &#39;editForm&#39;,
+            border: false,
+            layout: &#39;anchor&#39;,
+            bodyPadding: 10,
+            items: formFields,
+            buttonAlign: &#39;center&#39;,
+            buttons: window.createFormButtons()
+        });
+
+        editForm.getForm().reset();
+        editForm.getForm().loadRecord(Ext.create(this.store.model, {}));
+
+        return editForm;
+    },
+
+    createFormButtons: function () {
+        var window = this;
+
+        var formButtons = [{
+            text: &#39;Save&#39;,
+            id: &#39;saveOrUpdateButton&#39;,
+            formBind: true,
+            scope: this,
+            handler: function () {
+                window.actions(&#39;save&#39;);
+            }
+        }, {
+            text: &#39;Cancel&#39;,
+            formBind: true,
+            scope: this,
+            handler: function () {
+                window.actions(&#39;cancel&#39;);
+            }
+        }];
+
+        return formButtons;
+    },
+
+    createGrid: function () {
+        var window = this;
+        var store = this.store;
+
+        var columns = this.remote.createGridColumns(&#39;model&#39;, {
+            remote: this.remote
+        });
+
+        var grid = Ext.create(&#39;Ext.grid.GridPanel&#39;, {
+            id: &#39;grid&#39;,
+            store: store,
+            columns: columns,
+            border: true,
+            tbar: window.createGridTopBar(),
+            bbar: window.createGridBottomBar(),
+            listeners: {
+                select: function () {
+                    window.actions(&#39;read&#39;);
+                }
+            }
+        });
+
+        return grid;
+    },
+
+    createGridBottomBar: function () {
+        var store = this.store;
+
+        var bottomBar = Ext.create(&#39;Ext.toolbar.Toolbar&#39;, {
+            id: &#39;bottomBar&#39;,
+            enableOverflow: true,
+            items: [
+                &#39;Filters:&#39;,
+                { xtype: &#39;tbspacer&#39;, width: 5 },
+                {
+                    xtype: &#39;textfield&#39;,
+                    enableKeyEvents: true,
+                    id: &#39;filterName&#39;,
+                    emptyText: &#39;(Name)&#39;,
+                    listeners: {
+                        keyup: {
+                            fn: function (field) {                                
+                                store.clearFilter(true);
+                                store.filter([{
+                                    property: &#39;name&#39;,
+                                    value: field.getValue()
+                                }]);
+                            },
+                            buffer: 200
+                        }
+                    }
+                },
+                { xtype: &#39;tbspacer&#39;, width: 5 },
+                {
+                    xtype: &#39;numberfield&#39;,
+                    hideTrigger: true,
+                    enableKeyEvents: true,
+                    id: &#39;filterAge&#39;,
+                    emptyText: &#39;(Age)&#39;,
+                    width: 40,
+                    listeners: {
+                        keyup: function (field) {
+                            store.clearFilter(true);
+                            store.filter([{
+                                property: &#39;age&#39;,
+                                value: field.getValue()
+                            }]);
+                        }
+                    }
+                },
+                {
+                    xtype: &#39;button&#39;,
+                    text: &#39;X&#39;,
+                    tooltip: &#39;Clear all filters&#39;,
+                    handler: function () {
+                        Ext.getCmp(&#39;filterName&#39;).reset();
+                        Ext.getCmp(&#39;filterAge&#39;).reset();
+                        store.clearFilter();
+                    }
+                }
+            ]
+        });
+
+        return bottomBar;
+    },
+
+    createGridTopBar: function () {
+        var window = this;
+
+        var topBar = Ext.create(&#39;Ext.toolbar.Toolbar&#39;, {
+            id: &#39;topBar&#39;,
+            enableOverflow: true,
+            items: [
+                {
+                    xtype: &#39;button&#39;,
+                    iconCls: &#39;add&#39;,
+                    text: &#39;Add&#39;,
+                    scope: this,
+                    handler: function () {
+                        window.actions(&#39;add&#39;);
+                    }
+                },
+                { xtype: &#39;tbspacer&#39;, width: 5 },
+                {
+                    xtype: &#39;button&#39;,
+                    iconCls: &#39;remove&#39;,
+                    text: &#39;Remove&#39;,
+                    scope: this,
+                    handler: function () {
+                        window.actions(&#39;remove&#39;);
+                    }
+                }
+            ]
+        });
+
+        return topBar;
+    },
+
+    createRootPanel: function () {
+        var window = this;
+
+        var rootPanel = Ext.create(&#39;Ext.panel.Panel&#39;, {
+            layout: &#39;border&#39;,
+            id: &#39;rootPanel&#39;,
+            items: [
+                {
+                    title: &#39;Details&#39;,
+                    region: &#39;east&#39;,
+                    layout: &#39;fit&#39;,
+                    id: &#39;regionEast&#39;,
+                    margins: &#39;5 5 5 0&#39;,
+                    width: 250,
+                    minWidth: 250,
+                    split: true,
+                    collapsed: true,
+                    collapsible: true,
+                    items: window.createForm()
+                },
+                {
+                    title: &#39;People&#39;,
+                    region: &#39;center&#39;,
+                    minWidth: 350,
+                    id: &#39;regionCenter&#39;,
+                    xtype: &#39;panel&#39;,
+                    layout: &#39;fit&#39;,
+                    margins: &#39;5 5 5 5&#39;,
+                    items: window.createGrid()
+                }]
+        });
+
+        return rootPanel;
+    },
+
+    createStore: function () {
+        this.store = this.remote.createStore(&#39;model&#39;, {
+            autoLoad: true,
+            autoSync: true,
+            remoteFilter: true,
+            remoteSort: true
+        });
+    },
+
+    resetForm: function () {
+        var grid = Ext.getCmp(&#39;grid&#39;);
+        var form = Ext.getCmp(&#39;editForm&#39;).getForm();
+        var button = Ext.getCmp(&#39;saveOrUpdateButton&#39;);
+
+        grid.getSelectionModel().clearSelections();
+        form.reset();
+        form.loadRecord(Ext.create(this.store.model, {}));
+        button.setText(&#39;Save&#39;);
+    }
+});
+
+</pre>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+</body>
+</html>

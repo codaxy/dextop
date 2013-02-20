@@ -8,7 +8,7 @@ using System.Web;
 
 namespace Codaxy.Dextop.Showcase.Demos.Grids
 {
-    [Demo("GridWidthCollapsibleFormEditor",
+    [Demo("GridWithCollapsibleFormEditor",
         Title = "Grid + Collapsible Form Editor",
         Description = "Grid with collapsible form editor and search filters.",
         Path = "~/Demos/Grids"
@@ -17,7 +17,7 @@ namespace Codaxy.Dextop.Showcase.Demos.Grids
     [TopicDextopGrid]
     [CategoryDemo]
     
-    public class GridWidthCollapsibleFormEditor : DextopWindow
+    public class GridWithCollapsibleFormEditor : DextopWindow
     {
         public override void InitRemotable(DextopRemote remote, DextopConfig config)
         {
@@ -75,26 +75,26 @@ namespace Codaxy.Dextop.Showcase.Demos.Grids
             [DextopModelId]          		
             public int Id { get; set; }            
 			
-			[DextopFormField(anchor="0", allowBlank=false)]
+			[DextopFormField(anchor="100%", allowBlank=false)]
             [DextopGridColumn(flex=1)]
             public String Name { get; set; }
 
-			[DextopFormFieldSet(0, title = "Athletics")]            
-			[DextopFormLookupCombo()]
+			[DextopFormFieldSet(0, title = "Athletics", layout="anchor")]
+            [DextopFormLookupCombo(anchor = "100%")]
             [DextopGridLookupColumn()]
             public Gender Gender { get; set; }
 
-			[DextopFormField()]
+            [DextopFormField(anchor = "100%")]
             [DextopGridColumn()]            
-            public int Age { get; set; }			
+            public int Age { get; set; }
 
-			[DextopFormField()]
+            [DextopFormField(anchor = "100%")]
             [DextopGridColumn()]            
             public int Height { get; set; }
 			
-            [DextopFormFieldSet(0, title="Sports")]
+            [DextopFormFieldSet(0, title="Sports", layout="anchor")]
 			[DextopFormCheckboxGroup(0, vertical= true, columns = 1)]
-			[DextopFormField(boxLabel = "Basketball")]			
+            [DextopFormField(boxLabel = "Basketball")]			
 			public bool Basketball { get; set; }
 
             [DextopFormField(boxLabel = "Football")]			
@@ -137,39 +137,26 @@ namespace Codaxy.Dextop.Showcase.Demos.Grids
             {
                 if (filter.filter != null)
                 {
-                    if (filter.filter[0].property.Equals("name"))
+                    if (filter.filter[0].property == "name")
                     {
                         String queryName = filter.filter[0].value;
 
                         if (queryName.Length >= 1 && queryName.Length <= 2)
                         {
-                            return DextopReadResult.Create(list.Values.Where(gridModel => gridModel.Name.StartsWith(queryName)).ToArray());
+                            return DextopReadResult.Create(list.Values.Where(gridModel => gridModel.Name.StartsWith(queryName, StringComparison.CurrentCultureIgnoreCase)).ToArray());
                         }
                         else if (queryName.Length >= 3)
                         {
-                            return DextopReadResult.Create(list.Values.Where(gridModel => gridModel.Name.Contains(queryName)).ToArray());
+                            return DextopReadResult.Create(list.Values.Where(gridModel => gridModel.Name.IndexOf(queryName, StringComparison.CurrentCultureIgnoreCase) != -1).ToArray());
                         }
                     }
-                    else if (filter.filter[0].property.Equals("age"))
+                    else if (filter.filter[0].property == "age")
                     {
                         int age = Convert.ToInt32(filter.filter[0].value);                        
                         return DextopReadResult.Create(list.Values.Where(gridModel => gridModel.Age.Equals(age)).ToArray());                      
                     }
-                }
-                else if (filter.sort != null)
-                {                    
-                    String property = filter.sort[0].property;                    
-                    if (filter.sort[0].direction.Equals("ASC"))                        
-                    {
-                        return DextopReadResult.Create(list.Values.AsQueryable().OrderBy(property).ToArray());
-                    }
-                    else
-                    {
-                        return DextopReadResult.Create(list.Values.AsQueryable().OrderByDescending(property).ToArray());
-                    }                                    
-                }
-                
-                return DextopReadResult.Create(list.Values.ToArray());
+                }                
+                return DextopReadResult.CreatePage(list.Values.AsQueryable(), filter);                              
             }
         } 
        
