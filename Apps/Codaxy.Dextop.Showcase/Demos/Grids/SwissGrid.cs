@@ -71,8 +71,7 @@ namespace Codaxy.Dextop.Showcase.Demos.Grids
             }
 
             public override IList<GridModel> Update(IList<GridModel> data)
-            {
-                throw new NotImplementedException();
+            {                
                 foreach (var d in data)
                     list[d.Id] = d;
                 return data;
