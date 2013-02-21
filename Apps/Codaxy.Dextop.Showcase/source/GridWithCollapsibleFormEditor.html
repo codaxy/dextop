@@ -1,0 +1,299 @@
+<html>
+<head>
+    <link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+    <link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+    <meta name="robots" content="noindex">    
+</head>
+<body onload="prettyPrint()">
+<h1>Grid With Collapsible Form Editor</h1>
+<p>This demo shows a grid with collapsible form editor and filtering.</p>
+<p>It's a Dextop window with two separate areas in border layout: <a href="http://docs.sencha.com/ext-js/4-1/#!/api/Ext.layout.container.Border" target="_blank">Ext layout border</a>.</p>
+<h3>Window</h3>
+<p>Window has one panel which is created using <em><strong>createRootPanel()</strong></em> function.
+<pre class="prettyprint"><code>createRootPanel: function () {
+    var window = this;
+    
+    var rootPanel = Ext.create('Ext.panel.Panel', {
+        layout: 'border',
+        id: 'rootPanel',
+        items: [
+            {
+                title: 'Details',
+                region: 'east',
+                layout: 'fit',
+                id: 'regionEast',
+                margins: '5 5 5 0',
+                width: 250,
+                minWidth: 250,
+                split: true,
+                collapsed: true,
+                collapsible: true,
+                items: window.createForm()
+            },
+            {
+                title: 'People',
+                region: 'center',
+                minWidth: 350,
+                id: 'regionCenter',
+                xtype: 'panel',
+                layout: 'fit',
+                margins: '5 5 5 5',
+                items: window.createGrid()
+            }]
+    });
+    
+    return rootPanel;
+},</code></pre></p>
+<h3>People area</h3>
+<p>People area ( central region in <em>rootPanel</em> ) contains a grid which is created using <em><strong>createGrid()</strong></em> function.
+<pre class="prettyprint"><code>createGrid: function () {
+    var window = this;
+    var store = this.store;
+
+    var columns = this.remote.createGridColumns('model', {
+        remote: this.remote
+    });
+
+    var grid = Ext.create('Ext.grid.GridPanel', {
+        id: 'grid',
+        store: store,
+        columns: columns,
+        border: true,
+        tbar: window.createGridTopBar(),
+        bbar: window.createGridBottomBar(),
+        listeners: {
+            select: function () {
+                window.actions('read');
+            }
+        }
+    });
+
+    return grid;
+},
+</code></pre></p>
+<p>The <em><strong>grid</strong></em> is sorted and filtered on server side.
+<pre><code class="prettyprint">public override DextopReadResult<GridModel> Read(DextopReadFilter filter)
+{
+    if (filter.filter != null)
+    {
+        if (filter.filter[0].property == "name")
+        {
+            String queryName = filter.filter[0].value;
+
+            if (queryName.Length >= 1 && queryName.Length <= 2)
+            {
+                return DextopReadResult.Create(list.Values.Where(gridModel => gridModel.Name.StartsWith(queryName, StringComparison.CurrentCultureIgnoreCase)).ToArray());
+            }
+            else if (queryName.Length >= 3)
+            {
+                return DextopReadResult.Create(list.Values.Where(gridModel => gridModel.Name.IndexOf(queryName, StringComparison.CurrentCultureIgnoreCase) != -1).ToArray());
+            }
+        }
+        else if (filter.filter[0].property == "age")
+        {
+            int age = Convert.ToInt32(filter.filter[0].value);                        
+            return DextopReadResult.Create(list.Values.Where(gridModel => gridModel.Age.Equals(age)).ToArray());                      
+        }
+    }                
+    return DextopReadResult.CreatePage(list.Values.AsQueryable(), filter);                              
+}</code></pre></p>
+<p>Grids <em>tbar</em> is created using <em><strong>createGridTopBar()</strong></em> function. The <em>tbar</em> contains <em>Add</em> and <em>Remove</em> buttons. When user clicks on <em>Add</em> button, <em>Details</em> area is expanded, showing form with new record. <em>Remove</em> button removes selected record and collapses <em>Details</em> area, if area was expanded.
+<pre><code class="prettyprint">createGridTopBar: function () {
+    var window = this;
+
+    var topBar = Ext.create('Ext.toolbar.Toolbar', {
+        id: 'topBar',
+        enableOverflow: true,
+        items: [
+            {
+                xtype: 'button',
+                iconCls: 'add',
+                text: 'Add',
+                scope: this,
+                handler: function () {
+                    window.actions('add');
+                }
+            },
+            { xtype: 'tbspacer', width: 5 },
+            {
+                xtype: 'button',
+                iconCls: 'remove',
+                text: 'Remove',
+                scope: this,
+                handler: function () {
+                    window.actions('remove');
+                }
+            }
+        ]
+    });
+
+    return topBar;
+},
+</code></pre></p>
+<p>Grids <em>bbar</em> is created using <em><strong>createGridBottomBar()</strong></em> function. The <em>bbar</em> contains two filter fields and clear filters button. First filter field filters by <em>Name</em> column and has a <em>buffer</em> of 200 milliseconds. Second filter field filters by <em>Age</em> column.
+<pre><code class="prettyprint">createGridBottomBar: function () {
+    var store = this.store;
+
+    var bottomBar = Ext.create('Ext.toolbar.Toolbar', {
+        id: 'bottomBar',
+        enableOverflow: true,
+        items: [
+            'Filters:',
+            { xtype: 'tbspacer', width: 5 },
+            {
+                xtype: 'textfield',
+                enableKeyEvents: true,
+                id: 'filterName',
+                emptyText: '(Name)',
+                listeners: {
+                    keyup: {
+                        fn: function (field) {                            
+                            store.clearFilter(true);
+                            store.filter([{
+                                property: 'name',
+                                value: field.getValue()
+                            }]);
+                        },
+                        buffer: 200
+                    }
+                }
+            },
+            { xtype: 'tbspacer', width: 5 },
+            {
+                xtype: 'numberfield',
+                hideTrigger: true,
+                enableKeyEvents: true,
+                id: 'filterAge',
+                emptyText: '(Age)',
+                width: 40,
+                listeners: {
+                    keyup: function (field) {
+                        store.clearFilter(true);
+                        store.filter([{
+                            property: 'age',
+                            value: field.getValue()
+                        }]);
+                    }
+                }
+            },
+            {
+                xtype: 'button',
+                text: 'X',
+                tooltip: 'Clear all filters',
+                handler: function () {
+                    Ext.getCmp('filterName').reset();
+                    Ext.getCmp('filterAge').reset();
+                    store.clearFilter();
+                }
+            }
+        ]
+    });
+
+    return bottomBar;
+},
+</code></pre></p>
+<h3>Details area</h3>
+<p>Details area ( east region in <em>rootPanel</em> ) is collapsible, resizable, collapsed using default and cantains form for editing. Form is created using <em><strong>createForm()</strong></em> function. Form items are created on server.
+<pre><code class="prettyprint">createForm: function () {
+    var window = this;
+
+    var formFields = Ext.create('Showcase.demos.GridWithCollapsibleFormEditor.form.GridModel').getItems({
+        remote: this.remote
+    });
+
+    var editForm = Ext.create('Ext.form.Panel', {
+        id: 'editForm',
+        border: false,
+        layout: 'anchor',
+        bodyPadding: 10,
+        items: formFields,
+        buttonAlign: 'center',
+        buttons: window.createFormButtons()
+    });
+
+    editForm.getForm().reset();
+    editForm.getForm().loadRecord(Ext.create(this.store.model, {}));
+
+    return editForm;
+},
+</code></pre></p>
+<p>The <em>editForm</em> has <em>Save/Update</em> ( name changes based on a action which is called) and <em>Cancel</em> buttons.
+<pre><code class="prettyprint">createFormButtons: function () {
+    var window = this;
+
+    var formButtons = [{
+        text: 'Save',
+        id: 'saveOrUpdateButton',
+        formBind: true,
+        scope: this,
+        handler: function () {
+            window.actions('save');
+        }
+    }, {
+        text: 'Cancel',
+        formBind: true,
+        scope: this,
+        handler: function () {
+            window.actions('cancel');
+        }
+    }];
+
+    return formButtons;
+},
+</code></pre></p>
+<h3>Functions</h3>
+<p>The <em><strong>actions(action)</strong></em> function.
+<pre><code class="prettyprint">actions: function (action) {
+    var grid = Ext.getCmp('grid');
+    var form = Ext.getCmp('editForm').getForm();
+    var button = Ext.getCmp('saveOrUpdateButton');
+    var regionEast = Ext.getCmp('regionEast');
+    var selectedRecord = grid.getSelectionModel().getSelection()[0];        
+
+    switch (action) {
+        case 'add':
+            this.resetForm();
+            regionEast.expand();
+            break;
+        case 'remove':
+            regionEast.collapse();
+            this.store.remove(selectedRecord);
+            this.resetForm();                
+            break;
+        case 'read':                
+            button.setText('Update');                
+            form.loadRecord(selectedRecord);
+            regionEast.expand();
+            break;
+        case 'save':
+            regionEast.collapse();
+            form.updateRecord();
+            if (button.text == 'Save') {
+                var index = this.store.getCount();
+                this.store.insert(index, form.getRecord());
+            }
+            this.resetForm();                
+            break;
+        case 'cancel':
+            regionEast.collapse();
+            this.resetForm();                
+            break;
+    }
+},
+</code></pre></p>
+    <p>The <em><strong>resetForm()</strong></em> function.
+<pre><code class="prettyprint">resetForm: function () {
+    var grid = Ext.getCmp('grid');
+    var form = Ext.getCmp('editForm').getForm();
+    var button = Ext.getCmp('saveOrUpdateButton');
+
+    grid.getSelectionModel().clearSelections();
+    form.reset();
+    form.loadRecord(Ext.create(this.store.model, {}));
+    button.setText('Save');
+}
+</code></pre></p>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+</body>
+</html>
