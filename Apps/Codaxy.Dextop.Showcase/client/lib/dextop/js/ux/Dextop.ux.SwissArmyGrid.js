@@ -97,7 +97,7 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
 	},
 
 	getFirstEditorIndex: function () {
-		for (var i = 0; this.columns.length; i++)
+		for (var i = 0; i < this.columns.length; i++)
 			if (this.columns[i].field)
 				return i;
 	},
