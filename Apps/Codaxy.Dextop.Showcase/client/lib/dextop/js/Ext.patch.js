@@ -187,6 +187,27 @@ if (Ext.versions.extjs.version == '4.1.0')
         }
     });
 
+if (Ext.versions.extjs.version >= '4.1.0')
+    Ext.override(Ext.panel.Panel, {
+        getKeyMap: function () {
+            if (this.keyMap)
+                return this.keyMap;
+            
+            if (Ext.isArray(this.keys)) {
+                this.keyMap = new Ext.util.KeyMap(Ext.apply({
+                    target: this.el,
+                    binding: this.keys
+                }));
+            } else {
+                this.keyMap = new Ext.util.KeyMap(Ext.apply({
+                    target: this.el
+                }, this.keys));
+            }
+            return this.keyMap;
+        }
+    });
+
+
 if (Ext.versions.extjs.version == '4.1.1')
     Ext.override(Ext.form.field.Time, {
         syncSelection: function () {
