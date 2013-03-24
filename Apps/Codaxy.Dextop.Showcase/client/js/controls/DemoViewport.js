@@ -145,14 +145,14 @@ Ext.define('Showcase.DemoViewport', {
 
 	getSorters: function () {
 		var me = this;
-		var buttons = this.query('toolbar sortbutton');
+		var buttons = this.query('toolbar button');
 		var sorters = [];
 		Ext.Array.each(buttons, function (button) {
-			sorters.push({
-				property: button.getDataIndex(),
-				direction: button.getDirection(),
-				transform: me.getSorterTransform(button.getDataIndex())
-			});
+		    if (button.sortData) {
+		        sorters.push(Ext.apply({
+		            transform: me.getSorterTransform(button.sortData.property),
+		        }, button.sortData));
+		    }
 		});
 		return sorters;
 	},
