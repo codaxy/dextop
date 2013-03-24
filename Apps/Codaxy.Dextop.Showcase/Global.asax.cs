@@ -49,11 +49,15 @@ namespace Codaxy.Dextop.Showcase
 #endif
                 var app = new ShowcaseApplication
                 {
-                    Optimize = !debug,
+                    Optimize = debug,
                     PreprocessingEnabled = !debug
                 };
 
-                app.Initialize();
+                using (var bm = new Codaxy.Common.Benchmarking.BenchmarkStopwatch())
+                {
+                    app.Initialize();
+                    Debug.WriteLine("Dextop application init time: " + bm.Elapsed.TotalMilliseconds + " ms");
+                }
                 DextopApplication.RegisterApplication(app);
             }
             catch (Exception ex)

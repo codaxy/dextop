@@ -15,14 +15,8 @@ namespace Codaxy.Dextop.Data
 	/// Assembly preprocessors which generates Models.
 	/// </summary>
     public class DextopModelPreprocessor: IDextopAssemblyPreprocessor
-    {
-		/// <summary>
-		/// Processes the assemblies and generates the code.
-		/// </summary>
-		/// <param name="application">The application.</param>
-		/// <param name="assemblies">The assemblies.</param>
-		/// <param name="outputStream">The output stream.</param>
-        public void ProcessAssemblies(DextopApplication application, IList<Assembly> assemblies, Stream outputStream)
+    {		
+        void IDextopAssemblyPreprocessor.ProcessAssemblies(DextopApplication application, IList<Assembly> assemblies, Stream outputStream, Stream cacheStream)
         {            
 			using (var sw = new StreamWriter(outputStream))
             {
@@ -50,5 +44,15 @@ namespace Codaxy.Dextop.Data
 			jw.WriteObject(model);
 			jw.WriteLine(");");
 		}
+
+        bool IDextopAssemblyPreprocessor.Cachable
+        {
+            get { return false; }
+        }
+
+        void IDextopAssemblyPreprocessor.LoadCache(DextopApplication application, IList<Assembly> assemblies, Stream cacheStream)
+        {
+            throw new NotSupportedException();
+        }
     }
 }

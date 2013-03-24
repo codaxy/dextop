@@ -13,28 +13,6 @@ namespace Codaxy.Dextop.Remoting
 	/// </summary>
     public class DextopEnumPreprocessor : IDextopAssemblyPreprocessor
     {		
-		/// <summary>
-		/// Processes the assemblies and generates the code.
-		/// </summary>
-		/// <param name="application">The application.</param>
-		/// <param name="assemblies">The assemblies.</param>
-		/// <param name="outputStream">The output stream.</param>
-        public void ProcessAssemblies(DextopApplication application, IList<Assembly> assemblies, Stream outputStream)
-        {
-			using (var sw = new StreamWriter(outputStream))
-            {
-                foreach (var assembly in assemblies)
-                {
-					var types = Common.Reflection.AssemblyHelper.GetTypeAttributeDictionaryForAssembly<DextopEnumAttribute>(assembly, false);					
-                    foreach (var type in types)
-						if (type.Key.IsEnum)
-						{
-							WriteType(application, sw, type.Key);
-						}
-                }
-            }
-        }
-
 		Type remotableInterfaceType = typeof(IDextopRemotable);
         Type formSubmitType = typeof(DextopFormSubmit);
 
@@ -63,6 +41,32 @@ namespace Codaxy.Dextop.Remoting
         {
 			var name = application.MapTypeName(type);
 			return name;
+        }
+
+        void IDextopAssemblyPreprocessor.ProcessAssemblies(DextopApplication application, IList<Assembly> assemblies, Stream outputStream, Stream cacheStream)
+        {
+            using (var sw = new StreamWriter(outputStream))
+            {
+                foreach (var assembly in assemblies)
+                {
+                    var types = Common.Reflection.AssemblyHelper.GetTypeAttributeDictionaryForAssembly<DextopEnumAttribute>(assembly, false);
+                    foreach (var type in types)
+                        if (type.Key.IsEnum)
+                        {
+                            WriteType(application, sw, type.Key);
+                        }
+                }
+            }
+        }
+
+        bool IDextopAssemblyPreprocessor.Cachable
+        {
+            get { return false; }
+        }
+
+        void IDextopAssemblyPreprocessor.LoadCache(DextopApplication application, IList<Assembly> assemblies, Stream cacheStream)
+        {
+            throw new NotSupportedException();
         }
     }
 }

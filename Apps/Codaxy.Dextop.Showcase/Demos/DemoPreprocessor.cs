@@ -14,9 +14,10 @@ namespace Codaxy.Dextop.Showcase.Demos
 {
     public class DemoPreprocessor : IDextopAssemblyPreprocessor
     {
-        public void ProcessAssemblies(DextopApplication application, IList<Assembly> assemblies, Stream output)
+        public void ProcessAssemblies(DextopApplication application, IList<Assembly> assemblies, Stream output, Stream cacheStream)
         {            
             using (var tw = new StreamWriter(output))
+            using (var cache = new StreamWriter(cacheStream))
             {
                 DextopJsWriter jw = new DextopJsWriter(tw);
                 var assembly = this.GetType().Assembly;
@@ -56,6 +57,7 @@ namespace Codaxy.Dextop.Showcase.Demos
 
                     jw.CloseBlock();
                     ((ShowcaseApplication)application).RegisterDemo(att.Id, entry.Key);
+                    cache.WriteLine("{0}:{1}", att.Id, entry.Key);
 
                     if (!levels.Contains(level.Name))
                         levels.Add(level.Name);
@@ -98,5 +100,26 @@ namespace Codaxy.Dextop.Showcase.Demos
 			}
 			return Math.Abs(lastWrite.GetHashCode());
 		}
+
+        bool IDextopAssemblyPreprocessor.Cachable
+        {
+            get { return true; }
+        }
+
+        void IDextopAssemblyPreprocessor.LoadCache(DextopApplication application, IList<Assembly> assemblies, Stream cacheStream)
+        {
+            using (var tr = new StreamReader(cacheStream))
+            {
+                String line;
+                while ((line = tr.ReadLine()) != null)
+                {
+                    var colon = line.IndexOf(':');
+                    var id = line.Substring(0, colon);
+                    var type = line.Substring(colon + 1);
+
+                    ((ShowcaseApplication)application).RegisterDemo(id, Type.GetType(type));
+                }
+            }
+        }
     }
 }

@@ -18,13 +18,10 @@ namespace Codaxy.Dextop
 		/// <param name="preprocessors"></param>
 		protected void RegisterStandardAssemblyPreprocessors(string generatedFilesPath, Dictionary<string, IDextopAssemblyPreprocessor> preprocessors)
 		{
+            preprocessors.Add(DextopUtil.CombinePaths(generatedFilesPath, "remote.js"), new DextopRemotingPreprocessor());
+            
             if (!Application.PreprocessingEnabled || Application.PreprocessorMode)
             {
-                preprocessors.Add(DextopUtil.CombinePaths(generatedFilesPath, "remote.js"), new DextopRemotingPreprocessor());
-
-                if (Application.PreprocessingEnabled)
-                    preprocessors.Add(DextopUtil.CombinePaths(generatedFilesPath, "constructors.config"), new DextopRemotableConstructorPreprocessor());
-
                 preprocessors.Add(DextopUtil.CombinePaths(generatedFilesPath, "model.js"), new DextopModelPreprocessor());
                 preprocessors.Add(DextopUtil.CombinePaths(generatedFilesPath, "headers.js"), new DextopGridHeaderPreprocessor());
                 preprocessors.Add(DextopUtil.CombinePaths(generatedFilesPath, "forms.js"), new DextopFormPreprocessor());
@@ -39,10 +36,7 @@ namespace Codaxy.Dextop
         /// <param name="loaders">The loaders.</param>
         protected void RegisterStandardFileLoaders(String generatedFilesPath, Dictionary<String, IDextopFileLoader> loaders)
         {
-            if (Application.PreprocessingEnabled && !Application.PreprocessorMode)
-            {
-                loaders.Add(DextopUtil.CombinePaths(generatedFilesPath, "constructors.config"), new DextopRemotableConstructorLoader());
-            }
+            
         }        
     }
 }

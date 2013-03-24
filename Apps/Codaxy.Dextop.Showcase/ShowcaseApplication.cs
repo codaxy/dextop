@@ -42,10 +42,7 @@ namespace Codaxy.Dextop.Showcase
         {
             base.OnModulesInitialized();
             if (Optimize)
-                OptimizeModules("client/js/cache", !PreprocessorMode);
-
-            if (PreprocessingEnabled && !PreprocessorMode)
-                InitializeDemos();
+                OptimizeModules("client/js/cache", PreprocessingEnabled && !PreprocessorMode);
         }        
 
         public bool Optimize { get; set; }      

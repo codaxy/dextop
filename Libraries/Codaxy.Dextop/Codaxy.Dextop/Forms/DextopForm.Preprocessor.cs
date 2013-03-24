@@ -8,6 +8,7 @@ using Codaxy.Dextop.Tools;
 using Codaxy.Dextop.Data;
 using Codaxy.Common.Globalization;
 using System.Globalization;
+using System.Reflection;
 
 namespace Codaxy.Dextop.Forms
 {
@@ -16,13 +17,7 @@ namespace Codaxy.Dextop.Forms
 	/// </summary>
     public class DextopFormPreprocessor : IDextopAssemblyPreprocessor
     {
-		/// <summary>
-		/// Processes the assemblies and generates the code.
-		/// </summary>
-		/// <param name="application">The application.</param>
-		/// <param name="assemblies">The assemblies.</param>
-		/// <param name="outputStream">The output stream.</param>
-        public void ProcessAssemblies(DextopApplication application, IList<System.Reflection.Assembly> assemblies, Stream outputStream)
+        void IDextopAssemblyPreprocessor.ProcessAssemblies(DextopApplication application, IList<System.Reflection.Assembly> assemblies, Stream outputStream, Stream cacheStream)
         {            
             using (var w = new StreamWriter(outputStream))
             {
@@ -81,6 +76,17 @@ namespace Codaxy.Dextop.Forms
                     jw.WriteLine(";");
                 }
             }            
+        }
+
+
+        bool IDextopAssemblyPreprocessor.Cachable
+        {
+            get { return false; }
+        }
+
+        void IDextopAssemblyPreprocessor.LoadCache(DextopApplication application, IList<Assembly> assemblies, Stream cacheStream)
+        {
+            throw new NotSupportedException();
         }
     }
 }

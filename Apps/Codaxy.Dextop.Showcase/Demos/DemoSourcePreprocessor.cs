@@ -12,7 +12,7 @@ namespace Codaxy.Dextop.Showcase.Demos
 {
     public class DemoSourcePreprocessor : IDextopAssemblyPreprocessor
     {
-        public void ProcessAssemblies(DextopApplication application, IList<Assembly> assemblies, Stream output)
+        public void ProcessAssemblies(DextopApplication application, IList<Assembly> assemblies, Stream output, Stream cache)
         {
             var assembly = this.GetType().Assembly;
             var data = AssemblyHelper.GetTypeAttributeDictionaryForAssembly<DemoAttribute>(assembly, false);
@@ -154,5 +154,15 @@ namespace Codaxy.Dextop.Showcase.Demos
                 return md;
             }
 		}
+
+        bool IDextopAssemblyPreprocessor.Cachable
+        {
+            get { return false; }
+        }
+
+        void IDextopAssemblyPreprocessor.LoadCache(DextopApplication application, IList<Assembly> assemblies, Stream cacheStream)
+        {
+            throw new NotSupportedException();
+        }
     }
 }

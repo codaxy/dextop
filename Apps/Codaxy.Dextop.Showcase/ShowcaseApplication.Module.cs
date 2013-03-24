@@ -37,11 +37,12 @@ namespace Codaxy.Dextop.Showcase
 		{
             if (!Application.PreprocessingEnabled || Application.PreprocessorMode)
             {
-                preprocessors.Add("client/js/generated/demos.js", new Demos.DemoPreprocessor());                
                 preprocessors.Add("source/dummy.txt", new Demos.DemoSourcePreprocessor());
-                preprocessors.Add("client/js/generated/guides.js", new Guides.GuidePreprocessor()); //generated to controls as it's included in project                
-                RegisterStandardAssemblyPreprocessors("client/js/generated/", preprocessors);
+                preprocessors.Add("client/js/generated/guides.js", new Guides.GuidePreprocessor()); //generated to controls as it's included in project                                
             }
+
+            preprocessors.Add("client/js/generated/demos.js", new Demos.DemoPreprocessor());                
+            RegisterStandardAssemblyPreprocessors("client/js/generated/", preprocessors);
 		}
 
         protected override void RegisterLoaders(Dictionary<string, IDextopFileLoader> loaders)

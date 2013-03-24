@@ -38,12 +38,15 @@ namespace Codaxy.Dextop.Data
             return res;
         }
 
-		/// <summary>
-		/// Get an Ext's field type name for a given type.
-		/// </summary>
-		/// <param name="type">The type.</param>
-		/// <param name="typeName">Name of the type.</param>
-		/// <returns>True if type can be mapped to a field.</returns>
+        /// <summary>
+        /// Get an Ext's field type name for a given type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="typeName">Name of the type.</param>
+        /// <param name="editorType">Type of the editor.</param>
+        /// <returns>
+        /// True if type can be mapped to a field.
+        /// </returns>
         public static bool TryGetFieldTypeName(Type type, out String typeName, out string editorType)
         {
             if (Common.Nullable.IsNullableType(type))

@@ -12,33 +12,11 @@ namespace Codaxy.Dextop.Remoting
 	/// Generates remote proxies.
 	/// </summary>
     public class DextopRemotingPreprocessor : IDextopAssemblyPreprocessor
-    {		
-		/// <summary>
-		/// Processes the assemblies and generates the code.
-		/// </summary>
-		/// <param name="application">The application.</param>
-		/// <param name="assemblies">The assemblies.</param>
-		/// <param name="outputStream">The output stream.</param>
-        public void ProcessAssemblies(DextopApplication application, IList<Assembly> assemblies, Stream outputStream)
-        {
-			using (var sw = new StreamWriter(outputStream))
-            {
-                foreach (var assembly in assemblies)
-                {                    
-                    var types = assembly.GetTypes().Where(t => remotableInterfaceType.IsAssignableFrom(t) && remotableInterfaceType != t);
-					HashSet<Type> includedTypes = new HashSet<Type>();
-                    foreach (var type in types)
-                    {
-						WriteType(application, sw, type, includedTypes);
-                    }
-                }
-            }
-        }
-
+    {	
 		Type remotableInterfaceType = typeof(IDextopRemotable);
         Type formSubmitType = typeof(DextopFormSubmit);
 
-		private void WriteType(DextopApplication application, StreamWriter sw, Type type, HashSet<Type> includedTypes)
+		private void WriteType(DextopApplication application, StreamWriter sw, StreamWriter cacheWriter, Type type, HashSet<Type> includedTypes)
 		{
 			if (includedTypes.Contains(type))
 				return;
@@ -48,7 +26,7 @@ namespace Codaxy.Dextop.Remoting
 			var typeName = GetTypeName(application, type);
 
 			if (type.BaseType != null && remotableInterfaceType.IsAssignableFrom(type.BaseType) && type.Assembly == type.BaseType.Assembly)
-				WriteType(application, sw, type.BaseType, includedTypes);
+				WriteType(application, sw, cacheWriter, type.BaseType, includedTypes);
 				
 
 			sw.WriteLine("Ext.define('{0}', {{", typeName);			
@@ -66,14 +44,22 @@ namespace Codaxy.Dextop.Remoting
 
 			bool firstMethod = !constructor;
 
+            var clientTypeName = application.MapTypeName(type);
+
             foreach (var mi in type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance))
             {
                 DextopRemotableAttribute ra;
-                if (AttributeHelper.TryGetAttribute<DextopRemotableAttribute>(mi, out ra, false)) 
+                if (AttributeHelper.TryGetAttribute<DextopRemotableAttribute>(mi, out ra, false))
                 {
-                    ReflectionRemoteMethodInvoker.CacheConstructorInfo(application.MapTypeName(type), mi, ra);
+
+                    ReflectionRemoteMethodInvoker.CacheConstructorInfo(clientTypeName, mi, ra);
+                    var ca = ra as DextopRemotableConstructorAttribute;
+                    if (ca != null)
+                        cacheWriter.WriteLine("{0}:{1}", ca.alias, type.AssemblyQualifiedName);
                 }
             }
+
+            cacheWriter.WriteLine("{0}:{1}", clientTypeName, type.AssemblyQualifiedName);
 
             foreach (var mi in type.GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance))
             {
@@ -145,6 +131,48 @@ namespace Codaxy.Dextop.Remoting
         {
 			var name = application.MapTypeName(type);
 			return DextopUtil.GetRemotingProxyTypeName(name);
+        }
+
+        void IDextopAssemblyPreprocessor.ProcessAssemblies(DextopApplication application, IList<Assembly> assemblies, Stream outputStream, Stream cacheStream)
+        {
+            using (var cacheWriter = new StreamWriter(cacheStream))
+            using (var sw = new StreamWriter(outputStream))
+            {
+                foreach (var assembly in assemblies)
+                {
+                    var types = assembly.GetTypes().Where(t => remotableInterfaceType.IsAssignableFrom(t) && remotableInterfaceType != t);
+                    HashSet<Type> includedTypes = new HashSet<Type>();
+                    foreach (var type in types)
+                    {
+                        WriteType(application, sw, cacheWriter, type, includedTypes);
+                    }
+                }
+            }
+        }
+
+        bool IDextopAssemblyPreprocessor.Cachable
+        {
+            get { return true; }            
+        }
+
+        void IDextopAssemblyPreprocessor.LoadCache(DextopApplication application, IList<Assembly> assemblies, Stream cacheStream)
+        {
+            var invoker = application.RemoteMethodInvoker as ReflectionRemoteMethodInvoker;
+            if (invoker == null)
+                return;
+
+            using (var tr = new StreamReader(cacheStream))
+            {
+                String line;
+                while ((line = tr.ReadLine()) != null)
+                {
+                    var colon = line.IndexOf(':');
+                    var id = line.Substring(0, colon);
+                    var type = line.Substring(colon + 1);
+
+                    invoker.RegisterTypeAlias(id, type);
+                }
+            }
         }
     }
 }

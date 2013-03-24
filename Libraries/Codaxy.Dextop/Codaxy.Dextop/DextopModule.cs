@@ -5,6 +5,7 @@ using System.Text;
 using System.Reflection;
 using System.IO;
 using Codaxy.Dextop.Remoting;
+using System.Diagnostics;
 
 namespace Codaxy.Dextop
 {
@@ -124,41 +125,61 @@ namespace Codaxy.Dextop
 
 		private void PreprocessAssemblies(IList<Assembly> assemblies, Dictionary<String, IDextopAssemblyPreprocessor> preprocessors)
 		{
-			foreach (var p in preprocessors)
-			{
-				byte[] content;
-				using (var s = new MemoryStream())
-				{
-					p.Value.ProcessAssemblies(Application, assemblies, s);
-					content = s.ToArray();
-				}
-				bool write = true;
-				var path = MapPath(p.Key);
+            DateTime assemblyLastWriteTime = DateTime.MinValue;
+            if (SmartOverwrite)
+            {
+                foreach (var a in assemblies)
+                {
+                    var assemblyWriteTime = File.GetLastWriteTime(a.Location);
+                    if (assemblyWriteTime > assemblyLastWriteTime)
+                        assemblyLastWriteTime = assemblyWriteTime;
+                }
+            }
 
-				if (SmartOverwrite)
-				{
-					var fileInfo = new FileInfo(path);
-					if (fileInfo.Exists && fileInfo.Length == content.Length)
-					{
-						//file exists and it's of the same length. 
-						//check byte by byte if files are equal					
-						using (var stream = fileInfo.OpenRead())
-						{
-							bool skip = true;
-							for (var i = 0; i < content.Length; i++)
-								if (content[i] != stream.ReadByte())
-								{
-									skip = false;
-									break;
-								}
-							write = !skip;
-						}
-					}
-				}
+            foreach (var p in preprocessors)
+            {
+                var path = MapPath(p.Key);
+                var fileInfo = new FileInfo(path);
 
-				if (write)
-					File.WriteAllBytes(path, content);
-			}
+                if (SmartOverwrite)
+                {
+                    if (p.Value.Cachable)
+                    {
+                        var cacheInfo = new FileInfo(Path.ChangeExtension(fileInfo.FullName, ".cache"));
+                        if (cacheInfo.Exists && cacheInfo.LastWriteTime > assemblyLastWriteTime)
+                        {
+                            using (var cs = cacheInfo.OpenRead())
+                                try
+                                {
+                                    p.Value.LoadCache(Application, assemblies, cs);
+                                    continue;
+                                }
+                                catch (Exception ex)
+                                {
+                                    Debug.WriteLine(ex);
+                                    //Fallback to assembly processing
+                                }
+                        }
+                    }
+                    else if (fileInfo.Exists && fileInfo.LastWriteTime > assemblyLastWriteTime)
+                        continue;
+
+                }
+
+                Stream cacheStream = null;
+                if (p.Value.Cachable)
+                {
+                    var cacheInfo = new FileInfo(Path.ChangeExtension(fileInfo.FullName, ".cache"));
+                    cacheStream = cacheInfo.OpenWrite();
+                }
+
+                using (cacheStream)
+                using (var ms = fileInfo.OpenWrite())
+                {
+                    ms.SetLength(0);
+                    p.Value.ProcessAssemblies(Application, assemblies, ms, cacheStream);                    
+                }
+            }
 		}
 
         internal IEnumerable<string> PrefixVirtualPath(IEnumerable<string> list)

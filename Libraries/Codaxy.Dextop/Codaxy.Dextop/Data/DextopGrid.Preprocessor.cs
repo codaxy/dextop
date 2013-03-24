@@ -16,13 +16,7 @@ namespace Codaxy.Dextop.Data
 	/// </summary>
     public class DextopGridHeaderPreprocessor : IDextopAssemblyPreprocessor
     {
-		/// <summary>
-		/// Processes the assemblies and generates the code.
-		/// </summary>
-		/// <param name="application">The application.</param>
-		/// <param name="assemblies">The assemblies.</param>
-		/// <param name="outputStream">The output stream.</param>
-        public void ProcessAssemblies(DextopApplication application, IList<Assembly> assemblies, Stream outputStream)
+        void IDextopAssemblyPreprocessor.ProcessAssemblies(DextopApplication application, IList<Assembly> assemblies, Stream outputStream, Stream cacheStream)
         {            
             using (var w = new StreamWriter(outputStream))
             {
@@ -74,6 +68,16 @@ namespace Codaxy.Dextop.Data
                     jw.WriteObject(field);
                     jw.WriteLine(";");
             }
+        }
+
+        bool IDextopAssemblyPreprocessor.Cachable
+        {
+            get { return false; }
+        }
+
+        void IDextopAssemblyPreprocessor.LoadCache(DextopApplication application, IList<Assembly> assemblies, Stream cacheStream)
+        {
+            throw new NotSupportedException();
         }
     }
 }

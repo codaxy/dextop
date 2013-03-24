@@ -12,25 +12,7 @@ namespace Codaxy.Dextop.Showcase
 {
     public partial class ShowcaseApplication
     {   
-        ConcurrentDictionary<String, Type> demoTypes = new ConcurrentDictionary<string, Type>();
-
-        public void InitializeDemos()
-        {
-            try
-            {
-                if (PreprocessingEnabled && !PreprocessorMode)
-                {
-                    var data = AssemblyHelper.GetTypeAttributeDictionaryForAssembly<DemoAttribute>(this.GetType().Assembly, false);
-
-                    foreach (var entry in data)
-                        RegisterDemo(entry.Value.Id, entry.Key);
-                }
-            }
-            catch (ReflectionTypeLoadException ex)
-            {
-                throw ex.LoaderExceptions[0];
-            }
-        }
+        ConcurrentDictionary<String, Type> demoTypes = new ConcurrentDictionary<string, Type>();       
 
         public void RegisterDemo(String id, Type type)
         {

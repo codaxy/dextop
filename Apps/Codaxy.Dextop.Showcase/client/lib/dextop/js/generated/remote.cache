@@ -1,0 +1,8 @@
+Dextop.data.LiveStore:Codaxy.Dextop.Data.DextopLiveStore, Codaxy.Dextop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Dextop.data.Proxy:Codaxy.Dextop.Data.DextopProxy, Codaxy.Dextop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Dextop.RemotableBase:Codaxy.Dextop.DextopRemotableBase, Codaxy.Dextop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Dextop.Panel:Codaxy.Dextop.DextopPanel, Codaxy.Dextop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Dextop.Session:Codaxy.Dextop.DextopSession, Codaxy.Dextop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Dextop.Window:Codaxy.Dextop.DextopWindow, Codaxy.Dextop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Dextop.Window`1:Codaxy.Dextop.DextopWindow`1, Codaxy.Dextop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Dextop.RemotableConfig:Codaxy.Dextop.DextopRemotableConfig, Codaxy.Dextop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null

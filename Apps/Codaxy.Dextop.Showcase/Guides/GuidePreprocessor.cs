@@ -27,7 +27,7 @@ namespace Codaxy.Dextop.Showcase.Guides
 		String OutputPath { get; set; }
 		String BaseSrcPath { get; set; }
 
-		public void ProcessAssemblies(DextopApplication application, IList<Assembly> assemblies, Stream output)
+		public void ProcessAssemblies(DextopApplication application, IList<Assembly> assemblies, Stream output, Stream cache)
 		{
 			BaseSrcPath = DextopUtil.MapPath("~/guides/articles/");
 			OutputPath = DextopUtil.MapPath("~/guides/html/");
@@ -149,7 +149,7 @@ namespace Codaxy.Dextop.Showcase.Guides
                         return "<pre class=\"prettyprint\"><code>" + s + "</code></pre>";
                     }
                 };
-				return markdown.Transform(md);
+                return markdown.Transform(md);
 			}
 			catch
 			{
@@ -176,5 +176,15 @@ namespace Codaxy.Dextop.Showcase.Guides
 				writer.WriteLine("</html>");
 			}
 		}
+
+        bool IDextopAssemblyPreprocessor.Cachable
+        {
+            get { return false; }
+        }
+
+        void IDextopAssemblyPreprocessor.LoadCache(DextopApplication application, IList<Assembly> assemblies, Stream cacheStream)
+        {
+            throw new NotSupportedException();
+        }
     }
 }
