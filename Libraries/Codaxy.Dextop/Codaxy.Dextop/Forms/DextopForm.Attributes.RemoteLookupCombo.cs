@@ -43,9 +43,7 @@ namespace Codaxy.Dextop.Forms
 			res["displayField"] = displayField;
 			res["queryMode"] = "remote";
 			res["minChars"] = minChars;
-			if (valueNotFoundField != null)
-				res["valueNotFoundText"] = new DextopRawJs("options.data['{0}']{1}", valueNotFoundField, valueNotFoundText != null ? String.Format("|| '{0}'", valueNotFoundText) : null);
-			else if (valueNotFoundText != null)
+			if (valueNotFoundText != null)
 				res["valueNotFoundText"] = valueNotFoundText;
 			return res;
 		}
@@ -64,13 +62,8 @@ namespace Codaxy.Dextop.Forms
 		/// <summary>
 		/// The underlying data value name to bind to this ComboBox (defaults to match the value of the displayField config).
 		/// </summary>
-		public String valueField { get; set; }
+		public String valueField { get; set; }		
 		
-		/// <summary>
-		/// Used for record editing. Specifies the field to be used as lookup text when lookup store doesn't contain lookup value.
-		/// </summary>
-        [Obsolete("valueNotFoundField is obsolete. Use initialLookupValueField instead which offers better combo box behaviour.")]
-		public String valueNotFoundField { get; set; }
 		
 		/// <summary>
 		/// When using a name/value combo, if the value passed to setValue is not found in the store, valueNotFoundText will be displayed as the field text if defined (defaults to undefined). If this default text is used, it means there is no value set and no validation will occur on this field.
