@@ -90,6 +90,7 @@
     <Compile Include="DextopAssemblyPreprocessor.Interface.cs" />
     <Compile Include="DextopConfig.cs" />
     <Compile Include="DextopContext.cs" />
+    <Compile Include="DextopUtil.DextopDateTimeConverter.cs" />
     <Compile Include="DextopDependencyResolver.cs" />
     <Compile Include="DextopDependencyResolver.Interface.cs" />
     <Compile Include="DextopEnvironment.cs" />
@@ -133,7 +134,6 @@
     <Compile Include="DextopSession.Notifications.cs" />
     <Compile Include="DextopSession.Remoting.cs" />
     <Compile Include="DextopUtil.cs" />
-    <Compile Include="DextopUtil.DateTimeConverter.cs" />
     <Compile Include="DextopUtil.TimeStampJsonConverter.cs" />
     <Compile Include="DextopWindow.cs" />
     <Compile Include="Forms\DextopForm.Attributes.Checkbox.cs" />

@@ -3,6 +3,7 @@ using System.IO;
 using System.Web;
 using Newtonsoft.Json;
 using System.Globalization;
+using Newtonsoft.Json.Converters;
 
 namespace Codaxy.Dextop
 {
@@ -54,9 +55,8 @@ namespace Codaxy.Dextop
                 NullValueHandling = NullValueHandling.Ignore                
             };
 
-            jsonSerializer.Converters.Add(new TimeSpanConverter());            
-
-			var dateConverter = new DextopDateTimeConverter();
+            jsonSerializer.Converters.Add(new TimeSpanConverter());
+            var dateConverter = new JavaScriptIsoDateTimeConverter();
             jsonSerializer.Converters.Add(dateConverter);
 			
 #if DEBUG

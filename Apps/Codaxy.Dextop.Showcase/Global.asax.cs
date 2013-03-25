@@ -49,7 +49,7 @@ namespace Codaxy.Dextop.Showcase
 #endif
                 var app = new ShowcaseApplication
                 {
-                    Optimize = debug,
+                    Optimize = !debug,
                     PreprocessingEnabled = !debug
                 };
 
