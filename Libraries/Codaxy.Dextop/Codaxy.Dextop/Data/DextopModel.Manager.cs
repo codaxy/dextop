@@ -74,13 +74,18 @@ namespace Codaxy.Dextop.Data
                 throw new DextopException("Model for type '{0}' already registered.", type);
         }
 
-		/// <summary>
-		/// Builds the model for given type.
-		/// </summary>
-		/// <param name="type">The type.</param>
-        /// <param name="modelAttribute">The model attribute.</param>
-		/// <returns></returns>
-        public DextopModel BuildModel(Type type, DextopModelAttribute modelAttribute = null)
+        /// <summary>
+        /// Builds the model for given type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// /// <returns>Dextop Model</returns>
+        public DextopModel BuildModel(Type type)
+        {
+            var attribute = AttributeHelper.GetCustomAttribute<DextopModelAttribute>(type, false);
+            return BuildModel(type, attribute);
+        }
+		
+        internal DextopModel BuildModel(Type type, DextopModelAttribute modelAttribute)
         {
             DextopModelTypeMeta meta;
             
