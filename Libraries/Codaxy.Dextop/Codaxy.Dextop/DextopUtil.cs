@@ -39,6 +39,8 @@ namespace Codaxy.Dextop
                 return path;
             if (path.StartsWith("http", StringComparison.InvariantCultureIgnoreCase))
                 return path;
+            if (path.StartsWith("//", StringComparison.InvariantCultureIgnoreCase))
+                return path;
             return CombinePaths(DextopEnvironment.VirtualAppPath, path);
         }
 
