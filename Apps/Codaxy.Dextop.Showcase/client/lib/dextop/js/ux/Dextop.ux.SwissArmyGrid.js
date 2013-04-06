@@ -50,8 +50,11 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
 			remote: this.remote,
 			checkEditor: this.editing == 'cell'
 		});
-		this.columns = this.remote.createGridColumns(this.columnModelName || this.model, this.columnModelOptions);
-		delete this.columnModelOptions;
+
+		if (!this.columns) {
+		    this.columns = this.remote.createGridColumns(this.columnModelName || this.model, this.columnModelOptions);
+		    delete this.columnModelOptions;
+		}
 
 		this.actionManager = Ext.create('Ext.ux.grid.plugin.ActionManager');
 		this.plugins = Ext.Array.from(this.plugins) || [];
