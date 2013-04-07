@@ -39,5 +39,13 @@ namespace Codaxy.Dextop.Showcase
 			}
 			return base.BuildLookupData(name, out sharing);
 		}
+
+        protected override bool UseApi
+        {
+            get
+            {
+                return true;
+            }
+        }
     }
 }

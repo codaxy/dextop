@@ -16,8 +16,8 @@ namespace Codaxy.Dextop.Showcase
 
         public void RegisterDemo(String id, Type type)
         {
-            if (!typeof(IDextopRemotable).IsAssignableFrom(type))
-                throw new InvalidOperationException(String.Format("Type '{0}' is not valid demo type, as it does not implement IDextopRemotable interface.", id));
+            //if (!typeof(IDextopRemotable).IsAssignableFrom(type))
+            //    throw new InvalidOperationException(String.Format("Type '{0}' is not valid demo type, as it does not implement IDextopRemotable interface.", id));
             if (!demoTypes.TryAdd(id, type))
                 throw new InvalidOperationException(String.Format("Demo with id '{0}' already registered.", id));
         }

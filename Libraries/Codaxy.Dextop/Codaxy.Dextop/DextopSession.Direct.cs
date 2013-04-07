@@ -179,6 +179,11 @@ namespace Codaxy.Dextop
 		/// </summary>		
 		protected virtual bool UsePolling { get { return false; } }
 
+        /// <summary>
+        /// Gets a value indicating whether api handler is used.
+        /// </summary>		
+        protected virtual bool UseApi { get { return false; } }
+
 		/// <summary>
 		/// Gets the polling interval.
 		/// </summary>
@@ -207,6 +212,12 @@ namespace Codaxy.Dextop
                 res["pollingUrl"] = String.Format(urlFormat, "poll");
                 res["pollingInterval"] = PollingInterval;
             }
+
+            if (UseApi)
+            {
+                res["apiUrl"] = "api.ashx";
+            }
+
             return res;
         }       
 

@@ -37,6 +37,7 @@ namespace Codaxy.Dextop
             coreModule.Register("js/",
                 "direct/",
                 "remoting/",
+                "api/",
                 "generated/",
                 "data/",
                 "ux/",

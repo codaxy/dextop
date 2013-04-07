@@ -8,38 +8,9 @@ using Codaxy.Dextop.Remoting;
 
 namespace Codaxy.Dextop.Direct
 {
-    class ActionRequest
-    {
-        public string action
-        {
-            get;
-            set;
-        }
-        public string method
-        {
-            get;
-            set;
-        }
-        public String[] data
-        {
-            get;
-            set;
-        }
-        public int tid
-        {
-            get;
-            set;
-        }
-        public string type
-        {
-            get;
-            set;
-        }
-    }
+    public enum RequestType { Action, FormSubmit }
 
-    enum RequestType { Action, FormSubmit }
-
-    class Request
+    public class Request
     {
         public string action
         {

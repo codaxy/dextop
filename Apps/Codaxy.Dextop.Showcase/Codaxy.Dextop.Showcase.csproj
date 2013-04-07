@@ -118,6 +118,7 @@
     <Content Include="client\lib\dextop\images\icons\refresh.gif" />
     <Content Include="client\lib\dextop\images\icons\save.png" />
     <Content Include="client\lib\dextop\images\logger\sprites.png" />
+    <Content Include="client\lib\dextop\js\api\Controller.js" />
     <Content Include="client\lib\dextop\js\Ext.tweaks.js" />
     <Content Include="client\lib\dextop\js\Form.js" />
     <Content Include="client\lib\dextop\js\locale\ext-patch-da.js" />
@@ -138,6 +139,7 @@
     <Compile Include="Demos\Grids\SwissGridWithFormEditor.cs" />
     <Compile Include="Demos\Grids\SwissGrid.cs" />
     <Compile Include="Demos\Live\ChatRoom.cs" />
+    <Content Include="Demos\Api\FirstApiDemo.js" />
     <Content Include="Demos\Forms\RemoteLookupCombo.js" />
     <Content Include="Demos\Forms\RemoteLookupCombo.txt" />
     <Content Include="Demos\Grids\GridColumnRenderers.js" />
@@ -146,6 +148,7 @@
     <Content Include="Demos\Live\ChatRoom.txt" />
     <Compile Include="Demos\Live\LiveGroupingGridWindow.cs" />
     <Compile Include="Demos\Remoting\FileDownloadDemo.cs" />
+    <Compile Include="Demos\Api\FirstApiDemo.cs" />
     <Compile Include="Demos\Remoting\RemoteInstantiation.cs" />
     <Compile Include="Demos\Remoting\Enums.cs" />
     <Compile Include="Demos\Windows\LogWindow.cs" />
@@ -516,6 +519,10 @@
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\Codaxy.Dextop.Api\Codaxy.Dextop.Api.csproj">
+      <Project>{e7b80e2e-7a4d-4b04-b4f3-ffbba0806ed0}</Project>
+      <Name>Codaxy.Dextop.Api</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Libraries\Codaxy.Dextop\Codaxy.Dextop\Codaxy.Dextop.csproj">
       <Project>{A58493FD-7BD1-42B2-97AE-BBB10D2BAB79}</Project>
       <Name>Codaxy.Dextop</Name>
@@ -537,6 +544,7 @@
   <ItemGroup>
     <Content Include="Demos\Remoting\FileDownloadDemo.zip" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

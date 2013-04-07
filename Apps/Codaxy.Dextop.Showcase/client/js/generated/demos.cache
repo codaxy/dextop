@@ -10,6 +10,7 @@ SwissGrid:Codaxy.Dextop.Showcase.Demos.Grids.SwissGridWindow
 ChatRoom:Codaxy.Dextop.Showcase.Demos.Live.ChatWindow
 LiveGroupingGridWindow:Codaxy.Dextop.Showcase.Demos.Live.LiveGroupingGridWindow
 FileDownloadDemo:Codaxy.Dextop.Showcase.Demos.Remoting.FileDownloadDemoWindow
+FirstApiDemo:Codaxy.Dextop.Showcase.Demos.Remoting.FirstApiDemo
 RemoteInstantiation:Codaxy.Dextop.Showcase.Demos.Remoting.RemoteInstantiationWindow
 Enums:Codaxy.Dextop.Showcase.Demos.Remoting.EnumDemoWindow
 LogWindow:Codaxy.Dextop.Showcase.Demos.Windows.LogWindow

@@ -1,0 +1,57 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+<meta name="robots" content="noindex">
+</head>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.ns(&#39;Showcase&#39;);
+
+Ext.define(&#39;Showcase.demos.Launcher.FirstApiDemo&#39;, {
+    extend: &#39;Showcase.demos.Launcher&#39;,
+    launch: function () {
+        var remoteId = Ext.id();
+        var w = Ext.create(&#39;Showcase.demos.FirstApiDemoWindow&#39;, {});
+        w.show();        
+    }
+});
+
+Ext.define(&#39;Showcase.demos.FirstApiDemoWindow&#39;, {
+	extend: &#39;Ext.window.Window&#39;,	
+	width: 300,
+	height: 200,
+	
+	title: &#39;Dextop API demo&#39;,	
+	
+	initComponent: function () {
+
+	    this.api = Ext.create(&#39;Showcase.demos.FirstApiDemo&#39;, {
+
+	    });
+
+	    Ext.apply(this, {
+            bodyPadding: 10,
+	        items: {
+	            xtype: &#39;button&#39;,
+	            text: &#39;Invoke&#39;,
+	            handler: function () {
+	                this.api.HelloWorld({
+	                    success: function (result) {
+	                        Dextop.infoAlert(result);
+	                    }
+	                });
+	            },
+	            scope: this
+	        }
+	    });
+
+	    this.callParent(arguments);
+	}
+});
+
+</pre>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+</body>
+</html>

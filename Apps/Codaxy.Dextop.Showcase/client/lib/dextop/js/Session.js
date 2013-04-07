@@ -135,6 +135,22 @@ Ext.define('Dextop.Session', {
 			}
 		});
 
+		if (config.apiUrl) {
+		    this.apiProvider = Ext.Direct.addProvider({
+		        id: 'rpc',
+		        url: config.apiUrl,
+		        type: "remoting",
+		        maxRetries: 0,
+		        priority: 0,
+		        "actions": {
+		            "DextopApi": [{
+		                "name": "invoke",
+		                "len": 3
+		            }]
+		        }
+		    });
+		}
+
 		this.fsProvider = Ext.Direct.addProvider({
 			id: 'form',
 			url: config.remotingUrl + '&formSubmit=1',

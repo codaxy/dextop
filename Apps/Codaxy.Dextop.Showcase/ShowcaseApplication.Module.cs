@@ -5,6 +5,7 @@ using System.Web;
 using Codaxy.Dextop.Remoting;
 using Codaxy.Dextop.Data;
 using Codaxy.Dextop.Forms;
+using Codaxy.Dextop.Api;
 
 namespace Codaxy.Dextop.Showcase
 {
@@ -43,6 +44,7 @@ namespace Codaxy.Dextop.Showcase
 
             preprocessors.Add("client/js/generated/demos.js", new Demos.DemoPreprocessor());                
             RegisterStandardAssemblyPreprocessors("client/js/generated/", preprocessors);
+            preprocessors.Add("client/js/generated/controllers.js", new DextopApiPreprocessor());                
 		}
 
         protected override void RegisterLoaders(Dictionary<string, IDextopFileLoader> loaders)

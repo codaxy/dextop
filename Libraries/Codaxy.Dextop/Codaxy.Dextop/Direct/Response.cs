@@ -5,7 +5,7 @@ using System.Web;
 
 namespace Codaxy.Dextop.Direct
 {
-    class Response
+    public class Response
     {
         public string type
         {

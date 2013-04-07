@@ -25,6 +25,7 @@ namespace Codaxy.Dextop.Showcase
             routes.IgnoreRoute("rpc.ashx");
             routes.IgnoreRoute("poll.ashx");
             routes.IgnoreRoute("lpoll.ashx");
+            routes.IgnoreRoute("api.ashx");
 
             routes.MapRoute(
                 "Default", // Route name
