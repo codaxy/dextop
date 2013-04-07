@@ -1,6 +1,7 @@
 ﻿Ext.define('Dextop.api.Controller', {
 
     controllerContext: null,
+    controllerType: null,
 
     constructor: function (config) {
         Ext.apply(this, config);
@@ -16,7 +17,7 @@
         if (handler.setMask)
             handler.setMask();
 
-        DextopApi.invoke(method, Ext.encode(this.controllerContext), this.encodeArguments(args), handler.callback, handler.scope);
+        DextopApi.invoke(this.controllerType, Ext.encode(this.controllerContext), method, this.encodeArguments(args), handler.callback, handler.scope);
     },
 
     encodeArguments: function (a) {

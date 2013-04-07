@@ -5,18 +5,12 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Autofac;
+using Autofac.Builder;
 
 namespace Codaxy.Dextop.Api
 {
     public class DextopApiModule : Autofac.Module
     {
-        private Assembly[] assemblies;
-
-        public DextopApiModule(params Assembly[] assemblies)
-        {
-            this.assemblies = assemblies;
-        }
-
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
@@ -25,7 +19,16 @@ namespace Codaxy.Dextop.Api
                 var lifetimeScope = ctx.Resolve<ILifetimeScope>();
                 return (scope) => new DextopApiControllerFactory(lifetimeScope, scope);
             });
-            builder.RegisterAssemblyTypes(assemblies).Where(t => t.IsAssignableTo<IDextopApiController>()).As<IDextopApiController>();
+            builder.RegisterType<DextopApiInvoker>().As<IDextopApiInvoker>().SingleInstance();
+        }
+    }
+
+    public static class DextopApiRegistration
+    {
+        public static IRegistrationBuilder<object, Autofac.Features.Scanning.ScanningActivatorData, DynamicRegistrationStyle> RegisterApiControllers(this ContainerBuilder builder, params Assembly[] assemblies)
+        {
+            return builder.RegisterAssemblyTypes(assemblies).Where(t => t.IsAssignableTo<IDextopApiController>());
         }
     }
 }
+

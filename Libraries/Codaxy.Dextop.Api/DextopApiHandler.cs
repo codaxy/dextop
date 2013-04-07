@@ -11,19 +11,6 @@ namespace Codaxy.Dextop.Api
 {
     public class DextopApiHandler : IHttpHandler
     {
-        class InvokeResult
-        {
-            public bool success { get; set; }
-            public object result { get; set; }
-        }
-
-        class InvokeException
-        {
-            public string type { get; set; }
-            public string exception { get; set; }
-            public string stackTrace { get; set; }
-        }    
-
         public bool IsReusable
         {
             get { return true; }
@@ -33,35 +20,20 @@ namespace Codaxy.Dextop.Api
         {
             var requests = GetActionRequest(context);
             var responses = new List<Response>();
-            var invoker = DextopApi.Invoker;
+            var invoker = DextopApi.Resolve<IDextopApiInvoker>();
             foreach (var request in requests)
             {
-                InvokeResult result;
-
+                DextopApiInvocationResult result;
                 try
                 {
                     if (invoker == null)
                         throw new DextopException("Dextop API not initialized.");
 
-                    var value = invoker.Invoke(request.data[0], request.data[1], request.data.Skip(2).ToArray());
-
-                    result = new InvokeResult
-                    {
-                        result = value,
-                        success = true
-                    };
+                    result = invoker.Invoke(request.data[0], request.data[1], request.data[2], request.data.Skip(3).ToArray());
                 }
                 catch(Exception ex)
                 {
-                    result = new InvokeResult
-                    {
-                        success = false,
-                        result = new InvokeException
-                        {
-                            exception = ex.Message,
-                            stackTrace = ex.StackTrace
-                        }
-                    };
+                    result = DextopApiInvocationResult.Exception(ex);
                 }
 
                 var response = new Response

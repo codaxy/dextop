@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Diagnostics;
+using Autofac;
+using Codaxy.Dextop.Api;
+using System.Reflection;
 
 namespace Codaxy.Dextop.Showcase
 {
@@ -43,6 +46,8 @@ namespace Codaxy.Dextop.Showcase
                 RegisterGlobalFilters(GlobalFilters.Filters);
                 RegisterRoutes(RouteTable.Routes);
 
+                InitDextopApi();
+
 #if DEBUG
                 var debug = true;
 #else
@@ -67,6 +72,14 @@ namespace Codaxy.Dextop.Showcase
                 HttpRuntime.UnloadAppDomain();
                 throw;
             }
+        }
+
+        private void InitDextopApi()
+        {
+            var builder = new ContainerBuilder();
+            builder.RegisterModule<DextopApiModule>();
+            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+            DextopApi.Initialize(builder.Build());
         }
 
         protected void Application_End()

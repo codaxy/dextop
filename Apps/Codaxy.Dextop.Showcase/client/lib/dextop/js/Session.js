@@ -145,7 +145,7 @@ Ext.define('Dextop.Session', {
 		        "actions": {
 		            "DextopApi": [{
 		                "name": "invoke",
-		                "len": 3
+		                "len": 4
 		            }]
 		        }
 		    });

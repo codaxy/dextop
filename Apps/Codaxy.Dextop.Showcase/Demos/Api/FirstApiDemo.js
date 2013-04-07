@@ -24,18 +24,32 @@ Ext.define('Showcase.demos.FirstApiDemoWindow', {
 
 	    Ext.apply(this, {
             bodyPadding: 10,
-	        items: {
+	        items: [{
 	            xtype: 'button',
 	            text: 'Invoke',
 	            handler: function () {
-	                this.api.HelloWorld({
+	                this.api.Hello({
 	                    success: function (result) {
 	                        Dextop.infoAlert(result);
 	                    }
 	                });
 	            },
 	            scope: this
-	        }
+	        }, {
+	            xtype: 'button',
+	            text: 'Info',
+	            handler: function () {
+	                this.api.Info({});
+	            },
+	            scope: this
+	        }, {
+	            xtype: 'button',
+	            text: 'Error',
+	            handler: function () {
+	                this.api.Error({});
+	            },
+	            scope: this
+	        }]
 	    });
 
 	    this.callParent(arguments);

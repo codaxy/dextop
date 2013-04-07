@@ -16,9 +16,19 @@ namespace Codaxy.Dextop.Showcase.Demos.Remoting
 {
     public class FirstApiDemo : IDextopApiController
     {
-        public string HelloWorld()
+        public string Hello()
         {
             return &quot;Hello World!&quot;;
+        }
+
+        public string Error()
+        {
+            throw new DextopErrorMessageException(&quot;This is an error message.&quot;);
+        }
+
+        public string Info()
+        {
+            throw new DextopInfoMessageException(&quot;This is an info message&quot;);
         }
     }
 }
