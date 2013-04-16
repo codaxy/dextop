@@ -1,0 +1,88 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+<meta name="robots" content="noindex">
+</head>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.ns(&#39;Showcase&#39;);
+
+Ext.define(&#39;Showcase.demos.Launcher.ApiGrid&#39;, {
+    extend: &#39;Showcase.demos.Launcher&#39;,
+    launch: function () {
+        var remoteId = Ext.id();
+        var w = Ext.create(&#39;Showcase.demos.ApiGridWindow&#39;, {});
+        w.show();        
+    }
+});
+
+Ext.define(&#39;Showcase.demos.ApiGridWindow&#39;, {
+	extend: &#39;Ext.window.Window&#39;,	
+	width: 500,
+	height: 200,
+    border: false,
+	title: &#39;Grid demo using Dextop API&#39;,	
+	
+	initComponent: function () {
+
+	    var store = Ext.create(&#39;Ext.data.Store&#39;, {
+	        autoLoad: true,
+	        model: &#39;Showcase.demos.ApiGrid.model.GridModel&#39;,
+	        proxy:  {
+	            type: &#39;api&#39;,
+	            api: Ext.create(&#39;Showcase.demos.ApiGrid&#39;, {})
+	        }
+	    });
+
+	    var columns = Dextop.createGridColumns(&#39;Showcase.demos.ApiGrid.columns.GridModel&#39;, {
+	        checkEditor: true
+	    });
+
+	    cellEditor = new Ext.grid.plugin.CellEditing({
+	        clicksToEdit: 1
+	    });
+
+	    var grid = Ext.create(&#39;Ext.grid.GridPanel&#39;, {
+	        store: store,
+	        columns: columns,
+	        plugins: [cellEditor],
+	        tbar: [{
+	            text: &#39;Add&#39;,
+	            scope: this,
+	            handler: function () {
+	                var rec = Ext.create(store.model, {});
+	                store.insert(0, rec);
+	                cellEditor.startEditByPosition({ row: 0, column: 1 }); //changes all the time
+	            }
+	        }, &#39;-&#39;, {
+	            text: &#39;Remove&#39;,
+	            scope: this,
+	            handler: function () {
+	                var s = grid.getSelectionModel().getSelection();
+	                for (var i = 0; i &lt; s.length; i++)
+	                    store.remove(s[i]);
+	            }
+	        }, &#39;-&#39;, {
+	            text: &#39;Save&#39;,
+	            scope: this,
+	            handler: function () {
+	                store.sync();
+	            }
+	        }]
+	    });
+
+	    Ext.apply(this, {
+	        layout: &#39;fit&#39;,
+	        items: grid
+	    });
+
+	    this.callParent(arguments);
+	}
+});
+
+</pre>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+</body>
+</html>

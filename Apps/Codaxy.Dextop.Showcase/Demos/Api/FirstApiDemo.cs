@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Codaxy.Dextop.Api;
+using Codaxy.Dextop.Data;
 
 namespace Codaxy.Dextop.Showcase.Demos.Remoting
 {

@@ -126,6 +126,7 @@
     <Content Include="client\lib\dextop\images\icons\save.png" />
     <Content Include="client\lib\dextop\images\logger\sprites.png" />
     <Content Include="client\lib\dextop\js\api\Controller.js" />
+    <Content Include="client\lib\dextop\js\api\Proxy.js" />
     <Content Include="client\lib\dextop\js\Ext.tweaks.js" />
     <Content Include="client\lib\dextop\js\Form.js" />
     <Content Include="client\lib\dextop\js\locale\ext-patch-da.js" />
@@ -136,6 +137,7 @@
     <Content Include="client\lib\dextop\js\ux\Ext.ux.FilteredCombo.js" />
     <Content Include="client\lib\dextop\js\ux\Ext.ux.grid.plugin.AutoSelect.js" />
     <Content Include="client\lib\dextop\js\ux\Ext.ux.KeyMapPlugin.js" />
+    <Compile Include="Demos\Api\ApiGrid.cs" />
     <Compile Include="Demos\Forms\AppendedItems.cs" />
     <Compile Include="Demos\Forms\RemoteLookupCombo.cs" />
     <Compile Include="Demos\Forms\LinkedCombos.cs" />
@@ -146,6 +148,7 @@
     <Compile Include="Demos\Grids\SwissGridWithFormEditor.cs" />
     <Compile Include="Demos\Grids\SwissGrid.cs" />
     <Compile Include="Demos\Live\ChatRoom.cs" />
+    <Content Include="Demos\Api\ApiGrid.js" />
     <Content Include="Demos\Api\FirstApiDemo.js" />
     <Content Include="Demos\Forms\RemoteLookupCombo.js" />
     <Content Include="Demos\Forms\RemoteLookupCombo.txt" />

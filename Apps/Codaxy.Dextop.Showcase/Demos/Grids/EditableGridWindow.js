@@ -57,6 +57,5 @@ Ext.define('Showcase.demos.EditableGridWindow', {
 		});
 
 		this.callParent(arguments);
-
 	}
 });

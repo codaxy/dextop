@@ -1,0 +1,56 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+<meta name="robots" content="noindex">
+</head>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using Codaxy.Dextop.Api;
+using Codaxy.Dextop.Data;
+
+namespace Codaxy.Dextop.Showcase.Demos.Remoting
+{
+    public class ApiGrid : IDextopApiController
+    {
+        [DextopModel]
+        [DextopGrid]
+        class GridModel
+        {
+            [DextopModelId]
+            [DextopGridColumn(width = 50, readOnly = true)]
+            public int Id { get; set; }
+
+            [DextopGridColumn(flex = 1)]
+            public String FirstName { get; set; }
+
+            [DextopGridColumn(flex = 1)]
+            public String LastName { get; set; }
+
+            [DextopGridColumn(flex = 1, readOnly = true)]            
+            public String FullName { get { return FirstName + &quot; &quot; + LastName; } }
+
+            [DextopGridColumn(width = 50)]
+            public int Age { get; set; }
+
+            [DextopGridColumn(width = 50)]
+            public int Height { get; set; }
+
+            [DextopGridColumn]
+            public bool Basketball { get; set; }
+
+            [DextopGridColumn]
+            public bool Football { get; set; }
+        }
+    }
+}
+
+</pre>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+</body>
+</html>
