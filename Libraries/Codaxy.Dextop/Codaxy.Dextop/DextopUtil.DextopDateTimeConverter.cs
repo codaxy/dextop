@@ -12,7 +12,7 @@ namespace Newtonsoft.Json.Converters
     /// </summary>
     public class JavaScriptIsoDateTimeConverter : IsoDateTimeConverter
     {
-        private const string DefaultDateTimeFormat = "yyyy'/'MM'/'dd' 'HH':'mm':'ss.FFFFFFF";
+        private const string DefaultDateTimeFormat = "yyyy'/'MM'/'dd' 'HH':'mm':'ss";
 
         /// <summary>
         /// Writes the JSON representation of the object.
