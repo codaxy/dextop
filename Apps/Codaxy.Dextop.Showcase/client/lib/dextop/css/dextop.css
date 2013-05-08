@@ -20,20 +20,23 @@
 .msg .x-box-mc {
 	font-size:14px;
 }
+
 #msg-div {
 	position:absolute;
-	left:35%;
+    width: 100%;
+    text-align: center;
 	top:10px;
-	width:300px;
 	z-index:20000;
 }
 
 #msg-div .msg {
+    text-align: left;
+    width: 300px;
 	border-radius: 8px;
 	-moz-border-radius: 8px;
 	background: #F6F6F6;
 	border: 2px solid #ccc;
-	margin-top: 2px;
+	margin: 2px auto 0 auto;
 	padding: 10px 15px;
 	color: #555;
 }
