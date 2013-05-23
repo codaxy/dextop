@@ -21,9 +21,6 @@ Ext.define(&#39;Showcase.demos.FileUploadFormWindow&#39;, {
                 xtype: &#39;form&#39;,
                 bodyStyle: &#39;padding: 10px&#39;,
                 autoHeight: true,
-                api: {
-                    submit: Ext.bind(this.submit, this)
-                },
                 border: false,
                 fieldDefaults: {
                     labelAlign: &#39;top&#39;  
@@ -40,7 +37,7 @@ Ext.define(&#39;Showcase.demos.FileUploadFormWindow&#39;, {
                     text: &#39;Send&#39;,
                     scope: this,
                     handler: function () {                       
-                        this.submit();
+                        this.doSubmit();
                     }
                 }]
             }]
@@ -48,7 +45,7 @@ Ext.define(&#39;Showcase.demos.FileUploadFormWindow&#39;, {
         this.callParent(arguments);
     },
 
-    submit: function (form) {
+    doSubmit: function () {
         var f = this.down(&#39;form&#39;).getForm();
         this.remote.SubmitForm(f, {
             type: &#39;alert&#39;,

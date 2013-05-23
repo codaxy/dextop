@@ -156,7 +156,7 @@ Ext.define("Dextop.remoting.Proxy", {
 			var submitAction = Ext.create('Ext.form.action.Submit', {
 				form: form
 			});
-			formEl = submitAction.buildForm();
+			formEl = submitAction.buildForm().formEl;
 			fieldValues = form.getFieldValues();
 			injectedForm = true;
 		}

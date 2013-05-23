@@ -13,9 +13,6 @@
                 xtype: 'form',
                 bodyStyle: 'padding: 10px',
                 autoHeight: true,
-                api: {
-                    submit: Ext.bind(this.submit, this)
-                },
                 border: false,
                 fieldDefaults: {
                     labelAlign: 'top'  
@@ -32,7 +29,7 @@
                     text: 'Send',
                     scope: this,
                     handler: function () {                       
-                        this.submit();
+                        this.doSubmit();
                     }
                 }]
             }]
@@ -40,7 +37,7 @@
         this.callParent(arguments);
     },
 
-    submit: function (form) {
+    doSubmit: function () {
         var f = this.down('form').getForm();
         this.remote.SubmitForm(f, {
             type: 'alert',
