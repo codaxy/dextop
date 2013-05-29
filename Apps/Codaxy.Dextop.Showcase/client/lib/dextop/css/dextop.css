@@ -23,15 +23,14 @@
 
 #msg-div {
 	position:absolute;
-    width: 100%;
-    text-align: center;
+    width: 300px;
+    left: 50%;
+    margin-left: -150px;
 	top:10px;
 	z-index:20000;
 }
 
 #msg-div .msg {
-    text-align: left;
-    width: 300px;
 	border-radius: 8px;
 	-moz-border-radius: 8px;
 	background: #F6F6F6;
@@ -40,6 +39,7 @@
 	padding: 10px 15px;
 	color: #555;
 }
+
 
 #msg-div .msg.warning
 {
