@@ -45,6 +45,7 @@ namespace Codaxy.Dextop.Remoting
 			bool firstMethod = !constructor;
 
             var clientTypeName = application.MapTypeName(type);
+            var routes = new List<String>();
 
             foreach (var mi in type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance))
             {
@@ -55,7 +56,11 @@ namespace Codaxy.Dextop.Remoting
                     ReflectionRemoteMethodInvoker.CacheConstructorInfo(clientTypeName, mi, ra);
                     var ca = ra as DextopRemotableConstructorAttribute;
                     if (ca != null)
+                    {
                         cacheWriter.WriteLine("{0}:{1}", ca.alias, type.AssemblyQualifiedName);
+                        if (!String.IsNullOrEmpty(ca.route))
+                            cacheWriter.WriteLine("{0}{1}:{2}", routePrefix, ca.alias, type.AssemblyQualifiedName);
+                    }
                 }
             }
 
@@ -155,6 +160,8 @@ namespace Codaxy.Dextop.Remoting
             get { return true; }            
         }
 
+        const string routePrefix = "route-";
+
         void IDextopAssemblyPreprocessor.LoadCache(DextopApplication application, IList<Assembly> assemblies, Stream cacheStream)
         {
             var invoker = application.RemoteMethodInvoker as ReflectionRemoteMethodInvoker;
@@ -170,7 +177,10 @@ namespace Codaxy.Dextop.Remoting
                     var id = line.Substring(0, colon);
                     var type = line.Substring(colon + 1);
 
-                    invoker.RegisterTypeAlias(id, type);
+                    if (id.StartsWith(routePrefix))
+                        invoker.RegisterTypeRoute(id.Substring(routePrefix.Length), type);
+                    else
+                        invoker.RegisterTypeAlias(id, type);
                 }
             }
         }

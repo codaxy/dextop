@@ -23,5 +23,11 @@ namespace Codaxy.Dextop.Remoting
         /// Alternative, friendly class name.
         /// </summary>
         public string alias { get; set; }
+
+
+        /// <summary>
+        /// Constructor route. e.g. order/{orderId}/items. Route parameters must match constructor arguments.
+        /// </summary>
+        public string route { get; set; }
     }
 }

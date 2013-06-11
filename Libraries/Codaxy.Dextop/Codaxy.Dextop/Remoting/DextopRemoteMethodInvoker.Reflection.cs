@@ -5,6 +5,7 @@ using System.Text;
 using System.Reflection;
 using System.Collections.Concurrent;
 using Codaxy.Common.Reflection;
+using Codaxy.Dextop.Util;
 
 namespace Codaxy.Dextop.Remoting
 {
@@ -51,10 +52,17 @@ namespace Codaxy.Dextop.Remoting
                 return ConstructorArgments.Array;
             }
         }
+
+        public class ConstructorRoute
+        {
+            public DextopRoute Route { get; set; }
+            public String TypeName { get; set; }
+        }
         
         readonly static ConcurrentDictionary<String, RemotableMethod> methodCache = new ConcurrentDictionary<string, RemotableMethod>();
         readonly static ConcurrentDictionary<String, List<RemotableConstructor>> constructorCache = new ConcurrentDictionary<string, List<RemotableConstructor>>();
         readonly static ConcurrentDictionary<String, String> constructorAliasType = new ConcurrentDictionary<string, string>();
+        readonly static ConcurrentDictionary<String, ConstructorRoute> Routes = new ConcurrentDictionary<string, ConstructorRoute>();
 
         RemotableMethod GetMethod(Type type, String methodName)
         {
@@ -97,6 +105,18 @@ namespace Codaxy.Dextop.Remoting
             var ca = att as DextopRemotableConstructorAttribute;
             if (ca != null && ca.alias != null && ca.alias != typeName)
                 CacheRemotableConstructor(ca.alias, m);
+
+            if (ca != null && ca.route != null)
+                CacheConstructorRoute(ca.route, typeName);
+        }
+
+        private static void CacheConstructorRoute(string route, string typeName)
+        {
+            Routes.TryAdd(route.ToLower(), new ConstructorRoute
+            {
+                Route = new DextopRoute(route),
+                TypeName = typeName
+            });
         }
 
         static void CacheRemotableConstructor(String aliasOrTypeName, RemotableConstructor c)
@@ -367,6 +387,11 @@ namespace Codaxy.Dextop.Remoting
                 if (constructorAliasType.TryGetValue(alias, out oldTypeName) && oldTypeName != fullTypeName)
                     throw new DextopException("Cannot register types '{0}' and '{1}' under the same alias '{2}'.", oldTypeName, fullTypeName, alias);
             }
+        }
+
+        internal void RegisterTypeRoute(string route, string fullTypeName)
+        {
+            CacheConstructorRoute(route, fullTypeName);
         }
     }
 }

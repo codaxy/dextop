@@ -171,6 +171,7 @@
     <Compile Include="Tools\DextopJsWriter.cs" />
     <Compile Include="Tools\DextopFileUtil.cs" />
     <Compile Include="Tools\NullableUtil.cs" />
+    <Compile Include="Util\DextopRoute.cs" />
     <Compile Include="Util\LongPollingQueue.cs" />
   </ItemGroup>
   <ItemGroup>

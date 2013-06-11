@@ -113,7 +113,6 @@
     <Content Include="client\js\cache\dextop-core.locale-da.js" />
     <Content Include="client\js\cache\dextop-core.locale-ru.js" />
     <Content Include="client\js\cache\dextop-core.locale-sr.js" />
-    <Content Include="client\js\cache\ext-dataview-pack.js" />
     <Content Include="client\js\cache\showcase-app.js" />
     <Content Include="client\js\cache\showcase-demos.js" />
     <Content Include="client\js\cache\sound-scripts.js" />
