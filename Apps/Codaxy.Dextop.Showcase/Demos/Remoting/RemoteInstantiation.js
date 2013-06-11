@@ -98,6 +98,22 @@
 						}
 					});
 				}
+			}, {
+			    text: 'Using a constructor route',
+			    handler: function () {
+			        Dextop.getSession().remote.Instantiate('rinstant/param', null, {
+			            type: 'alert',
+			            scope: this,
+			            success: function (config) {
+			                var win = Dextop.create(config, {
+			                    modal: true,
+			                    x: this.x + 50,
+			                    y: this.y + 50
+			                });
+			                win.show();
+			            }
+			        });
+			    }
 			}]
 		});
 		this.callParent(arguments);

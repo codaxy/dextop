@@ -7,27 +7,32 @@ namespace Codaxy.Dextop.Util
 {
     public class DextopRoute
     {
-        String[] parts { get; set; }
+        String[] routeParts { get; set; }
+
+        public static string[] GetRouteElements(string url)
+        {
+            return url.Split('/');
+        }
         
         public DextopRoute(String url)
         {
-            parts = url.Split('/');
+            routeParts = GetRouteElements(url);
         }
 
         public bool Match(string[] elements, out DextopConfig matchedParams)
         {
             matchedParams = null;
-            if (elements.Length != parts.Length)
+            if (elements.Length != routeParts.Length)
                 return false;
             matchedParams = new DextopConfig();
 
             for (var i = 0; i < elements.Length; i++)
             {
                 String name;
-                if (String.Compare(elements[i], parts[i], true) == 0)
+                if (String.Compare(elements[i], routeParts[i], true) == 0)
                     continue;
 
-                if (!IsPlaceholder(elements[i], out name))
+                if (!IsPlaceholder(routeParts[i], out name))
                     return false;
 
                 matchedParams[name] = elements[i];
@@ -46,5 +51,7 @@ namespace Codaxy.Dextop.Util
             name = null;
             return false;
         }
+
+        
     }
 }

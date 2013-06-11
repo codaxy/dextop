@@ -28,6 +28,12 @@ namespace Codaxy.Dextop.Showcase.Demos.Remoting
             title = String.Format(&quot;[{0} {1}]&quot;, a, b);
         }
 
+        [DextopRemotableConstructor(route = &quot;rinstant/{routeParam}&quot;)]
+        public RemoteInstantiationWindow(String routeParam)
+        {
+            title = &quot;Route with param: &quot; + routeParam;
+        }
+
         [DextopRemotable]
         public RemoteInstantiationWindow(DextopConfig dc)
         {

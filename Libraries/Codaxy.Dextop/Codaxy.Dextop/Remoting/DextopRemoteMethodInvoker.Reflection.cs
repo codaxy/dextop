@@ -203,7 +203,7 @@ namespace Codaxy.Dextop.Remoting
             public bool? subRemote { get; set; }
             public string type { get; set; }
             public string remoteId { get; set; }
-            public bool? own { get; set; }
+            public bool? own { get; set; } 
         }
 
         DextopRemoteMethodInvokeResult Instantiate(IDextopRemotable target, String[] arguments)
@@ -235,9 +235,17 @@ namespace Codaxy.Dextop.Remoting
                 List<RemotableConstructor> constructors;
 
                 if (!constructorCache.TryGetValue(options.type, out constructors))
-                    constructors = LoadRemotableConstructors(options.type);
+                {
+                    String typeName;
+                    DextopConfig routeParams;
+                    if (MatchRoutes(options.type, out typeName, out routeParams))
+                        return Instantiate(target, new[] { typeName, DextopUtil.Encode(routeParams) });
 
-                if (constructors.Count==0)
+                    if (constructors==null || constructors.Count == 0)
+                        constructors = LoadRemotableConstructors(options.type);
+                }
+
+                if (constructors == null || constructors.Count == 0)
                     throw new InvalidDextopRemoteMethodCallException();
                 
                 object[] args;
@@ -354,6 +362,22 @@ namespace Codaxy.Dextop.Remoting
                     Exception = ex
                 };
             }
+        }
+
+        private bool MatchRoutes(string alias, out string typeName, out DextopConfig config)
+        {
+            var elements = DextopRoute.GetRouteElements(alias);
+            foreach (var route in Routes.Values)
+                if (route.Route.Match(elements, out config))
+                {
+                    typeName = route.TypeName;
+                    return true;
+                }
+
+
+            typeName = null;
+            config = null;
+            return false;
         }
 
         private List<RemotableConstructor> LoadRemotableConstructors(string alias)

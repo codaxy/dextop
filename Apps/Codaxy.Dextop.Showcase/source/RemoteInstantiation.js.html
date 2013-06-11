@@ -106,6 +106,22 @@ Ext.define(&#39;Showcase.demos.RemoteInstantiationWindow&#39;, {
 						}
 					});
 				}
+			}, {
+			    text: &#39;Using a constructor route&#39;,
+			    handler: function () {
+			        Dextop.getSession().remote.Instantiate(&#39;rinstant/param&#39;, null, {
+			            type: &#39;alert&#39;,
+			            scope: this,
+			            success: function (config) {
+			                var win = Dextop.create(config, {
+			                    modal: true,
+			                    x: this.x + 50,
+			                    y: this.y + 50
+			                });
+			                win.show();
+			            }
+			        });
+			    }
 			}]
 		});
 		this.callParent(arguments);

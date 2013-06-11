@@ -11,6 +11,8 @@ Showcase.demos.ChatWindow:Codaxy.Dextop.Showcase.Demos.Live.ChatWindow, Codaxy.D
 Showcase.demos.LiveGroupingGridWindow:Codaxy.Dextop.Showcase.Demos.Live.LiveGroupingGridWindow, Codaxy.Dextop.Showcase, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Showcase.demos.FileDownloadDemoWindow:Codaxy.Dextop.Showcase.Demos.Remoting.FileDownloadDemoWindow, Codaxy.Dextop.Showcase, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 rinstant:Codaxy.Dextop.Showcase.Demos.Remoting.RemoteInstantiationWindow, Codaxy.Dextop.Showcase, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+:Codaxy.Dextop.Showcase.Demos.Remoting.RemoteInstantiationWindow, Codaxy.Dextop.Showcase, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+route-:Codaxy.Dextop.Showcase.Demos.Remoting.RemoteInstantiationWindow, Codaxy.Dextop.Showcase, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Showcase.demos.RemoteInstantiationWindow:Codaxy.Dextop.Showcase.Demos.Remoting.RemoteInstantiationWindow, Codaxy.Dextop.Showcase, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Showcase.demos.EnumDemoWindow:Codaxy.Dextop.Showcase.Demos.Remoting.EnumDemoWindow, Codaxy.Dextop.Showcase, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Showcase.demos.LogWindow:Codaxy.Dextop.Showcase.Demos.Windows.LogWindow, Codaxy.Dextop.Showcase, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
