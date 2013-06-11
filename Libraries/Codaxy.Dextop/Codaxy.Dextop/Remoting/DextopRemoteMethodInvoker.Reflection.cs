@@ -313,7 +313,7 @@ namespace Codaxy.Dextop.Remoting
                         {
                             String argString;
                             if (configs.TryGetValue(c.Args[i].Name, out argString))
-                                args[i] = DextopUtil.Decode(argString, c.Args[i].ParameterType);
+                                args[i] = DextopUtil.DecodeValue(argString, c.Args[i].ParameterType);
                         }
                     }
                 }
@@ -384,8 +384,13 @@ namespace Codaxy.Dextop.Remoting
         {
             String typeName;
             if (!constructorAliasType.TryGetValue(alias, out typeName))
-                throw new InvalidDextopRemoteMethodCallException();
+                typeName = alias;
+
             var type = Type.GetType(typeName);
+
+            if (type == null)
+                throw new InvalidDextopRemoteMethodCallException();
+            
             foreach (var mi in type.GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance))
             {
                 DextopRemotableAttribute ra;
@@ -394,8 +399,10 @@ namespace Codaxy.Dextop.Remoting
                     CacheConstructorInfo(alias, mi, ra);
                 }
             }
+
             String dummy;
             constructorAliasType.TryRemove(alias, out dummy);
+
             List<RemotableConstructor> res;
             if (constructorCache.TryGetValue(alias, out res))
                 return res;

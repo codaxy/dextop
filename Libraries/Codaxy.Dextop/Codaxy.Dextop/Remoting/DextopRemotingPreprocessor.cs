@@ -57,9 +57,10 @@ namespace Codaxy.Dextop.Remoting
                     var ca = ra as DextopRemotableConstructorAttribute;
                     if (ca != null)
                     {
-                        cacheWriter.WriteLine("{0}:{1}", ca.alias, type.AssemblyQualifiedName);
+                        if (!String.IsNullOrEmpty(ca.alias))
+                            cacheWriter.WriteLine("{0}:{1}", ca.alias, type.AssemblyQualifiedName);
                         if (!String.IsNullOrEmpty(ca.route))
-                            cacheWriter.WriteLine("{0}{1}:{2}", routePrefix, ca.alias, type.AssemblyQualifiedName);
+                            cacheWriter.WriteLine("{0}{1}:{2}", routePrefix, ca.route, type.AssemblyQualifiedName);
                     }
                 }
             }

@@ -171,6 +171,7 @@ namespace Codaxy.Dextop
                 {
                     var cacheInfo = new FileInfo(Path.ChangeExtension(fileInfo.FullName, ".cache"));
                     cacheStream = cacheInfo.OpenWrite();
+                    cacheStream.SetLength(0);
                 }
 
                 using (cacheStream)
