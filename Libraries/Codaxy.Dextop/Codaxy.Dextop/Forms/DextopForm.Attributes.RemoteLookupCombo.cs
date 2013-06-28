@@ -38,6 +38,8 @@ namespace Codaxy.Dextop.Forms
 
             if (initialLookupValueField != null)
                 res["store"] = new DextopRawJs("options.remote.createStore('{0}', !Ext.isDefined(options.data['{1}']) ? {{}} : {{ data: [[options.data['{1}'], options.data['{2}']]] }})", lookupId ?? res.name, res.name, initialLookupValueField);
+            else if (autoLoadStore)
+                res["store"] = new DextopRawJs("options.remote.createStore('{0}', {{ autoLoad: true }})", lookupId ?? res.name);
 			
             res["valueField"] = valueField;
 			res["displayField"] = displayField;
@@ -75,5 +77,11 @@ namespace Codaxy.Dextop.Forms
         /// Used to initialy populate lookup value based on the value
         /// </summary>
         public String initialLookupValueField { get; set; }
+
+
+        /// <summary>
+        /// Set autoLoad flag on combo's store.
+        /// </summary>
+        public bool autoLoadStore { get; set; }
 	}
 }
