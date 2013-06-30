@@ -29,7 +29,7 @@ namespace Codaxy.Dextop.Api
                     if (invoker == null)
                         throw new DextopException("Dextop API not initialized.");
 
-                    result = invoker.Invoke(request.data[0], request.data[1], request.data[2], request.data.Skip(3).ToArray());
+                    result = invoker.Invoke(request.data[0], request.data[1], request.data[2], DextopUtil.Decode<string[]>(request.data[3]));
                 }
                 catch(Exception ex)
                 {

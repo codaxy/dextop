@@ -30,6 +30,7 @@ namespace Codaxy.Dextop.Showcase
             });
             
             RegisterModule("client/lib/dextop", new DextopCoreModule());
+            RegisterModule("client/lib/dextop", new DextopApiModule());
 			
 			var soundModule = new DextopSoundModule();
 			soundModule.AddSound("error", "client/sound/notify.mp3");

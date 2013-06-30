@@ -24,7 +24,7 @@ namespace Codaxy.Dextop
         protected override void InitNamespaces()
         {
             RegisterNamespaceMapping("Codaxy.Dextop.Forms*", "Dextop.form");
-            RegisterNamespaceMapping("Codaxy.Dextop.Data*", "Dextop.data");
+            RegisterNamespaceMapping("Codaxy.Dextop.Data*", "Dextop.data");            
             RegisterNamespaceMapping("Codaxy.Dextop", "Dextop");
         }
 
@@ -60,7 +60,7 @@ namespace Codaxy.Dextop
         {
             if (!Application.PreprocessingEnabled || Application.PreprocessorMode)
             {
-                preprocessors.Add("js/generated/remote.js", new Remoting.DextopRemotingPreprocessor());
+                preprocessors.Add("js/generated/remote.js", new Remoting.DextopRemotingPreprocessor());                
             }
         }
 

@@ -63,7 +63,9 @@
     <Compile Include="DextopApiInvoker.cs" />
     <Compile Include="DextopApiModule.cs" />
     <Compile Include="DextopApiPreprocessor.cs" />
+    <Compile Include="DextopApiProxyController.cs" />
     <Compile Include="IDextopApiController.cs" />
+    <Compile Include="Modules\DextopApiModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -20,14 +20,14 @@ Ext.define('Showcase.demos.ApiGridWindow', {
 
 	    var store = Ext.create('Ext.data.Store', {
 	        autoLoad: true,
-	        model: 'Showcase.demos.ApiGrid.model.GridModel',
+	        model: 'Showcase.demos.model.ApiGridModel',
 	        proxy:  {
 	            type: 'api',
 	            api: Ext.create('Showcase.demos.ApiGrid', {})
 	        }
 	    });
 
-	    var columns = Dextop.createGridColumns('Showcase.demos.ApiGrid.columns.GridModel', {
+	    var columns = Dextop.createGridColumns('Showcase.demos.columns.ApiGridModel', {
 	        checkEditor: true
 	    });
 

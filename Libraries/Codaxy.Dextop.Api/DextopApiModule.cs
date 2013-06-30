@@ -28,7 +28,7 @@ namespace Codaxy.Dextop.Api
         public static IRegistrationBuilder<object, Autofac.Features.Scanning.ScanningActivatorData, DynamicRegistrationStyle> RegisterApiControllers(this ContainerBuilder builder, params Assembly[] assemblies)
         {
             return builder.RegisterAssemblyTypes(assemblies).Where(t => t.IsAssignableTo<IDextopApiController>());
-        }
+        }        
     }
 }
 

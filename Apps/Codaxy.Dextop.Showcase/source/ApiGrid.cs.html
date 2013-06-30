@@ -15,37 +15,46 @@ using Codaxy.Dextop.Data;
 
 namespace Codaxy.Dextop.Showcase.Demos.Remoting
 {
-    public class ApiGrid : IDextopApiController
+    class ApiGrid : DextopApiProxyController&lt;ApiGridModel&gt;
     {
-        [DextopModel]
-        [DextopGrid]
-        class GridModel
+        protected override DextopReadResult&lt;ApiGridModel&gt; Read(DextopReadFilter filter)
         {
-            [DextopModelId]
-            [DextopGridColumn(width = 50, readOnly = true)]
-            public int Id { get; set; }
+            var results = new[] {
+               new ApiGridModel { Id = 1, Age = 20, Basketball = false, Football = true, FirstName = &quot;Diego&quot;, LastName = &quot;Armando&quot;, Height = 170 }
+           };
 
-            [DextopGridColumn(flex = 1)]
-            public String FirstName { get; set; }
-
-            [DextopGridColumn(flex = 1)]
-            public String LastName { get; set; }
-
-            [DextopGridColumn(flex = 1, readOnly = true)]            
-            public String FullName { get { return FirstName + &quot; &quot; + LastName; } }
-
-            [DextopGridColumn(width = 50)]
-            public int Age { get; set; }
-
-            [DextopGridColumn(width = 50)]
-            public int Height { get; set; }
-
-            [DextopGridColumn]
-            public bool Basketball { get; set; }
-
-            [DextopGridColumn]
-            public bool Football { get; set; }
+            return DextopReadResult.Create(results);
         }
+    }
+
+    [DextopModel]
+    [DextopGrid]
+    class ApiGridModel
+    {
+        [DextopModelId]
+        [DextopGridColumn(width = 50, readOnly = true)]
+        public int Id { get; set; }
+
+        [DextopGridColumn(flex = 1)]
+        public String FirstName { get; set; }
+
+        [DextopGridColumn(flex = 1)]
+        public String LastName { get; set; }
+
+        [DextopGridColumn(flex = 1, readOnly = true)]
+        public String FullName { get { return FirstName + &quot; &quot; + LastName; } }
+
+        [DextopGridColumn(width = 50)]
+        public int Age { get; set; }
+
+        [DextopGridColumn(width = 50)]
+        public int Height { get; set; }
+
+        [DextopGridColumn]
+        public bool Basketball { get; set; }
+
+        [DextopGridColumn]
+        public bool Football { get; set; }
     }
 }
 
