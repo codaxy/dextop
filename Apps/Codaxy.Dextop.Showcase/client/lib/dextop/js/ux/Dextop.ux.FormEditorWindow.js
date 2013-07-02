@@ -53,7 +53,13 @@ Ext.define('Dextop.ux.FormEditorWindow', {
                 handler: function () {
                     this.close();
                 }
-            }]
+            }],
+            listeners: {
+                scope: this,
+                show: function () {
+                    this.form.getForm().isValid(); //mark required field
+                }
+            },
         });
 
         this.callParent();
