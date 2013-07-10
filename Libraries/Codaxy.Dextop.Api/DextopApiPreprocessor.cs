@@ -14,7 +14,7 @@ namespace Codaxy.Dextop.Api
 	/// </summary>
     public class DextopApiPreprocessor : IDextopAssemblyPreprocessor
     {	
-		Type apiControllerType = typeof(IDextopApiController);
+		Type apiControllerType = typeof(DextopApiController);
         Type formSubmitType = typeof(DextopFormSubmit);
 
 		private void WriteType(DextopApplication application, StreamWriter sw, StreamWriter cacheWriter, Type type, HashSet<Type> includedTypes)
@@ -42,6 +42,12 @@ namespace Codaxy.Dextop.Api
 			}
 
             sw.Write("\tcontrollerType: '{0}'", type.AssemblyQualifiedName);
+
+            if (type.BaseType.IsGenericType && type.BaseType.GetGenericTypeDefinition() == typeof(DextopApiProxyController<>))
+            {
+                sw.WriteLine(",");
+                sw.Write("\tmodel: '{0}'", application.MapTypeName(type.BaseType.GetGenericArguments()[0], ".model"));
+            }
 
             foreach (var mi in type.GetMethods(BindingFlags.Public | BindingFlags.Instance))
             {

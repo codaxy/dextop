@@ -20,7 +20,10 @@ namespace Codaxy.Dextop.Api
         {
             var requests = GetActionRequest(context);
             var responses = new List<Response>();
+
             var invoker = DextopApi.Resolve<IDextopApiInvoker>();
+            
+
             foreach (var request in requests)
             {
                 DextopApiInvocationResult result;
@@ -29,7 +32,25 @@ namespace Codaxy.Dextop.Api
                     if (invoker == null)
                         throw new DextopException("Dextop API not initialized.");
 
-                    result = invoker.Invoke(request.data[0], request.data[1], request.data[2], DextopUtil.Decode<string[]>(request.data[3]));
+                    var apiContext = DextopApi.Resolve<DextopApiContext>();
+
+                    var type = Type.GetType(request.data[0]);
+                    apiContext.Scope = DextopUtil.Decode<DextopConfig>(request.data[1]);
+                    apiContext.HttpContext = new HttpContextWrapper(context);                    
+
+                    var controller = (DextopApiController)apiContext.ResolveScoped(type);
+
+                    controller.OnInitialize();
+
+                    try
+                    {
+                        result = invoker.Invoke(controller, request.data[2], DextopUtil.Decode<string[]>(request.data[3]));
+                    }
+                    catch (Exception ex)
+                    {
+                        controller.OnError(ex);
+                        throw;
+                    }
                 }
                 catch(Exception ex)
                 {

@@ -14,11 +14,7 @@ namespace Codaxy.Dextop.Api
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            builder.Register<DextopApiControllerFactoryFactory>(ctx =>
-            {
-                var lifetimeScope = ctx.Resolve<ILifetimeScope>();
-                return (scope) => new DextopApiControllerFactory(lifetimeScope, scope);
-            });
+            builder.RegisterType<DextopApiContext>();
             builder.RegisterType<DextopApiInvoker>().As<IDextopApiInvoker>().SingleInstance();
         }
     }
@@ -27,7 +23,7 @@ namespace Codaxy.Dextop.Api
     {
         public static IRegistrationBuilder<object, Autofac.Features.Scanning.ScanningActivatorData, DynamicRegistrationStyle> RegisterApiControllers(this ContainerBuilder builder, params Assembly[] assemblies)
         {
-            return builder.RegisterAssemblyTypes(assemblies).Where(t => t.IsAssignableTo<IDextopApiController>());
+            return builder.RegisterAssemblyTypes(assemblies).Where(t => t.IsAssignableTo<DextopApiController>());
         }        
     }
 }

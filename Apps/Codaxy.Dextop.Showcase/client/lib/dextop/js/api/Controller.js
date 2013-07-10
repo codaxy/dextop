@@ -34,6 +34,34 @@
                 else if (typeof a[i] === 'object')
                     a[i] = Ext.encode(a[i]);
         return Ext.encode(a);
+    },
+
+    createStore: function (options) {
+        return Ext.create('Ext.data.Store', Ext.apply({            
+            model: this.getModel(),
+            proxy: {
+                type: 'api',
+                api: this
+            }
+        }, options));
+    },
+
+    getModel: function () {
+        if (this.model)
+            return this.model;
+
+        throw 'Api controller ' + this.$className + ' does not have model defined and cannot be used as a data proxy.';
+    },
+
+    createGridColumns: function (options) {
+        var model = this.getModel();
+        return Dextop.data.GridColumnsFactory.create(this.replaceLast(model, '.model.', '.columns.'), options);
+    },
+
+    replaceLast: function (str, search, replacement) {
+        var charpos = str.lastIndexOf(search);
+        if (charpos < 0) return str;
+        return str.substring(0, charpos) + replacement + str.substring(charpos + search.length);
     }
 
 });

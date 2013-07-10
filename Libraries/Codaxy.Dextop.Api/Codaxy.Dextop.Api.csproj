@@ -58,15 +58,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DextopApi.cs" />
-    <Compile Include="DextopApiControllerFactory.cs" />
+    <Compile Include="DextopApiContext.cs" />
     <Compile Include="DextopApiHandler.cs" />
     <Compile Include="DextopApiInvoker.cs" />
     <Compile Include="DextopApiModule.cs" />
     <Compile Include="DextopApiPreprocessor.cs" />
     <Compile Include="DextopApiProxyController.cs" />
-    <Compile Include="IDextopApiController.cs" />
+    <Compile Include="DextopApiController.cs" />
+    <Compile Include="ILifetimeService.cs" />
     <Compile Include="Modules\DextopApiModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util\AutofacConfigParameter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

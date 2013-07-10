@@ -2,14 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Codaxy.Dextop.Api
 {
-    public interface IDextopApiController
+    class ILifetimeService
     {
-
     }
-
-    
 }

@@ -16,7 +16,7 @@ namespace Codaxy.Dextop.Showcase.Demos.Remoting
     [LevelBeginner]
     [TopicDextopRemoting]
     [CategoryDemo]
-    public class FirstApiDemo : IDextopApiController
+    public class FirstApiDemo : DextopApiController
     {
         public string Hello()
         {

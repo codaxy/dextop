@@ -8,7 +8,7 @@ namespace Codaxy.Dextop.Api
 {
     public interface IDextopApiInvoker
     {
-        DextopApiInvocationResult Invoke(String controllerType, String controllerScope, String action, String[] arguments);
+        DextopApiInvocationResult Invoke(DextopApiController controller, String action, String[] arguments);
     }
 
     public class DextopApiInvocationResult
@@ -42,23 +42,13 @@ namespace Codaxy.Dextop.Api
     }
 
     class DextopApiInvoker : IDextopApiInvoker
-    {
-        DextopApiControllerFactoryFactory factory;
+    {        
 
-        public DextopApiInvoker(DextopApiControllerFactoryFactory f)
+        public DextopApiInvocationResult Invoke(DextopApiController controller, string action, string[] arguments)
         {
-            this.factory = f;
-        }
-
-        public DextopApiInvocationResult Invoke(string controllerType, String controllerScope, string action, string[] arguments)
-        {
-            var type = Type.GetType(controllerType);
-            var scope = DextopUtil.Decode<DextopConfig>(controllerScope);
-
-            var controller = factory(scope).GetController(type);
             var method = controller.GetType().GetMethod(action);
             if (method == null)
-                throw new DextopException("Cannot find method '{0}' in controller type '{1}'.", action, type.Name);
+                throw new DextopException("Cannot find method '{0}' in controller type '{1}'.", action, controller.GetType());
 
             var parameters = method.GetParameters();
             var p = new object[parameters.Length];

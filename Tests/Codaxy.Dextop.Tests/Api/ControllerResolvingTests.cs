@@ -10,12 +10,12 @@ namespace Codaxy.Dextop.Api
     [TestFixture(Active=true)]
     public class ControllerResolvingTests
     {
-        class TestController1 : IDextopApiController
+        class TestController1 : DextopApiController
         {
             public TestController1(int a) { }
         }
 
-        class TestController2 : IDextopApiController
+        class TestController2 : DextopApiController
         {
             public TestController2(int a, String b) { }
         }
@@ -30,13 +30,13 @@ namespace Codaxy.Dextop.Api
             cb.RegisterType<TestController2>();
             using (var c = cb.Build())
             {
-                var ff = c.Resolve<DextopApiControllerFactoryFactory>();
+                var f = c.Resolve<DextopApiContext>();                
                 var args = new DextopConfig();
                 args["a"] = 5;
                 args["b"] = "5";
-                var f = ff(args);
-                var controller1 = f.GetController(typeof(TestController1));
-                var controller2 = f.GetController(typeof(TestController2));
+                f.Scope = args;
+                var controller1 = f.ResolveScoped(typeof(TestController1));
+                var controller2 = f.ResolveScoped(typeof(TestController2));
             }
         }
 
