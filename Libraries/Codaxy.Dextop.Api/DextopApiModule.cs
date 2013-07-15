@@ -15,7 +15,7 @@ namespace Codaxy.Dextop.Api
         {
             base.Load(builder);
             builder.RegisterType<DextopApiContext>();
-            builder.RegisterType<DextopApiInvoker>().As<IDextopApiInvoker>().SingleInstance();
+            builder.RegisterType<StandardActionInvoker>().As<IDextopApiActionInvoker>().SingleInstance();
         }
     }
 

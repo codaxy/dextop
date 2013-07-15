@@ -15,15 +15,30 @@ using Codaxy.Dextop.Data;
 
 namespace Codaxy.Dextop.Showcase.Demos.Remoting
 {
-    class ApiGrid : DextopApiProxyController&lt;ApiGridModel&gt;
+    public class ApiGrid : DextopApiController, IDextopDataProxy&lt;ApiGridModel&gt;
     {
-        protected override DextopReadResult&lt;ApiGridModel&gt; Read(DextopReadFilter filter)
+        DextopReadResult&lt;ApiGridModel&gt; IDextopReadProxy&lt;ApiGridModel&gt;.Read(DextopReadFilter filter)
         {
             var results = new[] {
                new ApiGridModel { Id = 1, Age = 20, Basketball = false, Football = true, FirstName = &quot;Diego&quot;, LastName = &quot;Armando&quot;, Height = 170 }
            };
 
             return DextopReadResult.Create(results);
+        }
+
+        IList&lt;ApiGridModel&gt; IDextopDataProxy&lt;ApiGridModel&gt;.Create(IList&lt;ApiGridModel&gt; records)
+        {
+            return records;
+        }
+
+        IList&lt;ApiGridModel&gt; IDextopDataProxy&lt;ApiGridModel&gt;.Destroy(IList&lt;ApiGridModel&gt; records)
+        {
+            return records;
+        }
+
+        IList&lt;ApiGridModel&gt; IDextopDataProxy&lt;ApiGridModel&gt;.Update(IList&lt;ApiGridModel&gt; records)
+        {
+            return records;
         }
     }
 

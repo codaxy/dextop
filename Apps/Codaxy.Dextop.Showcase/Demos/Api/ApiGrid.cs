@@ -16,15 +16,30 @@ namespace Codaxy.Dextop.Showcase.Demos.Remoting
     [LevelBeginner]
     [TopicDextopRemoting]
     [CategoryDemo]
-    class ApiGrid : DextopApiProxyController<ApiGridModel>
+    public class ApiGrid : DextopApiController, IDextopDataProxy<ApiGridModel>
     {
-        protected override DextopReadResult<ApiGridModel> Read(DextopReadFilter filter)
+        DextopReadResult<ApiGridModel> IDextopReadProxy<ApiGridModel>.Read(DextopReadFilter filter)
         {
             var results = new[] {
                new ApiGridModel { Id = 1, Age = 20, Basketball = false, Football = true, FirstName = "Diego", LastName = "Armando", Height = 170 }
            };
 
             return DextopReadResult.Create(results);
+        }
+
+        IList<ApiGridModel> IDextopDataProxy<ApiGridModel>.Create(IList<ApiGridModel> records)
+        {
+            return records;
+        }
+
+        IList<ApiGridModel> IDextopDataProxy<ApiGridModel>.Destroy(IList<ApiGridModel> records)
+        {
+            return records;
+        }
+
+        IList<ApiGridModel> IDextopDataProxy<ApiGridModel>.Update(IList<ApiGridModel> records)
+        {
+            return records;
         }
     }
 

@@ -6,6 +6,7 @@ using System.Reflection;
 using System.IO;
 using Codaxy.Common.Reflection;
 using Codaxy.Dextop.Remoting;
+using Codaxy.Dextop.Data;
 
 namespace Codaxy.Dextop.Api
 {
@@ -16,6 +17,20 @@ namespace Codaxy.Dextop.Api
     {	
 		Type apiControllerType = typeof(DextopApiController);
         Type formSubmitType = typeof(DextopFormSubmit);
+
+        static bool IsSubclassOfRawGeneric(Type generic, Type toCheck)
+        {
+            while (toCheck != null && toCheck != typeof(object))
+            {
+                var cur = toCheck.IsGenericType ? toCheck.GetGenericTypeDefinition() : toCheck;
+                if (generic == cur)
+                {
+                    return true;
+                }
+                toCheck = toCheck.BaseType;
+            }
+            return false;
+        }
 
 		private void WriteType(DextopApplication application, StreamWriter sw, StreamWriter cacheWriter, Type type, HashSet<Type> includedTypes)
 		{
@@ -43,10 +58,13 @@ namespace Codaxy.Dextop.Api
 
             sw.Write("\tcontrollerType: '{0}'", type.AssemblyQualifiedName);
 
-            if (type.BaseType.IsGenericType && type.BaseType.GetGenericTypeDefinition() == typeof(DextopApiProxyController<>))
+            var interfaces = type.GetInterfaces();            
+            var proxyInterface = interfaces.FirstOrDefault(x => x.IsGenericType && typeof(IDextopReadProxy<>).IsAssignableFrom(x.GetGenericTypeDefinition()));
+
+            if (proxyInterface!=null)
             {
                 sw.WriteLine(",");
-                sw.Write("\tmodel: '{0}'", application.MapTypeName(type.BaseType.GetGenericArguments()[0], ".model"));
+                sw.Write("\tmodel: '{0}'", application.MapTypeName(proxyInterface.GetGenericArguments()[0], ".model"));
             }
 
             foreach (var mi in type.GetMethods(BindingFlags.Public | BindingFlags.Instance))

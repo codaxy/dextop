@@ -1,4 +1,4 @@
-﻿Ext.define('Dextop.api.Controller', {
+﻿Ext.define('Dextop.api.ApiController', {
 
     controllerContext: null,
     controllerType: null,

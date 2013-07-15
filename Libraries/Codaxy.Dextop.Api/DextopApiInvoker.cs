@@ -6,9 +6,9 @@ using System.Text;
 
 namespace Codaxy.Dextop.Api
 {
-    public interface IDextopApiInvoker
+    public interface IDextopApiActionInvoker
     {
-        DextopApiInvocationResult Invoke(DextopApiController controller, String action, String[] arguments);
+        DextopApiInvocationResult Invoke(String action, String[] arguments);
     }
 
     public class DextopApiInvocationResult
@@ -41,10 +41,16 @@ namespace Codaxy.Dextop.Api
         }
     }
 
-    class DextopApiInvoker : IDextopApiInvoker
-    {        
+    class StandardActionInvoker : IDextopApiActionInvoker
+    {
+        DextopApiController controller;
+        
+        public StandardActionInvoker(DextopApiController controller)
+        {
+            this.controller = controller;
+        }
 
-        public DextopApiInvocationResult Invoke(DextopApiController controller, string action, string[] arguments)
+        public DextopApiInvocationResult Invoke(string action, string[] arguments)
         {
             var method = controller.GetType().GetMethod(action);
             if (method == null)

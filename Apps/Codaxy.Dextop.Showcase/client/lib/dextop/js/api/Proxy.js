@@ -31,36 +31,44 @@ Ext.define('Dextop.api.Proxy', {
 	},
 
 	doRequest: function (operation, callback, scope) {
-		var args = [];
+	    var args = [];
+
+	    args.push(this.createCallback(operation, callback, scope));
+	    args.push(this);
+	    args.push(operation.action);
+
+	    var data = [];
 
 		switch (operation.action) {
 			case 'read':
 				var params = this.getParams(operation);
 				params.Params = Ext.apply(operation.params || {}, this.extraParams);
-				args.push(params);
+				data.push(params);				
 				break;
 			case 'create':
 			case 'update':
 			case 'destroy':
 				if (!this.writer)
 					throw 'Proxy writer is not configured.';
-				var data = [];
+				var ma = [];
 				for (var i = 0; i < operation.records.length; i++)
-					data[i] = this.writer.getRecordData(operation.records[i]);
-				args.push(Ext.encode(data));
+				    ma[i] = this.writer.getRecordData(operation.records[i]);
+				data.push(ma);
 				break;
 			default:
 				throw 'Uknown action ' + operation.action + '.';
-		}
-		args.push(this.createCallback(operation, callback, scope));
-		args.push(this);
-		this[operation.action + 'Record'].apply(this, args);
+	    }
+
+		
+		args.push(data);
+		
+		this.api.invokeRemoteMethod.apply(this.api, args);
 	},
 
 	createCallback: function (operation, callback, scope) {
 		return Ext.apply({
 			handler: function (r) {
-				this.processResponse(r.success, operation, null, r, callback, scope)
+				this.processResponse(r && r.success, operation, null, r, callback, scope)
 			}
 		}, this.remoteCallbackOptions);
 	},
@@ -69,27 +77,5 @@ Ext.define('Dextop.api.Proxy', {
 		if (Ext.isString(response.result.data))
 			response.result.data = Ext.decode(response.result.data);
 		return response.result;
-	},
-
-	//private
-	readRecord: function () {
-	    if (!this.api.Load)
-	        throw Error('Api provided does not support Load method.');
-	    this.api.Load.apply(this.api, arguments);
-	},
-
-	//private
-	createRecord: function () {
-	    this.api.Create.apply(this.api, arguments);
-	},
-
-	//private
-	updateRecord: function () {
-	    this.api.Update.apply(this.api, arguments);
-	},
-
-	//private
-	destroyRecord: function () {
-	    this.api.Destroy.apply(this.api, arguments);
 	}
 })
