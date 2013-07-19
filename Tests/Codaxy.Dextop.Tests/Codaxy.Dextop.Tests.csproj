@@ -49,8 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Api\ControllerResolvingTests.cs" />
-    <Compile Include="Api\SanityTests.cs" />
+    <Compile Include="Api\ControllerResolvingTests.cs" />    
     <Compile Include="Helpers\DextopTestApplication.cs" />
     <Compile Include="Helpers\DextopTestEnvironment.cs" />
     <Compile Include="Helpers\JsonUtil.cs" />
