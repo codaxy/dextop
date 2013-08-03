@@ -44,7 +44,7 @@ namespace Codaxy.Dextop.Showcase
 
             preprocessors.Add("client/js/generated/demos.js", new Demos.DemoPreprocessor());                
             RegisterStandardAssemblyPreprocessors("client/js/generated/", preprocessors);
-            preprocessors.Add("client/js/generated/controllers.js", new DextopApiPreprocessor());                
+            preprocessors.Add("client/js/generated/x-controllers.js", new DextopApiPreprocessor());                
 		}
 
         protected override void RegisterLoaders(Dictionary<string, IDextopFileLoader> loaders)

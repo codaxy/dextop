@@ -1,32 +1,49 @@
 Ext.define('Dextop.api.Proxy', {
 
-	extend: 'Ext.data.ServerProxy',
+    extend: 'Ext.data.ServerProxy',
 
-	requires: ['Ext.data.ServerProxy', 'Dextop.remoting.Remotable'],
+    requires: ['Ext.data.ServerProxy', 'Dextop.remoting.Remotable'],
 
-	defaultWriterType: 'array',
-	defaultReaderType: 'array',
+    defaultWriterType: 'array',
+    defaultReaderType: 'array',
 
     alias: 'proxy.api',
 
-	//callback options for remote method invocation
-	remoteCallbackOptions: undefined,
+    //callback options for remote method invocation
+    remoteCallbackOptions: undefined,
 
-	constructor: function (config) {
+    constructor: function (config) {
 
-	    config = config || {};    
+        config = config || {};    
         
-	    if (!config.reader || typeof config.reader === 'string')
-	        config.reader = {
-	            type: config.reader,
-	            root: 'data',
-	            totalProperty: 'total'
-	        };
+        if (!config.reader || typeof config.reader === 'string')
+            config.reader = {
+                type: config.reader,
+                root: 'data',
+                totalProperty: 'total'
+            };
 
-		this.callParent(arguments);
-	},
+        if (!config.api)
+            throw Error('Could not create api based data proxy as api is not specified.');
 
-	applyEncoding: function (v) {
+        this.api = config.api;
+        delete config.api;
+
+        if (!this.api.createStore) {
+
+            if (typeof this.api == 'string')
+                this.api = Ext.create(this.api);
+
+            if (this.api.type) {
+                delete api.type;
+                this.api = Ext.create(this.api.type, this.api);
+            }
+        }
+
+        this.callParent(arguments);
+    },
+
+    applyEncoding: function (v) {
 		return v;
 	},
 

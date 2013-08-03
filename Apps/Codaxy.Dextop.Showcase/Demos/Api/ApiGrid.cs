@@ -21,7 +21,7 @@ namespace Codaxy.Dextop.Showcase.Demos.Remoting
         DextopReadResult<ApiGridModel> IDextopReadProxy<ApiGridModel>.Read(DextopReadFilter filter)
         {
             var results = new[] {
-               new ApiGridModel { Id = 1, Age = 20, Basketball = false, Football = true, FirstName = "Diego", LastName = "Armando", Height = 170 }
+               new ApiGridModel { Id = 1, Age = 20, Basketball = false, Football = true, FirstName = "Diego", LastName = "Armando", FavoriteSport = 1 }
            };
 
             return DextopReadResult.Create(results);
@@ -61,15 +61,38 @@ namespace Codaxy.Dextop.Showcase.Demos.Remoting
         public String FullName { get { return FirstName + " " + LastName; } }
 
         [DextopGridColumn(width = 50)]
-        public int Age { get; set; }
-
-        [DextopGridColumn(width = 50)]
-        public int Height { get; set; }
+        public int Age { get; set; }        
 
         [DextopGridColumn]
         public bool Basketball { get; set; }
 
         [DextopGridColumn]
         public bool Football { get; set; }
+
+        [DextopGridLookupColumn(lookupStoreId = "sport-lookup")]
+        public int FavoriteSport { get; set; }
+    }
+
+    [DextopModel]
+    class Sport
+    {
+        public int id { get; set; }
+        public String text { get; set; }
+    }
+
+    [DextopApiStore("sport-lookup", autoLoad=false)]
+    class FavoriteSportLookup : DextopApiController, IDextopReadProxy<Sport>
+    {
+        public DextopReadResult<Sport> Read(DextopReadFilter filter)
+        {
+            var results = new[] {
+               new Sport { id = 1, text="Football" },
+               new Sport { id = 2, text="Basketball" },
+               new Sport { id = 3, text="Tennis" },
+               new Sport { id = 4, text="Hockey" },
+           };
+
+            return DextopReadResult.Create(results);
+        }
     }
 }

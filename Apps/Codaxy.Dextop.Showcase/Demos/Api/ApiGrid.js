@@ -20,12 +20,13 @@ Ext.define('Showcase.demos.ApiGridWindow', {
 
         var api = Ext.create('Showcase.demos.ApiGrid', {});
 
-        var store = api.createStore({
-            autoLoad: true
-        });
-
+        //it's important to create columns before creating grid's store in order to load lookup stores first
 	    var columns = api.createGridColumns({
 	        checkEditor: true
+	    });
+
+	    var store = api.createStore({
+	        autoLoad: true
 	    });
 
 	    cellEditor = new Ext.grid.plugin.CellEditing({

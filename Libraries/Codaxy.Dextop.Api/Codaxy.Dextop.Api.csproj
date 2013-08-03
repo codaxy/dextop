@@ -65,6 +65,7 @@
     <Compile Include="DextopApiPreprocessor.cs" />
     <Compile Include="DextopApiProxyController.cs" />
     <Compile Include="DextopApiController.cs" />
+    <Compile Include="DextopApiStoreAttribute.cs" />
     <Compile Include="ILifetimeService.cs" />
     <Compile Include="Modules\DextopApiModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -74,10 +74,18 @@ Ext.define('Dextop.data.GridColumnsFactory', {
 				}
 			},
 			'lookup': {
-				factory: function (c, options) {
-					if (!options || !options.remote)
-						throw "Invalid lookup options specified.";
-					var store = options.remote.createStore(c.lookupId || c.dataIndex);
+				factory: function (c, options) {					
+					var store;
+					if (c.storeId) {
+					    store = Ext.getStore(c.storeId);
+					    if (!store.isLoading() && store.getCount() == 0)
+					        store.load();
+					}
+					else {
+					    if (!options || (!options.remote || !options.storeId))
+					        throw "Invalid lookup options specified.";
+					    store = options.remote.createStore(c.lookupId || c.dataIndex);
+					}
 					if (!c.readonly)
 						c.field = {
 							xtype: 'combo',

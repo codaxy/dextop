@@ -32,44 +32,46 @@ namespace Codaxy.Dextop.Api
             return false;
         }
 
-		private void WriteType(DextopApplication application, StreamWriter sw, StreamWriter cacheWriter, Type type, HashSet<Type> includedTypes)
+		private void WriteType(DextopApplication application, StreamWriter sw, StreamWriter cacheWriter, Type controllerType, HashSet<Type> includedTypes)
 		{
-			if (includedTypes.Contains(type))
+			if (includedTypes.Contains(controllerType))
 				return;
 
-			includedTypes.Add(type);
+			includedTypes.Add(controllerType);
+            String modelType = null;
 
-			var typeName = GetTypeName(application, type);
+			var typeName = GetTypeName(application, controllerType);
 
-			if (type.BaseType != null && apiControllerType.IsAssignableFrom(type.BaseType) && type.Assembly == type.BaseType.Assembly)
-				WriteType(application, sw, cacheWriter, type.BaseType, includedTypes);
+			if (controllerType.BaseType != null && apiControllerType.IsAssignableFrom(controllerType.BaseType) && controllerType.Assembly == controllerType.BaseType.Assembly)
+				WriteType(application, sw, cacheWriter, controllerType.BaseType, includedTypes);
 				
 
 			sw.WriteLine("Ext.define('{0}', {{", typeName);			
 
-			if (type.BaseType != null && apiControllerType.IsAssignableFrom(type.BaseType))
+			if (controllerType.BaseType != null && apiControllerType.IsAssignableFrom(controllerType.BaseType))
 			{
-				sw.WriteLine("\textend: '{0}',", GetTypeName(application, type.BaseType));
+				sw.WriteLine("\textend: '{0}',", GetTypeName(application, controllerType.BaseType));
 			}
 			else
 			{
 				sw.WriteLine("\textend: 'Dextop.api.Controller',");
 			}
 
-            sw.Write("\tcontrollerType: '{0}'", type.AssemblyQualifiedName);
+            sw.Write("\tcontrollerType: '{0}'", controllerType.AssemblyQualifiedName);
 
-            var interfaces = type.GetInterfaces();            
+            var interfaces = controllerType.GetInterfaces();            
             var proxyInterface = interfaces.FirstOrDefault(x => x.IsGenericType && typeof(IDextopReadProxy<>).IsAssignableFrom(x.GetGenericTypeDefinition()));
 
             if (proxyInterface!=null)
             {
                 sw.WriteLine(",");
-                sw.Write("\tmodel: '{0}'", application.MapTypeName(proxyInterface.GetGenericArguments()[0], ".model"));
+                modelType = application.MapTypeName(proxyInterface.GetGenericArguments()[0], ".model");
+                sw.Write("\tmodel: '{0}'", modelType);
             }
 
-            foreach (var mi in type.GetMethods(BindingFlags.Public | BindingFlags.Instance))
+            foreach (var mi in controllerType.GetMethods(BindingFlags.Public | BindingFlags.Instance))
             {
-                if (mi.DeclaringType == type)
+                if (mi.DeclaringType == controllerType)
                 {
                     var methodName = mi.Name;
                     sw.WriteLine(",");
@@ -121,11 +123,26 @@ namespace Codaxy.Dextop.Api
                     }
                 }
             }
-                
 
 			sw.WriteLine();
 			sw.WriteLine("});");
 			sw.WriteLine();
+
+            DextopApiStoreAttribute storeAttribute;
+            if (AttributeHelper.TryGetAttribute(controllerType, out storeAttribute, false))
+            {
+                if (modelType == null)
+                    throw new DextopException("Could not generate data store of type '{0}' as it does not implement data proxy interface.", apiControllerType);
+
+                sw.WriteLine("Ext.onReady(function() {{ Ext.create('Ext.data.Store', {{", typeName);                
+                sw.WriteLine("\t\tstoreId: '{0}',", storeAttribute.StoreId);
+                sw.WriteLine("\t\tmodel: '{0}',", modelType);
+                sw.WriteLine("\t\tproxy: {{ type: 'api', api: '{0}' }},", typeName);
+                sw.WriteLine("\t\tautoLoad: {0}", storeAttribute.autoLoad ? "true" : "false");
+                sw.WriteLine("\t});");
+                sw.WriteLine("});");
+                sw.WriteLine();
+            }
 		}
 
         internal string GetTypeName(DextopApplication application, Type type)

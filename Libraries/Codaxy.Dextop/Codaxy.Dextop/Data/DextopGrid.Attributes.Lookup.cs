@@ -17,6 +17,11 @@ namespace Codaxy.Dextop.Data
 		/// </summary>		
         public string lookupId { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public string lookupStoreId { get; set; }
+
 		/// <summary>
 		/// Converts this attribute to the column object.
 		/// </summary>
@@ -27,8 +32,13 @@ namespace Codaxy.Dextop.Data
         {
             var res = base.ToGridHeader(memberName, memberType);
             res.type = "lookup";
+            
             if (lookupId != null)
                 res["lookupId"] = lookupId;
+
+            if (lookupStoreId != null)
+                res["storeId"] = lookupStoreId;
+            
             return res;
         }
     }

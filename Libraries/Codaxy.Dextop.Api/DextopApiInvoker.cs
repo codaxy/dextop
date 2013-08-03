@@ -12,12 +12,12 @@ namespace Codaxy.Dextop.Api
     }
 
     public class DextopApiInvocationResult
-        {
-            public bool success { get; set; }
-            public object result { get; set; }
+    {
+        public bool success { get; set; }
+        public object result { get; set; }
 
-            public static DextopApiInvocationResult Success(object result = null) { return new DextopApiInvocationResult { success = true, result = result }; }
-            public static DextopApiInvocationResult Exception(Exception ex) { return new DextopApiInvocationResult { success = false, result = new DextopApiInvocationError(ex) }; }
+        public static DextopApiInvocationResult Success(object result = null) { return new DextopApiInvocationResult { success = true, result = result }; }
+        public static DextopApiInvocationResult Exception(Exception ex) { return new DextopApiInvocationResult { success = false, result = new DextopApiInvocationError(ex) }; }
     }
 
     public class DextopApiInvocationError
@@ -71,7 +71,5 @@ namespace Codaxy.Dextop.Api
                 return DextopApiInvocationResult.Exception(ex);
             }
         }
-
-        
     }
 }
