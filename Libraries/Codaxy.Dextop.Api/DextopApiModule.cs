@@ -9,7 +9,7 @@ using Autofac.Builder;
 
 namespace Codaxy.Dextop.Api
 {
-    public class DextopApiModule : Autofac.Module
+    public class DextopApiAutofacModule : Autofac.Module
     {
         protected override void Load(ContainerBuilder builder)
         {

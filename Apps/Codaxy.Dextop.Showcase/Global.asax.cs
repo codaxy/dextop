@@ -77,7 +77,7 @@ namespace Codaxy.Dextop.Showcase
         private void InitDextopApi()
         {
             var builder = new ContainerBuilder();
-            builder.RegisterModule<DextopApiModule>();
+            builder.RegisterModule<DextopApiAutofacModule>();
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
             DextopApi.Initialize(builder.Build());
         }

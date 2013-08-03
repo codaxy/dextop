@@ -27,6 +27,22 @@ Ext.apply(Dextop, {
 		return Ext.create(alias, config);
 	},
 
+	api: function (type, config) {
+	    if (!type)
+	        return null;
+
+	    if (typeof type == 'string')
+	        return Ext.create(type, config);
+
+	    if (type.createStore)
+	        return type; //already initialized
+
+	    if (!type.type)
+	        throw 'Cannot instantate api object as no type alias is specified!';
+
+	    return Ext.create(type.type, type);
+	},
+
 	applyRecursive: function (o, c, defaults) {
 		if (defaults)
 			Dextop.applyRecursive(o, defaults);

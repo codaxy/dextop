@@ -25,7 +25,7 @@ namespace Codaxy.Dextop.Api
         public void ResolutionWorks()
         {
             var cb = new ContainerBuilder();
-            cb.RegisterModule(new DextopApiModule());
+            cb.RegisterModule(new DextopApiAutofacModule());
             cb.RegisterType<TestController1>();
             cb.RegisterType<TestController2>();
             using (var c = cb.Build())

@@ -35,11 +35,20 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
 
 	initComponent: function () {
 
-		if (!this.remote)
-			throw 'Swiss grid panel requires remote object to be configured.';
+		//if (!this.remote)
+	    //	throw 'Swiss grid panel requires remote object to be configured.';
 
-		if (!this.store) {
-			this.store = this.remote.createStore(this.storeName || this.model, this.storeOptions);
+	    if (this.api)
+	        this.api = Dextop.api(this.api);
+
+	    if (!this.store) {
+	        if (this.remote)
+	            this.store = this.remote.createStore(this.storeName || this.model, this.storeOptions);
+	        else if (this.api)
+	            this.store = this.api.createStore(this.storeOptions);
+	        else
+	            throw 'Swiss army grid store could not be resolved. No api nor remote object is specified.';
+
 			delete this.storeOptions;
 		}
 
@@ -52,7 +61,12 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
 		});
 
 		if (!this.columns) {
-		    this.columns = this.remote.createGridColumns(this.columnModelName || this.model, this.columnModelOptions);
+            if (this.remote)
+                this.columns = this.remote.createGridColumns(this.columnModelName || this.model, this.columnModelOptions);
+            else if (this.api)
+                this.columns = this.api.createGridColumns(this.columnModelOptions);
+            else
+                throw 'Swiss army grid columns could not be resolved. No api nor remote object is specified.';
 		    delete this.columnModelOptions;
 		}
 
@@ -93,11 +107,11 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
 		this.callParent();
 
 		if (this.editOnDblClick) {
-			this.mon(this, 'itemdblclick', function () {
-				this.editRecord();
-			}, this);
+		    this.mon(this, 'itemdblclick', function () {
+		        this.editRecord();
+		    }, this);
 		}
-	},
+	},    
 
 	getFirstEditorIndex: function () {
 		for (var i = 0; i < this.columns.length; i++)
