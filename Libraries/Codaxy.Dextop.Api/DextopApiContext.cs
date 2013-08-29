@@ -24,5 +24,22 @@ namespace Codaxy.Dextop.Api
         {
             return scope.Resolve(type, new AutofacConfigParameter(Scope));
         }
+
+        public Type ResolveScoped<Type>()
+        {
+            return (Type)ResolveScoped(typeof(Type));
+        }
+
+        public Type Resolve<Type>()
+        {
+            return scope.Resolve<Type>();
+        }
+
+        internal DextopApiController ResolveController(Type controllerType)
+        {
+            var controller = (DextopApiController)ResolveScoped(controllerType);
+            controller.Context = this;
+            return controller;
+        }
     }
 }

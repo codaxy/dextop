@@ -27,13 +27,10 @@ namespace Codaxy.Dextop.Api
                 try
                 {
                     var apiContext = DextopApi.Resolve<DextopApiContext>();
-
-                    var type = Type.GetType(request.data[0]);
+                    var controllerType = Type.GetType(request.data[0]);
                     apiContext.Scope = DextopUtil.Decode<DextopConfig>(request.data[1]);
                     apiContext.HttpContext = new HttpContextWrapper(context);                    
-
-                    var controller = (DextopApiController)apiContext.ResolveScoped(type);
-
+                    var controller = apiContext.ResolveController(controllerType);                    
                     controller.OnInitialize();
 
                     try

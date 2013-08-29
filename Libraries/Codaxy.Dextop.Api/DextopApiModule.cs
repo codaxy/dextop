@@ -21,7 +21,7 @@ namespace Codaxy.Dextop.Api
 
     public static class DextopApiRegistration
     {
-        public static IRegistrationBuilder<object, Autofac.Features.Scanning.ScanningActivatorData, DynamicRegistrationStyle> RegisterApiControllers(this ContainerBuilder builder, params Assembly[] assemblies)
+        public static IRegistrationBuilder<object, Autofac.Features.Scanning.ScanningActivatorData, DynamicRegistrationStyle> RegisterDextopApiControllers(this ContainerBuilder builder, params Assembly[] assemblies)
         {
             return builder.RegisterAssemblyTypes(assemblies).Where(t => t.IsAssignableTo<DextopApiController>());
         }        

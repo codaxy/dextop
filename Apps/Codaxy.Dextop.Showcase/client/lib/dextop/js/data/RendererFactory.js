@@ -38,6 +38,17 @@ Ext.define('Dextop.data.RendererFactory', {
 			    return Ext.util.Format.dateRenderer(options.format);
 			},
 
+			datetime: function(options) {
+			    if (options.format)
+			        return Ext.util.Format.dateRenderer(options.format);
+
+			    return function (v) {
+			        if (!v)
+			            return v;
+			        return Ext.util.Format.date(v, (Ext.Date.defaultFormat || Ext.util.Format.dateFormat) + ' ' + (Ext.form.field.Time.prototype.format || 'g:i A'));
+			    }
+			},
+
 			tpl: function (options) {
 			    var format = options.tpl || options.format;
 			    if (!format)

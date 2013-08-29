@@ -54,11 +54,7 @@ Ext.define('Dextop.data.GridColumnsFactory', {
 				field: {
 					xtype: 'textfield'
 				},
-				renderer: function (v) {
-					if (!v)
-						return v;
-					return Ext.util.Format.date(v, (Ext.Date.defaultFormat || Ext.util.Format.dateFormat) + ' ' + (Ext.form.field.Time.prototype.format || 'g:i A'));
-				}
+				renderer: 'datetime'
 			},
 			'boolean': {
 				factory: function (c, options) {

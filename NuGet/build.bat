@@ -19,4 +19,9 @@ copy ..\Tools\Codaxy.Dextop.Preprocessor\bin\Release\Codaxy.Dextop.Preprocessor.
 del Codaxy.Dextop.Preprocessor\lib\*.pdb
 ..\.nuget\nuget pack Codaxy.Dextop.Preprocessor\Codaxy.Dextop.Preprocessor.nuspec
 
+mkdir Codaxy.Dextop.Api\lib\
+copy ..\Libraries\Codaxy.Dextop.Api\bin\Release\Codaxy.Dextop.Api.dll Codaxy.Dextop.Api\lib\
+del Codaxy.Dextop.Api\lib\*.pdb
+..\.nuget\nuget pack Codaxy.Dextop.Api\Codaxy.Dextop.Api.nuspec
+
 pause

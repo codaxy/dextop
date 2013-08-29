@@ -1,0 +1,62 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+<meta name="robots" content="noindex">
+</head>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using Codaxy.Dextop.Api;
+using Codaxy.Dextop.Data;
+
+namespace Codaxy.Dextop.Showcase.Demos.Remoting
+{
+    [DextopApiControllerAlias(&quot;tree-api&quot;)]
+    public class ApiTree : DextopApiController, IDextopDataProxy&lt;ApiTreeModel&gt;
+    {
+        DextopReadResult&lt;ApiTreeModel&gt; IDextopReadProxy&lt;ApiTreeModel&gt;.Read(DextopReadFilter filter)
+        {
+            var results = new[] {
+               new ApiTreeModel { id = 1, text = &quot;Root&quot; }
+           };
+
+            return DextopReadResult.Create(results);
+        }
+
+        IList&lt;ApiTreeModel&gt; IDextopDataProxy&lt;ApiTreeModel&gt;.Create(IList&lt;ApiTreeModel&gt; records)
+        {
+            return records;
+        }
+
+        IList&lt;ApiTreeModel&gt; IDextopDataProxy&lt;ApiTreeModel&gt;.Destroy(IList&lt;ApiTreeModel&gt; records)
+        {
+            return records;
+        }
+
+        IList&lt;ApiTreeModel&gt; IDextopDataProxy&lt;ApiTreeModel&gt;.Update(IList&lt;ApiTreeModel&gt; records)
+        {
+            return records;
+        }
+    }
+
+    [DextopModel]
+    [DextopGrid]
+    class ApiTreeModel
+    {
+        [DextopModelId]
+        [DextopGridColumn(width = 50, readOnly = true)]
+        public int id { get; set; }
+
+        public String text { get; set; }
+    }
+}
+
+</pre>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+</body>
+</html>

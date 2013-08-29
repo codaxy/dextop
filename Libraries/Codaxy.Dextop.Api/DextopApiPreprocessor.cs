@@ -37,27 +37,46 @@ namespace Codaxy.Dextop.Api
 			if (includedTypes.Contains(controllerType))
 				return;
 
+            if (controllerType.IsGenericType)
+                return;
+
 			includedTypes.Add(controllerType);
             String modelType = null;
 
 			var typeName = GetTypeName(application, controllerType);
 
-			if (controllerType.BaseType != null && apiControllerType.IsAssignableFrom(controllerType.BaseType) && controllerType.Assembly == controllerType.BaseType.Assembly)
-				WriteType(application, sw, cacheWriter, controllerType.BaseType, includedTypes);
-				
+            List<Type> genericBaseTypes = new List<Type>();
 
-			sw.WriteLine("Ext.define('{0}', {{", typeName);			
+            var baseType = controllerType.BaseType;
 
-			if (controllerType.BaseType != null && apiControllerType.IsAssignableFrom(controllerType.BaseType))
-			{
-				sw.WriteLine("\textend: '{0}',", GetTypeName(application, controllerType.BaseType));
-			}
-			else
-			{
-				sw.WriteLine("\textend: 'Dextop.api.Controller',");
-			}
+            while (baseType != null && baseType.IsGenericType)
+            {
+                genericBaseTypes.Add(baseType);
+                baseType = baseType.BaseType;
+            }
 
-            sw.Write("\tcontrollerType: '{0}'", controllerType.AssemblyQualifiedName);
+            if (baseType != null && controllerType.Assembly == baseType.Assembly)
+                WriteType(application, sw, cacheWriter, baseType, includedTypes);
+
+			sw.WriteLine("Ext.define('{0}', {{", typeName);
+
+            if (baseType != null && baseType != apiControllerType)
+            {
+                sw.WriteLine("\textend: '{0}',", GetTypeName(application, baseType));
+            }
+            else
+            {
+                sw.WriteLine("\textend: 'Dextop.api.ApiController',");
+            }
+
+            sw.Write("\tcontrollerType: '{0}'", String.Format("{0}, {1}", controllerType.FullName, controllerType.Assembly.GetName().Name));
+
+            DextopApiControllerAliasAttribute aliasAtt;
+            if (AttributeHelper.TryGetAttribute(controllerType, out aliasAtt, false))
+            {
+                sw.WriteLine(",");
+                sw.Write("\talias: 'api.{0}'", aliasAtt.Alias);
+            }
 
             var interfaces = controllerType.GetInterfaces();            
             var proxyInterface = interfaces.FirstOrDefault(x => x.IsGenericType && typeof(IDextopReadProxy<>).IsAssignableFrom(x.GetGenericTypeDefinition()));
@@ -71,8 +90,8 @@ namespace Codaxy.Dextop.Api
 
             foreach (var mi in controllerType.GetMethods(BindingFlags.Public | BindingFlags.Instance))
             {
-                if (mi.DeclaringType == controllerType)
-                {
+                if (mi.DeclaringType == controllerType || genericBaseTypes.Contains(mi.DeclaringType))
+                {                    
                     var methodName = mi.Name;
                     sw.WriteLine(",");
                     var parameters = mi.GetParameters();

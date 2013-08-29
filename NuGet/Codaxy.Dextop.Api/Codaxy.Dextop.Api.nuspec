@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package>
+  <metadata schemaVersion="2">
+    <id>Codaxy.Dextop.Api</id>    
+    <title>Dextop Api Framework (Libraries)</title>
+    <version>0.0.0.3</version>
+    <authors>Codaxy</authors>
+    <description>Dextop Api provides stateless Dextop mode</description>
+	<projectUrl>https://github.com/codaxy/dextop</projectUrl>
+	<dependencies>
+		<dependency id="Codaxy.Dextop.Core" />
+    <dependency id="Autofac" />
+	</dependencies>	  	
+   </metadata>
+</package>

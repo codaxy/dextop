@@ -8,16 +8,16 @@
 <pre class="prettyprint">
 Ext.ns(&#39;Showcase&#39;);
 
-Ext.define(&#39;Showcase.demos.Launcher.ApiGrid&#39;, {
+Ext.define(&#39;Showcase.demos.Launcher.ApiTree&#39;, {
     extend: &#39;Showcase.demos.Launcher&#39;,
     launch: function () {
         var remoteId = Ext.id();
-        var w = Ext.create(&#39;Showcase.demos.ApiGridWindow&#39;, {});
+        var w = Ext.create(&#39;Showcase.demos.ApiTreeWindow&#39;, {});
         w.show();        
     }
 });
 
-Ext.define(&#39;Showcase.demos.ApiGridWindow&#39;, {
+Ext.define(&#39;Showcase.demos.ApiTreeWindow&#39;, {
     extend: &#39;Ext.window.Window&#39;,	
     width: 500,
     height: 200,
@@ -41,10 +41,8 @@ Ext.define(&#39;Showcase.demos.ApiGridWindow&#39;, {
 	        clicksToEdit: 1
 	    });
 
-	    var grid = Ext.create(&#39;Ext.grid.GridPanel&#39;, {
+	    var grid = Ext.create(&#39;Ext.tree.Panel&#39;, {
 	        store: store,
-	        columns: columns,
-	        plugins: [cellEditor],
 	        tbar: [{
 	            text: &#39;Add&#39;,
 	            scope: this,
