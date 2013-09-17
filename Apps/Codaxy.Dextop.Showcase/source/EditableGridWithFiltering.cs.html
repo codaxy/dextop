@@ -1,0 +1,191 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+<meta name="robots" content="noindex">
+</head>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using System.Web;
+using Codaxy.Dextop.Data;
+using Codaxy.Dextop.Forms;
+using Codaxy.Dextop.Remoting;
+
+namespace Codaxy.Dextop.Showcase.Demos.Grids
+{
+    public class EditableGridWithFiltering : DextopWindow
+    {
+        public enum Gender { Male, Female };
+
+        public override void InitRemotable(DextopRemote remote, DextopConfig config)
+        {
+            base.InitRemotable(remote, config);
+            var crud = new Crud();
+            crud.Create(new[] {
+                    new Person(){id=1, name=&quot;John Smith&quot;, age=56, height=180, gender=Gender.Male, basketball=true},
+                    new Person(){id=2, name=&quot;Simon Garinson&quot;, age=41, height=178, gender=Gender.Male},
+                    new Person(){id=3, name=&quot;Jonah Hill&quot;, age=29, height=172, gender=Gender.Male, volleyball=true},
+                    new Person(){id=4, name=&quot;Phil Garrison&quot;, age=49, height=185, gender=Gender.Male,football=true},
+                    new Person(){id=5, name=&quot;Barak Obama&quot;, age=50, height=182, gender=Gender.Male, basketball=true, volleyball=true},
+                    new Person(){id=6, name=&quot;Madeline Graham&quot;, age=37, height=170, gender=Gender.Female,volleyball=true},
+            });
+            Remote.AddStore(&quot;model&quot;, crud);
+            Remote.AddLookupData(&quot;gender&quot;, new[] {
+                new object[] { Gender.Male, &quot;Male&quot; },
+                new object[] { Gender.Female, &quot;Female&quot; }
+            });
+
+        }
+
+        [DextopGrid]
+        [DextopModel]
+        [DextopForm]
+        public class Person
+        {
+            [DextopModelId]
+            public int id { get; set; }
+
+            [DextopGridColumn(flex = 1, text = &quot;Name&quot;, tooltip = &quot;Persons Name&quot;)]
+            [DextopFormField(anchor = &quot;0&quot;, allowBlank = false, fieldLabel = &quot;Name&quot;, labelSeparator=&quot;&quot;)]
+            public string name { get; set; }
+
+            [DextopFormFieldSet(0, title=&quot;General&quot;, margins=&quot;10 10 10 10&quot;)]
+            [DextopGridLookupColumn(width = 50, text = &quot;Gender&quot;, tooltip = &quot;Persons Gender&quot;)]
+            [DextopFormLookupCombo(width = 200, fieldLabel=&quot;Gender&quot;, labelSeparator=&quot;&quot;)]
+            public Gender? gender { get; set; }
+
+            [DextopGridColumn(width = 70, text = &quot;Age&quot;, tooltip = &quot;Persons Age&quot;)]
+            [DextopFormField(width = 180, fieldLabel = &quot;Age&quot;, labelSeparator = &quot;&quot;)]
+            public int age { get; set; }
+
+            [DextopGridColumn(width = 70, text = &quot;Height&quot;, tooltip = &quot;Persons Height&quot;)]
+            [DextopFormField(width = 180, fieldLabel=&quot;Height&quot;, labelSeparator=&quot;&quot;)]
+            public int height { get; set; }
+
+            [DextopFormFieldSet(0, title = &quot;Sports&quot;)]
+            [DextopFormCheckboxGroup(1,anchor=&quot;1&quot;)]
+            [DextopFormField(boxLabel = &quot;Basketball&quot;)]
+            public bool basketball { get; set; }
+
+            [DextopFormField(boxLabel = &quot;Football&quot;)]
+            public bool football { get; set; }
+
+            [DextopFormField(boxLabel = &quot;Volleyball&quot;)]
+            public bool volleyball { get; set; }
+        }
+
+        class Crud : DextopDataProxy&lt;Person&gt;
+        {
+            SortedDictionary&lt;int, Person&gt; list = new SortedDictionary&lt;int, Person&gt;();
+            int id = 0;
+
+            public override IList&lt;Person&gt; Create(IList&lt;Person&gt; data)
+            {
+                //Debug.WriteLine(&quot;Creating JSON : &quot; + DextopUtil.Encode(data));
+                foreach (var row in data)
+                {
+                    row.id = ++id;
+                    list.Add(row.id, row);
+                }
+                return data;
+            }
+
+            public override IList&lt;Person&gt; Update(IList&lt;Person&gt; data)
+            {
+                //Debug.WriteLine(&quot;Updating JSON : &quot; + DextopUtil.Encode(data));
+                foreach (var d in data)
+                    list[d.id] = d;
+                return data;
+            }
+
+            public override IList&lt;Person&gt; Destroy(IList&lt;Person&gt; data)
+            {
+                //Debug.WriteLine(&quot;Deleting JSON : &quot; + DextopUtil.Encode(data));
+                foreach (var d in data)
+                    list.Remove(d.id);
+                return new Person[0];
+            }
+
+            public override DextopReadResult&lt;Person&gt; Read(DextopReadFilter filter)
+            {
+                Debug.WriteLine(&quot;Reading filter : &quot; + DextopUtil.Encode(filter));
+                IEnumerable&lt;Person&gt; temp = list.Values;
+                if (filter.filter != null)
+                {
+                    string filterCriteria = filter.filter[0].value ?? &quot;&quot;;
+                    if (filterCriteria != &quot;&quot;)
+                    {
+                        string filterProperty = filter.filter[0].property;
+                        if (filterProperty == &quot;name&quot;)
+                        {
+                            if (filterCriteria.Length &gt;= 3)
+                                temp=temp.Where(k =&gt; k.name.ToLower().Contains(filterCriteria));
+                            else
+                                temp=temp.Where(k =&gt; k.name.ToLower().StartsWith(filterCriteria));
+                            
+                        }
+                        else //if filter property is age
+                        {
+                            int age = -1;
+                            if (int.TryParse(filterCriteria, out age)) //never trust client
+                                temp=temp.Where(k =&gt; k.age == age);
+                        }
+                    }
+                }
+                if (filter.sort != null)
+                {
+                    //Debug.WriteLine(&quot;Sort property:&quot; + filter.sort[0].property + &quot; direction:&quot; + filter.sort[0].direction);
+                    if (filter.sort[0].property == &quot;name&quot;)
+                    {
+                        if (filter.sort[0].direction == &quot;ASC&quot;)
+                            temp = temp.OrderBy(k =&gt; k.name);
+                        else
+                            temp = temp.OrderByDescending(k =&gt; k.name);
+                    }
+                    if (filter.sort[0].property == &quot;gender&quot;)
+                    {
+                        if (filter.sort[0].direction == &quot;ASC&quot;)
+                            temp = temp.OrderBy(k =&gt; k.gender);
+                        else
+                            temp = temp.OrderByDescending(k =&gt; k.gender);
+                    }
+                    if (filter.sort[0].property == &quot;age&quot;)
+                    {
+                        if (filter.sort[0].direction == &quot;ASC&quot;)
+                            temp = temp.OrderBy(k =&gt; k.age);
+                        else
+                            temp = temp.OrderByDescending(k =&gt; k.age);
+                    }
+                    if (filter.sort[0].property == &quot;height&quot;)
+                    {
+                        if (filter.sort[0].direction == &quot;ASC&quot;)
+                            temp = temp.OrderBy(k =&gt; k.height);
+                        else
+                            temp = temp.OrderByDescending(k =&gt; k.height);
+                    }
+                    if (filter.sort[0].property == &quot;id&quot;)
+                    {
+                        if (filter.sort[0].direction == &quot;ASC&quot;)
+                            temp = temp.OrderBy(k =&gt; k.id);
+                        else
+                            temp = temp.OrderByDescending(k =&gt; k.id);
+                    }
+                }
+                Debug.WriteLine(&quot;Sent : &quot; + DextopUtil.Encode(temp));
+                return DextopReadResult.Create(temp);
+            }
+        }
+
+
+    }
+}
+
+</pre>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+</body>
+</html>

@@ -7,6 +7,7 @@ using Codaxy.Dextop.Remoting;
 using Codaxy.Common.Reflection;
 using Codaxy.Dextop.Showcase.Demos;
 using System.Reflection;
+using System.Diagnostics;
 
 namespace Codaxy.Dextop.Showcase
 {
@@ -34,13 +35,21 @@ namespace Codaxy.Dextop.Showcase
 
         public void RegisterDemo(String id, Type type)
         {
+            Debug.WriteLine("ID DEMA REGISTER : "+id+" TYPE : "+type.ToString());
             if (!typeof(IDextopRemotable).IsAssignableFrom(type))
+            {
+                Debug.WriteLine("ID : " + id+" EXCEPTION NOT VALID");
                 throw new InvalidOperationException(String.Format("Type '{0}' is not valid demo type, as it does not implement IDextopRemotable interface.", id));
+            }
             if (!demoTypes.TryAdd(id, type))
+            {
+                Debug.WriteLine("ID : " + id + " EXCEPTION ALREADY REGISTERED");
                 throw new InvalidOperationException(String.Format("Demo with id '{0}' already registered.", id));
+            }
         }
 
         public IDextopRemotable CreateDemo(String id) {
+            Debug.WriteLine("ID DEMA CREATE : " + id);
             Type demoType;
             if (!demoTypes.TryGetValue(id, out demoType))
                 throw new InvalidOperationException(String.Format("Demo with id '{0}' not registered.", id));
