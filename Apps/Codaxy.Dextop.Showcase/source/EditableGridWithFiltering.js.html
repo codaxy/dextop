@@ -1,0 +1,193 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+<meta name="robots" content="noindex">
+</head>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.define(&#39;Showcase.demos.EditableGridWithFiltering&#39;, {
+    extend: &#39;Dextop.Window&#39;,
+    width: 800,
+    height: 450,
+    title: &#39;Editable Grid with filtering and sorting&#39;,
+
+    initComponent: function () {
+        var idOfUpdatingRecord = -1;
+        var nameFilterValue = null;
+        var store = this.remote.createStore(&#39;model&#39;, {
+            id: &#39;store&#39;,
+            autoLoad: true,
+            autoSync: true,
+            remoteSort: true,
+            remoteFilter: true,
+        });
+        var columns = this.remote.createGridColumns(&#39;model&#39;);
+        //numerical validation
+        var numTest = /^[0-9]+$/i;
+        Ext.apply(Ext.form.field.VTypes, {
+            num: function (val, field) { return numTest.test(val); },
+            numText: &#39;Age is a number.&#39;,
+            numMask: /[\d\s:amp]/i
+        });
+        var grid = Ext.create(&#39;Ext.grid.GridPanel&#39;, {
+            title: &#39;People&#39;,
+            border: true,
+            store: store,
+            columns: columns,
+            region: &#39;center&#39;,
+            layout: &#39;fit&#39;,
+            tbar: [{
+                text: &#39;Add&#39;,
+                iconCls: &#39;add&#39;,
+                scope: this,
+                handler: function () {
+                    idOfUpdatingRecord = -1;//adding
+                    Ext.getCmp(&#39;dextopform&#39;).expand();
+                }
+            }, {
+                text: &#39;Remove&#39;,
+                iconCls: &#39;remove&#39;,
+                scope: this,
+                handler: function () {
+                    var s = grid.getSelectionModel().getSelection();
+                    for (var i = 0; i &lt; s.length; i++)
+                        store.remove(s[i]);
+                    Ext.getCmp(&#39;dextopform&#39;).getForm().reset();
+                    Ext.getCmp(&#39;dextopform&#39;).collapse();
+                }
+            }],
+
+            bbar: [{
+                id: &#39;label&#39;,
+                xtype: &#39;label&#39;,
+                text: &#39;Filter : &#39;,
+                padding: &#39;0 5 0 10&#39;,
+            }, {
+                id: &#39;nameField&#39;,
+                xtype: &#39;textfield&#39;,
+                hideLabel: true,
+                emptyText: &#39;(Name)&#39;,
+                allowBlank: true,
+                width: 120,
+                listeners: {
+                    change: function (a, newValue, oldValue, eOpts) {
+                        var fleg = false;
+                        if (nameFilterValue === null) fleg = true;
+                        nameFilterValue = newValue;
+                        if (fleg)
+                            //time buffer implementation
+                            setTimeout(function () {
+                                if (store.filters.length &gt; 0)
+                                    store.clearFilter(true);
+                                store.filter(&#39;name&#39;, nameFilterValue);
+                                console.log(&#39;data sent : &#39; + nameFilterValue);
+                                nameFilterValue = null;
+                                return;
+                            }, 200);
+                    }
+                }
+            }, {
+                id: &#39;ageField&#39;,
+                xtype: &#39;textfield&#39;,
+                hideLabel: true,
+                emptyText: &#39;(Age)&#39;,
+                allowBlank: true,
+                padding: &#39;0 10 0 10&#39;,
+                width: 45,
+                vtype: &#39;num&#39;,
+                listeners: {
+                    change: function (a, newValue, oldValue, eOpts) {
+                        store.filter(&#39;age&#39;, newValue);
+                        store.clearFilter(true);
+                    }
+                }
+            }, {
+                xtype: &#39;button&#39;,
+                text: &#39;X&#39;,
+                padding: &#39;0 10 0 10&#39;,
+                width: 50,
+                handler: function () {
+                    var ageField = Ext.getCmp(&#39;ageField&#39;);
+                    var nameField = Ext.getCmp(&#39;nameField&#39;);
+                    ageField.setValue(&#39;&#39;);
+                    nameField.setValue(&#39;&#39;);
+                }
+            }],
+
+            listeners: {
+                itemclick: function (a, record, item, index, e, eOpts) {
+                    var form = Ext.getCmp(&#39;dextopform&#39;).getForm();
+                    idOfUpdatingRecord = record.get(&#39;id&#39;);
+                    form.loadRecord(record);
+                    Ext.getCmp(&#39;dextopform&#39;).expand();
+                }
+            },
+        });
+
+        Ext.apply(this, {
+            layout: {
+                type: &#39;border&#39;,
+                align: &#39;left&#39;,
+            },
+            items: [grid,
+                {
+                    xtype: &#39;dextopform&#39;,
+                    id: &#39;dextopform&#39;,
+                    bodyStyle: &#39;padding: 15px&#39;,
+                    title: &#39;Details&#39;,
+                    width: 300,
+                    border: true,
+                    region: &#39;east&#39;,
+                    collapsible: true,
+                    collapsed: true,
+                    model: this.getNestedTypeName(&#39;.form.Person&#39;),
+                    remote: this.remote,
+                    data: this.data,
+                    buttons: [{
+                        text: &#39;Save&#39;,
+                        scope: this,
+                        handler: function () {
+                            var form = Ext.getCmp(&#39;dextopform&#39;);
+                            if (!form.getForm().isValid()) return;
+                            if (idOfUpdatingRecord === -1) {//adding
+                                store.add(form.getForm().getFieldValues());
+                            }
+                            else {//editing
+                                var record = store.getById(idOfUpdatingRecord);
+                                //console.log(&#39;record : &#39; + record.raw);
+                                //console.log(&#39;form data : &#39; + JSON.stringify(form.getForm().getFieldValues()));
+                                var fieldValues = form.getForm().getFieldValues();
+                                record.set(&#39;name&#39;, fieldValues.name);
+                                record.set(&#39;age&#39;, fieldValues.age);
+                                record.set(&#39;height&#39;, fieldValues.height);
+                                record.set(&#39;gender&#39;, fieldValues.gender);
+                                record.set(&#39;basketball&#39;, fieldValues.basketball);
+                                record.set(&#39;football&#39;, fieldValues.football);
+                                record.set(&#39;volleyball&#39;, fieldValues.volleyball);
+                                idOfUpdatingRecord = -1;
+                            }
+                            form.getForm().reset();
+                            form.collapse();
+                        }
+                    }, {
+                        text: &#39;Close&#39;,
+                        scope: this,
+                        handler: function () {
+                            var form = Ext.getCmp(&#39;dextopform&#39;);
+                            form.getForm().reset();
+                            form.collapse();
+                        }
+                    }]
+
+                }],
+        });
+
+        this.callParent(arguments);
+    }
+});
+</pre>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+</body>
+</html>

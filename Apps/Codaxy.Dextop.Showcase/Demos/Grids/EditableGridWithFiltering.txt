@@ -1,0 +1,10 @@
+﻿Editable Grid with filtering and sorting
+=================
+
+This demo has the ability to perform CRUD operations on a grid that represents repository of people.
+
+Server-side filtering (using attributes name and age) and sorting (using every grid attribute) are implemented by writing queries on SortedDictionary.
+
+Window consists of two areas implemented by using border layout. Right area is form that enables creating/updating capabilities of this demo.
+
+Filtering has the time buffer of 200ms, which was created by using JS function setTimeout(). Because of that filter does not trigger server-side request for every character.
