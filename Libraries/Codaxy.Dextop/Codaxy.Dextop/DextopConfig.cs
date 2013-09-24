@@ -50,6 +50,33 @@ namespace Codaxy.Dextop
 			return false;			
 		}
 
+        /// <summary>
+        /// Try to cast property to given type.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="property">The property name.</param>
+        /// <param name="value">The value.</param>
+        /// <returns>True if value is found and converted.</returns>
+        public bool TryConvert(String property, out object value, Type type)
+        {
+            try
+            {
+                object v;
+                if (TryGetValue(property, out v) && v != null)
+                {
+                    if (v is string)
+                        value = DextopUtil.DecodeValue(v as string, type);
+                    else
+                        value = Codaxy.Common.Convert.ChangeType(v, type);
+                    return true;
+                }
+            }
+            catch { }
+
+            value = null;
+            return false;
+        }
+
 		/// <summary>
 		/// Safely gets the property value. If value is not found or invalid, default value is used.
 		/// </summary>

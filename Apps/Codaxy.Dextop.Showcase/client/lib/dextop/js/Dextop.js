@@ -14,7 +14,7 @@ Ext.apply(Dextop, {
 	removeText: 'Remove',
 	reloadText: 'Reload',
 
-	virtualAppPath: '/',
+	virtualAppPath: '',
 
 
 	/* Shorthand for Ext.create(config.alias, config).
@@ -231,6 +231,18 @@ Ext.apply(Dextop, {
 	},
 
 	absolutePath: function (path) {
+
+	    if (!Dextop.virtualAppPath) {
+	        Ext.each(Ext.DomQuery.select('link'), function (link) {
+	            var href = Ext.fly(link).getAttribute('href');
+	            var index = href.indexOf('client/lib/dextop/');
+	            if (index > 0) {
+	                Dextop.virtualAppPath = href.substring(0, index);
+	                return false;
+	            }
+	        });
+	    }
+
 	    if (!path)
 	        return path;
 	    if (path.indexOf(Dextop.virtualAppPath) == 0)

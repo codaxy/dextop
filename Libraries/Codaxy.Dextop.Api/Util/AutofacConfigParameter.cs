@@ -18,9 +18,9 @@ namespace Codaxy.Dextop.Api.Util
         public override bool CanSupplyValue(System.Reflection.ParameterInfo pi, IComponentContext context, out Func<object> valueProvider)
         {
             object value;
-            if (config.TryGetValue(pi.Name, out value))
+            if (config.TryConvert(pi.Name, out value, pi.ParameterType))
             {
-                valueProvider = () => Codaxy.Common.Convert.ChangeType(value, pi.ParameterType);
+                valueProvider = () => value;
                 return true;
             }
 
