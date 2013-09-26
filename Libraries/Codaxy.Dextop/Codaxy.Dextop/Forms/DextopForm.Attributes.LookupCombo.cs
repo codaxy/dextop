@@ -35,7 +35,10 @@ namespace Codaxy.Dextop.Forms
 		public override DextopFormField ToField(string memberName, Type memberType)
 		{
 			var res = base.ToField(memberName, memberType);
-            res["store"] = new DextopRawJs("options.remote.createStore('{0}')", lookupId ?? res.name);
+            if (lookupStoreId != null)
+                res["store"] = new DextopRawJs("Dextop.getStore('{0}', {{ autoLoad: true }})", lookupStoreId);
+            else
+                res["store"] = new DextopRawJs("options.remote.createStore('{0}')", lookupId ?? res.name);
 			res["valueField"] = "id";
 			//res["displayField"] = "text"; //combo default
 			res["queryMode"] = "local";
@@ -66,5 +69,10 @@ namespace Codaxy.Dextop.Forms
         /// Specify true to hide the trigger element and display only the base text field.
         /// </summary>
         public bool hideTrigger { get; set; }
+
+        /// <summary>
+        /// Name of the store which holds lookup values.
+        /// </summary>
+        public string lookupStoreId { get; set; }
 	}
 }

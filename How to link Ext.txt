@@ -1,6 +1,0 @@
-To install ext copy mklink-ext.bat.sample to mklink-ext.bat file and set valid path to Ext.
-Rembember to execute batch as an administrator.
-
-Note: If ext folder already exists in client/lib directory, delete it.
-
-If you're on XP and or mklink does not work for you, unpack Ext JS to the client/lib/ext folder of the Showcase app.

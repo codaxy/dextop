@@ -138,6 +138,7 @@
     <Content Include="client\lib\dextop\js\ux\Ext.ux.KeyMapPlugin.js" />
     <Compile Include="Demos\Api\ApiGrid.cs" />
     <Compile Include="Demos\Api\ApiTree.cs" />
+    <Compile Include="Demos\Api\ApiGridWithFormEditor.cs" />
     <Compile Include="Demos\Api\GenericProxyController.cs" />
     <Compile Include="Demos\Forms\AppendedItems.cs" />
     <Compile Include="Demos\Forms\RemoteLookupCombo.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="Demos\Live\ChatRoom.cs" />
     <Content Include="Demos\Api\ApiGrid.js" />
     <Content Include="Demos\Api\ApiTree.js" />
+    <Content Include="Demos\Api\ApiGridWithFormEditor.js" />
     <Content Include="Demos\Api\FirstApiDemo.js" />
     <Content Include="Demos\Forms\RemoteLookupCombo.js" />
     <Content Include="Demos\Forms\RemoteLookupCombo.txt" />

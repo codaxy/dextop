@@ -278,5 +278,12 @@ Ext.apply(Dextop, {
 		var c = Ext.ClassManager.get(className);
 		if (c && c.prototype)
 			Ext.apply(c.prototype, localizationData);
-	}	
+	},
+
+	getStore: function (storeId, options) {
+	    var store = Ext.getStore(storeId);
+	    if (options && options.autoLoad && !store.isLoading() && store.getCount() == 0)
+	        store.load();
+	    return store;
+	}
 });
