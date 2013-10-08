@@ -31,12 +31,13 @@ namespace Codaxy.Dextop.Showcase.Demos.Grids
             var id = context.Request.Params["node"];
 
             List<TreeNode> nodes = new List<TreeNode>();
-            for (int i = 0; i < 3; i++)
-                nodes.Add(new TreeNode
-                {
-                    id = id + i,
-                    text = "node " + id + i
-                });
+            if (id.Length < 3)
+                for (int i = 0; i < 3; i++)
+                    nodes.Add(new TreeNode
+                    {
+                        id = id + i,
+                        text = "node " + id + i
+                    });
 
             context.Response.ContentType = "application/json";
             context.Response.Write(Codaxy.Dextop.DextopUtil.Encode(nodes));
