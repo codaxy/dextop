@@ -6,6 +6,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuSpec", "NuSpec", "{DFAE4A
 		NuGet\Codaxy.Dextop.Api\Codaxy.Dextop.Api.nuspec = NuGet\Codaxy.Dextop.Api\Codaxy.Dextop.Api.nuspec
 		NuGet\Codaxy.Dextop.Core\Codaxy.Dextop.Core.nuspec = NuGet\Codaxy.Dextop.Core\Codaxy.Dextop.Core.nuspec
 		NuGet\Codaxy.Dextop\Codaxy.Dextop.nuspec = NuGet\Codaxy.Dextop\Codaxy.Dextop.nuspec
+		NuGet\Codaxy.Dextop.Preprocessor\Codaxy.Dextop.Preprocessor.nuspec = NuGet\Codaxy.Dextop.Preprocessor\Codaxy.Dextop.Preprocessor.nuspec
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{13AD9D20-7129-4B69-AB49-B4E32C0E0D86}"

@@ -104,7 +104,8 @@ namespace Codaxy.Dextop
 		/// <returns></returns>
         public string MapPath(string path)
         {
-            return Path.Combine(PhysicalPath, path);
+            var colonHack = path.Replace(":", "..");
+            return Path.Combine(PhysicalPath, colonHack);
         }
 
 		/// <summary>

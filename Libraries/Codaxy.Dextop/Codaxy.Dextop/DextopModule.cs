@@ -185,7 +185,11 @@ namespace Codaxy.Dextop
 
         internal IEnumerable<string> PrefixVirtualPath(IEnumerable<string> list)
         {
-            return list.Select(a => DextopUtil.CombinePaths(VirtualPath, a));
+            foreach (var a in list)
+            {
+                var colonHack = a.Replace(":/", "");
+                yield return DextopUtil.CombinePaths(VirtualPath, colonHack);
+            }
         }
     }
 
