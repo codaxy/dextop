@@ -78,7 +78,7 @@ Ext.define('Dextop.data.GridColumnsFactory', {
 					        store.load();
 					}
 					else {
-					    if (!options || (!options.remote || !options.storeId))
+					    if (!options || !options.remote)
 					        throw "Invalid lookup options specified.";
 					    store = options.remote.createStore(c.lookupId || c.dataIndex);
 					}

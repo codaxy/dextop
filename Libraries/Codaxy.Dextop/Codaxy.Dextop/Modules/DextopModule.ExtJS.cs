@@ -43,6 +43,11 @@ namespace Codaxy.Dextop
         /// </summary>
         public bool SkipCss { get; set; }
 
+        /// <summary>
+        /// Don't load localized files.
+        /// </summary>
+        public bool SkipLocalizations { get; set; }
+
 		/// <summary>
 		/// Setup mapping of module's namespaces.
 		/// </summary>
@@ -80,7 +85,8 @@ namespace Codaxy.Dextop
             else
                 js.Register("ext-all.js");
 
-            js.RegisterLocalizations(new[] { "sr", "ru", "fr", "de", "da" }, "locale/", "ext-lang-{0}.js");
+            if (!SkipLocalizations)
+                js.RegisterLocalizations(new[] { "sr", "ru", "fr", "de", "da" }, "locale/", "ext-lang-{0}.js");
 
             var css = CreateCssPackage();
             css.Minify = false;

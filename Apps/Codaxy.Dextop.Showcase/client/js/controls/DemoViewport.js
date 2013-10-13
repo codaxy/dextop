@@ -150,7 +150,7 @@ Ext.define('Showcase.DemoViewport', {
 		Ext.Array.each(buttons, function (button) {
 		    if (button.sortData) {
 		        sorters.push(Ext.apply({
-		            transform: me.getSorterTransform(button.sortData.property),
+		            transform: me.getSorterTransform(button.sortData.property)
 		        }, button.sortData));
 		    }
 		});

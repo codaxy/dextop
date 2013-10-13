@@ -66,7 +66,13 @@ namespace Codaxy.Dextop.Showcase.Demos.Live
             base.InitRemotable(remote, config);          
             Remote.RemoteHostType = "Showcase.demos.LiveGridWindow";
             Remote.AddLiveStore("model", store);
+            Remote.AddLookupData("Type", new [] {
+                new object[] { Type.Security, "Security"},
+                new object[] { Type.Bond, "Bond"},
+            });
         }
+
+        public enum Type { Security, Bond }
 
         [DextopModel]
         [DextopGrid]
@@ -78,6 +84,11 @@ namespace Codaxy.Dextop.Showcase.Demos.Live
             
             [DextopGridColumn(width = 100)]            
             public double Price { get; set; }
+
+            [DextopGridLookupColumn()]
+            public Type Type { get; set; }
+
+            
         }
     }
 }

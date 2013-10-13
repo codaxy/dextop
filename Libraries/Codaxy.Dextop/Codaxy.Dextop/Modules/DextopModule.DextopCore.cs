@@ -46,8 +46,11 @@ namespace Codaxy.Dextop
 
             var supportedLanguages = new[] { "sr", "ru", "da" };
 
-            coreModule.RegisterLocalizations(supportedLanguages, "js/locale/", "dextop-{0}.js");
-            coreModule.RegisterLocalizations(supportedLanguages, "js/locale/", "ext-patch-{0}.js");
+            if (!SkipLocalizations)
+            {
+                coreModule.RegisterLocalizations(supportedLanguages, "js/locale/", "dextop-{0}.js");
+                coreModule.RegisterLocalizations(supportedLanguages, "js/locale/", "ext-patch-{0}.js");
+            }
 
             RegisterCss("css/dextop.css");
         }
@@ -71,5 +74,10 @@ namespace Codaxy.Dextop
         {
 
         }
+
+        /// <summary>
+        /// Don't load localized javascript files.
+        /// </summary>
+        public bool SkipLocalizations { get; set; }
     }
 }
