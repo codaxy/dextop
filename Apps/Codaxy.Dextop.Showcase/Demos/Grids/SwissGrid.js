@@ -12,6 +12,9 @@ Ext.define('Showcase.demos.SwissGridWindow', {
 		var grid = Ext.create('Dextop.ux.SwissArmyGrid', {
 			remote: this.remote,
 			paging: true,
+			pageSizeSelect: {
+                pageSizes: [10, 50, -1]
+			},
 			border: false,
 			editing: 'cell',
 			tbar: ['add', 'edit', 'remove', '-', 'save', 'reload'],

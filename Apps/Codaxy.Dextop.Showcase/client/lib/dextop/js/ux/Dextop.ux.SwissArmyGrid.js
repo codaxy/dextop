@@ -26,6 +26,7 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
 	confirmDeleteText: 'Are you sure you want to remove the selected records?',
 	pageSizeText: 'Size: ',
 	pageSizeSelect: false, //add page size combo to paging toolbar
+    pageSizeSelectOptions: undefined, //Additional options for page size plugin
 
 	defaultRowEditingOptions: {
 		removePhantomsOnCancel: true
@@ -86,10 +87,14 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
 			this.pagingToolbarOptions = this.pagingToolbarOptions || {};
 			this.pagingToolbarOptions.items = Ext.Array.from(this.pagingToolbarOptions.items) || [];
 			if (this.pageSizeSelect) {
-				this.pagingToolbarOptions.items.push('-', this.pageSizeText, {
+			    var options = Ext.apply({}, this.pageSizeSelectOptions);
+			    if (typeof this.pageSizeSelect == 'object')
+			        Ext.apply(options, this.pageSizeSelect);
+
+				this.pagingToolbarOptions.items.push('-', this.pageSizeText, Ext.apply({
 					xtype: 'pagesizecombo',
 					store: this.store
-				});
+				}, options));
 			}
 			this.bbar = Ext.create('Ext.PagingToolbar', Ext.apply({
 				store: this.store
