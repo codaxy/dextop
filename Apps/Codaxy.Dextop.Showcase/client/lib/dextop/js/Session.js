@@ -62,7 +62,7 @@ Ext.define('Dextop.Session', {
 
 	extendExpiry: function () {
 		this.remote.ExtendSession(function (r) {
-			if (r.success === false && r.result && r.result.type === 'session')
+			if (r && r.success === false && r.result && r.result.type === 'session')
 				this.terminate();
 		}, this);
 	},
