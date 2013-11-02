@@ -45,7 +45,28 @@ namespace Codaxy.Dextop.Data
         /// Gets or sets type of the default serializer.
         /// </summary>
         public DextopSerializerType DefaultSerializer { get; set; }
+
+        internal virtual bool IsTreeModel { get { return false; } }
     }
+
+    /// <summary>
+    /// Mark that class is a model class.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
+    public class DextopTreeModelAttribute : DextopModelAttribute
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DextopTreeModelAttribute"/> class.
+        /// </summary>
+        public DextopTreeModelAttribute()
+        {
+            DefaultSerializer = DextopSerializerType.Json;
+        }
+
+        internal override bool IsTreeModel { get { return true; } }
+    }
+
+
 
     /// <summary>
     /// Mark field or property as Id.

@@ -37,9 +37,19 @@ namespace Codaxy.Dextop.Forms
 			var res = base.ToField(memberName, memberType);
 
             if (initialLookupValueField != null)
-                res["store"] = new DextopRawJs("options.remote.createStore('{0}', !Ext.isDefined(options.data['{1}']) ? {{}} : {{ data: [[options.data['{1}'], options.data['{2}']]] }})", lookupId ?? res.name, res.name, initialLookupValueField);
+            {
+                if (api != null)
+                    res["store"] = new DextopRawJs("Dextop.api('{0}').createStore(!Ext.isDefined(options.data['{1}']) ? {{}} : {{ data: [[options.data['{1}'], options.data['{2}']]] }})", api, res.name, initialLookupValueField);
+                else
+                    res["store"] = new DextopRawJs("options.remote.createStore('{0}', !Ext.isDefined(options.data['{1}']) ? {{}} : {{ data: [[options.data['{1}'], options.data['{2}']]] }})", lookupId ?? res.name, res.name, initialLookupValueField);
+            }
             else if (autoLoadStore)
-                res["store"] = new DextopRawJs("options.remote.createStore('{0}', {{ autoLoad: true }})", lookupId ?? res.name);
+            {
+                if (api != null)
+                    res["store"] = new DextopRawJs("Dextop.api('{0}').createStore({{ autoLoad: true }})", api);
+                else
+                    res["store"] = new DextopRawJs("options.remote.createStore('{0}', {{ autoLoad: true }})", lookupId ?? res.name);
+            }
 			
             res["valueField"] = valueField;
 			res["displayField"] = displayField;

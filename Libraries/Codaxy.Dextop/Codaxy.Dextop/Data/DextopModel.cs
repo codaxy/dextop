@@ -46,8 +46,11 @@ namespace Codaxy.Dextop.Data
 		/// </summary>
 		/// <param name="jw">The writer.</param>
         protected override void WriteProperties(DextopJsWriter jw)
-        {
-			jw.AddProperty("extend", "Ext.data.Model");
+        {            
+            if (Meta.IsTreeModel)
+                jw.AddProperty("extend", "Ext.data.TreeModel");
+            else
+			    jw.AddProperty("extend", "Ext.data.Model");
             if (Fields != null)
                 jw.AddProperty("fields", Fields);
             if (Validations != null && Validations.Count > 0)

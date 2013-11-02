@@ -71,5 +71,34 @@ namespace Codaxy.Dextop.Api
             }
         }
 
+        class DisposableController : DextopApiController
+        {
+            public int Disposed = 0;
+
+            protected override void Dispose(bool disposing)
+            {
+                base.Dispose(disposing);
+                Disposed++;
+            }
+        }
+
+        [Test(Active=true)]
+        public void ControllerGetsDisposed()
+        {
+            var cb = new ContainerBuilder();
+            cb.RegisterModule(new DextopApiAutofacModule());
+            cb.RegisterType<DisposableController>();
+            using (var c = cb.Build())
+            {
+                DisposableController tc;
+                using (var f = c.Resolve<DextopApiContext>())
+                {
+                    tc = f.Resolve<DisposableController>();
+                    Assert.AreEqual(0, tc.Disposed);
+                }
+                Assert.AreEqual(1, tc.Disposed);
+            }
+        }
+
     }
 }

@@ -191,7 +191,8 @@ namespace Codaxy.Dextop.Data
 				meta.ModelName = Application.MapTypeName(type, ".model");
             meta.ExcludedFields = excludeFields.Count == 0 ? null : excludeFields.ToArray();
             meta.Fields = model.Fields.Select(a => a.name).ToArray();
-            meta.ModelType = type;            
+            meta.ModelType = type;
+            meta.IsTreeModel = modelAttribute.IsTreeModel;
             
             if (!metas.TryAdd(type, meta))
                 throw new DextopException("Model for type '{0}' already registered.", type);

@@ -26,21 +26,25 @@ namespace Codaxy.Dextop.Api
                 DextopApiInvocationResult result;
                 try
                 {
-                    var apiContext = DextopApi.Resolve<DextopApiContext>();
-                    var controllerType = Type.GetType(request.data[0]);
-                    apiContext.Scope = DextopUtil.Decode<DextopConfig>(request.data[1]);
-                    apiContext.HttpContext = new HttpContextWrapper(context);                    
-                    var controller = apiContext.ResolveController(controllerType);                    
-                    controller.OnInitialize();
+                    using (var apiContext = DextopApi.Resolve<DextopApiContext>())
+                    {
+                        var controllerType = Type.GetType(request.data[0]);
+                        apiContext.Scope = DextopUtil.Decode<DextopConfig>(request.data[1]);
+                        apiContext.HttpContext = new HttpContextWrapper(context);
+                        var controller = apiContext.ResolveController(controllerType);
+                        controller.OnInitialize();
 
-                    try
-                    {
-                        result = controller.Invoke(request.data[2], DextopUtil.Decode<string[]>(request.data[3]));
-                    }
-                    catch (Exception ex)
-                    {
-                        controller.OnError(ex);
-                        throw;
+                        try
+                        {
+                            controller.OnExecuting();
+                            result = controller.Invoke(request.data[2], DextopUtil.Decode<string[]>(request.data[3]));
+                            controller.OnExecuted();
+                        }
+                        catch (Exception ex)
+                        {
+                            controller.OnError(ex);
+                            throw;
+                        }
                     }
                 }
                 catch(Exception ex)

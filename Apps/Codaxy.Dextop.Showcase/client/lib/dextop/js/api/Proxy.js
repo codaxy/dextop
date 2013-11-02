@@ -26,19 +26,8 @@ Ext.define('Dextop.api.Proxy', {
         if (!config.api)
             throw Error('Could not create api based data proxy as api is not specified.');
 
-        this.api = config.api;
+        this.api = Dextop.api(config.api);
         delete config.api;
-
-        if (!this.api.createStore) {
-
-            if (typeof this.api == 'string')
-                this.api = Ext.create(this.api);
-
-            if (this.api.type) {
-                delete api.type;
-                this.api = Ext.create(this.api.type, this.api);
-            }
-        }
 
         this.callParent(arguments);
     },

@@ -14,7 +14,7 @@ namespace Codaxy.Dextop.Api
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
-            builder.RegisterType<DextopApiContext>();
+            builder.RegisterType<DextopApiContext>().ExternallyOwned();
             builder.RegisterType<StandardActionInvoker>().As<IDextopApiActionInvoker>().SingleInstance();
         }
     }

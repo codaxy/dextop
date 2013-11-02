@@ -35,6 +35,11 @@ namespace Codaxy.Dextop.Data
         /// </summary>		
         public Type ModelType { get; set; }
 
+        /// <summary>
+        /// Determines if tree model is used.
+        /// </summary>
+        public bool IsTreeModel { get; set; }
+
 
         /// <summary>
         /// Default serializer type

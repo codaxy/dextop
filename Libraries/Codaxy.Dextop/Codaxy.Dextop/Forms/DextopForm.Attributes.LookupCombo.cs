@@ -37,6 +37,8 @@ namespace Codaxy.Dextop.Forms
 			var res = base.ToField(memberName, memberType);
             if (lookupStoreId != null)
                 res["store"] = new DextopRawJs("Dextop.getStore('{0}', {{ autoLoad: true }})", lookupStoreId);
+            else if (api!=null)
+                res["store"] = new DextopRawJs("Dextop.api('{0}').createStore()", api);
             else
                 res["store"] = new DextopRawJs("options.remote.createStore('{0}')", lookupId ?? res.name);
 			res["valueField"] = "id";
@@ -74,5 +76,10 @@ namespace Codaxy.Dextop.Forms
         /// Name of the store which holds lookup values.
         /// </summary>
         public string lookupStoreId { get; set; }
+
+        /// <summary>
+        /// Name of the api controller to be used for lookups
+        /// </summary>
+        public string api { get; set; }
 	}
 }

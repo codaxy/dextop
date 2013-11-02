@@ -46,6 +46,20 @@
         }, options));
     },
 
+    createTreeStore: function (options) {
+        return Ext.create('Ext.data.TreeStore', Ext.apply({
+            model: this.getModel(),
+            proxy: {
+                type: 'api',
+                api: this,
+                reader: {
+                    type: 'json',
+                    root: 'data'
+                }
+            }
+        }, options));
+    },
+
     getModel: function () {
         if (this.model)
             return this.model;

@@ -8,13 +8,13 @@ using Codaxy.Dextop.Api.Util;
 
 namespace Codaxy.Dextop.Api
 {
-    public class DextopApiContext
+    public sealed class DextopApiContext : IDisposable
     {
         readonly ILifetimeScope scope;
 
         public DextopApiContext(ILifetimeScope scope)
         {
-            this.scope = scope;
+            this.scope = scope.BeginLifetimeScope();
         }
 
         public DextopConfig Scope { get; set; }
@@ -48,6 +48,11 @@ namespace Codaxy.Dextop.Api
             var controller = (DextopApiController)ResolveScoped(controllerType);
             controller.Context = this;
             return controller;
+        }
+
+        public void Dispose()
+        {
+            scope.Dispose();
         }
     }
 }
