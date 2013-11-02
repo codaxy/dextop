@@ -18,16 +18,18 @@ Ext.define(&#39;Showcase.demos.LiveGridWindow&#39;, {
     maximizable: true,
 
     initComponent: function () {
+        
+
+        var columns = this.remote.createGridColumns(&#39;model&#39;);
+
         var store = this.remote.createLiveStore(&#39;model&#39;, {
             autoLoad: true,
-            autoSort: true,            
+            autoSort: true,
             sorters: [{
-            	property: &#39;Ticker&#39;,
+                property: &#39;Ticker&#39;,
                 direction: &#39;DESC&#39;
             }]
         });
-
-        var columns = this.remote.createGridColumns(&#39;model&#39;);
 
         var grid = Ext.create(&#39;Ext.grid.GridPanel&#39;, {
             store: store,

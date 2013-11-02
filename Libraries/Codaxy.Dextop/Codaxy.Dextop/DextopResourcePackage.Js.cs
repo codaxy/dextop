@@ -73,6 +73,9 @@ namespace Codaxy.Dextop
             }
             else
             {
+                if (package.Module.Application.PreprocessingEnabled && !package.Module.Application.PreprocessorMode)
+                    return;
+
                 foreach (var vpath in virtualPaths)
                     package.AddFiles(package.SearchServer(DextopUtil.CombinePaths(pathPrefix, vpath), ".js", true));
             }
