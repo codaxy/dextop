@@ -208,7 +208,7 @@ if (Ext.versions.extjs.version >= '4.1.0')
     });
 
 
-if (Ext.versions.extjs.version == '4.1.1' || Ext.versions.extjs.version == '4.2.0.663')
+if (Ext.versions.extjs.version >= '4.1.1')
     Ext.override(Ext.form.field.Time, {
         syncSelection: function () {
             var me = this,
