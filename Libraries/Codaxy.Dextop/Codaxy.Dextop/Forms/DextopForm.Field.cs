@@ -143,6 +143,7 @@ namespace Codaxy.Dextop.Forms
             jw.DefaultProperty("anchor", anchor);
 			jw.AddLocalizationProperty("emptyText", emptyText, ItemName + "EmptyText");
             jw.DefaultProperty("readOnly", readOnly);
+            jw.DefaultProperty("disabled", disabled);
             jw.DefaultProperty("allowBlank", allowBlank);
             jw.DefaultProperty("inputType", inputType);
             jw.DefaultProperty("vtype", vtype);
