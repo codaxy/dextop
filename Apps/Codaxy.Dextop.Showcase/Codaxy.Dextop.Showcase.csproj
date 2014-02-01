@@ -382,6 +382,15 @@
     <Content Include="source\AllFormFieldsWindow.cs.html" />
     <Content Include="source\AllFormFieldsWindow.html" />
     <Content Include="source\AllFormFieldsWindow.js.html" />
+    <Content Include="source\ApiGrid.cs.html" />
+    <Content Include="source\ApiGrid.html" />
+    <Content Include="source\ApiGrid.js.html" />
+    <Content Include="source\ApiGridForm.cs.html" />
+    <Content Include="source\ApiGridForm.html" />
+    <Content Include="source\ApiGridForm.js.html" />
+    <Content Include="source\ApiTree.cs.html" />
+    <Content Include="source\ApiTree.html" />
+    <Content Include="source\ApiTree.js.html" />
     <Content Include="source\AppendedItems.cs.html" />
     <Content Include="source\AppendedItems.html" />
     <Content Include="source\AppendedItems.js.html" />
@@ -419,6 +428,9 @@
     <Content Include="source\FileUploadForm.cs.html" />
     <Content Include="source\FileUploadForm.html" />
     <Content Include="source\FileUploadForm.js.html" />
+    <Content Include="source\FirstApiDemo.cs.html" />
+    <Content Include="source\FirstApiDemo.html" />
+    <Content Include="source\FirstApiDemo.js.html" />
     <Content Include="source\GridActionManager.cs.html" />
     <Content Include="source\GridActionManager.html" />
     <Content Include="source\GridActionManager.js.html" />
@@ -428,6 +440,9 @@
     <Content Include="source\GridRenderers.cs.html" />
     <Content Include="source\GridRenderers.html" />
     <Content Include="source\GridRenderers.js.html" />
+    <Content Include="source\GridWidthCollapsibleFormEditor.cs.html" />
+    <Content Include="source\GridWidthCollapsibleFormEditor.html" />
+    <Content Include="source\GridWidthCollapsibleFormEditor.js.html" />
     <Content Include="source\GridWindow.cs.html" />
     <Content Include="source\GridWindow.html" />
     <Content Include="source\GridWindow.js.html" />

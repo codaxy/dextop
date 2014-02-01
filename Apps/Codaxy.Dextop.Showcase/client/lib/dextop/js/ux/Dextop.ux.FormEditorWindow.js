@@ -58,6 +58,9 @@ Ext.define('Dextop.ux.FormEditorWindow', {
 
         this.on('show', function () {
             this.form.getForm().isValid(); //mark required field
+            var firstField = this.down('field');
+            if (firstField)
+                firstField.focus();
         }, this);
 
         this.callParent();
@@ -72,7 +75,7 @@ Ext.define('Dextop.ux.FormEditorWindow', {
     },
 
     applyReadOnlyOnItems: function (items) {
-		var i;
+        var i;
         for (i = 0; i < items.length; i++) {
             items[i].readOnly = true
             if (Ext.isArray(items[i].items))
