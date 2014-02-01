@@ -1,5 +1,7 @@
 REM Creating NuGet : Dextop (just the libraries js & dll)
 
+pushd %~dp0
+
 del *.nupkg
 robocopy ..\Apps\Codaxy.Dextop.Showcase\client\lib\dextop Codaxy.Dextop\content\client\lib\dextop /XD .svn /MIR
 ..\.nuget\nuget pack Codaxy.Dextop\Codaxy.Dextop.nuspec
@@ -23,5 +25,7 @@ mkdir Codaxy.Dextop.Api\lib\
 copy ..\Libraries\Codaxy.Dextop.Api\bin\Release\Codaxy.Dextop.Api.dll Codaxy.Dextop.Api\lib\
 del Codaxy.Dextop.Api\lib\*.pdb
 ..\.nuget\nuget pack Codaxy.Dextop.Api\Codaxy.Dextop.Api.nuspec
+
+popd
 
 pause
