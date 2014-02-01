@@ -601,8 +601,8 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PreBuildEvent>cd $(SolutionDir)Nuget
-if $(ConfigurationName) == NuGet call local.bat</PreBuildEvent>
+    <PreBuildEvent>
+if $(ConfigurationName) == NuGet call $(SolutionDir)Nuget\local.bat</PreBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" />
   <PropertyGroup>
