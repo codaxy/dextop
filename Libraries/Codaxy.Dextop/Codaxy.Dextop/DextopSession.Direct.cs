@@ -215,7 +215,7 @@ namespace Codaxy.Dextop
 
             if (UseApi)
             {
-                res["apiUrl"] = "api.ashx";
+                res["apiUrl"] = DextopUtil.AbsolutePath("api.ashx");
             }
 
             return res;
