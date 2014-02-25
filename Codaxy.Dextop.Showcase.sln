@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuSpec", "NuSpec", "{DFAE4A03-37F3-47AE-A2C3-399921374876}"
 	ProjectSection(SolutionItems) = preProject
 		NuGet\Codaxy.Dextop.Api\Codaxy.Dextop.Api.nuspec = NuGet\Codaxy.Dextop.Api\Codaxy.Dextop.Api.nuspec
@@ -11,6 +13,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NuSpec", "NuSpec", "{DFAE4A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{13AD9D20-7129-4B69-AB49-B4E32C0E0D86}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F5F8082F-950D-45EA-9D8C-9B449C8C2C2F}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codaxy.Dextop", "Libraries\Codaxy.Dextop\Codaxy.Dextop\Codaxy.Dextop.csproj", "{A58493FD-7BD1-42B2-97AE-BBB10D2BAB79}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codaxy.Dextop.Showcase", "Apps\Codaxy.Dextop.Showcase\Codaxy.Dextop.Showcase.csproj", "{3A1B5EE6-BB5A-4BA6-873A-6C291221C3FB}"
@@ -20,8 +24,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codaxy.Dextop.Preprocessor", "Tools\Codaxy.Dextop.Preprocessor\Codaxy.Dextop.Preprocessor.csproj", "{02C0357C-162D-46C5-887F-0E9AC520E7C0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Codaxy.Dextop.Api", "Libraries\Codaxy.Dextop.Api\Codaxy.Dextop.Api.csproj", "{E7B80E2E-7A4D-4B04-B4F3-FFBBA0806ED0}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F5F8082F-950D-45EA-9D8C-9B449C8C2C2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
