@@ -46,6 +46,9 @@ Ext.define('Dextop.data.Proxy', {
 			case 'read':
 				var params = this.getParams(operation);
 				params.Params = Ext.apply(operation.params || {}, this.extraParams);
+				if (operation.id !== undefined && params.Params[this.idParam] === undefined) {
+			        	params.Params[this.idParam] = operation.id;
+			    	}
 				args.push(params);
 				break;
 			case 'create':
