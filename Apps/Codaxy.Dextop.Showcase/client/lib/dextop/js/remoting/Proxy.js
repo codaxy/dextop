@@ -283,7 +283,7 @@ Ext.define("Dextop.remoting.Proxy", {
 	},
 
 	createGridColumns: function (name, options) {
-		var model = this.findComponentConfig(name + 'GridHeaders');
+		var model = this.findComponentConfig(name + 'GridColumns');
 		if (!model) {
 			var config = this.findComponentConfig(name + 'Proxy') || this.findComponentConfig(name + 'LiveStore');
 			if (config)
