@@ -226,9 +226,9 @@ Ext.define("Dextop.remoting.Proxy", {
 		return this.components[name];
 	},
 
-	createProxy: function (name) {
+	createProxy: function (name, options) {
 		var config = this.getComponentConfig(name + 'Proxy');
-		return Dextop.create(config);
+		return Dextop.create(Ext.apply(Ext.clone(config), options));
 	},
 
 	createStore: function (name, options) {
