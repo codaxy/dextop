@@ -72,7 +72,7 @@ Ext.define('Dextop.data.Proxy', {
 	createCallback: function (operation, callback, scope) {
 		return Ext.apply({
 			handler: function (r) {
-				this.processResponse(r.success, operation, null, r, callback, scope)
+				this.processResponse(r && r.success, operation, null, r, callback, scope)
 			}
 		}, this.remoteCallbackOptions);
 	},
