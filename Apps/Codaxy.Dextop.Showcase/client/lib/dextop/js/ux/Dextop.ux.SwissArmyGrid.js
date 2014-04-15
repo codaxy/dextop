@@ -23,7 +23,7 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
 
     editOnDblClick: false, //Start editing when row is double-clicked	
 
-    confirmDeleteText: 'Are you sure you want to remove the selected records?',
+    confirmDeleteText: 'Are you sure you want to remove selected records?',
     pageSizeText: 'Size: ',
     pageSizeSelect: false, //add page size combo to paging toolbar
     pageSizeSelectOptions: undefined, //Additional options for page size plugin
