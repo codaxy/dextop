@@ -189,6 +189,11 @@ namespace Codaxy.Dextop
 		/// </summary>
 		protected virtual int PollingInterval { get { return 20000; } }
 
+        /// <summary>
+        /// Gets the remoting timeout interval in milliseconds. Defaults to null, which use browser default behaviour.
+        /// </summary>
+        protected virtual int? RemotingTimeout { get { return null; } }
+
 		/// <summary>
 		/// Gets the direct config.
 		/// </summary>
@@ -205,6 +210,8 @@ namespace Codaxy.Dextop
             
             var res = new DextopConfig();
             res["remotingUrl"] = String.Format(urlFormat, "rpc");
+            res["remotingTimeout"] = RemotingTimeout;
+
             if (UseLongPolling) 
                 res["longPollingUrl"] = String.Format(urlFormat, "lpoll");
             else if (UsePolling)
