@@ -2,7 +2,8 @@
 
 Ext.define('Dextop.Session', {
 
-	sessionTerminatedReloadText: 'Your session is terminated. Would you like start a new session?',
+    sessionTerminatedReloadText: 'Your session is terminated. Would you like start a new session?',
+    remotingTimeout: null, //use default
 
 	mixins: {
 		observable: 'Ext.util.Observable',
@@ -121,19 +122,24 @@ Ext.define('Dextop.Session', {
 
 		Dextop.remoting.Proxy.ajaxUrlBase = config.remotingUrl + '&ajax=1';
 
-		this.remotingProvider = Ext.Direct.addProvider({
-			id: 'rpc',
-			url: config.remotingUrl,
-			type: "remoting",
-			maxRetries: 0,
-			priority: 0,
-			"actions": {
-				"Remote": [{
-					"name": "invoke",
-					"len": 3
-				}]
-			}
-		});
+		var remotingOptions = {
+		    id: 'rpc',
+		    url: config.remotingUrl,
+		    type: "remoting",
+		    maxRetries: 0,
+		    priority: 0,
+		    "actions": {
+		        "Remote": [{
+		            "name": "invoke",
+		            "len": 3
+		        }]
+		    }
+		}
+
+		if (this.remotingTimeout)
+		    remotingOptions.timeout = config.remotingTimeout || this.remotingTimeout;
+
+		this.remotingProvider = Ext.Direct.addProvider(remotingOptions);
 
 		if (config.apiUrl) {
 		    this.apiProvider = Ext.Direct.addProvider({

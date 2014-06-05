@@ -138,6 +138,7 @@ namespace Codaxy.Dextop.Data
 			jw.DefaultProperty("renderer", renderer);
             jw.DefaultProperty("format", format);
             jw.DefaultProperty("tpl", tpl);
+            jw.DefaultProperty("align", align);
 
             if (_columns == null || _columns.Count == 0)
             {

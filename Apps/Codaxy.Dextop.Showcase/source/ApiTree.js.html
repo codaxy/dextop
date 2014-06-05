@@ -22,18 +22,18 @@ Ext.define(&#39;Showcase.demos.ApiTreeWindow&#39;, {
     width: 500,
     height: 200,
     border: false,
-    title: &#39;Grid demo using Dextop API&#39;,	
+    title: &#39;Tree demo using Dextop API&#39;,	
 	
     initComponent: function () {
 
-        var api = Ext.create(&#39;Showcase.demos.ApiGrid&#39;, {});
+        var api = Dextop.api(&#39;tree-api&#39;);
 
         //it&#39;s important to create columns before creating grid&#39;s store in order to load lookup stores first
 	    var columns = api.createGridColumns({
 	        checkEditor: true
 	    });
 
-	    var store = api.createStore({
+	    var store = api.createTreeStore({
 	        autoLoad: true
 	    });
 
