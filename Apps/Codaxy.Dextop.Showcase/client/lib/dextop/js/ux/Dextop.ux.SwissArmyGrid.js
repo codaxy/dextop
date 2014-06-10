@@ -8,6 +8,7 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
 
     editing: undefined, //One of the 'cell', 'row', 'form'	 
     editingOptions: undefined, //special options to be passed to the editing plugin
+    readOnly: false,
 
     storeName: undefined, //Name of the store component. If not specified model property is used. 
     storeOptions: undefined, //Special store configuration options
@@ -101,7 +102,8 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
             }, this.pagingToolbarOptions));
         }
 
-        this.createEditingPlugin();
+        if (!this.readOnly)
+            this.createEditingPlugin();
 
         if (Ext.isArray(this.tbar))
             this.tbar = this.actionManager.add(this.convertStringActions(this.tbar));
@@ -197,9 +199,10 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
             }
             case 'edit': return {
                 text: Dextop.editText,
-                enableOnSingle: true,
-                key: [Ext.EventObject.ENTER],
                 iconCls: this.getActionIconCls(action),
+                disabled: this.readOnly,
+                enableOnSingle: !this.readOnly,
+                key: [Ext.EventObject.ENTER],
                 scope: this,
                 handler: function () {
                     this.editRecord();
@@ -208,9 +211,10 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
             case 'remove': return {
                 text: Dextop.removeText,
                 iconCls: this.getActionIconCls(action),
+                disabled: this.readOnly,
+                enableOnSingle: !this.readOnly,
+                enableOnMulti: !this.readOnly,
                 key: [Ext.EventObject.NUM_MINUS, Ext.EventObject.DELETE],
-                enableOnSingle: true,
-                enableOnMulti: true,
                 scope: this,
                 handler: function () {
                     this.cancelEditing();
@@ -245,6 +249,7 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
             case 'add': return {
                 text: Dextop.addText,
                 iconCls: this.getActionIconCls(action),
+                disabled: this.readOnly,
                 scope: this,
                 key: [Ext.EventObject.NUM_PLUS, Ext.EventObject.INSERT],
                 handler: function () {
@@ -263,6 +268,7 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
             case 'add': return {
                 text: Dextop.addText,
                 iconCls: this.getActionIconCls(action),
+                disabled: this.readOnly,
                 scope: this,
                 key: [Ext.EventObject.NUM_PLUS, Ext.EventObject.INSERT],
                 handler: function () {
@@ -281,6 +287,7 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
             case 'add': return {
                 text: Dextop.addText,
                 iconCls: this.getActionIconCls(action),
+                disabled: this.readOnly,
                 scope: this,
                 key: [Ext.EventObject.NUM_PLUS, Ext.EventObject.INSERT],
                 handler: function () {
