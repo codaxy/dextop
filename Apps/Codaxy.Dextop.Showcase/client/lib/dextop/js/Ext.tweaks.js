@@ -73,11 +73,6 @@ Ext.override(Ext.grid.plugin.RowEditing, {
 	constructor: function (config) {
 		var me = this;
 		Ext.apply(me, config);
-		me.addEvents(
-            'beforeedit',
-            'edit',
-            'canceledit'
-        );
 		me.mixins.observable.constructor.call(me);
 	},
 
@@ -233,3 +228,22 @@ Ext.data.Types.TIMESTAMP = {
     },
     type: 'Timestamp'
 };
+
+Ext.define('Ext.data.field.Timestamp', {
+    extend: 'Ext.data.field.Field',
+
+    alias: [
+        'data.field.timestamp'
+    ],    
+
+    convert: function (v, data) {
+        if (v && Ext.isString(v)) {
+            return Ext.Date.parse(v, 'H:i');
+        }
+        return v;
+    },
+
+    getType: function () {
+        return 'timestamp';
+    }
+});

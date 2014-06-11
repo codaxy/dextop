@@ -17,10 +17,6 @@ Ext.define('Dextop.Logger', {
 	],
 
 	constructor: function () {
-		this.addEvents({
-			'update': true,
-			'clear': true
-		});
 
 		this.init();
 

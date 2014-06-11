@@ -5,8 +5,6 @@ Ext.define('Showcase.DemoDetails', {
 
 	layout: 'fit',
 
-	session: null,
-
 	initComponent: function () {
 
 		if (this.title)

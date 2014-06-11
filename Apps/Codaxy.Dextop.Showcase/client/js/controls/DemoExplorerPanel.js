@@ -3,14 +3,13 @@ Ext.ns('Showcase');
 Ext.require([
 	'Showcase.DemoDataView',
     //'Ext.multisort.SortButton',
-	'Ext.ux.BoxReorderer'	
+	//'Ext.ux.BoxReorderer'	
 ]);
 
 Ext.define('Showcase.DemoExplorerPanel', {
 	extend: 'Ext.Panel',
 
 	store: null,
-	session: null,
 	viewport: null,
 
 	//title: 'Demo Explorer',
@@ -53,8 +52,7 @@ Ext.define('Showcase.DemoExplorerPanel', {
 
 	initComponent: function () {
 		var dataview = this.dataview = Ext.create('Showcase.DemoDataView', {
-			store: this.store,
-			session: this.session,
+			store: this.store,			
 			region: 'center',
 			layout: 'fit',
 			border: false,
@@ -65,14 +63,14 @@ Ext.define('Showcase.DemoExplorerPanel', {
 			items: dataview,
 
 			tbar: Ext.create('Ext.toolbar.Toolbar', {
-			    plugins: Ext.create('Ext.ux.BoxReorderer', {
-			        listeners: {
-			            scope: this,
-			            drop: function () {
-			                this.doSort();
-			            }
-			        }
-			    }),			    
+			    //plugins: Ext.create('Ext.ux.BoxReorderer', {
+			    //    listeners: {
+			    //        scope: this,
+			    //        drop: function () {
+			    //            this.doSort();
+			    //        }
+			    //    }
+			    //}),			    
 			    items: [this.createSorterButtonConfig({
 			        xtype: 'button',
 			        text: 'Level',

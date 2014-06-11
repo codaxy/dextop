@@ -22,8 +22,7 @@ namespace Codaxy.Dextop.Showcase
             //root is examples
             RegisterJs("pack", "", 
                 "ux/DataView/Animated.js",
-                "ux/BoxReorderer.js"
-                //"view/multisort/SortButton.js"
+                "ux/DataView/Draggable.js"
             );
             
         }

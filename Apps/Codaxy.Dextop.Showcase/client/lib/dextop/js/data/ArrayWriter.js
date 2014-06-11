@@ -8,7 +8,7 @@
  * @constructor
  * @param {Object} config Optional config object
  */
-Ext.define('Ext.data.Writer', {
+Ext.define('Ext.data.ArrayWriter', {
 	alias: 'writer.array',
 
 	constructor: function (config) {

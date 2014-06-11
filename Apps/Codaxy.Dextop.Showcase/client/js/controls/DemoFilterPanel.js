@@ -5,8 +5,7 @@ Ext.define('Showcase.DemoFilterPanel', {
 	
 	//title: 'Demos',
 	
-	store: null,
-	session: null,
+	store: null,	
 	viewport: null,
 	
 	layout: {
@@ -128,7 +127,7 @@ Ext.define('Showcase.DemoFilterPanel', {
 					listeners: {
 						scope: this,
 						'change': function (check, checked) {
-							this.session.autoLaunch = checked;
+							Dextop.getSession().autoLaunch = checked;
 						}
 					}						
 				}, {
@@ -138,7 +137,7 @@ Ext.define('Showcase.DemoFilterPanel', {
 					listeners: {
 						scope: this,
 						'change': function (check, checked) {
-							this.session.autoShowSource = checked;
+						    Dextop.getSession().autoShowSource = checked;
 						}
 					}							
 				}]
@@ -153,7 +152,7 @@ Ext.define('Showcase.DemoFilterPanel', {
 					flex: 1,
 					scope: this,
 					handler: function () {
-						this.session.launchSelectedDemo();
+					    Dextop.getSession().launchSelectedDemo();
 					}
 				}, {
 					iconCls: 'code',

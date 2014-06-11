@@ -85,8 +85,7 @@ Ext.define('Showcase.Session', {
 
 		this.viewport = Ext.create('Showcase.DemoViewport', {
 			demoStore: demoStore,
-			guideStore: guideStore,
-			session: this,
+			guideStore: guideStore,			
 			renderTo: Ext.getBody()
 		});
 
@@ -150,9 +149,7 @@ Ext.define('Showcase.Session', {
 	launchDemo: function (id, client) {
 		var remoteId;
 		if (client) {
-			var launcher = Ext.create('Showcase.demos.Launcher.' + id, {
-				session: this
-			});
+			var launcher = Ext.create('Showcase.demos.Launcher.' + id, {});
 			launcher.launch();
 		} else
 			this.remote.CreateDemoWindow(id, remoteId, {

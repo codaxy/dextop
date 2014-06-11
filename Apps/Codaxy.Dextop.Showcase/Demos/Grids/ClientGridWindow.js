@@ -10,7 +10,7 @@ Ext.define('Showcase.demos.Launcher.ClientGridWindow', {
             }
         });
         w.show();
-        this.session.remote.CreateDemoWindow('ClientGridWindow', remoteId, {
+        Dextop.getSession().remote.CreateDemoWindow('ClientGridWindow', remoteId, {
 			failure: function() {            
                 w.close();
                 alert('failed');

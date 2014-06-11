@@ -18,15 +18,15 @@ Ext.define('Dextop.api.Proxy', {
         
         if (!config.reader || typeof config.reader === 'string')
             config.reader = {
-                type: config.reader,
-                root: 'data',
+                type: config.reader || this.defaultReaderType,
+                rootProperty: 'data',
                 totalProperty: 'total'
             };
 
         if (!config.api)
             throw Error('Could not create api based data proxy as api is not specified.');
 
-        this.api = Dextop.api(config.api);
+        this.apiController = Dextop.api(config.api);
         delete config.api;
 
         this.callParent(arguments);
@@ -68,7 +68,7 @@ Ext.define('Dextop.api.Proxy', {
 		
 		args.push(data);
 		
-		this.api.invokeRemoteMethod.apply(this.api, args);
+		this.apiController.invokeRemoteMethod.apply(this.apiController, args);
 	},
 
 	createCallback: function (operation, callback, scope) {

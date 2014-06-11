@@ -10,7 +10,6 @@ Ext.ns('Showcase');
 Ext.define('Showcase.DemoViewport', {
 	extend: 'Ext.Viewport',
 
-	session: null,
 	demoStore: null,
 	guideStore: null,
 	baseCls: 'viewport',	
@@ -18,8 +17,7 @@ Ext.define('Showcase.DemoViewport', {
 	initComponent: function () {
 		var explorer = Ext.create('Showcase.DemoExplorerPanel', {
 			region: 'center',
-			store: this.demoStore,
-			session: this.session,
+			store: this.demoStore,			
 			viewport: this,
 			flex: 2
 		});
@@ -28,8 +26,7 @@ Ext.define('Showcase.DemoViewport', {
 			region: 'west',
 			title: 'Overview',
 			split: true,
-			collapsible: true,
-			session: this.session,
+			collapsible: true,			
 			flex: 0.7,
 			tbar: [{
 				iconCls: 'back',
@@ -43,7 +40,7 @@ Ext.define('Showcase.DemoViewport', {
 				text: 'Launch',
 				scope: this,
 				handler: function () {
-					this.session.launchSelectedDemo();
+				    Dextop.getSession().launchSelectedDemo();
 				}
 			}]
 		});
@@ -63,12 +60,11 @@ Ext.define('Showcase.DemoViewport', {
 		});
 
 		var about = Ext.create('Showcase.DemoDetails', {});
-		about.showDemoInfo(this.session.aboutPageUrl);
+		about.showDemoInfo(Dextop.getSession().aboutPageUrl);
 
 		var filter = Ext.create('Showcase.DemoFilterPanel', {
 			region: 'west',
 			store: this.demoStore,
-			session: this.session,
 			viewport: this,
 			//collapsible: true,
 			margin: '0 2 0 0',
@@ -80,8 +76,7 @@ Ext.define('Showcase.DemoViewport', {
 			flex: 1
 		});
 
-		var guidesTree = Ext.create('Showcase.GuidesTreePanel', { 
-			session: this.session,
+		var guidesTree = Ext.create('Showcase.GuidesTreePanel', { 			
 			region: 'west',
 			split: true,
 			store: this.guideStore,		

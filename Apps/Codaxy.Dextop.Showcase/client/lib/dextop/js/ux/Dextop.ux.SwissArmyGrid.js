@@ -52,9 +52,7 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
                 throw 'Swiss army grid store could not be resolved. No api nor remote object is specified.';
 
             delete this.storeOptions;
-        }
-
-        this.addEvents('newrecord');
+        }       
 
         this.columnModelOptions = this.columnModelOptions || {};
         Ext.apply(this.columnModelOptions, {

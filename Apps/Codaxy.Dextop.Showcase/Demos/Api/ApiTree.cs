@@ -22,7 +22,7 @@ namespace Codaxy.Dextop.Showcase.Demos.Remoting
         DextopReadResult<ApiTreeModel> IDextopReadProxy<ApiTreeModel>.Read(DextopReadFilter filter)
         {
             var results = new[] {
-               new ApiTreeModel { id = 1, text = "Root" }
+               new ApiTreeModel { id = Guid.NewGuid(), text = "Root" }
            };
 
             return DextopReadResult.Create(results);
@@ -50,7 +50,7 @@ namespace Codaxy.Dextop.Showcase.Demos.Remoting
     {
         [DextopModelId]
         [DextopGridColumn(width = 50, readOnly = true)]
-        public int id { get; set; }
+        public Guid id { get; set; }
 
         public String text { get; set; }
     }

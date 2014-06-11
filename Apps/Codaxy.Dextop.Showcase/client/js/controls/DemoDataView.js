@@ -13,7 +13,6 @@ Ext.define('Showcase.DemoDataView', {
     multiSelect: false,
     autoScroll: true,
     
-    session: null,
     store: null,	
 	
     initComponent: function(){
@@ -43,7 +42,7 @@ Ext.define('Showcase.DemoDataView', {
             listeners: {
                 scope: this,
                 itemclick: function(view, rec, item){
-                    this.session.selectDemo(rec);
+                    Dextop.getSession().selectDemo(rec);
                 }
             }            
         });

@@ -10,7 +10,7 @@
 			listeners: {
 				scope: this,
 				'itemclick': function (view, record, item) {					
-					this.session.selectGuide(record);
+				    Dextop.getSession().selectGuide(record);
 				}
 			}
 		});

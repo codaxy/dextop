@@ -63,21 +63,6 @@ Ext.define('Dextop.direct.LongPollingProvider', {
 	// private
 	constructor: function (config) {
 		this.callParent(arguments);
-		this.addEvents(
-		/**
-		* @event beforepoll
-		* Fired immediately before a poll takes place, an event handler can return false
-		* in order to cancel the poll.
-		* @param {Ext.direct.PollingProvider}
-		*/
-            'beforepoll',
-		/**
-		* @event poll
-		* This event has not yet been implemented.
-		* @param {Ext.direct.PollingProvider}
-		*/
-            'poll'
-        );
 	},
 
 	// inherited

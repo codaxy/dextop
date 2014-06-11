@@ -78,26 +78,22 @@ namespace Codaxy.Dextop
 		/// </summary>
         protected override void InitResources()
         {
+            string debugSuffix = Debug ? "-debug" : "";
+
             var js = CreateJsPackage("ext");
             js.Concate = false;
-            if (Debug)
-                js.Register("ext-all-debug.js");
-            else
-                js.Register("ext-all.js");
+            js.Register(String.Format("ext-all{0}.js", debugSuffix));
 
             if (!SkipLocalizations)
                 js.RegisterLocalizations(new[] { "sr", "ru", "fr", "de", "da" }, "locale/", "ext-lang-{0}.js");
 
             var css = CreateCssPackage();
             css.Minify = false;
-			
-			// No debug version since 4.0.2
-			//if (Debug)
-			//    css.Register("resources/css/ext-all-debug.css");
-			//else
-			//    css.Register("resources/css/ext-all.css");
             if (!SkipCss)
-                css.Register("resources/css/ext-all" + CssThemeSuffix + ".css");
+            {
+                var name = "ext-theme" + CssThemeSuffix;
+                css.Register(String.Format("packages/{0}/build/resources/{0}-all{1}.css", name, debugSuffix));
+            }
         }
     }
 }

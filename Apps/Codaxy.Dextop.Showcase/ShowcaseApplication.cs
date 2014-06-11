@@ -10,21 +10,26 @@ namespace Codaxy.Dextop.Showcase
     {
         protected override void RegisterModules()
         {
-            //Uncomment to use local ext resources
-            //RegisterModule("client/lib/ext", new DextopExtJSModule
+            //local
+            //RegisterModule("client/lib/ext-5.0.0/build/", new DextopExtJSModule
             //{
-            //    CssThemeSuffix = "-gray"
+            //    CssThemeSuffix = "-gray",
+            //    //UsingExternalResources = true
             //});
 
-            //RegisterModule("client/lib/ext/examples", new ExtJSDataViewModule());
+            //RegisterModule("client/lib/ext-5.0.0/build/examples/", new ExtJSDataViewModule
+            //{
+            //    //UsingExternalResources = true
+            //});
 
-            RegisterModule("http://cdn.sencha.com/ext/gpl/4.2.1/", new DextopExtJSModule
+            //cdn
+            RegisterModule("http://cdn.sencha.com/ext/gpl/5.0.0/build/", new DextopExtJSModule
             {
                 CssThemeSuffix = "-gray",
                 UsingExternalResources = true
             });
 
-            RegisterModule("http://cdn.sencha.com/ext/gpl/4.2.1/examples", new ExtJSDataViewModule
+            RegisterModule("http://cdn.sencha.com/ext/gpl/5.0.0/build/examples/", new ExtJSDataViewModule
             {
                 UsingExternalResources = true
             });

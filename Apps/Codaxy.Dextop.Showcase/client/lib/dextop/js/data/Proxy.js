@@ -22,8 +22,8 @@ Ext.define('Dextop.data.Proxy', {
         
 	    if (!config.reader || typeof config.reader === 'string')
 	        config.reader = {
-	            type: config.reader,
-	            root: 'data',
+	            type: config.reader || this.defaultReaderType,
+	            rootProperty: 'data',
 	            totalProperty: 'total'
 	        };
 
