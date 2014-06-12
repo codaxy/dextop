@@ -121,6 +121,11 @@ namespace Codaxy.Dextop.Data
         /// </summary>        
         public bool menuDisabled { get; set; }
 
+        /// <summary>
+        /// Mark that column menu is filterable
+        /// </summary>
+        public bool filterable { get; set; }
+
 		/// <summary>
 		/// Converts this attribute to the column object.
 		/// </summary>
@@ -148,7 +153,8 @@ namespace Codaxy.Dextop.Data
 				width = NullableUtil.DefaultNull(width, -1),
 				renderer = renderer, 
                 format = format,
-                menuDisabled = NullableUtil.DefaultNull(menuDisabled, true)
+                menuDisabled = NullableUtil.DefaultNull(menuDisabled, true),
+                filterable = NullableUtil.DefaultNull(filterable, false)
 			};
         }
         

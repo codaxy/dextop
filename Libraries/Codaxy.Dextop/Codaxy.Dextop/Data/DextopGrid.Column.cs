@@ -88,6 +88,10 @@ namespace Codaxy.Dextop.Data
         /// </summary>        
         public bool? menuDisabled { get; set; }
 
+        /// <summary>
+        /// Mark that column is filterable
+        /// </summary>        
+        public bool? filterable { get; set; }
 
         /// <summary>
         /// XTemplate based renderer.
@@ -148,6 +152,7 @@ namespace Codaxy.Dextop.Data
                 jw.DefaultProperty("tooltipTpl", tooltipTpl);
                 jw.DefaultProperty("readonly", readOnly);
                 jw.DefaultProperty("menuDisabled", menuDisabled);
+                jw.DefaultProperty("filterable", filterable);
             }
             else
             {
