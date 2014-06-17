@@ -88,21 +88,20 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
             this.pagingToolbarOptions = this.pagingToolbarOptions || {};
             this.pagingToolbarOptions.items = Ext.Array.from(this.pagingToolbarOptions.items) || [];
 
+            if (this.pageSizeSelect) {
+                var options = Ext.apply({}, this.pageSizeSelectOptions);
+                if (typeof this.pageSizeSelect == 'object')
+                    Ext.apply(options, this.pageSizeSelect);
+
+                this.pagingToolbarOptions.items.unshift('-', this.pageSizeText, Ext.apply({
+                    xtype: 'pagesizecombo',
+                    store: this.store
+                }, options));
+            }
+
             this.bbar = Ext.create('Ext.PagingToolbar', Ext.apply({
                 store: this.store
             }, this.pagingToolbarOptions));
-
-            if (this.pageSizeSelect) {
-                this.bbar.insert(11, {
-                    label: 'label',
-                    text: this.pageSizeText
-                });
-
-                this.bbar.insert(12, {
-                    xtype: 'pagesizecombo',
-                    store: this.store
-                });
-            }
         }
 
         if (!this.readOnly)
