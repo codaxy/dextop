@@ -87,16 +87,18 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
                 throw 'Grid does not support paging and bbar. Use them exclusively.';
             this.pagingToolbarOptions = this.pagingToolbarOptions || {};
             this.pagingToolbarOptions.items = Ext.Array.from(this.pagingToolbarOptions.items) || [];
+
             if (this.pageSizeSelect) {
                 var options = Ext.apply({}, this.pageSizeSelectOptions);
                 if (typeof this.pageSizeSelect == 'object')
                     Ext.apply(options, this.pageSizeSelect);
 
-                this.pagingToolbarOptions.items.push('-', this.pageSizeText, Ext.apply({
+                this.pagingToolbarOptions.items.unshift('-', this.pageSizeText, Ext.apply({
                     xtype: 'pagesizecombo',
                     store: this.store
                 }, options));
             }
+
             this.bbar = Ext.create('Ext.PagingToolbar', Ext.apply({
                 store: this.store
             }, this.pagingToolbarOptions));
