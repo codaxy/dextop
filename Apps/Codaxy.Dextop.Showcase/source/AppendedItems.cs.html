@@ -17,7 +17,7 @@ namespace Codaxy.Dextop.Showcase.Demos.Forms
         [DextopForm]
         class ComplexForm
         {
-            [DextopFormContainer(border = false, layout = &quot;hbox&quot;,itemId = &quot;map_position_id&quot;, AppendItems = new[] { &quot;LocateButton&quot; }, anchor=&quot;0&quot;)]
+            [DextopFormContainer(border = false, layout = &quot;hbox&quot;, AppendItems = new[] { &quot;LocateButton&quot; }, anchor=&quot;0&quot;)]
             [DextopFormField(fieldLabel = &quot;Map Position&quot;, flex = 1)]
             public String MapPosition { get; set; }
         }

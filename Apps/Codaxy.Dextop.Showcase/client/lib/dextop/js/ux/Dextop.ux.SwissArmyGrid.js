@@ -8,6 +8,7 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
 
     editing: undefined, //One of the 'cell', 'row', 'form'	 
     editingOptions: undefined, //special options to be passed to the editing plugin
+    actionManagerOptions: undefined, // special options to be passed to the action manager plugin
     readOnly: false,
 
     storeName: undefined, //Name of the store component. If not specified model property is used. 
@@ -72,7 +73,7 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
             delete this.columnModelOptions;
         }
 
-        this.actionManager = Ext.create('Ext.ux.grid.plugin.ActionManager');
+        this.actionManager = this.createActionManagerPlugin();
         this.plugins = Ext.Array.from(this.plugins) || [];
         this.plugins.push(this.actionManager);
 
@@ -139,6 +140,11 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
                 this.plugins.push(this.rowEditing);
                 break;
         }
+    },
+
+    createActionManagerPlugin: function () {
+        this.actionManagerOptions = this.actionManagerOptions || {};
+        return Ext.create('Ext.ux.grid.plugin.ActionManager', this.actionManagerOptions);
     },
 
     createCellEditing: function () {
