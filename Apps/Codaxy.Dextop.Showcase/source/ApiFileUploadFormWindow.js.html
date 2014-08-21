@@ -1,0 +1,78 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+<meta name="robots" content="noindex">
+</head>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.ns(&#39;Showcase&#39;);
+
+Ext.define(&#39;Showcase.demos.Launcher.ApiFileUploadForm&#39;, {
+    extend: &#39;Showcase.demos.Launcher&#39;,
+    launch: function () {
+        var remoteId = Ext.id();
+        var w = Ext.create(&#39;Showcase.demos.ApiFileUploadFormWindow&#39;, {});
+        w.show();
+    }
+});
+
+Ext.define(&#39;Showcase.demos.ApiFileUploadFormWindow&#39;, {
+    extend: &#39;Ext.Window&#39;,
+
+    width: 300,
+    autoHeight: true,
+    title: &#39;File Upload Form API&#39;,
+
+    initComponent: function () {
+        var formItems, form;        
+        formItems = Ext.create(&#39;Showcase.demos.ApiFileUploadFormWindowController.form.Form&#39;).getItems();
+        form = Ext.create(&#39;Ext.form.Panel&#39;, {
+            bodyStyle: &#39;padding: 10px&#39;,
+            autoHeight: true,
+            border: false,
+            fieldDefaults: {
+                labelAlign: &#39;top&#39;
+            },            
+            items: formItems,
+            buttons: [{
+                text: &#39;Cancel&#39;,
+                scope: this,
+                handler: function () {
+                    this.close();
+                }
+            }, {
+
+                text: &#39;Send&#39;,
+                scope: this,
+                handler: function () {
+                    this.doSubmit();
+                }
+            }]
+        });
+
+        Ext.apply(this, {
+            items: [form],
+            form: form
+        });
+
+        this.callParent(arguments);
+    },
+
+    doSubmit: function () {
+        var api, form;
+        form = this.form.getForm();
+        api = new Dextop.api(&#39;file-upload-form-window&#39;);
+        api.SubmitForm(form, {
+            type: &#39;alert&#39;,
+            success: function (result) {
+                Dextop.infoAlert(result);
+            }
+        });
+    }
+});
+</pre>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+</body>
+</html>

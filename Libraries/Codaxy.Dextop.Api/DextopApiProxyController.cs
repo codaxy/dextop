@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Codaxy.Dextop.Data;
+using Codaxy.Dextop.Remoting;
 
 namespace Codaxy.Dextop.Api
 {
@@ -69,7 +70,7 @@ namespace Codaxy.Dextop.Api
             return DextopApplication.GetApplication().ModelManager.GetModelMeta(typeof(T)).DefaultSerializer;
         }
 
-        public DextopApiInvocationResult Invoke(string action, string[] arguments)
+        public DextopApiInvocationResult Invoke(string action, string[] arguments, DextopFormSubmit form)
         {
             object result = null;
             switch (action)
