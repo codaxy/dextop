@@ -8,6 +8,7 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
 
     editing: undefined, //One of the 'cell', 'row', 'form'	 
     editingOptions: undefined, //special options to be passed to the editing plugin
+    actionManagerOptions: undefined, // special options to be passed to the action manager plugin
     readOnly: false,
 
     storeName: undefined, //Name of the store component. If not specified model property is used. 
@@ -72,7 +73,7 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
             delete this.columnModelOptions;
         }
 
-        this.actionManager = Ext.create('Ext.ux.grid.plugin.ActionManager');
+        this.actionManager = this.createActionManagerPlugin();
         this.plugins = Ext.Array.from(this.plugins) || [];
         this.plugins.push(this.actionManager);
 
@@ -87,16 +88,18 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
                 throw 'Grid does not support paging and bbar. Use them exclusively.';
             this.pagingToolbarOptions = this.pagingToolbarOptions || {};
             this.pagingToolbarOptions.items = Ext.Array.from(this.pagingToolbarOptions.items) || [];
+
             if (this.pageSizeSelect) {
                 var options = Ext.apply({}, this.pageSizeSelectOptions);
                 if (typeof this.pageSizeSelect == 'object')
                     Ext.apply(options, this.pageSizeSelect);
 
-                this.pagingToolbarOptions.items.push('-', this.pageSizeText, Ext.apply({
+                this.pagingToolbarOptions.items.unshift('-', this.pageSizeText, Ext.apply({
                     xtype: 'pagesizecombo',
                     store: this.store
                 }, options));
             }
+
             this.bbar = Ext.create('Ext.PagingToolbar', Ext.apply({
                 store: this.store
             }, this.pagingToolbarOptions));
@@ -137,6 +140,11 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
                 this.plugins.push(this.rowEditing);
                 break;
         }
+    },
+
+    createActionManagerPlugin: function () {
+        this.actionManagerOptions = this.actionManagerOptions || {};
+        return Ext.create('Ext.ux.grid.plugin.ActionManager', this.actionManagerOptions);
     },
 
     createCellEditing: function () {
@@ -292,8 +300,10 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
                 key: [Ext.EventObject.NUM_PLUS, Ext.EventObject.INSERT],
                 handler: function () {
                     var rec = this.createNewRecord();
-                    this.formEdit(rec, true);
+                    if (this.fireEvent('beforeedit', this, rec) === false)
+                        return;
 
+                    this.formEdit(rec, true);
                 }
             }
         }
@@ -302,6 +312,9 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
 
     editRecord: function (rec) {
         rec = rec || this.getSelectedRecord();
+        if (this.fireEvent('beforeedit', this, rec) === false)
+            return;
+
         if (rec)
             switch (this.editing) {
                 case 'row': this.rowEdit(rec); break;

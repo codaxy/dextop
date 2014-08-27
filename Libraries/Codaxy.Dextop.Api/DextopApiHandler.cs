@@ -6,6 +6,7 @@ using System.Text;
 using System.Web;
 using Codaxy.Dextop.Direct;
 using Newtonsoft.Json;
+using Codaxy.Dextop.Remoting;
 
 namespace Codaxy.Dextop.Api
 {
@@ -18,7 +19,11 @@ namespace Codaxy.Dextop.Api
 
         public void ProcessRequest(HttpContext context)
         {
-            var requests = GetActionRequest(context);
+            var formSubmit = context.Request.QueryString["formSubmit"] == "1";
+            var upload = formSubmit && context.Request.Form["extUpload"] == "true";
+
+            var requests = upload ? GetUploadRequest(context) : GetActionRequest(context);
+
             var responses = new List<Response>();
 
             foreach (var request in requests)
@@ -37,7 +42,7 @@ namespace Codaxy.Dextop.Api
                         try
                         {
                             controller.OnExecuting();
-                            result = controller.Invoke(request.data[2], DextopUtil.Decode<string[]>(request.data[3]));
+                            result = controller.Invoke(request.data[2],  request.FormSubmit, DextopUtil.Decode<string[]>(request.data[3]));
                             controller.OnExecuted();
                         }
                         catch (Exception ex)
@@ -68,6 +73,52 @@ namespace Codaxy.Dextop.Api
         }
 
         public static bool UseBufferlessInputStream { get; set; }
+
+        Request[] GetUploadRequest(HttpContext context)
+        {
+            var files = new Dictionary<String, DextopFile>();
+            for (var i = 0; i < context.Request.Files.Count; i++)
+            {
+                if (context.Request.Files[i].ContentLength > 0)
+                {
+                    var fi = new FileInfo(context.Request.Files[i].FileName);
+                    files.Add(context.Request.Files.AllKeys[i], new DextopFile
+                    {
+                        FileStream = context.Request.Files[i].InputStream,
+                        FileLength = context.Request.Files[i].ContentLength,
+                        FileName = fi.Name,
+                        FileExtension = fi.Extension,
+                        ContentType = context.Request.Files[i].ContentType
+                    });
+                }
+            }
+
+            List<String> parameters = new List<string>();
+            parameters.Add(context.Request.Form["_apiControllerType"]);
+            parameters.Add(context.Request.Form["_apiScope"]);
+            parameters.Add(context.Request.Form["_apiMethod"]);
+            parameters.Add(context.Request.Form["_apiArguments"]);
+
+            var formSumbit = new DextopFormSubmit
+            {
+                Files = files,
+                Context = context,
+                FieldValuesJSON = context.Request["_apiFieldValues"]
+            };
+
+            var request = new Request
+            {
+                tid = int.Parse(context.Request.Form["extTID"]),
+                action = context.Request.Form["extAction"],
+                method = context.Request.Form["extMethod"],
+                type = context.Request.Form["extType"],
+                FormSubmit = formSumbit,
+                data = parameters.ToArray(),
+                RequestType = RequestType.FormSubmit
+            };
+
+            return new[] { request };
+        }
 
         Request[] GetActionRequest(HttpContext context)
         {

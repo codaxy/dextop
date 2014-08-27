@@ -155,6 +155,21 @@ Ext.define('Dextop.Session', {
 		            }]
 		        }
 		    });
+
+		    this.apiFsProvider = Ext.Direct.addProvider({
+		        id: 'form-api',
+		        url: config.apiUrl + '?formSubmit=1',
+		        type: "remoting",
+		        maxRetries: 0,
+		        priority: 0,
+		        "actions": {
+		            "DextopApi": [{
+		                "name": "submitForm",
+		                "len": 1,
+		                "formHandler": true
+		            }]
+		        }
+		    });
 		}
 
 		this.fsProvider = Ext.Direct.addProvider({
