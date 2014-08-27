@@ -300,8 +300,10 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
                 key: [Ext.EventObject.NUM_PLUS, Ext.EventObject.INSERT],
                 handler: function () {
                     var rec = this.createNewRecord();
-                    this.formEdit(rec, true);
+                    if (this.fireEvent('beforeedit', this, rec) === false)
+                        return;
 
+                    this.formEdit(rec, true);
                 }
             }
         }
@@ -310,6 +312,9 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
 
     editRecord: function (rec) {
         rec = rec || this.getSelectedRecord();
+        if (this.fireEvent('beforeedit', this, rec) === false)
+            return;
+
         if (rec)
             switch (this.editing) {
                 case 'row': this.rowEdit(rec); break;
