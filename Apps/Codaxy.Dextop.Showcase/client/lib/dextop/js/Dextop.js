@@ -2,189 +2,224 @@
 
 Ext.apply(Dextop, {
 
-	errorText: 'Error',
-	warningText: 'Warning',
-	confirmText: 'Confirmation',
-	infoText: 'Information',
+    errorText: 'Error',
+    warningText: 'Warning',
+    confirmText: 'Confirmation',
+    infoText: 'Information',
 
-	saveText: 'Save',
-	cancelText: 'Cancel',
-	editText: 'Edit',
-	addText: 'Add',
-	removeText: 'Remove',
-	reloadText: 'Reload',
+    saveText: 'Save',
+    cancelText: 'Cancel',
+    editText: 'Edit',
+    addText: 'Add',
+    removeText: 'Remove',
+    reloadText: 'Reload',
 
-	virtualAppPath: '',
+    virtualAppPath: '',
 
 
-	/* Shorthand for Ext.create(config.alias, config).
+    /* Shorthand for Ext.create(config.alias, config).
 	* config.alias is deleted before call is made
 	*/
-	create: function (config, apply) {
-		if (!config || !config.alias)
-			throw 'Cannot instantate Dextop object as no type alias is specified!';
-		if (apply)
-			Ext.apply(config, apply);
-		var alias = config.alias;
-		delete config.alias;
-		return Ext.create(alias, config);
-	},
+    create: function (config, apply) {
+        if (!config || !config.alias)
+            throw 'Cannot instantate Dextop object as no type alias is specified!';
+        if (apply)
+            Ext.apply(config, apply);
+        var alias = config.alias;
+        delete config.alias;
+        return Ext.create(alias, config);
+    },
 
-	api: function (type, config) {
-	    if (!type)
-	        return null;
+    initApi: function (config) {
+        Ext.apply(Dextop.api.prototype, {
+            apiProvider: Ext.Direct.addProvider({
+                id: 'rpc',
+                url: config.apiUrl,
+                type: "remoting",
+                maxRetries: 0,
+                priority: 0,
+                "actions": {
+                    "DextopApi": [{
+                        "name": "invoke",
+                        "len": 4
+                    }]
+                }
+            }),
 
-	    if (typeof type == 'string') {
-	        var typeName = Ext.ClassManager.getNameByAlias('api.' + type) || type;
-	        return Ext.create(typeName, config);
-	    }
+            apiFsProvider: Ext.Direct.addProvider({
+                id: 'form-api',
+                url: config.apiUrl + '?formSubmit=1',
+                type: "remoting",
+                maxRetries: 0,
+                priority: 0,
+                "actions": {
+                    "DextopApi": [{
+                        "name": "submitForm",
+                        "len": 1,
+                        "formHandler": true
+                    }]
+                }
+            }),
 
-	    if (type.createStore)
-	        return type; //already initialized
+            ajaxUrlBase: config.apiUrl + '?ajax=1'
+        });
+    },
 
-	    if (!type.type)
-	        throw 'Cannot instantate api object as no type alias is specified!';
+    api: function (type, config) {
+        if (!type)
+            return null;
 
-	    return Dextop.api(type.type, type);
-	},
+        if (typeof type == 'string') {
+            var typeName = Ext.ClassManager.getNameByAlias('api.' + type) || type;
+            return Ext.create(typeName, config);
+        }
 
-	applyRecursive: function (o, c, defaults) {
-		if (defaults)
-			Dextop.applyRecursive(o, defaults);
+        if (type.createStore)
+            return type; //already initialized
 
-		if (o && c && typeof c == 'object') {
-			for (var p in c) {
-				o[p] = Ext.isObject(o[p]) && Ext.isObject(c[p]) ? Dextop.applyRecursive(o[p], c[p]) : c[p];
-			}
-		}
-		return o;
-	},
+        if (!type.type)
+            throw 'Cannot instantate api object as no type alias is specified!';
 
-	createGridColumns: function (name, options) {
-		return Dextop.data.GridColumnsFactory.create(name, options);
-	},
+        return Dextop.api(type.type, type);
+    },
 
-	alert: function (msg) {
-	    if (typeof msg === 'string')
-	        msg = {
-	            msg: msg
-	        };
+    applyRecursive: function (o, c, defaults) {
+        if (defaults)
+            Dextop.applyRecursive(o, defaults);
 
-	    var alertDefaults = {
-	        info: {
-	            title: Dextop.infoText,
-	            icon: Ext.MessageBox.INFO,
-	            buttons: Ext.MessageBox.OK
-	        },
-	        warning: {
-	            title: Dextop.warningText,
-	            icon: Ext.MessageBox.WARNING,
-	            buttons: Ext.MessageBox.OK
-	        },
-	        error: {
-	            title: Dextop.errorText,
-	            icon: Ext.MessageBox.ERROR,
-	            buttons: Ext.MessageBox.OK
-	        }
-	    };
+        if (o && c && typeof c == 'object') {
+            for (var p in c) {
+                o[p] = Ext.isObject(o[p]) && Ext.isObject(c[p]) ? Dextop.applyRecursive(o[p], c[p]) : c[p];
+            }
+        }
+        return o;
+    },
 
-	    Ext.applyIf(msg, alertDefaults[msg.type || 'info']);
+    createGridColumns: function (name, options) {
+        return Dextop.data.GridColumnsFactory.create(name, options);
+    },
 
-	    msg.msg = msg.msg || msg.message || msg.exception || msg.text;
+    alert: function (msg) {
+        if (typeof msg === 'string')
+            msg = {
+                msg: msg
+            };
 
-	    Ext.MessageBox.show(msg);
-	},
+        var alertDefaults = {
+            info: {
+                title: Dextop.infoText,
+                icon: Ext.MessageBox.INFO,
+                buttons: Ext.MessageBox.OK
+            },
+            warning: {
+                title: Dextop.warningText,
+                icon: Ext.MessageBox.WARNING,
+                buttons: Ext.MessageBox.OK
+            },
+            error: {
+                title: Dextop.errorText,
+                icon: Ext.MessageBox.ERROR,
+                buttons: Ext.MessageBox.OK
+            }
+        };
 
-	infoAlert: function (msg) {
-		if (typeof msg === 'string')
-			msg = {
-				msg: msg
-			};
-		msg.type = 'info';
-		Dextop.alert(msg);
-	},
+        Ext.applyIf(msg, alertDefaults[msg.type || 'info']);
 
-	warningAlert: function (msg) {
-		if (typeof msg === 'string')
-			msg = {
-				msg: msg
-			};
-		msg.type = 'warning';
-		Dextop.alert(msg);
-	},
+        msg.msg = msg.msg || msg.message || msg.exception || msg.text;
 
-	errorAlert: function (msg) {
-		if (typeof msg === 'string')
-			msg = {
-				msg: msg
-			};
-		msg.type = 'error';
-		Dextop.alert(msg);
-	},
+        Ext.MessageBox.show(msg);
+    },
 
-	getSession: function () {
-		return Dextop.Session.getInstance();
-	},
+    infoAlert: function (msg) {
+        if (typeof msg === 'string')
+            msg = {
+                msg: msg
+            };
+        msg.type = 'info';
+        Dextop.alert(msg);
+    },
 
-	notify: function (msg) {
+    warningAlert: function (msg) {
+        if (typeof msg === 'string')
+            msg = {
+                msg: msg
+            };
+        msg.type = 'warning';
+        Dextop.alert(msg);
+    },
 
-	    if (typeof msg === 'string')
-	        msg = {
-	            type: 'info',
-	            msg: msg
-	        };
+    errorAlert: function (msg) {
+        if (typeof msg === 'string')
+            msg = {
+                msg: msg
+            };
+        msg.type = 'error';
+        Dextop.alert(msg);
+    },
 
-	    var defaults = {
-	        info: {
-	            title: Dextop.infoText
-	        },
-	        warning: {
-	            title: Dextop.warningText
-	        },
-	        error: {
-	            title: Dextop.errorText
-	        }
-	    };
+    getSession: function () {
+        return Dextop.Session.getInstance();
+    },
 
-	    Ext.applyIf(msg, defaults[msg.type]);
+    notify: function (msg) {
 
-	    msg.msg = msg.message = msg.msg || msg.message || msg.exception || msg.text;
+        if (typeof msg === 'string')
+            msg = {
+                type: 'info',
+                msg: msg
+            };
 
-	    if (typeof Dextop.Logger[msg.type] === 'function') {
-	        Dextop.Logger[msg.type](msg.msg);
-	    }
+        var defaults = {
+            info: {
+                title: Dextop.infoText
+            },
+            warning: {
+                title: Dextop.warningText
+            },
+            error: {
+                title: Dextop.errorText
+            }
+        };
 
-	    if (msg.sound) {
-	        if (msg.sound === true)
-	            Dextop.playSound(msg.type);
-	        else
-	            Dextop.playSound(msg.sound);
-	    }
+        Ext.applyIf(msg, defaults[msg.type]);
 
-	    if (msg.alert)
-	        Dextop.alert(msg);
-	    else
-	        Dextop.displayPopupNotification(msg);
-	},
+        msg.msg = msg.message = msg.msg || msg.message || msg.exception || msg.text;
 
-	displayPopupNotification: function (notification) {
-	    var msg = '<div class="msg ' + notification.type + '"><h3>' + notification.title + '</h3><p>' + notification.message + '</p></div>';
-	    if (!this.msgCt) {
-	        this.msgCt = Ext.core.DomHelper.insertFirst(document.body, { id: 'msg-div' }, true);
-	    }
-	    var m = Ext.core.DomHelper.append(this.msgCt, msg, true);
-	    m.hide();
-	    m.slideIn('t').ghost("t", { delay: 4000, remove: true });
-	},
+        if (typeof Dextop.Logger[msg.type] === 'function') {
+            Dextop.Logger[msg.type](msg.msg);
+        }
+
+        if (msg.sound) {
+            if (msg.sound === true)
+                Dextop.playSound(msg.type);
+            else
+                Dextop.playSound(msg.sound);
+        }
+
+        if (msg.alert)
+            Dextop.alert(msg);
+        else
+            Dextop.displayPopupNotification(msg);
+    },
+
+    displayPopupNotification: function (notification) {
+        var msg = '<div class="msg ' + notification.type + '"><h3>' + notification.title + '</h3><p>' + notification.message + '</p></div>';
+        if (!this.msgCt) {
+            this.msgCt = Ext.core.DomHelper.insertFirst(document.body, { id: 'msg-div' }, true);
+        }
+        var m = Ext.core.DomHelper.append(this.msgCt, msg, true);
+        m.hide();
+        m.slideIn('t').ghost("t", { delay: 4000, remove: true });
+    },
 
     //virtual
-	playSound: function (sound) {
+    playSound: function (sound) {
 
-	},
+    },
 
-	//Confirmations
+    //Confirmations
 
-	/**
+    /**
 	* Standard (non-blocking) Ext confirmation dialog, with preset title, buttons and icon
 	* Usage example:
 	<pre><code>
@@ -201,89 +236,89 @@ Ext.apply(Dextop, {
 	*
 	* @param {Object/Function} config Configuration parameters (@see Ext.MessageBox)
 	*/
-	confirm: function (config) {
-		config = Ext.applyIf({
-			title: this.confirmText,
-			buttons: Ext.Msg.YESNO,
-			icon: Ext.Msg.QUESTION
-		}, config);
-		Ext.Msg.show(config);
-	},
+    confirm: function (config) {
+        config = Ext.applyIf({
+            title: this.confirmText,
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.QUESTION
+        }, config);
+        Ext.Msg.show(config);
+    },
 
-	warningConfirm: function (config) {
-		config = Ext.applyIf({
-			title: this.warningText,
-			buttons: Ext.Msg.YESNO,
-			icon: Ext.Msg.WARNING
-		}, config);
-		Ext.Msg.show(config);
-	},
+    warningConfirm: function (config) {
+        config = Ext.applyIf({
+            title: this.warningText,
+            buttons: Ext.Msg.YESNO,
+            icon: Ext.Msg.WARNING
+        }, config);
+        Ext.Msg.show(config);
+    },
 
-	/**
+    /**
 	* Confirmation dialog that waits for user input and returns the choice. For now, 
 	* it is implemented as a wrapper aroung JavaScript comfirm()
 	* 
 	* @param {Object/String} config Configuration parameters (@see Ext.MessageBox)
 	* @returns {Boolean} User's choice
 	*/
-	blockingConfirm: function (config) {
-		return confirm(config.msg || config);
-	},
+    blockingConfirm: function (config) {
+        return confirm(config.msg || config);
+    },
 
-	absolutePath: function (path) {
+    absolutePath: function (path) {
 
-	    if (!Dextop.virtualAppPath) {
-	        Ext.each(Ext.DomQuery.select('link'), function (link) {
-	            var href = Ext.fly(link).getAttribute('href');
-	            var index = href.indexOf('client/lib/dextop/');
-	            if (index > 0) {
-	                Dextop.virtualAppPath = href.substring(0, index);
-	                return false;
-	            }
-	        });
-	    }
+        if (!Dextop.virtualAppPath) {
+            Ext.each(Ext.DomQuery.select('link'), function (link) {
+                var href = Ext.fly(link).getAttribute('href');
+                var index = href.indexOf('client/lib/dextop/');
+                if (index > 0) {
+                    Dextop.virtualAppPath = href.substring(0, index);
+                    return false;
+                }
+            });
+        }
 
-	    if (!path)
-	        return path;
-	    if (path.indexOf(Dextop.virtualAppPath) == 0)
-	        return path;
-	    if (path.charAt(0) == '/')
-	        return Dextop.virtualAppPath + path.substring(1);
-	    return Dextop.virtualAppPath + path;
-	},
+        if (!path)
+            return path;
+        if (path.indexOf(Dextop.virtualAppPath) == 0)
+            return path;
+        if (path.charAt(0) == '/')
+            return Dextop.virtualAppPath + path.substring(1);
+        return Dextop.virtualAppPath + path;
+    },
 
-	downloadAttachment: function (url) {
-		//window.open(url); 
+    downloadAttachment: function (url) {
+        //window.open(url); 
 
-		var iframeEl = Ext.core.DomHelper.append(Ext.getBody(), {
-			tag: 'iframe',
-			src: url,
-			style: 'display:none',
-			width: 0,
-			height: 0,
-			frameborder: 0
-		});
+        var iframeEl = Ext.core.DomHelper.append(Ext.getBody(), {
+            tag: 'iframe',
+            src: url,
+            style: 'display:none',
+            width: 0,
+            height: 0,
+            frameborder: 0
+        });
 
-		var destroyFrameTask = new Ext.util.DelayedTask(function () {
-			Ext.removeNode(iframeEl);
-		});
+        var destroyFrameTask = new Ext.util.DelayedTask(function () {
+            Ext.removeNode(iframeEl);
+        });
 
-		// give download task 5 minutes to start
-		// after download starts it is safe to remove the iframe		
-		destroyFrameTask.delay(5 * 60 * 1000);
+        // give download task 5 minutes to start
+        // after download starts it is safe to remove the iframe		
+        destroyFrameTask.delay(5 * 60 * 1000);
 
-	},
+    },
 
-	localize: function (className, localizationData) {
-		var c = Ext.ClassManager.get(className);
-		if (c && c.prototype)
-			Ext.apply(c.prototype, localizationData);
-	},
+    localize: function (className, localizationData) {
+        var c = Ext.ClassManager.get(className);
+        if (c && c.prototype)
+            Ext.apply(c.prototype, localizationData);
+    },
 
-	getStore: function (storeId, options) {
-	    var store = Ext.getStore(storeId);
-	    if (options && options.autoLoad && !store.isLoading() && store.getCount() == 0)
-	        store.load();
-	    return store;
-	}
+    getStore: function (storeId, options) {
+        var store = Ext.getStore(storeId);
+        if (options && options.autoLoad && !store.isLoading() && store.getCount() == 0)
+            store.load();
+        return store;
+    }
 });
