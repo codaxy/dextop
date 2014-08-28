@@ -135,6 +135,7 @@
     <Content Include="client\lib\dextop\js\ux\Ext.ux.FilteredCombo.js" />
     <Content Include="client\lib\dextop\js\ux\Ext.ux.grid.plugin.AutoSelect.js" />
     <Content Include="client\lib\dextop\js\ux\Ext.ux.KeyMapPlugin.js" />
+    <Compile Include="Demos\Api\ApiFileDownloadWindow.cs" />
     <Compile Include="Demos\Api\ApiFileUploadFormWindow.cs" />
     <Compile Include="Demos\Api\ApiGrid.cs" />
     <Compile Include="Demos\Api\ApiTree.cs" />
@@ -150,6 +151,8 @@
     <Compile Include="Demos\Grids\SwissGridWithFormEditor.cs" />
     <Compile Include="Demos\Grids\SwissGrid.cs" />
     <Compile Include="Demos\Live\ChatRoom.cs" />
+    <Content Include="Demos\Api\ApiFileDownloadWindow.js" />
+    <Content Include="Demos\Api\ApiFileDownloadWindow.txt" />
     <Content Include="Demos\Api\ApiFileUploadFormWindow.txt" />
     <Content Include="Demos\Api\ApiFileUploadFormWindow.js" />
     <Content Include="Demos\Api\ApiGrid.js" />
@@ -386,6 +389,12 @@
     <Content Include="source\AllFormFieldsWindow.cs.html" />
     <Content Include="source\AllFormFieldsWindow.html" />
     <Content Include="source\AllFormFieldsWindow.js.html" />
+    <Content Include="source\ApiFileDownloadWindow.cs.html" />
+    <Content Include="source\ApiFileDownloadWindow.html" />
+    <Content Include="source\ApiFileDownloadWindow.js.html" />
+    <Content Include="source\ApiFileUploadFormWindow.cs.html" />
+    <Content Include="source\ApiFileUploadFormWindow.html" />
+    <Content Include="source\ApiFileUploadFormWindow.js.html" />
     <Content Include="source\ApiGrid.cs.html" />
     <Content Include="source\ApiGrid.html" />
     <Content Include="source\ApiGrid.js.html" />

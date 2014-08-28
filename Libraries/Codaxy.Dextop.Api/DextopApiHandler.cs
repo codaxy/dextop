@@ -19,6 +19,13 @@ namespace Codaxy.Dextop.Api
 
         public void ProcessRequest(HttpContext context)
         {
+            var ajaxRequest = context.Request.QueryString["ajax"] == "1";
+            if (ajaxRequest)
+            {
+                ProcessAjaxRequest(context);
+                return;
+            }
+
             var formSubmit = context.Request.QueryString["formSubmit"] == "1";
             var upload = formSubmit && context.Request.Form["extUpload"] == "true";
 
@@ -42,7 +49,7 @@ namespace Codaxy.Dextop.Api
                         try
                         {
                             controller.OnExecuting();
-                            result = controller.Invoke(request.data[2],  request.FormSubmit, DextopUtil.Decode<string[]>(request.data[3]));
+                            result = controller.Invoke(request.data[2], request.FormSubmit, DextopUtil.Decode<string[]>(request.data[3]));
                             controller.OnExecuted();
                         }
                         catch (Exception ex)
@@ -52,7 +59,7 @@ namespace Codaxy.Dextop.Api
                         }
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     result = DextopApiInvocationResult.Exception(ex);
                 }
@@ -68,8 +75,39 @@ namespace Codaxy.Dextop.Api
 
                 responses.Add(response);
             }
-            
-            DextopUtil.Encode(responses, context.Response.Output);            
+
+            DextopUtil.Encode(responses, context.Response.Output);
+        }
+
+        public void ProcessAjaxRequest(HttpContext context)
+        {
+            var controllerTypeString = context.Request.QueryString["_apiControllerType"];
+            var controllerType = Type.GetType(controllerTypeString);
+            try
+            {
+                using (var apiContext = DextopApi.Resolve<DextopApiContext>())
+                {
+                    if (context.Request.QueryString["_apiScope"] != null)
+                        apiContext.Scope = DextopUtil.Decode<DextopConfig>(context.Request.QueryString["_apiScope"]);
+
+                    apiContext.HttpContext = new HttpContextWrapper(context); 
+                    var controller = apiContext.ResolveController(controllerType);
+                    try
+                    {
+                        controller.OnProcessAjaxRequest(context);
+                    }
+                    catch (Exception ex)
+                    {
+                        controller.OnError(ex);
+                        throw;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                context.Response.StatusCode = 500;
+            }
+
         }
 
         public static bool UseBufferlessInputStream { get; set; }

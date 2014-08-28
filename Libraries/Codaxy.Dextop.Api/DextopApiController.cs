@@ -24,6 +24,8 @@ namespace Codaxy.Dextop.Api
 
         internal protected virtual void OnExecuting() { }
 
+        internal protected virtual void OnProcessAjaxRequest(HttpContext context) { }
+
         protected virtual IDextopApiActionInvoker CreateActionInvoker(String action, params String[] arguments)
         {
             IDextopApiActionInvoker invoker;
