@@ -1,3 +1,4 @@
+ApiFileDownloadWindow:Codaxy.Dextop.Showcase.Demos.Api.ApiFileDownloadWindowController
 ApiFileUploadFormWindow:Codaxy.Dextop.Showcase.Demos.Api.ApiFileUploadFormWindowController
 ApiGrid:Codaxy.Dextop.Showcase.Demos.Remoting.ApiGrid
 ApiTree:Codaxy.Dextop.Showcase.Demos.Remoting.ApiTree

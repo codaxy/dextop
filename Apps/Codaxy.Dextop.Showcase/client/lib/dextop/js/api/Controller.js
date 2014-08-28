@@ -78,6 +78,13 @@
         return str.substring(0, charpos) + replacement + str.substring(charpos + search.length);
     },
 
+    getAjaxUrl: function (options) {
+        var url = Dextop.api.prototype.ajaxUrlBase + '&_apiControllerType=' + this.controllerType;
+        if (options)
+            url += '&' + Ext.urlEncode(options);
+        return url;
+    },
+
     submitForm: function (callback, scope, method, form, args) {
 
         var handler = Dextop.remoting.Proxy.createHandler(callback, scope);
@@ -109,7 +116,7 @@
             scope: handler.scope,
             params: {
                 _apiControllerType: this.controllerType,
-                _apiScope: null,
+                _apiScope: Ext.encode(this.params),
                 _apiMethod: method,
                 _apiArguments: this.encodeArguments(args),
                 _apiFieldValues: Ext.encode(fieldValues)

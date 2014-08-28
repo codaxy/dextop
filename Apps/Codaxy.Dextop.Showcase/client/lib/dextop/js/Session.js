@@ -122,6 +122,8 @@ Ext.define('Dextop.Session', {
 
 		Dextop.remoting.Proxy.ajaxUrlBase = config.remotingUrl + '&ajax=1';
 
+		Dextop.api.prototype.ajaxUrlBase = config.apiUrl + '?ajax=1';
+
 		var remotingOptions = {
 		    id: 'rpc',
 		    url: config.remotingUrl,

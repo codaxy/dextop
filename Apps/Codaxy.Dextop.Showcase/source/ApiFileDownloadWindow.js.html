@@ -1,0 +1,68 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+<meta name="robots" content="noindex">
+</head>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.ns(&#39;Showcase&#39;);
+
+Ext.define(&#39;Showcase.demos.Launcher.ApiFileDownloadWindow&#39;, {
+    extend: &#39;Showcase.demos.Launcher&#39;,
+    launch: function () {
+        var remoteId = Ext.id();
+        var w = Ext.create(&#39;Showcase.demos.ApiFileDownloadWindow&#39;, {});
+        w.show();
+    }
+});
+
+Ext.define(&#39;Showcase.demos.ApiFileDownloadWindow&#39;, {
+    extend: &#39;Ext.Window&#39;,
+
+    width: 300,
+    autoHeight: true,
+    title: &#39;File Download API&#39;,
+
+    initComponent: function () {
+
+        this.api = api = new Dextop.api(&#39;file-download-window&#39;);
+
+        Ext.apply(this, {
+            layout: {
+                type: &#39;vbox&#39;,
+                align: &#39;stretch&#39;
+            },
+            defaults: {
+                margins: &#39;3 3 3 3&#39;,
+                scope: this
+            },
+            bodyStyle: &#39;padding: 5px&#39;,
+            items: [{
+                xtype: &#39;textfield&#39;,
+                fieldLabel: &#39;Name&#39;,
+                allowBlank: false,
+                labelWidth: 50,
+            },{
+                text: &#39;Download&#39;,
+                xtype: &#39;button&#39;,
+                flex: 1,
+                handler: function () {
+                    var options = {
+                        name: this.down(&#39;textfield&#39;).getValue()
+                    };
+                    Dextop.downloadAttachment(this.api.getAjaxUrl(options));
+                }
+            }]
+
+        });
+
+
+        this.callParent(arguments);
+    }
+});
+</pre>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+</body>
+</html>
