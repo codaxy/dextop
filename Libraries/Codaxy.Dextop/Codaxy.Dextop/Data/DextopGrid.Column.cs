@@ -149,6 +149,7 @@ namespace Codaxy.Dextop.Data
             jw.DefaultProperty("tpl", tpl);
             jw.DefaultProperty("align", align);
             jw.DefaultProperty("hidden", hidden);
+            jw.DefaultProperty("sortable", sortable);
 
             if (_columns == null || _columns.Count == 0)
             {
