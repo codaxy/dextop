@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package>
   <metadata schemaVersion="2">
-    <id>Codaxy.Dextop</id>    
-    <title>Dextop RIA Framework (Full)</title>
-    <version>1.2.0.23</version>
+    <id>Codaxy.Dextop.5</id>    
+    <title>Dextop RIA Framework (Full) - Ext JS 5</title>
+    <version>5.0.1.0</version>
     <authors>Codaxy</authors>
     <description>Dextop Rich Internet Application Framework (Full)</description>
 	<projectUrl>https://github.com/codaxy/dextop</projectUrl>
 	<dependencies>		
-		<dependency id="Codaxy.Dextop.Core" />
+		<dependency id="Codaxy.Dextop.5.Core" />
 	</dependencies>	   
    </metadata>
 </package>
