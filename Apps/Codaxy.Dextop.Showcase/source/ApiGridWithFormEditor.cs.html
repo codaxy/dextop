@@ -1,0 +1,90 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+<meta name="robots" content="noindex">
+</head>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using Codaxy.Dextop.Api;
+using Codaxy.Dextop.Data;
+using Codaxy.Dextop.Forms;
+
+namespace Codaxy.Dextop.Showcase.Demos.Remoting
+{
+    [DextopApiControllerAlias(&quot;api-grid-form&quot;)]
+    public class ApiGridWithFormEditorController : DextopApiController, IDextopDataProxy&lt;ApiGridFormModel&gt;
+    {
+        DextopReadResult&lt;ApiGridFormModel&gt; IDextopReadProxy&lt;ApiGridFormModel&gt;.Read(DextopReadFilter filter)
+        {
+            var results = new[] {
+               new ApiGridFormModel { Id = 1, Age = 20, Basketball = false, Football = true, FirstName = &quot;Diego&quot;, LastName = &quot;Armando&quot;, FavoriteSport = 1 }
+           };
+
+            return DextopReadResult.Create(results);
+        }
+
+        IList&lt;ApiGridFormModel&gt; IDextopDataProxy&lt;ApiGridFormModel&gt;.Create(IList&lt;ApiGridFormModel&gt; records)
+        {
+            return records;
+        }
+
+        IList&lt;ApiGridFormModel&gt; IDextopDataProxy&lt;ApiGridFormModel&gt;.Destroy(IList&lt;ApiGridFormModel&gt; records)
+        {
+            return records;
+        }
+
+        IList&lt;ApiGridFormModel&gt; IDextopDataProxy&lt;ApiGridFormModel&gt;.Update(IList&lt;ApiGridFormModel&gt; records)
+        {
+            return records;
+        }
+    }
+
+    [DextopModel]
+    [DextopGrid]
+    [DextopForm]
+    class ApiGridFormModel
+    {
+        [DextopModelId]
+        [DextopFormField]
+        [DextopGridColumn(width = 50, readOnly = true)]
+        public int Id { get; set; }
+
+        [DextopGridColumn(flex = 1)]
+        [DextopFormField]
+        public String FirstName { get; set; }
+
+        [DextopGridColumn(flex = 1)]
+        [DextopFormField]
+        public String LastName { get; set; }
+
+        [DextopGridColumn(flex = 1, readOnly = true)]
+        public String FullName { get { return FirstName + &quot; &quot; + LastName; } }
+
+        [DextopGridColumn(width = 50)]
+        [DextopFormField]
+        public int Age { get; set; }
+
+        [DextopGridColumn]
+        [DextopFormField]
+        public bool Basketball { get; set; }
+
+        [DextopGridColumn]
+        [DextopFormField]
+        public bool Football { get; set; }
+
+        //[DextopGridLookupColumn(lookupStoreId = &quot;sport-lookup&quot;)]
+        [DextopFormLookupCombo(lookupStoreId = &quot;sport-lookup&quot;)]
+        public int FavoriteSport { get; set; }
+    }
+}
+
+</pre>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+</body>
+</html>

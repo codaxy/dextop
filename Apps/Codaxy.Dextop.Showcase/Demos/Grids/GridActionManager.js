@@ -25,7 +25,7 @@ Ext.define('Showcase.demos.GridActionsWindow', {
 		var actionsPlugin = new Ext.ux.grid.plugin.ActionManager({
 			actions: [{
 				text: 'Add',
-				key: [Ext.EventObject.NUM_PLUS, Ext.EventObject.INSERT],
+				key: [Ext.event.Event.NUM_PLUS, Ext.event.Event.INSERT],
 				scope: this,
 				handler: function () {
 					var rec = Ext.create(store.model, {});
@@ -45,7 +45,7 @@ Ext.define('Showcase.demos.GridActionsWindow', {
 				}
 			}, '-', {
 				text: 'Remove',
-				key: [Ext.EventObject.NUM_MINUS, Ext.EventObject.DELETE],
+				key: [Ext.event.Event.NUM_MINUS, Ext.event.Event.DELETE],
 				enableOnSingle: function (rec) {
 					return !rec.get('IsAdministrator');
 				},

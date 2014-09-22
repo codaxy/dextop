@@ -19,7 +19,7 @@ Ext.define('Showcase.demos.LoginFormWindow', {
 				},
 				plugins: new Ext.ux.KeyMapPlugin(),
 				keys: [{
-					key: Ext.EventObject.ENTER,
+					key: Ext.event.Event.ENTER,
 					scope: this,
 					handler: this.doLogin
 				}]

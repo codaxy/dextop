@@ -1,0 +1,48 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+<meta name="robots" content="noindex">
+</head>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using Codaxy.Dextop.Api;
+using Codaxy.Dextop.Forms;
+using Codaxy.Dextop.Remoting;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace Codaxy.Dextop.Showcase.Demos.Api
+{
+    [DextopApiControllerAlias(&quot;file-upload-form-window&quot;)]
+    public class ApiFileUploadFormWindowController : DextopApiController
+    {
+        public string SubmitForm(DextopFormSubmit form)
+        {
+            var data = form.DecodeForm&lt;Form&gt;();
+
+            if (data.Picture == null)
+                throw new DextopErrorMessageException(&quot;No file specified.&quot;);
+
+            return String.Format(&quot;Hi {0}, your picture has been saved.&quot;, data.Name);
+        }
+
+        [DextopForm]
+        class Form
+        {
+            [DextopFormField(anchor = &quot;0&quot;)]
+            public String Name { get; set; }
+
+            [DextopFormFileField(buttonText = &quot;Choose Photo...&quot;, anchor = &quot;0&quot;)]
+            public DextopFile Picture { get; set; }
+        }
+    }
+}
+
+</pre>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+</body>
+</html>

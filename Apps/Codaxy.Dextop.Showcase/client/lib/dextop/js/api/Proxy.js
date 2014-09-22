@@ -23,6 +23,11 @@ Ext.define('Dextop.api.Proxy', {
                 totalProperty: 'total'
             };
 
+        if (!config.writer || typeof config.writer === 'string')
+            config.writer = {
+                type: config.writer || this.defaultWriterType
+            };
+
         if (!config.api)
             throw Error('Could not create api based data proxy as api is not specified.');
 
@@ -48,7 +53,7 @@ Ext.define('Dextop.api.Proxy', {
 		switch (operation.action) {
 			case 'read':
 				var params = this.getParams(operation);
-				params.Params = Ext.apply(operation.params || {}, this.extraParams);
+				params.Params = Ext.apply(operation.config.params || {}, this.extraParams); // operation.params undefined
 				data.push(params);				
 				break;
 			case 'create':
@@ -57,8 +62,8 @@ Ext.define('Dextop.api.Proxy', {
 				if (!this.writer)
 					throw 'Proxy writer is not configured.';
 				var ma = [];
-				for (var i = 0; i < operation.records.length; i++)
-				    ma[i] = this.writer.getRecordData(operation.records[i]);
+				for (var i = 0; i < operation.config.records.length; i++) // operation.records undefined
+				    ma[i] = this.writer.getRecordData(operation.config.records[i]); // new Ext.data.ArrayWriter().getRecordData(operation.config.records[i]); // this.writer.getRecordData(operation.config.records[i]); -- returns an object in Ext 5
 				data.push(ma);
 				break;
 			default:

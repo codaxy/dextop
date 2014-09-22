@@ -27,7 +27,7 @@ Ext.define('Dextop.ux.FormEditorWindow', {
 
         var items = Ext.create(this.formItemsType).getItems(Ext.apply({
             remote: this.remote,
-            data: this.data
+            data: this.recData // this.data get's overriden
         }, this.formItemsConfig));
 
         if (this.readOnly)

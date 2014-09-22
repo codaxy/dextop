@@ -23,11 +23,11 @@ Ext.define('Ext.data.ArrayWriter', {
 	* By default this method returns the data property on the record.
 	*/
 	getRecordData: function (record) {
-		var fields = record.fields,
+		var fields = record.getFields(),
             data = [];
 
-		for (var i = 0; i < fields.getCount(); i++) {
-			var v = record.get(fields.getAt(i).name);
+		for (var i = 0; i < fields.length; i++) { // fields.getCount() undefined
+		    var v = record.get(fields[i].name); // fields.getAt() undefined
 			data[i] = Ext.isDefined(v) ? v : null;
 		}
 

@@ -27,6 +27,11 @@ Ext.define('Dextop.data.Proxy', {
 	            totalProperty: 'total'
 	        };
 
+	    if (!config.writer || typeof config.writer === 'string')
+	        config.writer = {
+	            type: config.writer || this.defaultWriterType
+	        };
+
 		if (config.remote) {
 			this.initRemote(config.remote);
 			delete config.remote;
@@ -45,7 +50,7 @@ Ext.define('Dextop.data.Proxy', {
 		switch (operation.action) {
 			case 'read':
 				var params = this.getParams(operation);
-				params.Params = Ext.apply(operation.params || {}, this.extraParams);
+				params.Params = Ext.apply(operation.config.params || {}, this.extraParams); // operation.params undefined
 				if (operation.id !== undefined && params.Params[this.idParam] === undefined) {
 			        	params.Params[this.idParam] = operation.id;
 			    	}
@@ -57,8 +62,8 @@ Ext.define('Dextop.data.Proxy', {
 				if (!this.writer)
 					throw 'Proxy writer is not configured.';
 				var data = [];
-				for (var i = 0; i < operation.records.length; i++)
-					data[i] = this.writer.getRecordData(operation.records[i]);
+				for (var i = 0; i < operation.config.records.length; i++) // operation.records undefined
+				    data[i] = this.writer.getRecordData(operation.config.records[i]);
 				args.push(Ext.encode(data));
 				break;
 			default:

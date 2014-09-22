@@ -1,6 +1,8 @@
+ApiFileDownloadWindow:Codaxy.Dextop.Showcase.Demos.Api.ApiFileDownloadWindowController
+ApiFileUploadFormWindow:Codaxy.Dextop.Showcase.Demos.Api.ApiFileUploadFormWindowController
 ApiGrid:Codaxy.Dextop.Showcase.Demos.Remoting.ApiGrid
 ApiTree:Codaxy.Dextop.Showcase.Demos.Remoting.ApiTree
-ApiGridForm:Codaxy.Dextop.Showcase.Demos.Remoting.ApiGridWithFormEditorController
+ApiGridWithFormEditor:Codaxy.Dextop.Showcase.Demos.Remoting.ApiGridWithFormEditorController
 AppendedItems:Codaxy.Dextop.Showcase.Demos.Forms.AppendedItemsWindow
 RemoteLookupCombo:Codaxy.Dextop.Showcase.Demos.Forms.RemoteLookupCombo
 LinkedCombos:Codaxy.Dextop.Showcase.Demos.Forms.LinkedCombosWindow

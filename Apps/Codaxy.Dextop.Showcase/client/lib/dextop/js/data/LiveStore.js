@@ -17,7 +17,7 @@ Ext.define('Dextop.data.LiveStore', {
 		if (!config.reader)
 			config.reader = Ext.create('Ext.data.ArrayReader', {
 				model: config.model,
-				root: 'data'
+				rootProperty: 'data' //Ext.data.reader.Reader: Using the deprecated "root" configuration. Use "rootProperty" instead.
 			});
 
 		Ext.apply(config.reader, {

@@ -98,6 +98,11 @@ namespace Codaxy.Dextop.Data
         /// </summary>
         public string tpl { get; set; }
 
+        /// <summary>
+        /// Hide column
+        /// </summary>
+        public bool hidden { get; set; }
+
         String _align;
 
         /// <summary>
@@ -143,6 +148,8 @@ namespace Codaxy.Dextop.Data
             jw.DefaultProperty("format", format);
             jw.DefaultProperty("tpl", tpl);
             jw.DefaultProperty("align", align);
+            jw.DefaultProperty("hidden", hidden);
+            jw.DefaultProperty("sortable", sortable);
 
             if (_columns == null || _columns.Count == 0)
             {
