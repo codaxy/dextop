@@ -37,7 +37,7 @@ namespace Codaxy.Dextop.Forms
                         jw.StartFunctionBlock("getDictionary", "options");
 						jw.WriteLine("options = options || {};");
 						jw.WriteLine("options.data = options.data || {};");
-                        jw.WriteLine("var dict = {};");                        
+                        jw.WriteLine("var dict = Ext.apply({}, options.apply);");                        
                         WriteDictRecursively(jw, formFields);                                                
                         jw.WriteLine("return dict;");
                         jw.CloseBlock();

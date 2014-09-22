@@ -65,13 +65,13 @@
     <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=3.0.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Autofac.3.3.0\lib\net40\Autofac.dll</HintPath>
+      <HintPath>..\..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
     </Reference>
     <Reference Include="Codaxy.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Codaxy.Common.0.5.16.8\lib\Codaxy.Common.dll</HintPath>
+      <HintPath>..\..\packages\Codaxy.Common.0.5.16.9\lib\Codaxy.Common.dll</HintPath>
     </Reference>
     <Reference Include="MarkdownDeep, Version=1.5.4615.26275, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -79,7 +79,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Newtonsoft.Json.6.0.3\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.5\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -125,6 +125,7 @@
     <Content Include="client\lib\dextop\images\logger\sprites.png" />
     <Content Include="client\lib\dextop\js\api\Controller.js" />
     <Content Include="client\lib\dextop\js\api\Proxy.js" />
+    <Content Include="client\lib\dextop\js\data\identifier\Nullable.js" />
     <Content Include="client\lib\dextop\js\Ext.tweaks.js" />
     <Content Include="client\lib\dextop\js\Form.js" />
     <Content Include="client\lib\dextop\js\locale\ext-patch-da.js" />
@@ -135,6 +136,8 @@
     <Content Include="client\lib\dextop\js\ux\Ext.ux.FilteredCombo.js" />
     <Content Include="client\lib\dextop\js\ux\Ext.ux.grid.plugin.AutoSelect.js" />
     <Content Include="client\lib\dextop\js\ux\Ext.ux.KeyMapPlugin.js" />
+    <Compile Include="Demos\Api\ApiFileDownloadWindow.cs" />
+    <Compile Include="Demos\Api\ApiFileUploadFormWindow.cs" />
     <Compile Include="Demos\Api\ApiGrid.cs" />
     <Compile Include="Demos\Api\ApiTree.cs" />
     <Compile Include="Demos\Api\ApiGridWithFormEditor.cs" />
@@ -149,6 +152,10 @@
     <Compile Include="Demos\Grids\SwissGridWithFormEditor.cs" />
     <Compile Include="Demos\Grids\SwissGrid.cs" />
     <Compile Include="Demos\Live\ChatRoom.cs" />
+    <Content Include="Demos\Api\ApiFileDownloadWindow.js" />
+    <Content Include="Demos\Api\ApiFileDownloadWindow.txt" />
+    <Content Include="Demos\Api\ApiFileUploadFormWindow.txt" />
+    <Content Include="Demos\Api\ApiFileUploadFormWindow.js" />
     <Content Include="Demos\Api\ApiGrid.js" />
     <Content Include="Demos\Api\ApiTree.js" />
     <Content Include="Demos\Api\ApiGridWithFormEditor.js" />
@@ -206,6 +213,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShowcaseApplication.cs" />
     <Compile Include="ShowcaseApplication.DemoLauncher.cs" />
+    <Compile Include="ShowcaseApplication.ExtChartsModule.cs" />
     <Compile Include="ShowcaseApplication.ExtDataViewModule.cs" />
     <Compile Include="ShowcaseApplication.Module.cs" />
     <Compile Include="ShowcasePreprocessorBootstrapper.cs" />
@@ -383,6 +391,12 @@
     <Content Include="source\AllFormFieldsWindow.cs.html" />
     <Content Include="source\AllFormFieldsWindow.html" />
     <Content Include="source\AllFormFieldsWindow.js.html" />
+    <Content Include="source\ApiFileDownloadWindow.cs.html" />
+    <Content Include="source\ApiFileDownloadWindow.html" />
+    <Content Include="source\ApiFileDownloadWindow.js.html" />
+    <Content Include="source\ApiFileUploadFormWindow.cs.html" />
+    <Content Include="source\ApiFileUploadFormWindow.html" />
+    <Content Include="source\ApiFileUploadFormWindow.js.html" />
     <Content Include="source\ApiGrid.cs.html" />
     <Content Include="source\ApiGrid.html" />
     <Content Include="source\ApiGrid.js.html" />

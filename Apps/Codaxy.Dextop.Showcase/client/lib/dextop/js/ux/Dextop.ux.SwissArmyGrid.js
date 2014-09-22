@@ -8,6 +8,7 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
 
     editing: undefined, //One of the 'cell', 'row', 'form'	 
     editingOptions: undefined, //special options to be passed to the editing plugin
+    actionManagerOptions: undefined, // special options to be passed to the action manager plugin
     readOnly: false,
 
     storeName: undefined, //Name of the store component. If not specified model property is used. 
@@ -70,7 +71,7 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
             delete this.columnModelOptions;
         }
 
-        this.actionManager = Ext.create('Ext.ux.grid.plugin.ActionManager');
+        this.actionManager = this.createActionManagerPlugin();
         this.plugins = Ext.Array.from(this.plugins) || [];
         this.plugins.push(this.actionManager);
 
@@ -85,16 +86,18 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
                 throw 'Grid does not support paging and bbar. Use them exclusively.';
             this.pagingToolbarOptions = this.pagingToolbarOptions || {};
             this.pagingToolbarOptions.items = Ext.Array.from(this.pagingToolbarOptions.items) || [];
+
             if (this.pageSizeSelect) {
                 var options = Ext.apply({}, this.pageSizeSelectOptions);
                 if (typeof this.pageSizeSelect == 'object')
                     Ext.apply(options, this.pageSizeSelect);
 
-                this.pagingToolbarOptions.items.push('-', this.pageSizeText, Ext.apply({
+                this.pagingToolbarOptions.items.unshift('-', this.pageSizeText, Ext.apply({
                     xtype: 'pagesizecombo',
                     store: this.store
                 }, options));
             }
+
             this.bbar = Ext.create('Ext.PagingToolbar', Ext.apply({
                 store: this.store
             }, this.pagingToolbarOptions));
@@ -135,6 +138,11 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
                 this.plugins.push(this.rowEditing);
                 break;
         }
+    },
+
+    createActionManagerPlugin: function () {
+        this.actionManagerOptions = this.actionManagerOptions || {};
+        return Ext.create('Ext.ux.grid.plugin.ActionManager', this.actionManagerOptions);
     },
 
     createCellEditing: function () {
@@ -200,7 +208,7 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
                 iconCls: this.getActionIconCls(action),
                 disabled: this.readOnly,
                 enableOnSingle: !this.readOnly,
-                key: [Ext.EventObject.ENTER],
+                key: [Ext.event.Event.ENTER],
                 scope: this,
                 handler: function () {
                     this.editRecord();
@@ -212,7 +220,7 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
                 disabled: this.readOnly,
                 enableOnSingle: !this.readOnly,
                 enableOnMulti: !this.readOnly,
-                key: [Ext.EventObject.NUM_MINUS, Ext.EventObject.DELETE],
+                key: [Ext.event.Event.NUM_MINUS, Ext.event.Event.DELETE],
                 scope: this,
                 handler: function () {
                     this.cancelEditing();
@@ -249,7 +257,7 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
                 iconCls: this.getActionIconCls(action),
                 disabled: this.readOnly,
                 scope: this,
-                key: [Ext.EventObject.NUM_PLUS, Ext.EventObject.INSERT],
+                key: [Ext.event.Event.NUM_PLUS, Ext.event.Event.INSERT],
                 handler: function () {
                     var rec = this.createNewRecord();
                     var index = this.store.getCount();
@@ -268,7 +276,7 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
                 iconCls: this.getActionIconCls(action),
                 disabled: this.readOnly,
                 scope: this,
-                key: [Ext.EventObject.NUM_PLUS, Ext.EventObject.INSERT],
+                key: [Ext.event.Event.NUM_PLUS, Ext.event.Event.INSERT],
                 handler: function () {
                     var rec = this.createNewRecord();
                     var index = this.store.getCount();
@@ -287,11 +295,13 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
                 iconCls: this.getActionIconCls(action),
                 disabled: this.readOnly,
                 scope: this,
-                key: [Ext.EventObject.NUM_PLUS, Ext.EventObject.INSERT],
+                key: [Ext.event.Event.NUM_PLUS, Ext.event.Event.INSERT],
                 handler: function () {
                     var rec = this.createNewRecord();
-                    this.formEdit(rec, true);
+                    if (this.fireEvent('beforeedit', this, rec) === false)
+                        return;
 
+                    this.formEdit(rec, true);
                 }
             }
         }
@@ -300,6 +310,9 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
 
     editRecord: function (rec) {
         rec = rec || this.getSelectedRecord();
+        if (this.fireEvent('beforeedit', this, rec) === false)
+            return;
+
         if (rec)
             switch (this.editing) {
                 case 'row': this.rowEdit(rec); break;
@@ -321,12 +334,12 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
     formEdit: function (rec, insert) {
         this.editingOptions = this.editingOptions || {};
         if (!this.editingOptions.formItemsType)
-            this.editingOptions.formItemsType = this.store.model.modelName.replace('.model.', '.form.');
+            this.editingOptions.formItemsType = this.store.model.getName().replace('.model.', '.form.'); // this.store.model.modelName doesn't exist
         var formEditor = Ext.create('Dextop.ux.FormEditorWindow', Ext.apply({
             title: insert ? this.addText : this.editText,
             insert: insert,
             remote: this.remote,
-            data: rec.data
+            recData: rec.data
         }, this.editingOptions));
         formEditor.on('save', function (w, form, fieldValues) {
             if (fieldValues)

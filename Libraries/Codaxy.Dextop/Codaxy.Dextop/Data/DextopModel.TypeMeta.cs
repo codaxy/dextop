@@ -21,6 +21,11 @@ namespace Codaxy.Dextop.Data
         public String IdField { get; set; }
 
         /// <summary>
+        /// Gets or sets the identifier field.
+        /// </summary>
+        public String Identifier { get; set; }
+
+        /// <summary>
         /// Gets or sets the excluded fields.
         /// </summary>		
         public String[] ExcludedFields { get; set; }

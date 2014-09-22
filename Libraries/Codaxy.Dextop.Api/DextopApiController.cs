@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using Codaxy.Dextop.Data;
+using Codaxy.Dextop.Remoting;
 
 namespace Codaxy.Dextop.Api
 {
@@ -23,6 +24,8 @@ namespace Codaxy.Dextop.Api
 
         internal protected virtual void OnExecuting() { }
 
+        internal protected virtual void OnProcessAjaxRequest(HttpContext context) { }
+
         protected virtual IDextopApiActionInvoker CreateActionInvoker(String action, params String[] arguments)
         {
             IDextopApiActionInvoker invoker;
@@ -31,10 +34,10 @@ namespace Codaxy.Dextop.Api
             return new StandardActionInvoker(this);
         }
 
-        internal DextopApiInvocationResult Invoke(String action, params String[] arguments)
+        internal DextopApiInvocationResult Invoke(String action, DextopFormSubmit form, params String[] arguments)
         {
             var invoker = CreateActionInvoker(action, arguments);
-            var result = invoker.Invoke(action, arguments);
+            var result = invoker.Invoke(action, arguments, form);
             return result;
         }
 

@@ -54,7 +54,7 @@
                 api: this,
                 reader: {
                     type: 'json',
-                    root: 'data'
+                    rootProperty: 'data'
                 }
             }
         }, options));
@@ -76,6 +76,56 @@
         var charpos = str.lastIndexOf(search);
         if (charpos < 0) return str;
         return str.substring(0, charpos) + replacement + str.substring(charpos + search.length);
+    },
+
+    getAjaxUrl: function (options) {
+        var url = Dextop.api.prototype.ajaxUrlBase + '&_apiControllerType=' + this.controllerType;
+        if (options)
+            url += '&' + Ext.urlEncode(options);
+        return url;
+    },
+
+    submitForm: function (callback, scope, method, form, args) {
+
+        var handler = Dextop.remoting.Proxy.createHandler(callback, scope);
+
+        if (handler.prepare)
+            handler.prepare.call(handler.scope);
+
+        if (handler.setMask)
+            handler.setMask();
+
+        var injectedForm = false;
+        var formEl = form;
+        var fieldValues = undefined;
+
+        if (form && form.$className === "Ext.form.Basic") {
+            var submitAction = Ext.create('Ext.form.action.Submit', {
+                form: form
+            });
+            if (Ext.versions.extjs.version < "4.2.0")
+                formEl = submitAction.buildForm();
+            else
+                formEl = submitAction.buildForm().formEl;
+            fieldValues = form.getFieldValues();
+            injectedForm = true;
+        }
+
+        DextopApi.submitForm(formEl, {
+            callback: handler.callback,
+            scope: handler.scope,
+            params: {
+                _apiControllerType: this.controllerType,
+                _apiScope: Ext.encode(this.params),
+                _apiMethod: method,
+                _apiArguments: this.encodeArguments(args),
+                _apiFieldValues: Ext.encode(fieldValues)
+            }
+        });
+
+        if (injectedForm)
+            Ext.removeNode(formEl);
+
     }
 
 });

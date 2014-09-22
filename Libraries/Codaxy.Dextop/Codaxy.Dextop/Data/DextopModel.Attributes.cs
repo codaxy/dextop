@@ -42,6 +42,11 @@ namespace Codaxy.Dextop.Data
         public String Name { get; set; }
 
         /// <summary>
+        /// Id generator. Supported types are sequential, negative and uuid. Default is nullable (custom dextop identifier).
+        /// </summary>
+        public String Identifier { get; set; }
+
+        /// <summary>
         /// Gets or sets type of the default serializer.
         /// </summary>
         public DextopSerializerType DefaultSerializer { get; set; }

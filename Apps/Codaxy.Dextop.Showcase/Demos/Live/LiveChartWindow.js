@@ -15,15 +15,15 @@ Ext.define('Showcase.demos.LiveChartWindow', {
         Ext.apply(this, {
             layout: 'fit',
             items: {
-                xtype: 'chart',
+                xtype: 'cartesian',
                 store: store,               
                 axes: [{
-                    type: 'Category',                   
+                    type: 'category',                   
                     position: 'bottom',
                     fields: ['CPU'],
                     title: 'CPU'
                 }, {
-                    type: 'Numeric',
+                    type: 'numeric',
                     position: 'left',
                     fields: ['Usage'],
                     title: 'CPU Usage',
@@ -31,7 +31,7 @@ Ext.define('Showcase.demos.LiveChartWindow', {
                     maximum: 100
                 }],
                 series: [{
-                    type: 'column',
+                    type: 'bar',
                     axis: 'left',
                     xField: 'CPU',
                     yField: 'Usage'

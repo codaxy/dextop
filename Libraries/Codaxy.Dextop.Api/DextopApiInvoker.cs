@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Codaxy.Dextop.Remoting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -7,8 +8,8 @@ using System.Text;
 namespace Codaxy.Dextop.Api
 {
     public interface IDextopApiActionInvoker
-    {
-        DextopApiInvocationResult Invoke(String action, String[] arguments);
+    {        
+        DextopApiInvocationResult Invoke(String action, String[] arguments, DextopFormSubmit form);
     }
 
     public class DextopApiInvocationResult
@@ -50,7 +51,7 @@ namespace Codaxy.Dextop.Api
             this.controller = controller;
         }
 
-        public DextopApiInvocationResult Invoke(string action, string[] arguments)
+        public DextopApiInvocationResult Invoke(string action, string[] arguments, DextopFormSubmit form)
         {
             var method = controller.GetType().GetMethod(action);
             if (method == null)
@@ -58,8 +59,14 @@ namespace Codaxy.Dextop.Api
 
             var parameters = method.GetParameters();
             var p = new object[parameters.Length];
+
+            int offset = form == null ? 0 : 1;
+            
+            if (form != null)
+                p[0] = form;
+            
             for (var i = 0; i < Math.Min(p.Length, arguments.Length); i++)
-                p[i] = DextopUtil.DecodeValue(arguments[i], parameters[i].ParameterType);
+                p[i + offset] = DextopUtil.DecodeValue(arguments[i], parameters[i + offset].ParameterType);
 
             try
             {

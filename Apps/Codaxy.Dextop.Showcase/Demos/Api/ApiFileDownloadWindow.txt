@@ -1,0 +1,9 @@
+﻿API File Download Window
+================
+
+Use OnProcessAjaxRequest(HttpContext context)
+as universal request handler that can serve
+different file types.
+
+Options passed to getAjaxUrl() are available as
+parameters in query string. 

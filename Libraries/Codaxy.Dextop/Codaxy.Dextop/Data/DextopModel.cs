@@ -54,8 +54,11 @@ namespace Codaxy.Dextop.Data
             if (Fields != null)
                 jw.AddProperty("fields", Fields);
             if (Validations != null && Validations.Count > 0)
-                jw.AddProperty("validations", Validations);
+                jw.AddProperty("validators", Validations);
             jw.DefaultProperty("idProperty", idProperty);
+
+            jw.DefaultProperty("identifier", Meta.Identifier);
+
             base.WriteProperties(jw);
         }
 

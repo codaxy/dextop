@@ -8,7 +8,7 @@ using Codaxy.Dextop.Forms;
 
 namespace Codaxy.Dextop.Showcase.Demos.Remoting
 {
-    [Demo("ApiGridForm",
+    [Demo("ApiGridWithFormEditor",
         Title = "Grid API with Form Editor",
         Description = "Show how to setup grid using Dextop API on the server side.",
         ClientLauncher = true,

@@ -1,6 +1,6 @@
 Ext.ns('Showcase');
 
-Ext.define('Showcase.demos.Launcher.ApiGridForm', {
+Ext.define('Showcase.demos.Launcher.ApiGridWithFormEditor', {
     extend: 'Showcase.demos.Launcher',
     launch: function () {
         var remoteId = Ext.id();

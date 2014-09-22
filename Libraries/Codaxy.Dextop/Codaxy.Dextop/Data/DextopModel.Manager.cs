@@ -89,10 +89,11 @@ namespace Codaxy.Dextop.Data
         {
             DextopModelTypeMeta meta;
             
-            if (modelAttribute!=null)
+            if (modelAttribute != null)
                 meta = new DextopModelTypeMeta
                 {
                     IdField = modelAttribute.Id,
+                    Identifier = modelAttribute.Identifier,
                     ModelName = modelAttribute.Name,
                     DefaultSerializerType = modelAttribute.DefaultSerializer
                 };
@@ -187,8 +188,13 @@ namespace Codaxy.Dextop.Data
             }
 
             model.idProperty = meta.IdField;
+
+            if (String.IsNullOrEmpty(meta.Identifier)) // set default identifier
+                meta.Identifier = "nullable";
+
 			if (meta.ModelName == null)
 				meta.ModelName = Application.MapTypeName(type, ".model");
+            
             meta.ExcludedFields = excludeFields.Count == 0 ? null : excludeFields.ToArray();
             meta.Fields = model.Fields.Select(a => a.name).ToArray();
             meta.ModelType = type;

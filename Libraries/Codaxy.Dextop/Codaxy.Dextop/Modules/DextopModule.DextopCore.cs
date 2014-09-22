@@ -39,7 +39,7 @@ namespace Codaxy.Dextop
                 "remoting/",
                 "api/",
                 "generated/",
-                "data/",
+                "data/*/",
                 "ux/",
                 "/"
             );
