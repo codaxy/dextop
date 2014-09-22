@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package>
   <metadata schemaVersion="2">
-    <id>Codaxy.Dextop.Core</id>    
-    <title>Dextop RIA Framework (Libraries)</title>
-    <version>1.2.0.31</version>
+    <id>Codaxy.Dextop.5.Core</id>    
+    <title>Dextop RIA Framework (Libraries) - Ext JS 5</title>
+    <version>5.0.1.0</version>
     <authors>Codaxy</authors>
     <description>Dextop Rich Internet Application Framework (Libraries)</description>
 	<projectUrl>https://github.com/codaxy/dextop</projectUrl>
