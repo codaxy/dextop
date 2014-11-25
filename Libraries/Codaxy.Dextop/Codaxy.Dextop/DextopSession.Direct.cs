@@ -92,11 +92,46 @@ namespace Codaxy.Dextop
         
         LongPollingResult previousLongPollingResult;
 
+        class SyncAsyncResult : IAsyncResult
+        {
+            object state;
+
+            public SyncAsyncResult(object state)
+            {
+                this.state = state;
+            }
+
+            public object AsyncState
+            {
+                get { return state; }
+            }
+
+            public WaitHandle AsyncWaitHandle
+            {
+                get { return null; }
+            }
+
+            public bool CompletedSynchronously
+            {
+                get { return true; }
+            }
+
+            public bool IsCompleted
+            {
+                get { return true; }
+            }
+        }
+
         internal IAsyncResult BeginHandleLongPollingRequest(int start, AsyncCallback callback, object state)
         {
             //If, for some reason, last package was not recieved by the client, send same package again...
             if (previousLongPollingResult != null && start < previousLongPollingResult.nextStart)
-                return ((Func<LongPollingResult>)GetPreviousLongPollingResult).BeginInvoke(callback, state);
+            {
+                var r = new SyncAsyncResult(previousLongPollingResult);                
+                if (callback != null)
+                    callback(r);
+                return r;
+            }
 
             return messageQueue.BeginTake(20000, callback, state);
         }
@@ -114,10 +149,10 @@ namespace Codaxy.Dextop
                 name = "message"
             };
             try
-            {                
-                if (previousLongPollingResult != null && start < previousLongPollingResult.nextStart)
+            {
+                if (asyncResult is SyncAsyncResult)
                 {
-                    result = ((Func<LongPollingResult>)GetPreviousLongPollingResult).EndInvoke(asyncResult);                    
+                    result = (LongPollingResult)asyncResult.AsyncState;
                 }
                 else
                 {
