@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package>
   <metadata schemaVersion="2">
-    <id>Codaxy.Dextop.Preprocessor</id>    
+    <id>Codaxy.Dextop.5.Preprocessor</id>    
     <title>Dextop - Preprocessor</title>
     <version>1.1.0.3</version>
     <authors>Codaxy</authors>
