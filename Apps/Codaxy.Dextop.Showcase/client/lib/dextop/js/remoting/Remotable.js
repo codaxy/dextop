@@ -17,11 +17,15 @@ Ext.define("Dextop.remoting.Remotable", {
 			return this.remotes[remoteId]; 
 		},
 		
-		dispatchServerMessages: function(sm) {			
+		dispatchServerMessages: function(sm) { 
 			for (var i = 0; i<sm.length; i++) {
-				var remote = this.findRemote(sm[i].remoteId);
-				if (remote && remote.processServerMessage)
-					remote.processServerMessage(sm[i].message);
+			var remote = this.findRemote(sm[i].remoteId);
+			if (remote && remote.processServerMessage)
+			   try{
+			       remote.processServerMessage(sm[i].message);
+			   } catch (e) {
+			       //console.log(e);
+			   }
 			}
 		} 
 	},
