@@ -99,6 +99,7 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
             }
 
             this.bbar = Ext.create('Ext.PagingToolbar', Ext.apply({
+                enableOverflow: true,
                 store: this.store
             }, this.pagingToolbarOptions));
         }
@@ -107,10 +108,16 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
             this.createEditingPlugin();
 
         if (Ext.isArray(this.tbar))
-            this.tbar = this.actionManager.add(this.convertStringActions(this.tbar));
+            this.tbar = {
+                enableOverflow: true,
+                items: this.actionManager.add(this.convertStringActions(this.tbar))
+            };
 
         if (Ext.isArray(this.bbar))
-            this.bbar = this.actionManager.add(this.convertStringActions(this.bbar));
+            this.bbar = {
+                enableOverflow: true,
+                items: this.actionManager.add(this.convertStringActions(this.bbar))
+            };
 
         this.callParent();
 
