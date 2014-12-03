@@ -1,7 +1,4 @@
-//http://www.sencha.com/forum/showthread.php?130332-ArrayReader-idProperty-bug&p=591598#post591598
-
-if (Ext.versions.extjs.version <= '4.0.7')  // NOTE: Appears to be fixed in Ext 4.1.0 beta 2
-{ 
+if (Ext.versions.extjs.version >= '4.2.3') {
 	Ext.override(Ext.data.reader.Array, {
 		getIdProperty: function () {
 			var m = this.model.prototype;
@@ -61,7 +58,9 @@ if (Ext.versions.extjs.version <= '4.0.7')  // NOTE: Appears to be fixed in Ext 
 					return null;
 				};
 			}
-			me.buildFieldExtractors();
+
+			me.convertRecordData = me.buildRecordDataExtractor();
+			me.lastFieldGeneration = me.model.prototype.fields.generation;
 		}
 	});
 }
@@ -90,7 +89,7 @@ Ext.override(Ext.form.field.Radio, {
 * See here: http://www.sencha.com/forum/showthread.php?133240-4.0.0-Ext.Action.removeComponent
 * @param {Object} comp The component to remove.
 */
-Ext.override(Ext.Action, {	
+Ext.override(Ext.Action, {
 	removeComponent: function (comp) {
 		Ext.Array.remove(this.items, comp);
 	}
@@ -99,62 +98,62 @@ Ext.override(Ext.Action, {
 
 ///
 if (Ext.versions.extjs.version == '4.0.1')
-Ext.override(Ext.grid.View, {
-	processUIEvent: function (e) {
-		var me = this,
-		item = e.getTarget(me.getItemSelector(), me.getTargetEl()),
-		map = this.statics().EventMap,
-		index, record,
-		type = e.type,
-		overItem = me.mouseOverItem,
-		newType;
-		if (!item) {
-			if (type == 'mouseover' && me.stillOverItem(e, overItem)) {
-				item = overItem;
-			}
-			if (type == 'keydown') {
-				record = me.getSelectionModel().getLastSelected();
-				if (record) {
-					item = me.getNode(record);
+	Ext.override(Ext.grid.View, {
+		processUIEvent: function (e) {
+			var me = this,
+			item = e.getTarget(me.getItemSelector(), me.getTargetEl()),
+			map = this.statics().EventMap,
+			index, record,
+			type = e.type,
+			overItem = me.mouseOverItem,
+			newType;
+			if (!item) {
+				if (type == 'mouseover' && me.stillOverItem(e, overItem)) {
+					item = overItem;
+				}
+				if (type == 'keydown') {
+					record = me.getSelectionModel().getLastSelected();
+					if (record) {
+						item = me.getNode(record);
+					}
 				}
 			}
+			if (item) {
+				index = me.indexOf(item);
+				if (!record) {
+					record = me.getRecord(item);
+				}
+				if (me.processItemEvent(record, item, index, e) === false) {
+					return false;
+				}
+				newType = me.isNewItemEvent(item, e);
+				if (newType === false) {
+					return false;
+				}
+				if (map[newType] && (
+	(me['onBeforeItem' + map[newType]](record, item, index, e) === false) ||
+	(me.fireEvent('beforeitem' + newType, me, record, item, index, e) === false) ||
+	(me['onItem' + map[newType]](record, item, index, e) === false)
+	)) {
+					return false;
+				}
+				me.fireEvent('item' + newType, me, record, item, index, e);
+			}
+			else {
+				if (map[newType] && (
+	(me.processContainerEvent(e) === false) ||
+	(me['onBeforeContainer' + map[type]](e) === false) ||
+	(me.fireEvent('beforecontainer' + type, me, e) === false) ||
+	(me['onContainer' + map[type]](e) === false)
+	)) {
+					return false;
+				}
+				me.fireEvent('container' + type, me, e);
+			}
+			return true;
 		}
-		if (item) {
-			index = me.indexOf(item);
-			if (!record) {
-				record = me.getRecord(item);
-			}
-			if (me.processItemEvent(record, item, index, e) === false) {
-				return false;
-			}
-			newType = me.isNewItemEvent(item, e);
-			if (newType === false) {
-				return false;
-			}
-			if (map[newType] && (
-(me['onBeforeItem' + map[newType]](record, item, index, e) === false) ||
-(me.fireEvent('beforeitem' + newType, me, record, item, index, e) === false) ||
-(me['onItem' + map[newType]](record, item, index, e) === false)
-)) {
-				return false;
-			}
-			me.fireEvent('item' + newType, me, record, item, index, e);
-		}
-		else {
-			if (map[newType] && (
-(me.processContainerEvent(e) === false) ||
-(me['onBeforeContainer' + map[type]](e) === false) ||
-(me.fireEvent('beforecontainer' + type, me, e) === false) ||
-(me['onContainer' + map[type]](e) === false)
-)) {
-				return false;
-			}
-			me.fireEvent('container' + type, me, e);
-		}
-		return true;
-	}
 
-});
+	});
 
 Ext.override(Ext.data.AbstractStore, {
 	setProxy: function (proxy) {
@@ -178,74 +177,74 @@ Ext.override(Ext.data.AbstractStore, {
 });
 
 if (Ext.versions.extjs.version == '4.1.0')
-    Ext.override(Ext.panel.Panel, {
-        getKeyMap: function () {
-            if (!this.keyMap) {
-                this.keyMap = new Ext.KeyMap(this.el, this.keys);
-            }
-            return this.keyMap;
-        }
-    });
+	Ext.override(Ext.panel.Panel, {
+		getKeyMap: function () {
+			if (!this.keyMap) {
+				this.keyMap = new Ext.KeyMap(this.el, this.keys);
+			}
+			return this.keyMap;
+		}
+	});
 
 if (Ext.versions.extjs.version >= '4.1.0')
-    Ext.override(Ext.panel.Panel, {
-        getKeyMap: function () {
-            if (this.keyMap)
-                return this.keyMap;
-            
-            if (Ext.isArray(this.keys)) {
-                this.keyMap = new Ext.util.KeyMap(Ext.apply({
-                    target: this.el,
-                    binding: this.keys
-                }));
-            } else {
-                this.keyMap = new Ext.util.KeyMap(Ext.apply({
-                    target: this.el
-                }, this.keys));
-            }
-            return this.keyMap;
-        }
-    });
+	Ext.override(Ext.panel.Panel, {
+		getKeyMap: function () {
+			if (this.keyMap)
+				return this.keyMap;
+
+			if (Ext.isArray(this.keys)) {
+				this.keyMap = new Ext.util.KeyMap(Ext.apply({
+					target: this.el,
+					binding: this.keys
+				}));
+			} else {
+				this.keyMap = new Ext.util.KeyMap(Ext.apply({
+					target: this.el
+				}, this.keys));
+			}
+			return this.keyMap;
+		}
+	});
 
 
 if (Ext.versions.extjs.version >= '4.1.1')
-    Ext.override(Ext.form.field.Time, {
-        syncSelection: function () {
-            var me = this,
+	Ext.override(Ext.form.field.Time, {
+		syncSelection: function () {
+			var me = this,
                 picker = me.picker,
                 toSelect,
                 selModel,
                 value,
                 data, d, dLen, rec;
 
-            if (picker && !me.skipSync) {
-                picker.clearHighlight();
-                value = me.getValue();
-                selModel = picker.getSelectionModel();
-                // Update the selection to match
-                me.ignoreSelection++;
-                if (value === null) {
-                    selModel.deselectAll();
-                } else if (Ext.isDate(value)) {
-                    // find value, select it
-                    data = picker.store.data.items;
-                    dLen = data.length;
+			if (picker && !me.skipSync) {
+				picker.clearHighlight();
+				value = me.getValue();
+				selModel = picker.getSelectionModel();
+				// Update the selection to match
+				me.ignoreSelection++;
+				if (value === null) {
+					selModel.deselectAll();
+				} else if (Ext.isDate(value)) {
+					// find value, select it
+					data = picker.store.data.items;
+					dLen = data.length;
 
-                    for (d = 0; d < dLen; d++) {
-                        rec = data[d];
+					for (d = 0; d < dLen; d++) {
+						rec = data[d];
 
-                        if (Ext.Date.isEqual(rec.get('date'), value)) {
-                            toSelect = rec;
-                            break;
-                        }
-                    }
+						if (Ext.Date.isEqual(rec.get('date'), value)) {
+							toSelect = rec;
+							break;
+						}
+					}
 
-                    if (toSelect)
-                        selModel.select(toSelect);
-                    else
-                        me.setRawValue(me.formatDate(value));
-                }
-                me.ignoreSelection--;
-            }
-        }
-    });
+					if (toSelect)
+						selModel.select(toSelect);
+					else
+						me.setRawValue(me.formatDate(value));
+				}
+				me.ignoreSelection--;
+			}
+		}
+	});
