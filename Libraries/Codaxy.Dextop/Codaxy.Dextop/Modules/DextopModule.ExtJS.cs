@@ -5,14 +5,14 @@ using System.Text;
 
 namespace Codaxy.Dextop
 {
-	/// <summary>
-	/// Module which includes ext-all js and css resources.
-	/// </summary>
+    /// <summary>
+    /// Module which includes ext-all js and css resources.
+    /// </summary>
     public class DextopExtJSModule : DextopModule
     {
-		/// <summary>
-		/// Initializes a new instance of the <see cref="DextopExtJSModule"/> class.
-		/// </summary>
+        /// <summary>
+        /// Initializes a new instance of the <see cref="DextopExtJSModule"/> class.
+        /// </summary>
         public DextopExtJSModule()
         {
 #if DEBUG
@@ -20,19 +20,19 @@ namespace Codaxy.Dextop
 #endif
         }
 
-		/// <summary>
-		/// Gets or sets a value indicating whether debug version should be used.
-		/// </summary>
+        /// <summary>
+        /// Gets or sets a value indicating whether debug version should be used.
+        /// </summary>
         public bool Debug { get; set; }
 
-		/// <summary>
-		/// Gets or sets the CSS theme suffix.
-		/// </summary>		
-		public String CssThemeSuffix { get; set; }
+        /// <summary>
+        /// Gets or sets the CSS theme suffix.
+        /// </summary>		
+        public String CssThemeSuffix { get; set; }
 
-		/// <summary>
-		/// Gets the name of the module.
-		/// </summary>
+        /// <summary>
+        /// Gets the name of the module.
+        /// </summary>
         public override string ModuleName
         {
             get { return "ext"; }
@@ -48,9 +48,9 @@ namespace Codaxy.Dextop
         /// </summary>
         public bool SkipLocalizations { get; set; }
 
-		/// <summary>
-		/// Setup mapping of module's namespaces.
-		/// </summary>
+        /// <summary>
+        /// Setup mapping of module's namespaces.
+        /// </summary>
         protected override void InitNamespaces()
         {
 
@@ -73,9 +73,9 @@ namespace Codaxy.Dextop
             
         }
 
-		/// <summary>
-		/// Initializes the module resources.
-		/// </summary>
+        /// <summary>
+        /// Initializes the module resources.
+        /// </summary>
         protected override void InitResources()
         {
             string debugSuffix = Debug ? "-debug" : "";
@@ -85,7 +85,7 @@ namespace Codaxy.Dextop
             js.Register(String.Format("ext-all{0}.js", debugSuffix));
 
             if (!SkipLocalizations)
-                js.RegisterLocalizations(new[] { "sr", "ru", "fr", "de", "da" }, "locale/", "ext-lang-{0}.js");
+                js.RegisterLocalizations(new[] { "sr", "ru", "fr", "de", "da" },  "packages/ext-locale/build/", String.Format("ext-locale-{{0}}{0}.js", debugSuffix));
 
             var css = CreateCssPackage();
             css.Minify = false;
