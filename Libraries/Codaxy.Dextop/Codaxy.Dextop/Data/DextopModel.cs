@@ -90,7 +90,7 @@ namespace Codaxy.Dextop.Data
             /// <summary>
             /// Indicates whether null values are allowed.
             /// </summary>
-			public bool? useNull { get; set; }
+			public bool? allowNull { get; set; }
 
             /// <summary>
             ///  A path expression for use by the Ext.data.reader.Reader implementation that is creating the Model to extract the Field value from the data object. If the path expression is the same as the field name, the mapping may be omitted.
@@ -126,8 +126,8 @@ namespace Codaxy.Dextop.Data
                 jw.AddProperty("name", name);
                 jw.DefaultProperty("type", type);
                 jw.DefaultProperty("defaultValue", defaultValue);
-                if (useNull == true)
-                    jw.AddProperty("useNull", useNull);
+                if (allowNull == true)
+                    jw.AddProperty("allowNull", allowNull);
                 if (persist == false)
                     jw.AddProperty("persist", false);
                 jw.DefaultProperty("mapping", mapping);

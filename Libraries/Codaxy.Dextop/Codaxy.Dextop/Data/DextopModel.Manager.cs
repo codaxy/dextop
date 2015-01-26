@@ -144,7 +144,7 @@ namespace Codaxy.Dextop.Data
                         name = p.Name,
                         type = fat.type ?? ft,
                         defaultValue = fat.defaultValue,
-                        useNull = fat.useNotNull ? false : true,//fieldType.IsClass || Codaxy.Common.Nullable.IsNullableType(type) || fieldType == typeof(String)
+                        allowNull = fat.useNotNull ? false : true,//fieldType.IsClass || Codaxy.Common.Nullable.IsNullableType(type) || fieldType == typeof(String)
                         dateFormat = fat.dateFormat,
                         mapping = fat.mapping,
                         sortDir = fat.sortDir,
@@ -159,7 +159,7 @@ namespace Codaxy.Dextop.Data
                         if (ida != null)
                         {
                             meta.IdField = p.Name;
-                            field.useNull = true;
+                            field.allowNull = true;
                         }
                         else
                         {
