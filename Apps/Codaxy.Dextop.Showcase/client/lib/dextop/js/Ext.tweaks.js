@@ -286,7 +286,7 @@ if (Ext.getVersion() > '5.1') {
                 callbackOptions: options,
                 callback: cb,
                 // Codaxy change: Add 1 line
-                params: cb.params,
+                params: cb ? cb.params : null,
                 isForm: isForm
             });
             if (options && options.timeout != null) {
