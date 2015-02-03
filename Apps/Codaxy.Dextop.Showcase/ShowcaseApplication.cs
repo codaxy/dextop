@@ -10,28 +10,28 @@ namespace Codaxy.Dextop.Showcase
     {
         protected override void RegisterModules()
         {
-            RegisterModule("http://cdn.sencha.com/ext/gpl/5.0.1/build/", new DextopExtJSModule
+            RegisterModule("http://cdn.sencha.com/ext/gpl/5.1.0/build/", new DextopExtJSModule
             {
                 CssThemeSuffix = "-gray",
                 UsingExternalResources = true
             });
 
-            RegisterModule("http://cdn.sencha.com/ext/gpl/5.0.1/build/examples/", new ExtJSDataViewModule
+            RegisterModule("http://cdn.sencha.com/ext/gpl/5.1.0/build/examples/", new ExtJSDataViewModule
             {
                 UsingExternalResources = true
             });
 
-            RegisterModule("http://cdn.sencha.com/ext/gpl/5.0.1/packages/sencha-charts/build/", new ExtChartsModule
+            RegisterModule("http://cdn.sencha.com/ext/gpl/5.1.0/packages/sencha-charts/build/", new ExtChartsModule
             {
                 UsingExternalResources = true
             });
             
             RegisterModule("client/lib/dextop", new DextopCoreModule());
             RegisterModule("client/lib/dextop", new DextopApiModule());
-			
-			var soundModule = new DextopSoundModule();
-			soundModule.AddSound("error", "client/sound/notify.mp3");
-			RegisterModule("client/lib/sound", soundModule);
+            
+            var soundModule = new DextopSoundModule();
+            soundModule.AddSound("error", "client/sound/notify.mp3");
+            RegisterModule("client/lib/sound", soundModule);
 
             RegisterModule("", new ShowcaseApplicationModule());
         }
