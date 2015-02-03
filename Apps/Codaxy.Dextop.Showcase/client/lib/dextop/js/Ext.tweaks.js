@@ -324,9 +324,7 @@ if (Ext.getVersion() > '5.1') {
                 me.sendFormRequest(transaction);
                 me.fireEvent('call', me, transaction, method);
             }
-        },
-
-
+        }
     });
 }
 
