@@ -104,82 +104,82 @@ Ext.override(Ext.grid.plugin.RowEditing, {
     }
 });
 
-Ext.override(Ext.form.field.ComboBox, {
-    setValue: function (value, doSelect) {
-        var me = this,
-            valueNotFoundText = me.valueNotFoundText,
-            inputEl = me.inputEl,
-            i, len, record,
-            models = [],
-            displayTplData = [],
-            processedValue = [];
+if (Ext.getVersion() < '5.1.0') {
+    Ext.override(Ext.form.field.ComboBox, {
+        setValue: function (value, doSelect) {
+            var me = this,
+                valueNotFoundText = me.valueNotFoundText,
+                inputEl = me.inputEl,
+                i, len, record,
+                models = [],
+                displayTplData = [],
+                processedValue = [];
 
-        if (me.store.loading) {
-            // Called while the Store is loading. Ensure it is processed by the onLoad method.
-            me.value = value;
-            me.setHiddenValue(me.value);
-            return me;
-        }
-
-        // This method processes multi-values, so ensure value is an array.
-        value = Ext.Array.from(value);
-
-        // Loop through values
-        for (i = 0, len = value.length; i < len; i++) {
-            record = value[i];
-            if (!record || !record.isModel) {
-                record = me.findRecordByValue(record);
+            if (me.store.loading) {
+                // Called while the Store is loading. Ensure it is processed by the onLoad method.
+                me.value = value;
+                me.setHiddenValue(me.value);
+                return me;
             }
-            // record found, select it.
-            if (record) {
-                models.push(record);
-                displayTplData.push(record.data);
-                processedValue.push(record.get(me.valueField));
-            }
-            // record was not found, this could happen because
-            // store is not loaded or they set a value not in the store
-            else {
-                // If we are allowing insertion of values not represented in the Store, then set the value, and the display value
-                if (!me.forceSelection) {
-                    displayTplData.push(value[i]);
-                    processedValue.push(value[i]);
+
+            // This method processes multi-values, so ensure value is an array.
+            value = Ext.Array.from(value);
+
+            // Loop through values
+            for (i = 0, len = value.length; i < len; i++) {
+                record = value[i];
+                if (!record || !record.isModel) {
+                    record = me.findRecordByValue(record);
                 }
-                // Else, if valueNotFoundText is defined, display it, otherwise display nothing for this value
-                else if (Ext.isDefined(valueNotFoundText)) {
-                    displayTplData.push(valueNotFoundText);
-                    processedValue.push(value[i]); ///!!!!!!!!!!!!!!!! Added line required for RemoteLookupCombos and valueNotFoundText scenario !!!!!!!!!!!
+                // record found, select it.
+                if (record) {
+                    models.push(record);
+                    displayTplData.push(record.data);
+                    processedValue.push(record.get(me.valueField));
+                }
+                    // record was not found, this could happen because
+                    // store is not loaded or they set a value not in the store
+                else {
+                    // If we are allowing insertion of values not represented in the Store, then set the value, and the display value
+                    if (!me.forceSelection) {
+                        displayTplData.push(value[i]);
+                        processedValue.push(value[i]);
+                    }
+                        // Else, if valueNotFoundText is defined, display it, otherwise display nothing for this value
+                    else if (Ext.isDefined(valueNotFoundText)) {
+                        displayTplData.push(valueNotFoundText);
+                        processedValue.push(value[i]); ///!!!!!!!!!!!!!!!! Added line required for RemoteLookupCombos and valueNotFoundText scenario !!!!!!!!!!!
+                    }
                 }
             }
-        }
 
-        // Set the value of this field. If we are multiselecting, then that is an array.
-        me.setHiddenValue(processedValue);
-        me.value = me.multiSelect ? processedValue : processedValue[0];
-        if (!Ext.isDefined(me.value)) {
-            me.value = null;
-        }
-        me.displayTplData = displayTplData; //store for getDisplayValue method
-        me.lastSelection = me.valueModels = models;
+            // Set the value of this field. If we are multiselecting, then that is an array.
+            me.setHiddenValue(processedValue);
+            me.value = me.multiSelect ? processedValue : processedValue[0];
+            if (!Ext.isDefined(me.value)) {
+                me.value = null;
+            }
+            me.displayTplData = displayTplData; //store for getDisplayValue method
+            me.lastSelection = me.valueModels = models;
 
-        if (inputEl && me.emptyText && !Ext.isEmpty(value)) {
-            inputEl.removeCls(me.emptyCls);
-        }
+            if (inputEl && me.emptyText && !Ext.isEmpty(value)) {
+                inputEl.removeCls(me.emptyCls);
+            }
 
-        // Calculate raw value from the collection of Model data
-        me.setRawValue(me.getDisplayValue());
-        me.checkChange();
+            // Calculate raw value from the collection of Model data
+            me.setRawValue(me.getDisplayValue());
+            me.checkChange();
 
-        if (Ext.getVersion() < '5.1.0') {
             if (doSelect !== false) {
                 me.syncSelection();
             }
+
+            me.applyEmptyText();
+
+            return me;
         }
-
-        me.applyEmptyText();
-
-        return me;
-    }
-});
+    });
+}
 
 if (Ext.versions.extjs.version < '4.1.1')
     Ext.override(Ext.grid.header.Container, {
@@ -248,6 +248,20 @@ Ext.define('Ext.data.field.Timestamp', {
 
     getType: function () {
         return 'timestamp';
+    }
+});
+
+Ext.define('Ext.data.field.Array', {
+    extend: 'Ext.data.field.Field',
+
+    alias: 'data.field.array',
+
+    convert: function (value) {
+        return value;
+    },
+
+    getType: function () {
+        return 'array';
     }
 });
 

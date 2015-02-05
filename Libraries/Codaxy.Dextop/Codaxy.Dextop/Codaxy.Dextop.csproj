@@ -47,7 +47,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.6\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -101,6 +101,7 @@
     <Compile Include="DextopFileLoader.Interface.cs" />
     <Compile Include="DextopPanel.cs" />
     <Compile Include="DextopEnvironment.Interface.cs" />
+    <Compile Include="Forms\DextopForm.Attributes.Tag.cs" />
     <Compile Include="Remoting\DextopRemotableConstructor.Loader.cs" />
     <Compile Include="Remoting\DextopRemotableConstructor.Preprocessor.cs" />
     <Compile Include="Remoting\DextopEnum.Attribute.cs" />

@@ -1,0 +1,56 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+<meta name="robots" content="noindex">
+</head>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using Codaxy.Dextop.Api;
+using Codaxy.Dextop.Data;
+using Codaxy.Dextop.Forms;
+
+namespace Codaxy.Dextop.Showcase.Demos.Remoting
+{
+    [DextopApiControllerAlias(&quot;countries-lookup&quot;)]
+    public class ApiFormFieldTag : DextopApiController,IDextopReadProxy&lt;CountriesModel&gt;
+    {
+        public DextopReadResult&lt;CountriesModel&gt; Read(DextopReadFilter filter)
+        {
+            var results = new[] {
+               new CountriesModel { id = 1, text=&quot;Bosnia and Herzegovina&quot; },
+               new CountriesModel { id = 2, text=&quot;Russia&quot; },
+               new CountriesModel { id = 3, text=&quot;United states&quot; },
+               new CountriesModel { id = 4, text=&quot;Serbia&quot; },
+           };
+
+            return DextopReadResult.Create(results);
+        }
+    }
+
+    [DextopForm]
+    public class FormFieldTag
+    {
+        [DextopFormTag(&quot;id&quot;, &quot;text&quot;, fieldLabel = &quot;Countries&quot;, initialLookupValueField = &quot;CountryNames&quot;, api = &quot;countries-lookup&quot;, anchor = &quot;0&quot;)]
+        public int[] CountryIds { get; set; }
+        public String[] CountryNames { get; set; }
+    }
+
+    [DextopModel]
+    public class CountriesModel
+    {
+        [DextopModelId]
+        public int id { get; set; }
+        public String text { get; set; }
+    }
+}
+
+</pre>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+</body>
+</html>

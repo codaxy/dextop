@@ -102,7 +102,7 @@ namespace Codaxy.Dextop.Data
                 for (var i = 0; i < Fields.Count; i++)
                     if (Fields[i].CanWrite)
                     {
-                        var value = ReadValue(((JValue)record[i]).Value, Fields[i].PropertyType);
+                        var value = ReadValue(record[i].GetType() == typeof(JArray) ? ((JArray)record[i]) : ((JValue)record[i]).Value, Fields[i].PropertyType);
                         Fields[i].ValueProvider.SetValue(row, value);
                     }
                 res.Add(row);
@@ -116,8 +116,20 @@ namespace Codaxy.Dextop.Data
             if (value == null)
                 return type.IsValueType ? Activator.CreateInstance(type) : null;
 
-            if (value is string)
-                return DextopUtil.DecodeValue((string)value, type);
+            if (value is String)
+                return DextopUtil.DecodeValue((String)value, type);
+
+            if (value is JArray)
+            {
+                if (type == typeof(int[]))
+                    return ((JArray)value).ToObject<int[]>();
+
+                if (type == typeof(String[]))
+                    return ((JArray)value).ToObject<String[]>();
+
+                if (type == typeof(Guid[]))
+                    return ((JArray)value).ToObject<Guid[]>();
+            }
 
             if (type == typeof(TimeSpan))
                 if (value is DateTime)
@@ -142,7 +154,10 @@ namespace Codaxy.Dextop.Data
                 return null;
 
             if (value is TimeSpan || value is TimeSpan?)
-                return String.Format("{0:HH:mm}", DateTime.Today.Add((TimeSpan)value));            
+                return String.Format("{0:HH:mm}", DateTime.Today.Add((TimeSpan)value));
+
+            if (value is Array)
+                return new JArray(value);
 
             //if (value is TimeSpan?)
             //    return new DateTime(2008, 1, 1).Add((TimeSpan)value);

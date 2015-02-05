@@ -1,0 +1,102 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+<meta name="robots" content="noindex">
+</head>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using Codaxy.Dextop.Api;
+using Codaxy.Dextop.Data;
+using Codaxy.Dextop.Forms;
+
+namespace Codaxy.Dextop.Showcase.Demos.Remoting
+{
+    [DextopApiControllerAlias(&quot;people-grid&quot;)]
+    public class ApiGridWithTagFieldController : DextopApiController, IDextopDataProxy&lt;PeopleModel&gt;
+    {
+        DextopReadResult&lt;PeopleModel&gt; IDextopReadProxy&lt;PeopleModel&gt;.Read(DextopReadFilter filter)
+        {
+            var results = new[] {
+               new PeopleModel { Id = 1, FirstName = &quot;Diego&quot;, LastName = &quot;Armando&quot;, CountryIds = new [] { 2, 4 }, CountryNames = new[] { &quot;Russia&quot;, &quot;Serbia&quot; } }
+           };
+
+            return DextopReadResult.Create(results);
+        }
+
+        IList&lt;PeopleModel&gt; IDextopDataProxy&lt;PeopleModel&gt;.Create(IList&lt;PeopleModel&gt; records)
+        {
+            return records;
+        }
+
+        IList&lt;PeopleModel&gt; IDextopDataProxy&lt;PeopleModel&gt;.Destroy(IList&lt;PeopleModel&gt; records)
+        {
+            return records;
+        }
+
+        IList&lt;PeopleModel&gt; IDextopDataProxy&lt;PeopleModel&gt;.Update(IList&lt;PeopleModel&gt; records)
+        {
+            return records;
+        }
+    }
+
+    [DextopForm]
+    [DextopModel]
+    [DextopGrid]
+    public class PeopleModel
+    {
+        [DextopModelId]
+        [DextopGridColumn(width = 50, readOnly = true)]
+        public int Id { get; set; }
+
+        [DextopFormField(anchor = &quot;0&quot;)]
+        [DextopGridColumn(flex = 1)]
+        public String FirstName { get; set; }
+
+        [DextopFormField(anchor = &quot;0&quot;)]
+        [DextopGridColumn(flex = 1)]
+        public String LastName { get; set; }
+        
+        [DextopGridColumn(flex = 1, readOnly = true)]
+        public String FullName { get { return FirstName + &quot; &quot; + LastName; } }
+
+        [DextopFormTag(&quot;id&quot;, &quot;text&quot;, fieldLabel = &quot;Countries&quot;, initialLookupValueField = &quot;CountryNames&quot;, api = &quot;countries-lookup&quot;, anchor = &quot;0&quot;)]
+        public int[] CountryIds { get; set; }
+
+        public String[] CountryNames { get; set; }
+    }
+
+    [DextopModel]
+    public class CountriesModel
+    {
+        [DextopModelId]
+        public int id { get; set; }
+        public String text { get; set; }
+    }
+
+    [DextopApiControllerAlias(&quot;countries-lookup&quot;)]
+    public class CountriesLookup : DextopApiController, IDextopReadProxy&lt;CountriesModel&gt;
+    {
+        public DextopReadResult&lt;CountriesModel&gt; Read(DextopReadFilter filter)
+        {
+            var results = new[] {
+               new CountriesModel { id = 1, text=&quot;Bosnia and Herzegovina&quot; },
+               new CountriesModel { id = 2, text=&quot;Russia&quot; },
+               new CountriesModel { id = 3, text=&quot;United states&quot; },
+               new CountriesModel { id = 4, text=&quot;Serbia&quot; },
+           };
+
+            return DextopReadResult.Create(results);
+        }
+    }
+}
+
+</pre>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+</body>
+</html>

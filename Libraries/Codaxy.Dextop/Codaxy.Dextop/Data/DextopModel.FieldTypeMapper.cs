@@ -35,6 +35,11 @@ namespace Codaxy.Dextop.Data
             res[typeof(TimeSpan?)] = Tuple.Create("date", "time");
             res[typeof(Guid)] = Tuple.Create("string", "string");
             res[typeof(Guid?)] = Tuple.Create("string", "string");
+
+            // Arrays
+            res[typeof(int[])] = Tuple.Create("array", "tagfield");
+            res[typeof(String[])] = Tuple.Create("array", "tagfield");
+            res[typeof(Guid[])] = Tuple.Create("array", "tagfield");
             return res;
         }
 

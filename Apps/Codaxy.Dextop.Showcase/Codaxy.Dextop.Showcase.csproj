@@ -87,7 +87,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Newtonsoft.Json.6.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
@@ -167,6 +167,7 @@
     <Content Include="client\lib\dextop\js\ux\Ext.ux.KeyMapPlugin.js" />
     <Compile Include="Demos\Api\ApiFileDownloadWindow.cs" />
     <Compile Include="Demos\Api\ApiFileUploadFormWindow.cs" />
+    <Compile Include="Demos\Api\ApiGridWithTagField.cs" />
     <Compile Include="Demos\Api\ApiGrid.cs" />
     <Compile Include="Demos\Api\ApiTree.cs" />
     <Compile Include="Demos\Api\ApiGridWithFormEditor.cs" />
@@ -185,6 +186,7 @@
     <Content Include="Demos\Api\ApiFileDownloadWindow.txt" />
     <Content Include="Demos\Api\ApiFileUploadFormWindow.txt" />
     <Content Include="Demos\Api\ApiFileUploadFormWindow.js" />
+    <Content Include="Demos\Api\ApiGridWithTagField.js" />
     <Content Include="Demos\Api\ApiGrid.js" />
     <Content Include="Demos\Api\ApiTree.js" />
     <Content Include="Demos\Api\ApiGridWithFormEditor.js" />

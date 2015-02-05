@@ -1,0 +1,59 @@
+<html>
+<head>
+<link href="../client/css/showcase.css" type="text/css" rel="stylesheet" />
+<link href="../client/lib/prettify/prettify.css" type="text/css" rel="stylesheet" />
+<meta name="robots" content="noindex">
+</head>
+<body onload="prettyPrint()">
+<pre class="prettyprint">
+Ext.ns(&#39;Showcase&#39;);
+
+Ext.define(&#39;Showcase.demos.Launcher.ApiFormFieldTag&#39;, {
+    extend: &#39;Showcase.demos.Launcher&#39;,
+    launch: function () {
+        var remoteId = Ext.id();
+        var w = Ext.create(&#39;Showcase.demos.ApiFormFieldTagWindow&#39;, {});
+        w.show();        
+    }
+});
+
+Ext.define(&#39;Showcase.demos.ApiFormFieldTagWindow&#39;, {
+    extend: &#39;Ext.window.Window&#39;,	
+    width: 500,
+    border: false,
+    title: &#39;TagField demo using Dextop API&#39;,	
+	
+    initComponent: function () {
+	    Ext.apply(this, {
+	        layout: &#39;fit&#39;,
+	        items: [this.form = Ext.create(&#39;Ext.form.Panel&#39;, {
+                reference: &#39;form&#39;,
+                bodyPadding: 5,
+                items:
+                    Ext.create(&#39;Showcase.demos.form.FormFieldTag&#39;).getItems({
+                    data: {
+                        &#39;CountryIds&#39;: [2, 4],
+                        &#39;CountryNames&#39;: [&#39;Russia&#39;, &#39;Serbia&#39;]
+                    }
+                }),
+                buttons: [{
+                    text: &#39;Display value&#39;,
+                    scope: this,
+                    handler: function () {
+                        console.log(this.form.getForm().getFieldValues());
+                    }
+                }, {
+                    text: &#39;Cancel&#39;
+                }]
+	        })]
+	    });
+
+	    this.callParent(arguments);
+	}
+});
+
+</pre>
+<script type="text/javascript" src="../client/lib/prettify/prettify.js"></script>
+<script type="text/javascript">window['PR_TAB_WIDTH'] = 4;</script>
+</body>
+</html>
