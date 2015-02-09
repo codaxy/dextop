@@ -31,7 +31,7 @@ namespace Codaxy.Dextop
 		{
 			var ns = MapNamespace(type.Namespace);
 			ns += String.Join("", GetNestedTypeNames(type));
-			return ns + String.Join("", namespaceSuffix) + "." + MapClassName(type.Name);
+			return (ns + String.Join("", namespaceSuffix) + "." + MapClassName(type.Name)).Replace("`", "_");
 		}
 
 		/// <summary>
