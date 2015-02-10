@@ -63,6 +63,9 @@ Ext.define('Dextop.data.GridColumnsFactory', {
 						editor: options.checkEditor,
 						align: 'center',
 						width: 40,
+						listeners: options.allowImmediateCheck === true ? null : {
+						    'beforecheckchange': function() { return false; } // Disable immediate checking / unchecking
+						},
 						field: {
 							xtype: 'checkbox'
 						}
