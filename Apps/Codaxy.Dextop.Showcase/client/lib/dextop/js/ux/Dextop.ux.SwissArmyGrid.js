@@ -58,8 +58,7 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
         this.columnModelOptions = this.columnModelOptions || {};
         Ext.apply(this.columnModelOptions, {
             remote: this.remote,
-            checkEditor: this.editing == 'cell',
-            allowImmediateCheck: false
+            checkEditor: this.editing == 'cell'
         });
 
         if (!this.columns) {
