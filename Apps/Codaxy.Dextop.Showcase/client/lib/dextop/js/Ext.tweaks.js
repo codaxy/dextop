@@ -343,7 +343,7 @@ if (Ext.getVersion() > '5.1') {
 
     Ext.define('Ext.overrides.util.Collection', {
         override: 'Ext.util.Collection',
-        compatibility: '5.1.0.107',
+        // compatibility: '5.1.0.107',
 
         updateKey: function (item, oldKey) {
             var me = this,
