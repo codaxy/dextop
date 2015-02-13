@@ -4,6 +4,7 @@
     defaultLast: true,
     defaultFirst: false,
     preserveSelection: true,
+    selectInserted: true,
 
     constructor: function (config) {
         Ext.apply(this, config);
@@ -14,6 +15,10 @@
         this.firstLoad = grid.store.getCount() == 0; //this should be store.isLoaded()
 
         this.grid = grid;
+
+        if (this.selectInserted) {
+            grid.mon(grid.store, 'update', this.selectInsertedRecord, this);
+        }
 
         grid.mon(grid.store, 'load', this.restoreSelection, this);
         grid.mon(grid.store, 'write', this.restoreSelection, this);
@@ -34,7 +39,20 @@
         }
     },
 
+    selectInsertedRecord: function (store, rec, operation) {
+        if (operation == Ext.data.Model.COMMIT) {
+            this.grid.getSelectionModel().deselectAll();
+            this.grid.getSelectionModel().select(rec);
+            this.insert = true;
+        }
+    },
+
     restoreSelection: function () {
+        if (this.insert) {
+            this.insert = false;
+            return;
+        }
+
         if (this.selection) {
             var selModel = this.grid.getSelectionModel();
             var newSelection = [];
