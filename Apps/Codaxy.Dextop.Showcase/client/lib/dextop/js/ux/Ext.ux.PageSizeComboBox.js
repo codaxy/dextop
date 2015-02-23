@@ -37,7 +37,7 @@ Ext.define('Ext.ux.PageSizeComboBox', {
 			listeners: {
 				scope: this,
 				'select': function(combo, rec) {
-				    var pageSize = rec[0].get('id');
+				    var pageSize = Ext.isArray(rec) ? rec[0].get('id') : rec.get('id');
 				    if (pageSize < 1)
 				        pageSize = 10000000;
 
