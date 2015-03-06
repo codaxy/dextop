@@ -18,14 +18,14 @@ namespace Codaxy.Dextop
 		/// <param name="preprocessors"></param>
 		protected void RegisterStandardAssemblyPreprocessors(string generatedFilesPath, Dictionary<string, IDextopAssemblyPreprocessor> preprocessors)
 		{
-            preprocessors.Add(DextopUtil.CombinePaths(generatedFilesPath, "remote.js"), new DextopRemotingPreprocessor());
+            preprocessors.Add(DextopUtil.CombinePaths(generatedFilesPath, "remote.js"), new DextopRemotingPreprocessor() { TypeFilter = PreprocessingTypeFilter });
             
             if (!Application.PreprocessingEnabled || Application.PreprocessorMode)
             {
-                preprocessors.Add(DextopUtil.CombinePaths(generatedFilesPath, "model.js"), new DextopModelPreprocessor());
-                preprocessors.Add(DextopUtil.CombinePaths(generatedFilesPath, "headers.js"), new DextopGridHeaderPreprocessor());
-                preprocessors.Add(DextopUtil.CombinePaths(generatedFilesPath, "forms.js"), new DextopFormPreprocessor());
-                preprocessors.Add(DextopUtil.CombinePaths(generatedFilesPath, "enums.js"), new DextopEnumPreprocessor());
+                preprocessors.Add(DextopUtil.CombinePaths(generatedFilesPath, "model.js"), new DextopModelPreprocessor() { TypeFilter = PreprocessingTypeFilter });
+                preprocessors.Add(DextopUtil.CombinePaths(generatedFilesPath, "headers.js"), new DextopGridHeaderPreprocessor() { TypeFilter = PreprocessingTypeFilter });
+                preprocessors.Add(DextopUtil.CombinePaths(generatedFilesPath, "forms.js"), new DextopFormPreprocessor() { TypeFilter = PreprocessingTypeFilter });
+                preprocessors.Add(DextopUtil.CombinePaths(generatedFilesPath, "enums.js"), new DextopEnumPreprocessor() { TypeFilter = PreprocessingTypeFilter });
             }
 		}
 

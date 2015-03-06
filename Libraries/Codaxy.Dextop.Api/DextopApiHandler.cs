@@ -103,11 +103,10 @@ namespace Codaxy.Dextop.Api
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                context.Response.StatusCode = 500;
+                context.Response.StatusCode = 500;                
             }
-
         }
 
         public static bool UseBufferlessInputStream { get; set; }

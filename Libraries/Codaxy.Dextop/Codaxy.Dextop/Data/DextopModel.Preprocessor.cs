@@ -15,9 +15,13 @@ namespace Codaxy.Dextop.Data
 	/// Assembly preprocessors which generates Models.
 	/// </summary>
     public class DextopModelPreprocessor: IDextopAssemblyPreprocessor
-    {		
+    {
+        public Func<Type, IDextopAssemblyPreprocessor, bool> TypeFilter { get; set; }
+
         void IDextopAssemblyPreprocessor.ProcessAssemblies(DextopApplication application, IList<Assembly> assemblies, Stream outputStream, Stream cacheStream)
-        {            
+        {
+            var typeFilter = TypeFilter ?? ((x, y) => true);
+
 			using (var sw = new StreamWriter(outputStream))
             {
                 var jw = new DextopJsWriter(sw);
@@ -30,10 +34,11 @@ namespace Codaxy.Dextop.Data
                 {
                     var list = AssemblyHelper.GetTypeAttributeDictionaryForAssembly<DextopModelAttribute>(a, false);
                     foreach (var t in list)
-                    {
-                        var model = application.ModelManager.BuildModel(t.Key, t.Value);
-                        WriteModel(jw, model);
-                    }
+                        if (typeFilter(t.Key, this))
+                        {
+                            var model = application.ModelManager.BuildModel(t.Key, t.Value);
+                            WriteModel(jw, model);
+                        }
                 }
             }
         }

@@ -45,19 +45,23 @@ namespace Codaxy.Dextop.Remoting
 
         void IDextopAssemblyPreprocessor.ProcessAssemblies(DextopApplication application, IList<Assembly> assemblies, Stream outputStream, Stream cacheStream)
         {
+            var typeFilter = TypeFilter ?? ((x, y) => true);
+
             using (var sw = new StreamWriter(outputStream))
             {
                 foreach (var assembly in assemblies)
                 {
                     var types = Common.Reflection.AssemblyHelper.GetTypeAttributeDictionaryForAssembly<DextopEnumAttribute>(assembly, false);
                     foreach (var type in types)
-                        if (type.Key.IsEnum)
+                        if (typeFilter(type.Key, this) && type.Key.IsEnum)
                         {
                             WriteType(application, sw, type.Key);
                         }
                 }
             }
         }
+
+        public Func<Type, IDextopAssemblyPreprocessor, bool> TypeFilter { get; set; }
 
         bool IDextopAssemblyPreprocessor.Cachable
         {
