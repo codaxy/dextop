@@ -36,16 +36,22 @@ namespace Codaxy.Dextop.Forms
             jw.DefaultProperty("itemId", itemId);
             jw.DefaultProperty("xtype", xtype);
             if (itemId != null)
+            {
                 jw.AddLocalizationProperty("title", title, itemId + "TitleText");
+                jw.AddLocalizationProperty("fieldLabel", fieldLabel, itemId + "FieldLabelText");
+            }
             else
+            {
                 jw.DefaultProperty("title", title);
+                jw.DefaultProperty("fieldLabel", fieldLabel);
+            }
             if (layout != null)
             {
                 jw.AddProperty("layout", layout);
             }
             jw.DefaultRawProperty("defaults", defaults);
             jw.DefaultRawProperty("fieldDefaults", fieldDefaults);
-            jw.DefaultProperty("margins", margins);
+            jw.DefaultProperty("margin", margin);
             jw.DefaultProperty("style", style);
             jw.DefaultProperty("bodyStyle", bodyStyle);
             jw.DefaultProperty("border", border);
@@ -120,6 +126,11 @@ namespace Codaxy.Dextop.Forms
 		/// Gets or sets the title.
 		/// </summary>
         public string title { get; set; }
+
+        /// <summary>
+        /// Gets or sets the fieldLabel.
+        /// </summary>
+        public string fieldLabel { get; set; }
 		
 		/// <summary>
 		/// Gets or sets the layout.
@@ -129,7 +140,7 @@ namespace Codaxy.Dextop.Forms
 		/// <summary>
 		/// Gets or sets the margins.
 		/// </summary>
-        public string margins { get; set; }
+        public string margin { get; set; }
 		
 		/// <summary>
 		/// Gets or sets the field defaults.
