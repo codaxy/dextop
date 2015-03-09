@@ -36,9 +36,15 @@ namespace Codaxy.Dextop.Forms
             jw.DefaultProperty("itemId", itemId);
             jw.DefaultProperty("xtype", xtype);
             if (itemId != null)
+            {
                 jw.AddLocalizationProperty("title", title, itemId + "TitleText");
+                jw.AddLocalizationProperty("fieldLabel", fieldLabel, itemId + "FieldLabelText");
+            }
             else
+            {
                 jw.DefaultProperty("title", title);
+                jw.DefaultProperty("fieldLabel", fieldLabel);
+            }
             if (layout != null)
             {
                 jw.AddProperty("layout", layout);
@@ -120,6 +126,11 @@ namespace Codaxy.Dextop.Forms
 		/// Gets or sets the title.
 		/// </summary>
         public string title { get; set; }
+
+        /// <summary>
+        /// Gets or sets the fieldLabel.
+        /// </summary>
+        public string fieldLabel { get; set; }
 		
 		/// <summary>
 		/// Gets or sets the layout.

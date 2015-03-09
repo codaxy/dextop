@@ -23,7 +23,7 @@ namespace Codaxy.Dextop.Showcase.Demos.Forms
 		[DextopForm]
 		class Form
 		{
-			[DextopFormCheckboxGroup(0, fieldLabel="One Check Required", allowBlank=false)]
+			[DextopFormCheckboxGroup(0, fieldLabel="One Check Required", itemId = "OneCheckRequired", allowBlank=false)]
             [DextopFormCheckbox(boxLabel = "Item 1", hideEmptyLabel = true)]
 			public bool Checkbox1 { get; set; }
 

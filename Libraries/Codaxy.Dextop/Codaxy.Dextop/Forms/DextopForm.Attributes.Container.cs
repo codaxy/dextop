@@ -31,10 +31,16 @@ namespace Codaxy.Dextop.Forms
 		/// Gets or sets the level. Use level to define a tree of items. All items with higher level belong to the first container of lower level.
 		/// </summary>		
 		public int Level { get; set; }
-		/// <summary>
+		
+        /// <summary>
 		/// 
 		/// </summary>
 		public String title { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String fieldLabel { get; set; }
 
 		/// <summary>
 		/// 
@@ -134,6 +140,7 @@ namespace Codaxy.Dextop.Forms
                 xtype = xtype,
                 itemId = itemId,
                 title = title,
+                fieldLabel = fieldLabel,
                 layout = layout,
                 margins = margins,
                 fieldDefaults = fieldDefaults,

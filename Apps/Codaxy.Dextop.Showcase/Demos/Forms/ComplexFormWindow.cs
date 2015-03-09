@@ -30,7 +30,7 @@ namespace Codaxy.Dextop.Showcase.Demos.Forms
             // Tab 1 (FieldSet)
 			[DextopFormTabPanel(0, border = false)]
 			[DextopFormContainer(1, title = "FieldSet Examples", bodyStyle = "padding: 5px;", border=false)]
-			[DextopFormFieldSet(2, title = "Checkbox FieldSet", checkboxToggle = true)]
+			[DextopFormFieldSet(2, title = "Checkbox FieldSet", checkboxToggle = true, itemId = "checkBoxFieldSet")]
 			[DextopFormField(Dummy = true)] //This field is used by the field set
 			public bool Enabled { get; set; }
 

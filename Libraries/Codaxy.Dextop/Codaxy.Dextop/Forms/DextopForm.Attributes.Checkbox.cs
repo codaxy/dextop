@@ -53,9 +53,7 @@ namespace Codaxy.Dextop.Forms
 			if (columns > 0)
 				container["columns"] = columns;
 			else if (columnWidths != null)
-				container["columns"] = columnWidths;
-			if (fieldLabel != null)
-				container["fieldLabel"] = fieldLabel;
+				container["columns"] = columnWidths;            
 			return container;
 		}
 
@@ -81,10 +79,5 @@ namespace Codaxy.Dextop.Forms
 		/// Specify an array of column widths, mixing integer (fixed width) and float (percentage width) values as needed (e.g., [100, .25, .75]). Any integer values will be rendered first, then any float values will be calculated as a percentage of the remaining space. Float values do not have to add up to 1 (100%) although if you want the controls to take up the entire field container you should do so.
 		/// </summary>
 		public double[] columnWidths { get; set; }
-
-		/// <summary>
-		/// Gets or sets the field label.
-		/// </summary>		
-		public string fieldLabel { get; set; }
 	}
 }
