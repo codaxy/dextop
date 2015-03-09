@@ -51,7 +51,7 @@ namespace Codaxy.Dextop.Forms
             }
             jw.DefaultRawProperty("defaults", defaults);
             jw.DefaultRawProperty("fieldDefaults", fieldDefaults);
-            jw.DefaultProperty("margins", margins);
+            jw.DefaultProperty("margin", margin);
             jw.DefaultProperty("style", style);
             jw.DefaultProperty("bodyStyle", bodyStyle);
             jw.DefaultProperty("border", border);
@@ -140,7 +140,7 @@ namespace Codaxy.Dextop.Forms
 		/// <summary>
 		/// Gets or sets the margins.
 		/// </summary>
-        public string margins { get; set; }
+        public string margin { get; set; }
 		
 		/// <summary>
 		/// Gets or sets the field defaults.

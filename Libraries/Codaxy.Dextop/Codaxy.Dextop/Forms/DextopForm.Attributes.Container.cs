@@ -60,7 +60,7 @@ namespace Codaxy.Dextop.Forms
 		/// <summary>
 		/// 
 		/// </summary>
-		public string margins { get; set; }
+		public string margin { get; set; }
 
 		/// <summary>
 		/// 
@@ -142,7 +142,7 @@ namespace Codaxy.Dextop.Forms
                 title = title,
                 fieldLabel = fieldLabel,
                 layout = layout,
-                margins = margins,
+                margin = margin,
                 fieldDefaults = fieldDefaults,
                 defaults = defaults,
                 Level = Level,
