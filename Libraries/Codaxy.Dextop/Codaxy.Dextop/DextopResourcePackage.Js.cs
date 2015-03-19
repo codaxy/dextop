@@ -73,7 +73,7 @@ namespace Codaxy.Dextop
             }
             else
             {
-                if (package.Module.Application.PreprocessingEnabled && !package.Module.Application.PreprocessorMode)
+                if (package.Module.Application.PreprocessingEnabled && !package.Module.Application.PreprocessorMode && Concate)
                     return;
 
                 foreach (var vpath in virtualPaths)
