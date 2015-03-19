@@ -43,18 +43,17 @@ namespace Codaxy.Dextop.Preprocessor
                 }
 
                 var appAssembly = Assembly.LoadFrom(applicationAssemblyPath);
-                var bootstrappers = GetApplicationBootstrapperTypes(appAssembly);
-
-                
+                var bootstrappers = GetApplicationBootstrapperTypes(appAssembly);                
 
                 foreach (var booterType in bootstrappers)
                 {
                     var bootstrapper = (IDextopApplicationBootsraper)Activator.CreateInstance(booterType);
                     var app = bootstrapper.CreateApplication();
                     app.Initialize();
-                }
 
-                Console.WriteLine("Dextop preprocessing complete.");      
+                    Console.WriteLine("Dextop preprocessing complete.");      
+                }
+                
                 return 0;
             }
             catch (Exception ex)
