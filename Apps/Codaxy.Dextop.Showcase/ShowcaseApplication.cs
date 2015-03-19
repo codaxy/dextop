@@ -18,18 +18,18 @@ namespace Codaxy.Dextop.Showcase
 
             //RegisterModule("client/lib/ext/examples", new ExtJSDataViewModule());
 
-            //RegisterModule("http://cdn.sencha.com/ext/gpl/4.2.1/", new DextopExtJSModule
-            //{
-            //    CssThemeSuffix = "-gray",
-            //    UsingExternalResources = true
-            //});
-
-            RegisterModule("client/lib/ext-4.2.2.1144", new DextopExtJSModule
+            RegisterModule("http://cdn.sencha.com/ext/gpl/4.2.1/", new DextopExtJSModule
             {
                 CssThemeSuffix = "-gray",
-                SkipCss = true
-                //UsingExternalResources = true
+                UsingExternalResources = true
             });
+
+            //RegisterModule("client/lib/ext-4.2.2.1144", new DextopExtJSModule
+            //{
+            //    CssThemeSuffix = "-gray",
+            //    SkipCss = true
+            //    //UsingExternalResources = true
+            //});
 
             RegisterModule("http://cdn.sencha.com/ext/gpl/4.2.1/examples", new ExtJSDataViewModule
             {
