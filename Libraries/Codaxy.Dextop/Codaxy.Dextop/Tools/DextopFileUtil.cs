@@ -53,10 +53,17 @@ namespace Codaxy.Dextop.Tools
             int cacheBuster = 0;
 			foreach (var file in filePaths)
 			{
-				var writeTime = File.GetLastWriteTime(file);
-				cacheBuster ^= writeTime.GetHashCode();
-				if (writeTime > latestFileWriteTime)
-					latestFileWriteTime = writeTime;
+                try
+                {
+                    var writeTime = File.GetLastWriteTime(file);
+                    cacheBuster ^= writeTime.GetHashCode();
+                    if (writeTime > latestFileWriteTime)
+                        latestFileWriteTime = writeTime;
+                }
+                catch (Exception ex)
+                {
+                    throw new DextopException(String.Format("Could not calculate buster for file '{0}'. Check inner exception for more details.", file), ex);
+                }
 			}
             return Math.Abs(cacheBuster);
         }
