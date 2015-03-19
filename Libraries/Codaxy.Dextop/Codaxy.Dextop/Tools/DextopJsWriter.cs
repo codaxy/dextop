@@ -471,5 +471,10 @@ namespace Codaxy.Dextop.Tools
                 localizations = null;
             }
         }
+
+        public void Flush()
+        {
+            writer.Flush();
+        }
     }
 }

@@ -68,6 +68,7 @@ namespace Codaxy.Dextop.Remoting
             }
 
             cacheWriter.WriteLine("{0}:{1}", clientTypeName, type.AssemblyQualifiedName);
+            cacheWriter.Flush();
 
             foreach (var mi in type.GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance))
             {
@@ -133,6 +134,7 @@ namespace Codaxy.Dextop.Remoting
 			sw.WriteLine();
 			sw.WriteLine("});");
 			sw.WriteLine();
+            sw.Flush();
 		}
 
         internal string GetTypeName(DextopApplication application, Type type)

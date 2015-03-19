@@ -57,6 +57,8 @@ namespace Codaxy.Dextop.Data
                             jw.WriteLocalizations();
                             jw.CloseBlock();
                             jw.WriteLine(");"); //Ext.define(
+
+                            jw.Flush();
                         }
                 }
             }

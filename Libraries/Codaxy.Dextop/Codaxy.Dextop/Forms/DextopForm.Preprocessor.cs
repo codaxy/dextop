@@ -63,7 +63,11 @@ namespace Codaxy.Dextop.Forms
                             jw.CloseBlock();
                             jw.WriteLine(");"); //Ext.define(
                             jw.WriteLine();
+
+                            jw.Flush();
                         }
+
+                    
                 }
             }
         }

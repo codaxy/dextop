@@ -22,14 +22,14 @@ namespace Codaxy.Dextop.Data
         {
             var typeFilter = TypeFilter ?? ((x, y) => true);
 
-			using (var sw = new StreamWriter(outputStream))
+            using (var sw = new StreamWriter(outputStream))
             {
                 var jw = new DextopJsWriter(sw);
                 foreach (var model in application.ModelManager.models)
                 {
                     WriteModel(jw, model.Value);
                 }
-                
+
                 foreach (var a in assemblies)
                 {
                     var list = AssemblyHelper.GetTypeAttributeDictionaryForAssembly<DextopModelAttribute>(a, false);
@@ -48,6 +48,7 @@ namespace Codaxy.Dextop.Data
 			jw.WriteLine("Ext.define('{0}',", model.Meta.ModelName);
 			jw.WriteObject(model);
 			jw.WriteLine(");");
+            jw.Flush();
 		}
 
         bool IDextopAssemblyPreprocessor.Cachable
