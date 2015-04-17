@@ -6,46 +6,52 @@ using Codaxy.Dextop.Tools;
 
 namespace Codaxy.Dextop.Forms
 {
-	/// <summary>
-	/// Base class for Ext containers (panels, tabs, etc.)
-	/// </summary>
+    /// <summary>
+    /// Base class for Ext containers (panels, tabs, etc.)
+    /// </summary>
     public class DextopFormContainer : DextopFormObject
     {
-		/// <summary>
-		/// An itemId can be used as an alternative way to get a reference to a component when no object reference is available.
-		/// </summary>
+        /// <summary>
+        /// An itemId can be used as an alternative way to get a reference to a component when no object reference is available.
+        /// </summary>
         public String itemId { get; set; }
 
         internal int Level { get; set; }
-		internal bool Hollow { get; set; }
+        internal bool Hollow { get; set; }
 
-		/// <summary>
-		/// Gets the name of the item.
-		/// </summary>
+        /// <summary>
+        /// Gets the name of the item.
+        /// </summary>
         public override string ItemName
         {
             get { return itemId; }
         }
 
-		/// <summary>
-		/// Write the properties from the bag to the writer. This method can be overrided for advanced scenarios.
-		/// </summary>
-		/// <param name="jw">The writer.</param>
+        /// <summary>
+        /// Write the properties from the bag to the writer. This method can be overrided for advanced scenarios.
+        /// </summary>
+        /// <param name="jw">The writer.</param>
         protected override void WriteProperties(DextopJsWriter jw)
         {
             jw.DefaultProperty("itemId", itemId);
             jw.DefaultProperty("xtype", xtype);
             if (itemId != null)
+            {
                 jw.AddLocalizationProperty("title", title, itemId + "TitleText");
+                jw.AddLocalizationProperty("fieldLabel", fieldLabel, itemId + "FieldLabelText");
+            }
             else
+            {
                 jw.DefaultProperty("title", title);
+                jw.DefaultProperty("fieldLabel", fieldLabel);
+            }
             if (layout != null)
             {
                 jw.AddProperty("layout", layout);
             }
             jw.DefaultRawProperty("defaults", defaults);
             jw.DefaultRawProperty("fieldDefaults", fieldDefaults);
-            jw.DefaultProperty("margins", margins);
+            jw.DefaultProperty("margin", margin);
             jw.DefaultProperty("style", style);
             jw.DefaultProperty("bodyStyle", bodyStyle);
             jw.DefaultProperty("border", border);
@@ -67,10 +73,10 @@ namespace Codaxy.Dextop.Forms
         /// </summary>
         public string[] AppendItems { get; set; }
 
-		/// <summary>
-		/// Writes the children to the items property.
-		/// </summary>
-		/// <param name="jw">The jw.</param>
+        /// <summary>
+        /// Writes the children to the items property.
+        /// </summary>
+        /// <param name="jw">The jw.</param>
         protected override void WriteItems(DextopJsWriter jw)
         {
             if (Items.Count > 0)
@@ -111,55 +117,60 @@ namespace Codaxy.Dextop.Forms
             }
         }
 
-		/// <summary>
-		/// Gets or sets the xtype.
-		/// </summary>		
+        /// <summary>
+        /// Gets or sets the xtype.
+        /// </summary>		
         public string xtype { get; set; }
-		
-		/// <summary>
-		/// Gets or sets the title.
-		/// </summary>
+
+        /// <summary>
+        /// Gets or sets the title.
+        /// </summary>
         public string title { get; set; }
-		
-		/// <summary>
-		/// Gets or sets the layout.
-		/// </summary>
+
+        /// <summary>
+        /// Gets or sets the fieldLabel.
+        /// </summary>
+        public string fieldLabel { get; set; }
+
+        /// <summary>
+        /// Gets or sets the layout.
+        /// </summary>
         public string layout { get; set; }
-		
-		/// <summary>
-		/// Gets or sets the margins.
-		/// </summary>
-        public string margins { get; set; }
-		
-		/// <summary>
-		/// Gets or sets the field defaults.
-		/// </summary>
+
+        /// <summary>
+        /// Gets or sets the margins.
+        /// </summary>
+        public string margin { get; set; }
+
+        /// <summary>
+        /// Gets or sets the field defaults.
+        /// </summary>
         public string fieldDefaults { get; set; }
-		
-		/// <summary>
-		/// Gets or sets the defaults.
-		/// </summary>
+
+        /// <summary>
+        /// Gets or sets the defaults.
+        /// </summary>
         public string defaults { get; set; }
-		
-		/// <summary>
-		/// Gets or sets the style.
-		/// </summary>
+
+        /// <summary>
+        /// Gets or sets the style.
+        /// </summary>
         public string style { get; set; }
-		
-		/// <summary>
-		/// Gets or sets the body style.
-		/// </summary>
+
+        /// <summary>
+        /// Gets or sets the body style.
+        /// </summary>
         public string bodyStyle { get; set; }
 
-		/// <summary>
-		/// Gets or sets the border.
-		/// </summary>		
+        /// <summary>
+        /// Gets or sets the border.
+        /// </summary>		
         public bool? border { get; set; }
 
-		/// <summary>
-		/// Gets or sets the autoHeight.
-		/// </summary>		
-		public bool autoHeight { get; set; }
+        /// <summary>
+        /// Gets or sets the autoHeight.
+        /// </summary>		
+        public bool autoHeight { get; set; }
 
         /// <summary>
         /// This value is what tells the layout how an item should be anchored to the container. 
@@ -180,5 +191,5 @@ namespace Codaxy.Dextop.Forms
         /// Width of the field.
         /// </summary>
         public int? width { get; set; }
-	}
+    }
 }
