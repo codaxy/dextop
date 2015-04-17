@@ -24,6 +24,13 @@ namespace Codaxy.Dextop.Showcase
                 UsingExternalResources = true
             });
 
+            //RegisterModule("client/lib/ext-4.2.2.1144", new DextopExtJSModule
+            //{
+            //    CssThemeSuffix = "-gray",
+            //    SkipCss = true
+            //    //UsingExternalResources = true
+            //});
+
             RegisterModule("http://cdn.sencha.com/ext/gpl/4.2.1/examples", new ExtJSDataViewModule
             {
                 UsingExternalResources = true

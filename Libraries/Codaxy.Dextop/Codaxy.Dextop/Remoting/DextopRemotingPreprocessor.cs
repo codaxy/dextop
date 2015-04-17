@@ -16,6 +16,8 @@ namespace Codaxy.Dextop.Remoting
 		Type remotableInterfaceType = typeof(IDextopRemotable);
         Type formSubmitType = typeof(DextopFormSubmit);
 
+        public Func<Type, IDextopAssemblyPreprocessor, bool> TypeFilter { get; set; }
+
 		private void WriteType(DextopApplication application, StreamWriter sw, StreamWriter cacheWriter, Type type, HashSet<Type> includedTypes)
 		{
 			if (includedTypes.Contains(type))
@@ -66,6 +68,7 @@ namespace Codaxy.Dextop.Remoting
             }
 
             cacheWriter.WriteLine("{0}:{1}", clientTypeName, type.AssemblyQualifiedName);
+            cacheWriter.Flush();
 
             foreach (var mi in type.GetMethods(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance))
             {
@@ -131,6 +134,7 @@ namespace Codaxy.Dextop.Remoting
 			sw.WriteLine();
 			sw.WriteLine("});");
 			sw.WriteLine();
+            sw.Flush();
 		}
 
         internal string GetTypeName(DextopApplication application, Type type)
@@ -141,6 +145,8 @@ namespace Codaxy.Dextop.Remoting
 
         void IDextopAssemblyPreprocessor.ProcessAssemblies(DextopApplication application, IList<Assembly> assemblies, Stream outputStream, Stream cacheStream)
         {
+            var typeFilter = TypeFilter ?? ((x, y) => true);
+
             using (var cacheWriter = new StreamWriter(cacheStream))
             using (var sw = new StreamWriter(outputStream))
             {
@@ -149,9 +155,10 @@ namespace Codaxy.Dextop.Remoting
                     var types = assembly.GetTypes().Where(t => remotableInterfaceType.IsAssignableFrom(t) && remotableInterfaceType != t);
                     HashSet<Type> includedTypes = new HashSet<Type>();
                     foreach (var type in types)
-                    {
-                        WriteType(application, sw, cacheWriter, type, includedTypes);
-                    }
+                        if (typeFilter(type, this))
+                        {
+                            WriteType(application, sw, cacheWriter, type, includedTypes);
+                        }
                 }
             }
         }

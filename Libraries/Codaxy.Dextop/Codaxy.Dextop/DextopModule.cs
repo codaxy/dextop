@@ -191,6 +191,11 @@ namespace Codaxy.Dextop
                 yield return DextopUtil.CombinePaths(VirtualPath, colonHack);
             }
         }
+
+        protected virtual bool PreprocessingTypeFilter(Type type, IDextopAssemblyPreprocessor preprocessor)
+        {
+            return true;
+        }
     }
 
 	/// <summary>

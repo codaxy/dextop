@@ -18,6 +18,8 @@ namespace Codaxy.Dextop.Api
 		Type apiControllerType = typeof(DextopApiController);
         Type formSubmitType = typeof(DextopFormSubmit);
 
+        public Func<Type, IDextopAssemblyPreprocessor, bool> TypeFilter { get; set; }
+
         static bool IsSubclassOfRawGeneric(Type generic, Type toCheck)
         {
             while (toCheck != null && toCheck != typeof(object))
@@ -172,6 +174,7 @@ namespace Codaxy.Dextop.Api
 
         void IDextopAssemblyPreprocessor.ProcessAssemblies(DextopApplication application, IList<Assembly> assemblies, Stream outputStream, Stream cacheStream)
         {
+            var typeFilter = TypeFilter ?? ((x, y) => true);
             using (var cacheWriter = new StreamWriter(cacheStream))
             using (var sw = new StreamWriter(outputStream))
             {
@@ -180,9 +183,10 @@ namespace Codaxy.Dextop.Api
                     var types = assembly.GetTypes().Where(t => apiControllerType.IsAssignableFrom(t) && apiControllerType != t);
                     HashSet<Type> includedTypes = new HashSet<Type>();
                     foreach (var type in types)
-                    {
-                        WriteType(application, sw, cacheWriter, type, includedTypes);
-                    }
+                        if (typeFilter(type, this))
+                        {
+                            WriteType(application, sw, cacheWriter, type, includedTypes);
+                        }
                 }
             }
         }

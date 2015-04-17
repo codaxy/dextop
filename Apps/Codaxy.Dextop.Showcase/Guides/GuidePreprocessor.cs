@@ -27,7 +27,7 @@ namespace Codaxy.Dextop.Showcase.Guides
 		String OutputPath { get; set; }
 		String BaseSrcPath { get; set; }
 
-		public void ProcessAssemblies(DextopApplication application, IList<Assembly> assemblies, Stream output, Stream cache)
+        public void ProcessAssemblies(DextopApplication application, IList<Assembly> assemblies, Stream output, Stream cache)
 		{
 			BaseSrcPath = DextopUtil.MapPath("~/guides/articles/");
 			OutputPath = DextopUtil.MapPath("~/guides/html/");
