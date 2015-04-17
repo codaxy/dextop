@@ -38,7 +38,7 @@ namespace Codaxy.Dextop.Forms
         public String title { get; set; }
 
         /// <summary>
-        /// 
+        /// The label for the field. It gets appended with the labelSeparator, and its position and sizing is determined by the labelAlign, labelWidth, and labelPad configs.
         /// </summary>
         public String fieldLabel { get; set; }
 
@@ -191,11 +191,6 @@ namespace Codaxy.Dextop.Forms
         public bool hideEmptyLabel { get; set; }
 
         /// <summary>
-        /// The label for the field. It gets appended with the labelSeparator, and its position and sizing is determined by the labelAlign, labelWidth, and labelPad configs.
-        /// </summary>
-        public string fieldLabel { get; set; }
-
-        /// <summary>
         /// The CSS class to use when marking the component invalid (defaults to 'x-form-invalid')
         /// </summary>
         public string invalidCls { get; set; }
@@ -275,11 +270,6 @@ namespace Codaxy.Dextop.Forms
         /// When set to true, the label element (fieldLabel and labelSeparator) will be automatically hidden if the fieldLabel is empty. Setting this to false will cause the empty label element to be rendered and space to be reserved for it; this is useful if you want a field without a label to line up with other labeled fields in the same form.
         /// </summary>
         public bool hideEmptyLabel { get; set; }
-
-        /// <summary>
-        /// The label for the field. It gets appended with the labelSeparator, and its position and sizing is determined by the labelAlign, labelWidth, and labelPad configs.
-        /// </summary>
-        public string fieldLabel { get; set; }
 
         /// <summary>
         /// The CSS class to use when marking the component invalid (defaults to 'x-form-invalid')
