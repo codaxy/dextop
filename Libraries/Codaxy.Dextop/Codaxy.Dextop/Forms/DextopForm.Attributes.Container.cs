@@ -35,12 +35,7 @@ namespace Codaxy.Dextop.Forms
         /// <summary>
 		/// 
 		/// </summary>
-		public String title { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public String fieldLabel { get; set; }
+		public String title { get; set; }        
 
 		/// <summary>
 		/// 
@@ -139,8 +134,7 @@ namespace Codaxy.Dextop.Forms
             {
                 xtype = xtype,
                 itemId = itemId,
-                title = title,
-                fieldLabel = fieldLabel,
+                title = title,                
                 layout = layout,
                 margin = margin,
                 fieldDefaults = fieldDefaults,
@@ -160,7 +154,7 @@ namespace Codaxy.Dextop.Forms
 
             };
 			if (this is IDextopFormLabelable)
-				res.ApplyLabelable((IDextopFormLabelable)this);
+				res.ApplyLabelable((IDextopFormLabelable)this, itemId);
 			return res;
 		}
 	}

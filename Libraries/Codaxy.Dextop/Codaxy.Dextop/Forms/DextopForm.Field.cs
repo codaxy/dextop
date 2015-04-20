@@ -170,22 +170,5 @@ namespace Codaxy.Dextop.Forms
             }
             base.WriteProperties(jw);
         }
-
-        /// <summary>
-        /// Applies the labelable data.
-        /// </summary>
-        /// <param name="labelable">The labelable.</param>
-        protected internal override void ApplyLabelable(IDextopFormLabelable labelable)
-        {
-            base.ApplyLabelable(labelable);
-            fieldLabel = labelable.fieldLabel;
-            Properties.Remove("fieldLabel");
-        }
-
-
-
-
-
-        
     }
 }

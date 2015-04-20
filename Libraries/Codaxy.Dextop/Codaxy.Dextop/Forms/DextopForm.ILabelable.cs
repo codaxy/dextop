@@ -80,6 +80,5 @@ namespace Codaxy.Dextop.Forms
 		/// true to disable displaying any error message set on this object. Defaults to false.
 		/// </summary>
 		bool preventMark { get; set; }
-
 	}
 }

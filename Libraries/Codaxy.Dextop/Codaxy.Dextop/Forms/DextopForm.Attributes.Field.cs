@@ -210,10 +210,10 @@ namespace Codaxy.Dextop.Forms
 		/// <param name="memberName">Name of the member.</param>
 		/// <param name="memberType">The type of the member.</param>
 		/// <returns></returns>
-		public virtual DextopFormField ToField(String memberName, Type memberType)
-		{
-			if (this.fieldLabel == null && this.boxLabel == null)
-				fieldLabel = memberName;
+        public virtual DextopFormField ToField(String memberName, Type memberType)
+        {
+            if (this.fieldLabel == null && this.boxLabel == null)
+                fieldLabel = memberName;
             var res = new DextopFormField
             {
                 allowBlank = NullableUtil.DefaultNull(allowBlank, true),
@@ -231,15 +231,15 @@ namespace Codaxy.Dextop.Forms
                 vtypeText = vtypeText,
                 margin = margin,
                 width = width,
-                Raw = RawJS, 
+                Raw = RawJS,
                 style = style,
                 fieldStyle = fieldStyle,
                 fieldCls = fieldCls,
                 cls = cls
             };
-			res.ApplyLabelable(this);
-			return res;
-		}
+            res.ApplyLabelable(this, name);
+            return res;
+        }
 
 		/// <summary>
 		/// Converts this attribute to a list of form fields. Usually attributes 
