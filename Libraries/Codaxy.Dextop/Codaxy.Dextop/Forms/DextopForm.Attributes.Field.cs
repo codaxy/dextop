@@ -237,7 +237,7 @@ namespace Codaxy.Dextop.Forms
                 fieldCls = fieldCls,
                 cls = cls
             };
-            res.ApplyLabelable(this, name);
+            res.ApplyLabelable(this, name ?? memberName);
             return res;
         }
 
