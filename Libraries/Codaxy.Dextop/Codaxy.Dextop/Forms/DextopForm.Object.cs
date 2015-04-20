@@ -63,10 +63,10 @@ namespace Codaxy.Dextop.Forms
         /// Applies the labelable data to the form object.
         /// </summary>
         /// <param name="labelable">The labelable.</param>
-		internal protected virtual void ApplyLabelable(IDextopFormLabelable labelable)
+		internal protected virtual void ApplyLabelable(IDextopFormLabelable labelable, String nameLocalizationPrefix)
 		{
-			if (labelable.fieldLabel != null)
-				this["fieldLabel"] = labelable.fieldLabel;
+            if (labelable.fieldLabel != null || nameLocalizationPrefix != null)
+                this["fieldLabel"] = nameLocalizationPrefix != null ? (object)new DextopLocalizedText(nameLocalizationPrefix + "FieldLabelText", labelable.fieldLabel) : labelable.fieldLabel;
 			if (!labelable.hideEmptyLabel)
 				this["hideEmptyLabel"] = labelable.hideEmptyLabel;
 			if (labelable.hideLabel)
