@@ -25,7 +25,7 @@ namespace Codaxy.Dextop.Forms
 	/// <summary>
 	/// Ext.form.CheckboxGroup (xtype: checkboxgroup)
 	/// </summary>
-	public class DextopFormCheckboxGroupAttribute : DextopFormContainerAttribute
+	public class DextopFormCheckboxGroupAttribute : DextopFormFieldContainerAttribute
 	{
 		/// <summary>
 		/// Ext.form.CheckboxGroup (xtype: checkboxgroup)

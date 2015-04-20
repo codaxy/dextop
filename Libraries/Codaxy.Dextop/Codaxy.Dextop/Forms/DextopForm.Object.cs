@@ -63,32 +63,32 @@ namespace Codaxy.Dextop.Forms
         /// Applies the labelable data to the form object.
         /// </summary>
         /// <param name="labelable">The labelable.</param>
-		internal protected virtual void ApplyLabelable(IDextopFormLabelable labelable)
-		{
-			if (labelable.fieldLabel != null)
-				this["fieldLabel"] = labelable.fieldLabel;
-			if (!labelable.hideEmptyLabel)
-				this["hideEmptyLabel"] = labelable.hideEmptyLabel;
-			if (labelable.hideLabel)
-				this["hideLabel"] = labelable.hideLabel;
-			if (labelable.invalidCls != null)
-				this["invalidCls"] = labelable.invalidCls;
-			if (labelable.labelAlign != null)
-				this["labelAlign"] = labelable.labelAlign;
-			if (labelable.labelCls != null)
-				this["labelCls"] = labelable.labelCls;
-			if (labelable.labelPad > 0)
-				this["labelPad"] = labelable.labelPad;
-			if (labelable.labelSeparator != null)
-				this["labelSeparator"] = labelable.labelSeparator;
-			if (labelable.labelStyle != null)
-				this["labelStyle"] = labelable.labelStyle;
-			if (labelable.labelWidth > 0)
-				this["labelWidth"] = labelable.labelWidth;
-			if (labelable.msgTarget != null)
-				this["msgTarget"] = labelable.msgTarget;
-			if (labelable.preventMark)
-				this["preventMark"] = labelable.preventMark;
-		}
+        internal protected virtual void ApplyLabelable(IDextopFormLabelable labelable, String nameLocalizationPrefix)
+        {
+            if (labelable.fieldLabel != null || nameLocalizationPrefix != null)
+                this["fieldLabel"] = nameLocalizationPrefix != null ? (object)new DextopLocalizedText(nameLocalizationPrefix + "FieldLabelText", labelable.fieldLabel) : labelable.fieldLabel;
+            if (!labelable.hideEmptyLabel)
+                this["hideEmptyLabel"] = labelable.hideEmptyLabel;
+            if (labelable.hideLabel)
+                this["hideLabel"] = labelable.hideLabel;
+            if (labelable.invalidCls != null)
+                this["invalidCls"] = labelable.invalidCls;
+            if (labelable.labelAlign != null)
+                this["labelAlign"] = labelable.labelAlign;
+            if (labelable.labelCls != null)
+                this["labelCls"] = labelable.labelCls;
+            if (labelable.labelPad > 0)
+                this["labelPad"] = labelable.labelPad;
+            if (labelable.labelSeparator != null)
+                this["labelSeparator"] = labelable.labelSeparator;
+            if (labelable.labelStyle != null)
+                this["labelStyle"] = labelable.labelStyle;
+            if (labelable.labelWidth > 0)
+                this["labelWidth"] = labelable.labelWidth;
+            if (labelable.msgTarget != null)
+                this["msgTarget"] = labelable.msgTarget;
+            if (labelable.preventMark)
+                this["preventMark"] = labelable.preventMark;           
+        }
     }
 }
