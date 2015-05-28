@@ -170,15 +170,13 @@ namespace Codaxy.Dextop
                 if (p.Value.Cachable)
                 {
                     var cacheInfo = new FileInfo(Path.ChangeExtension(fileInfo.FullName, ".cache"));
-                    cacheStream = cacheInfo.OpenWrite();
-                    cacheStream.SetLength(0);
+                    cacheStream = cacheInfo.Create();                    
                 }
 
                 using (cacheStream)
-                using (var ms = fileInfo.OpenWrite())
-                {
-                    ms.SetLength(0);
-                    p.Value.ProcessAssemblies(Application, assemblies, ms, cacheStream);                    
+                using (var outputStream = fileInfo.Create())
+                {                    
+                    p.Value.ProcessAssemblies(Application, assemblies, outputStream, cacheStream);                    
                 }
             }
 		}
