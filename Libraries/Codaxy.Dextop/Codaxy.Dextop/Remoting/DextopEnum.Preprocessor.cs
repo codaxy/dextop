@@ -63,7 +63,7 @@ namespace Codaxy.Dextop.Remoting
 
         public Func<Type, IDextopAssemblyPreprocessor, bool> TypeFilter { get; set; }
 
-        bool IDextopAssemblyPreprocessor.Cachable
+        bool IDextopAssemblyPreprocessor.Cacheable
         {
             get { return false; }
         }

@@ -51,7 +51,7 @@ namespace Codaxy.Dextop.Data
             jw.Flush();
 		}
 
-        bool IDextopAssemblyPreprocessor.Cachable
+        bool IDextopAssemblyPreprocessor.Cacheable
         {
             get { return false; }
         }

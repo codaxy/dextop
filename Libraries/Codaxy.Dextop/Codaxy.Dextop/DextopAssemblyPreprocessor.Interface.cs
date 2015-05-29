@@ -24,7 +24,7 @@ namespace Codaxy.Dextop
         /// <summary>
         /// If true, cache stream will be provided on process assemblies and loaded.
         /// </summary>
-        bool Cachable { get; }
+        bool Cacheable { get; }
 
         /// <summary>
         /// Load meta data from cache, instead of processing everything.

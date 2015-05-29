@@ -177,7 +177,7 @@ namespace Codaxy.Dextop.Showcase.Guides
 			}
 		}
 
-        bool IDextopAssemblyPreprocessor.Cachable
+        bool IDextopAssemblyPreprocessor.Cacheable
         {
             get { return false; }
         }

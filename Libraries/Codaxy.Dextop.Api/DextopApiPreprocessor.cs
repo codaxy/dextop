@@ -191,7 +191,7 @@ namespace Codaxy.Dextop.Api
             }
         }
 
-        bool IDextopAssemblyPreprocessor.Cachable
+        bool IDextopAssemblyPreprocessor.Cacheable
         {
             get { return true; }            
         }

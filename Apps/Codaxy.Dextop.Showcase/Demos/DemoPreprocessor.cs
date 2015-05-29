@@ -101,7 +101,7 @@ namespace Codaxy.Dextop.Showcase.Demos
 			return Math.Abs(lastWrite.GetHashCode());
 		}
 
-        bool IDextopAssemblyPreprocessor.Cachable
+        bool IDextopAssemblyPreprocessor.Cacheable
         {
             get { return true; }
         }

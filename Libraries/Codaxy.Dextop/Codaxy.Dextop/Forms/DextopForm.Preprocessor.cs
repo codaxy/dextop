@@ -87,7 +87,7 @@ namespace Codaxy.Dextop.Forms
         }
 
 
-        bool IDextopAssemblyPreprocessor.Cachable
+        bool IDextopAssemblyPreprocessor.Cacheable
         {
             get { return false; }
         }

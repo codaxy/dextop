@@ -6,6 +6,8 @@ using System.Reflection;
 using System.IO;
 using Codaxy.Dextop.Remoting;
 using System.Diagnostics;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Codaxy.Dextop
 {
@@ -123,8 +125,8 @@ namespace Codaxy.Dextop
 		/// <returns></returns>
 		protected internal virtual IDextopRemotable RegisterSession(DextopSession session) { return null; }
 
-		private void PreprocessAssemblies(IList<Assembly> assemblies, Dictionary<String, IDextopAssemblyPreprocessor> preprocessors)
-		{
+        private void PreprocessAssemblies(IList<Assembly> assemblies, Dictionary<String, IDextopAssemblyPreprocessor> preprocessors)
+        {
             DateTime assemblyLastWriteTime = DateTime.MinValue;
             if (SmartOverwrite)
             {
@@ -136,14 +138,14 @@ namespace Codaxy.Dextop
                 }
             }
 
-            foreach (var p in preprocessors)
+            Parallel.ForEach(preprocessors, p =>
             {
-                var path = MapPath(p.Key);
-                var fileInfo = new FileInfo(path);
+                var outputPath = MapPath(p.Key);
 
                 if (SmartOverwrite)
                 {
-                    if (p.Value.Cachable)
+                    var fileInfo = new FileInfo(outputPath);
+                    if (p.Value.Cacheable)
                     {
                         var cacheInfo = new FileInfo(Path.ChangeExtension(fileInfo.FullName, ".cache"));
                         if (cacheInfo.Exists && cacheInfo.LastWriteTime > assemblyLastWriteTime)
@@ -152,7 +154,7 @@ namespace Codaxy.Dextop
                                 try
                                 {
                                     p.Value.LoadCache(Application, assemblies, cs);
-                                    continue;
+                                    return;
                                 }
                                 catch (Exception ex)
                                 {
@@ -162,24 +164,35 @@ namespace Codaxy.Dextop
                         }
                     }
                     else if (fileInfo.Exists && fileInfo.LastWriteTime > assemblyLastWriteTime)
-                        continue;
-
+                        return;
                 }
 
-                Stream cacheStream = null;
-                if (p.Value.Cachable)
-                {
-                    var cacheInfo = new FileInfo(Path.ChangeExtension(fileInfo.FullName, ".cache"));
-                    cacheStream = cacheInfo.Create();                    
-                }
+                //If processing fails for any reason, make sure that we don't have an invalid file with new timestamp
+
+                String cachePath = Path.ChangeExtension(outputPath, ".cache");
+                String tmpOutputPath = outputPath + ".tmp";
+                String tmpCachePath = cachePath + ".tmp";
+
+                Stream cacheStream = p.Value.Cacheable ? File.Create(tmpCachePath) : null;
+                Stream outputStream = File.Create(tmpOutputPath);
 
                 using (cacheStream)
-                using (var outputStream = fileInfo.Create())
-                {                    
-                    p.Value.ProcessAssemblies(Application, assemblies, outputStream, cacheStream);                    
+                using (outputStream)
+                {
+                    p.Value.ProcessAssemblies(Application, assemblies, outputStream, cacheStream);
                 }
-            }
-		}
+
+                File.Delete(outputPath);
+                Thread.Sleep(1000);
+                File.Move(tmpOutputPath, outputPath);
+
+                if (p.Value.Cacheable)
+                {
+                    File.Delete(cachePath);
+                    File.Move(tmpCachePath, cachePath);
+                }
+            });
+        }
 
         internal IEnumerable<string> PrefixVirtualPath(IEnumerable<string> list)
         {

@@ -77,7 +77,7 @@ namespace Codaxy.Dextop.Data
             }
         }
 
-        bool IDextopAssemblyPreprocessor.Cachable
+        bool IDextopAssemblyPreprocessor.Cacheable
         {
             get { return false; }
         }

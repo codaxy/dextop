@@ -163,7 +163,7 @@ namespace Codaxy.Dextop.Remoting
             }
         }
 
-        bool IDextopAssemblyPreprocessor.Cachable
+        bool IDextopAssemblyPreprocessor.Cacheable
         {
             get { return true; }            
         }
