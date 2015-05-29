@@ -182,8 +182,7 @@ namespace Codaxy.Dextop
                     p.Value.ProcessAssemblies(Application, assemblies, outputStream, cacheStream);
                 }
 
-                File.Delete(outputPath);
-                Thread.Sleep(1000);
+                File.Delete(outputPath);                
                 File.Move(tmpOutputPath, outputPath);
 
                 if (p.Value.Cacheable)
