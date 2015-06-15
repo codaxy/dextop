@@ -311,8 +311,15 @@ Ext.apply(Dextop, {
 
     localize: function (className, localizationData) {
         var c = Ext.ClassManager.get(className);
-        if (c && c.prototype)
+        if (c && c.prototype) {
             Ext.apply(c.prototype, localizationData);
+
+            // Ext JS now initializes the config system at the Component level.
+            // With this, all components utilize config properties instead of object properties. 
+            if (Ext.versions.extjs.version >= '5.0.0') {
+                Ext.apply(c.prototype.config, localizationData);
+            }
+        }
     },
 
     getStore: function (storeId, options) {
