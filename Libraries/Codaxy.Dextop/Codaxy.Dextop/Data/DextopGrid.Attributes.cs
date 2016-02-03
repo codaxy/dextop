@@ -126,12 +126,22 @@ namespace Codaxy.Dextop.Data
         /// </summary>
         public bool filterable { get; set; }
 
-		/// <summary>
-		/// Converts this attribute to the column object.
-		/// </summary>
-		/// <param name="memberName">Name of the member.</param>
-		/// <param name="memberType">Type of the member.</param>
-		/// <returns></returns>
+        /// <summary>
+        /// Mark that column is locked for horizontal scroll
+        /// </summary>
+        public bool locked { get; set; }
+
+        /// <summary>
+        /// Mark that column has quick filter field in header
+        /// </summary>
+        public bool hasHeaderFilter { get; set; }
+
+        /// <summary>
+        /// Converts this attribute to the column object.
+        /// </summary>
+        /// <param name="memberName">Name of the member.</param>
+        /// <param name="memberType">Type of the member.</param>
+        /// <returns></returns>
         public virtual DextopGridColumn ToGridHeader(String memberName, Type memberType)
         {
             string extType, editorType;
@@ -154,8 +164,10 @@ namespace Codaxy.Dextop.Data
 				renderer = renderer, 
                 format = format,
                 menuDisabled = NullableUtil.DefaultNull(menuDisabled, true),
-                filterable = NullableUtil.DefaultNull(filterable, false)
-			};
+                filterable = NullableUtil.DefaultNull(filterable, false),
+                locked = NullableUtil.DefaultNull(locked, false),
+                hasHeaderFilter = NullableUtil.DefaultNull(hasHeaderFilter, false)
+            };
         }
         
     }

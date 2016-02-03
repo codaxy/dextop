@@ -94,6 +94,16 @@ namespace Codaxy.Dextop.Data
         public bool? filterable { get; set; }
 
         /// <summary>
+        /// Mark that column is locked for horizontal scroll
+        /// </summary>
+        public bool? locked { get; set; }
+
+        /// <summary>
+        /// Mark that column has quick filter field in header
+        /// </summary>
+        public bool? hasHeaderFilter { get; set; }
+
+        /// <summary>
         /// XTemplate based renderer.
         /// </summary>
         public string tpl { get; set; }
@@ -160,6 +170,8 @@ namespace Codaxy.Dextop.Data
                 jw.DefaultProperty("readonly", readOnly);
                 jw.DefaultProperty("menuDisabled", menuDisabled);
                 jw.DefaultProperty("filterable", filterable);
+                jw.DefaultProperty("locked", locked);
+                jw.DefaultProperty("hasHeaderFilter", hasHeaderFilter);
             }
             else
             {

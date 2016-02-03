@@ -32,7 +32,7 @@ namespace Codaxy.Dextop.Showcase.Demos.Grids
         class GridModel
         {
             [DextopModelId]
-            public int Id { get; set; }
+            public int Id { get; set; } 
             
             [DextopGridColumn(flex=1)]
             public String Name { get; set; }
