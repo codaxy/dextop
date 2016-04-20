@@ -19,3 +19,4 @@ cache/*.js
 /NuGet/local.bat
 mklink-ext.bat
 /Apps/Codaxy.Dextop.Showcase/client/js/generated/*.cache
+/.vs/config
