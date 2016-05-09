@@ -1,0 +1,56 @@
+/* http://localhost:1843/classic/theme-classic/sass/src/resizer/Resizer.scss:2 */
+.x-resizable-handle-east-over,
+.x-resizable-handle-west-over {
+    background-position: left;
+}
+/* http://localhost:1843/classic/theme-classic/sass/src/resizer/Resizer.scss:7 */
+.x-resizable-handle-south-over,
+.x-resizable-handle-north-over {
+    background-position: top;
+}
+/* http://localhost:1843/classic/theme-classic/sass/src/resizer/Resizer.scss:12 */
+.x-resizable-handle-southeast-over {
+    background-position: top left;
+}
+/* http://localhost:1843/classic/theme-classic/sass/src/resizer/Resizer.scss:16 */
+.x-resizable-handle-northwest-over {
+    background-position: bottom right;
+}
+/* http://localhost:1843/classic/theme-classic/sass/src/resizer/Resizer.scss:20 */
+.x-resizable-handle-northeast-over {
+    background-position: bottom left;
+}
+/* http://localhost:1843/classic/theme-classic/sass/src/resizer/Resizer.scss:24 */
+.x-resizable-handle-southwest-over {
+    background-position: top right;
+}
+/* http://localhost:1843/classic/theme-classic/sass/src/resizer/Resizer.scss:29 */
+.x-resizable-pinned .x-resizable-handle-east,
+.x-resizable-pinned .x-resizable-handle-west {
+    background-position: left;
+}
+/* http://localhost:1843/classic/theme-classic/sass/src/resizer/Resizer.scss:34 */
+.x-resizable-pinned .x-resizable-handle-south,
+.x-resizable-pinned .x-resizable-handle-north {
+    background-position: top;
+}
+/* http://localhost:1843/classic/theme-classic/sass/src/resizer/Resizer.scss:39 */
+.x-resizable-pinned .x-resizable-handle-southeast {
+    background-position: top left;
+}
+/* http://localhost:1843/classic/theme-classic/sass/src/resizer/Resizer.scss:43 */
+.x-resizable-pinned .x-resizable-handle-northwest {
+    background-position: bottom right;
+}
+/* http://localhost:1843/classic/theme-classic/sass/src/resizer/Resizer.scss:47 */
+.x-resizable-pinned .x-resizable-handle-northeast {
+    background-position: bottom left;
+}
+/* http://localhost:1843/classic/theme-classic/sass/src/resizer/Resizer.scss:51 */
+.x-resizable-pinned .x-resizable-handle-southwest {
+    background-position: top right;
+}
+/* http://localhost:1843/classic/theme-classic/sass/src/slider/Multi.scss:1 */
+.x-slider-focus .x-slider-thumb {
+    outline: 1px dotted #333;
+}

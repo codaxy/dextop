@@ -1,7 +1,6 @@
 bin
 obj
 packages/*/
-ext
 *.user
 *.suo
 .project
