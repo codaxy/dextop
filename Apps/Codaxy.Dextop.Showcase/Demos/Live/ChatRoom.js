@@ -19,7 +19,10 @@ Ext.define('Showcase.demos.ChatWindow', {
 			store: store,
 			columns: columns,
 			region: 'center',
-			border: false
+			border: false,
+			viewConfig: {
+                loadMask: false
+			}
 		});
 
 		var formItems = Ext.create(this.getNestedTypeName('.form.ChatLine')).getItems({
@@ -41,7 +44,8 @@ Ext.define('Showcase.demos.ChatWindow', {
 			items: [grid, {
 				xtype: 'form',
 				region: 'south',
-				height: 110,
+				autoHeight: true,
+                paddding: 10,
 				items: formItems,
 				buttonAlign: 'left',
 				buttons: [{

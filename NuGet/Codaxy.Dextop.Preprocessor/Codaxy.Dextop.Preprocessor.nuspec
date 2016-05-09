@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package>
   <metadata schemaVersion="2">
-    <id>Codaxy.Dextop.5.Preprocessor</id>    
-    <title>Dextop Preprocessor - Ext JS 5</title>
-    <version>5.1.0.6</version>
+    <id>Codaxy.Dextop.6.Preprocessor</id>    
+    <title>Dextop Preprocessor - Ext JS 6</title>
+    <version>6.0.2.0</version>
     <authors>Codaxy</authors>
     <description>Generate JS, concenate, minify Dextop resources</description>
 	<projectUrl>https://github.com/codaxy/dextop</projectUrl>
 	<dependencies>
-		<dependency id="Codaxy.Dextop.5.Core" />		
+		<dependency id="Codaxy.Dextop.6.Core" />		
 	</dependencies>	  	
    </metadata>
 </package>

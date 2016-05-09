@@ -9,14 +9,14 @@ namespace Codaxy.Dextop
     public partial class DextopModule
     {
         List<DextopJsResourcePackage> JsPackages { get; set; }
-        List<DextopCssResourcePackage> CssPackages { get; set; }		
+        List<DextopCssResourcePackage> CssPackages { get; set; }
 
-		/// <summary>
-		/// Shortcut for CreateJsPackage(package).Register(...).
-		/// </summary>
-		/// <param name="package">The package.</param>
-		/// <param name="pathPrefix">The path prefix.</param>
-		/// <param name="files">The files.</param>
+        /// <summary>
+        /// Shortcut for CreateJsPackage(package).Register(...).
+        /// </summary>
+        /// <param name="package">The package.</param>
+        /// <param name="pathPrefix">The path prefix.</param>
+        /// <param name="files">The files.</param>
         public void RegisterJs(String package, String pathPrefix, params String[] files)
         {
             var p = CreateJsPackage(package);
@@ -32,7 +32,7 @@ namespace Codaxy.Dextop
         {
             var p = new DextopJsResourcePackage(this, package)
             {
-                Concate = true,
+                Concat = true,
                 Minify = true,
                 SmartOverwrite = SmartOverwrite,
                 External = UsingExternalResources

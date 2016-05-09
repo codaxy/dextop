@@ -38,7 +38,7 @@ namespace Codaxy.Dextop
 		/// <summary>
 		/// Gets or sets a value indicating whether JS content should be concatenated to one file.
 		/// </summary>	
-		public bool Concate { get; set; }
+		public bool Concat { get; set; }
 		/// <summary>
 		/// Gets or sets a value indicating whether JS content should be minified.
 		/// </summary>	
@@ -69,7 +69,7 @@ namespace Codaxy.Dextop
 
             if (External)
             {
-                package.AddFiles(virtualPaths.Select(vpath=>DextopUtil.CombinePaths(pathPrefix, vpath)));
+                package.AddFiles(virtualPaths.Select(vpath => DextopUtil.CombinePaths(pathPrefix, vpath)));
             }
             else
             {
@@ -124,7 +124,7 @@ namespace Codaxy.Dextop
             if (External)
                 return;
 
-            if (Concate)
+            if (Concat)
             {
                 var pkg = new DextopResourcePackage(context.OptimizationOutputModule);
 

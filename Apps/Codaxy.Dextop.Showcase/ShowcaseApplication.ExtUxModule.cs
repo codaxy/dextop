@@ -5,20 +5,20 @@ using System.Web;
 
 namespace Codaxy.Dextop.Showcase
 {
-    public class ExtChartsModule : DextopModule
+    public class ExtUxModule : DextopModule
     {
-        public ExtChartsModule()
+        public ExtUxModule()
         {
 #if DEBUG
             Debug = true;
 #endif
         }
 
-        public bool Debug { get; set; }
+    public bool Debug { get; set; }
 
-        public override string ModuleName
+    public override string ModuleName
         {
-            get { return "ext-charts"; }
+            get { return "ext-ux"; }
         }
 
         protected override void InitNamespaces()
@@ -27,14 +27,13 @@ namespace Codaxy.Dextop.Showcase
         }
 
         protected override bool MinifyCss { get { return false; } }
-        protected override bool MinifyJs { get { return false; } }
+        protected override bool MinifyJs{ get { return false; } }
 
         protected override void InitResources()
         {
-            string debugSuffix = Debug ? "-debug" : "";
-
-            RegisterJs("pack", String.Format("charts{0}.js", debugSuffix));
-            RegisterCss(String.Format("classic/resources/charts-all{0}.css", debugSuffix));
+            var debugSuffix= Debug ? "-debug" : "";
+            RegisterJs("pack", "", String.Format("ux{0}.js", debugSuffix));
+            RegisterCss(String.Format("classic/resources/ux-all{0}.css", debugSuffix));
         }
        
         protected override void RegisterAssemblyPreprocessors(Dictionary<string, IDextopAssemblyPreprocessor> preprocessors)

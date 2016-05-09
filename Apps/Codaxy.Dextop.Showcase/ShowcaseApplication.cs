@@ -10,22 +10,22 @@ namespace Codaxy.Dextop.Showcase
     {
         protected override void RegisterModules()
         {
-            RegisterModule("http://cdn.sencha.com/ext/gpl/5.1.0/build/", new DextopExtJSModule
+            RegisterModule("client/lib/ext/", new DextopExtJSModule
             {
                 CssThemeSuffix = "-gray",
                 UsingExternalResources = true
             });
 
-            RegisterModule("http://cdn.sencha.com/ext/gpl/5.1.0/build/examples/", new ExtJSDataViewModule
+            RegisterModule("client/lib/ext/build/packages/ux/classic/", new ExtUxModule
             {
                 UsingExternalResources = true
             });
 
-            RegisterModule("http://cdn.sencha.com/ext/gpl/5.1.0/packages/sencha-charts/build/", new ExtChartsModule
+            RegisterModule("client/lib/ext/build/packages/charts/classic/", new ExtChartsModule
             {
                 UsingExternalResources = true
             });
-            
+
             RegisterModule("client/lib/dextop", new DextopCoreModule());
             RegisterModule("client/lib/dextop", new DextopApiModule());
             

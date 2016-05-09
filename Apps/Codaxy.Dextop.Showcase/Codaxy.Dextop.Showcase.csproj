@@ -246,7 +246,7 @@
     <Compile Include="ShowcaseApplication.cs" />
     <Compile Include="ShowcaseApplication.DemoLauncher.cs" />
     <Compile Include="ShowcaseApplication.ExtChartsModule.cs" />
-    <Compile Include="ShowcaseApplication.ExtDataViewModule.cs" />
+    <Compile Include="ShowcaseApplication.ExtUxModule.cs" />
     <Compile Include="ShowcaseApplication.Module.cs" />
     <Compile Include="ShowcasePreprocessorBootstrapper.cs" />
     <Compile Include="ShowcaseSession.cs" />
@@ -620,6 +620,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\local.pubxml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="client\lib\ext\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

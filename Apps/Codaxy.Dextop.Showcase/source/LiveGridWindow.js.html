@@ -33,7 +33,10 @@ Ext.define(&#39;Showcase.demos.LiveGridWindow&#39;, {
 
         var grid = Ext.create(&#39;Ext.grid.GridPanel&#39;, {
             store: store,
-            columns: columns
+            columns: columns,
+            viewConfig: {
+                loadMask: false
+            }
         });
 
         Ext.apply(this, {

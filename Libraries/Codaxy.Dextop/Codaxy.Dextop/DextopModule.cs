@@ -57,7 +57,12 @@ namespace Codaxy.Dextop
 		/// File timestamp will be preserved.
 		/// </summary>
 		protected bool SmartOverwrite { get; set; }
+        
+        protected virtual bool MinifyJs { get { return true; } }
 
+        protected virtual bool MinifyCss { get { return true; } }
+
+        protected virtual bool ConcatJs { get { return true; } }
 
 		/// <summary>
 		/// Gets the assemblies required by the module.

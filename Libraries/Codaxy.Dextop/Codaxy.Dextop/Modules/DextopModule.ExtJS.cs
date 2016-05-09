@@ -16,7 +16,7 @@ namespace Codaxy.Dextop
         public DextopExtJSModule()
         {
 #if DEBUG
-            Debug = true;
+            Debug = false;
 #endif
         }
 
@@ -81,19 +81,17 @@ namespace Codaxy.Dextop
             string debugSuffix = Debug ? "-debug" : "";
 
             var js = CreateJsPackage("ext");
-            js.Concate = false;
-            js.Register(String.Format("ext-all{0}.js", debugSuffix));
+            js.Minify = false;
+            js.Concat = false;
+            js.Register(String.Format("build/ext-all{0}.js", debugSuffix));
 
             if (!SkipLocalizations)
-                js.RegisterLocalizations(new[] { "sr", "ru", "fr", "de", "da" },  "packages/ext-locale/build/", String.Format("ext-locale-{{0}}{0}.js", debugSuffix));
+                js.RegisterLocalizations(new[] { "sr", "ru", "fr", "de", "da" },  "build/classic/locale/", String.Format("locale-{{0}}{0}.js", debugSuffix));
 
             var css = CreateCssPackage();
             css.Minify = false;
             if (!SkipCss)
-            {
-                var name = "ext-theme" + CssThemeSuffix;
-                css.Register(String.Format("packages/{0}/build/resources/{0}-all{1}.css", name, debugSuffix));
-            }
+                css.Register(String.Format("build/classic/theme{0}/resources/theme{0}-all{1}.css", CssThemeSuffix, debugSuffix));
         }
     }
 }

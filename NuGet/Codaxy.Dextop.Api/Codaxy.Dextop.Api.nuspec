@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <package>
   <metadata schemaVersion="2">
-    <id>Codaxy.Dextop.5.Api</id>    
-    <title>Dextop Api Framework (Libraries) - Ext JS 5</title>
-    <version>5.1.0.4</version>
+    <id>Codaxy.Dextop.6.Api</id>    
+    <title>Dextop Api Framework (Libraries) - Ext JS 6</title>
+    <version>6.0.2.0</version>
     <authors>Codaxy</authors>
     <description>Dextop Api provides stateless Dextop mode</description>
 	<projectUrl>https://github.com/codaxy/dextop</projectUrl>
 	<dependencies>
-		<dependency id="Codaxy.Dextop.5.Core" />
+		<dependency id="Codaxy.Dextop.6.Core" />
     <dependency id="Autofac" />
 	</dependencies>	  	
    </metadata>

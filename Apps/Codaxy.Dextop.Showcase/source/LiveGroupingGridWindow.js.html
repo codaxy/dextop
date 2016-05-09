@@ -33,7 +33,10 @@ Ext.define(&#39;Showcase.demos.LiveGroupingGridWindow&#39;, {
         var grid = Ext.create(&#39;Ext.grid.GridPanel&#39;, {
             store: store,
             columns: columns,
-            features: [{ ftype: &#39;grouping&#39; }]
+            features: [{ ftype: &#39;grouping&#39; }],
+            viewConfig: {
+                loadMask: false
+            }
         });
 
         Ext.apply(this, {

@@ -19,7 +19,7 @@ Ext.define('Showcase.demos.TreeWindow', {
             },
             root: {
                 text: 'root',
-                id: '',
+                id: '0',
                 expanded: true
             }
         });
