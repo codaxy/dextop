@@ -110,7 +110,9 @@ namespace Codaxy.Dextop.Data
 
             var properties = type.GetProperties();
             var fields = type.GetFields();
-            var combined = ((MemberInfo[])fields).Union(properties);
+
+            var combined = properties.Concat((MemberInfo[])fields);
+
             var model = new DextopModel
             {
                 Meta = meta

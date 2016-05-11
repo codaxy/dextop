@@ -7,7 +7,7 @@ using PetaTest;
 
 namespace Codaxy.Dextop.Api
 {
-    [TestFixture(Active=true)]
+    [TestFixture]
     public class ControllerResolvingTests
     {
         class TestController1 : DextopApiController
@@ -82,7 +82,7 @@ namespace Codaxy.Dextop.Api
             }
         }
 
-        [Test(Active=true)]
+        [Test]
         public void ControllerGetsDisposed()
         {
             var cb = new ContainerBuilder();
