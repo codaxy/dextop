@@ -3,7 +3,7 @@
   <metadata schemaVersion="2">
     <id>Codaxy.Dextop.6.Preprocessor</id>    
     <title>Dextop Preprocessor - Ext JS 6</title>
-    <version>6.0.3</version>
+    <version>6.0.2.10</version>
     <authors>Codaxy</authors>
     <description>Generate JS, concenate, minify Dextop resources</description>
 	<projectUrl>https://github.com/codaxy/dextop</projectUrl>
