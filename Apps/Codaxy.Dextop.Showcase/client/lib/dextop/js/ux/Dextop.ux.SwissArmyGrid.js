@@ -178,18 +178,19 @@ Ext.define('Dextop.ux.SwissArmyGrid', {
     },
 
     convertStringActions: function (actions) {
+        var a = [];
         for (var i = 0; i < actions.length; i++)
             if (Ext.isString(actions[i])) {
                 switch (this.editing) {
-                    case 'row': actions[i] = this.convertRowEditorAction(actions[i]); break;
-                    case 'cell': actions[i] = this.convertCellEditorAction(actions[i]); break;
-                    case 'form': actions[i] = this.convertFormEditorAction(actions[i]); break;
+                    case 'row': a.push(this.convertRowEditorAction(actions[i])); break;
+                    case 'cell': a.push(this.convertCellEditorAction(actions[i])); break;
+                    case 'form': a.push(this.convertFormEditorAction(actions[i])); break;
                 }
 
-                if (Ext.isString(actions[i]))
-                    actions[i] = this.convertStringAction(actions[i]);
+                if (Ext.isString(a[i]))
+                    a[i] = this.convertStringAction(a[i]);
             }
-        return actions;
+        return a;
     },
 
     convertStringAction: function (action) {
