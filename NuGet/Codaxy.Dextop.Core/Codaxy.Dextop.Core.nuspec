@@ -3,12 +3,12 @@
   <metadata schemaVersion="2">
     <id>Codaxy.Dextop.6.Core</id>    
     <title>Dextop RIA Framework (Libraries) - Ext JS 6</title>
-    <version>6.0.3.1</version>
+    <version>6.0.3.2</version>
     <authors>Codaxy</authors>
     <description>Dextop Rich Internet Application Framework (Libraries)</description>
 	<projectUrl>https://github.com/codaxy/dextop</projectUrl>
 	<dependencies>
-		<dependency id="newtonsoft.json" version="10.0" />
+		<dependency id="newtonsoft.json" version="10.0.2" />
 		<dependency id="WebGrease" version="1.6" />
 		<dependency id="Codaxy.Common" version="0.5"/>
 	</dependencies>	  	
