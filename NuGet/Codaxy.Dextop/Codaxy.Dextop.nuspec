@@ -8,7 +8,7 @@
     <description>Dextop Rich Internet Application Framework (Full)</description>
   <projectUrl>https://github.com/codaxy/dextop</projectUrl>
   <dependencies>		
-    <dependency id="Codaxy.Dextop.6.Core" />
+    <dependency id="Codaxy.Dextop.6.Core" version="6.0.3" />
   </dependencies>	   
    </metadata>
 </package>
