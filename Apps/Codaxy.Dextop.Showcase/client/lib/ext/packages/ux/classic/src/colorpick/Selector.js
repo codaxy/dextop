@@ -129,6 +129,10 @@ Ext.define('Ext.ux.colorpick.Selector', {
             me.getPreviewAndButtons(childViewModel, config)
         ];
 
+        me.childViewModel.bind('{selectedColor}', function (color) {
+            me.setColor(color);
+        });
+
         me.callParent(arguments);
     },
 

@@ -1319,6 +1319,7 @@
     <Content Include="client\lib\ext\packages\ux\sass\example\theme.html" />
     <Content Include="client\lib\ext\packages\ux\src\ajax\DataSimlet.js" />
     <Content Include="client\lib\ext\packages\ux\src\ajax\JsonSimlet.js" />
+    <Content Include="client\lib\ext\packages\ux\src\ajax\PivotSimlet.js" />
     <Content Include="client\lib\ext\packages\ux\src\ajax\Simlet.js" />
     <Content Include="client\lib\ext\packages\ux\src\ajax\SimManager.js" />
     <Content Include="client\lib\ext\packages\ux\src\ajax\SimXhr.js" />
@@ -1762,6 +1763,7 @@
     <Content Include="Demos\Remoting\FileDownloadDemo.zip" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="packages.config" />
     <Content Include="client\lib\ext\build\classic\theme-gray\config.rb" />
     <Content Include="client\lib\ext\build\classic\theme-gray\resources\ext\ext-watermark\fonts\ext-watermark.eot" />
     <Content Include="client\lib\ext\build\classic\theme-gray\resources\ext\ext-watermark\fonts\ext-watermark.ttf" />
@@ -1848,18 +1850,9 @@
     <Content Include="client\lib\ext\packages\ux\sass\Readme.md" />
     <Content Include="client\lib\ext\packages\ux\sass\src\Readme.md" />
     <Content Include="client\lib\ext\packages\ux\sass\var\Readme.md" />
-    <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="client\lib\ext\build\classic\theme-aria\" />
-    <Folder Include="client\lib\ext\build\classic\theme-classic-sandbox\" />
-    <Folder Include="client\lib\ext\build\classic\theme-classic\" />
-    <Folder Include="client\lib\ext\build\classic\theme-crisp-touch\" />
-    <Folder Include="client\lib\ext\build\classic\theme-crisp\" />
-    <Folder Include="client\lib\ext\build\classic\theme-neptune-touch\" />
-    <Folder Include="client\lib\ext\build\classic\theme-neptune\" />
-    <Folder Include="client\lib\ext\build\classic\theme-triton\" />
     <Folder Include="client\lib\ext\packages\charts\src\" />
   </ItemGroup>
   <PropertyGroup>

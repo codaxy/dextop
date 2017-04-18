@@ -1,4 +1,4 @@
-$image-search-path: 'C:/BuildAgent/work/b3173c323478ec0c/staging/build/packages/ux/classic/triton/resources' !default;
+$image-search-path: 'C:/BuildAgent/work/957075b4b2ea01c7/sencha/ext/build/packages/ux/classic/triton/resources' !default;
 $theme-name:  'theme-triton' !default;
 $include-ext-abstractcomponent: dynamic(false);;
 $include-ext-abstractcontainer: dynamic(false);;
@@ -886,6 +886,7 @@ $include-ext-ux-toolbardroppable: dynamic(true);;
 $include-ext-ux-treepicker: dynamic(true);;
 $include-ext-ux-ajax-datasimlet: dynamic(true);;
 $include-ext-ux-ajax-jsonsimlet: dynamic(true);;
+$include-ext-ux-ajax-pivotsimlet: dynamic(true);;
 $include-ext-ux-ajax-simmanager: dynamic(true);;
 $include-ext-ux-ajax-simxhr: dynamic(true);;
 $include-ext-ux-ajax-simlet: dynamic(true);;

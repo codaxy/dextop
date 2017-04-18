@@ -46,7 +46,7 @@ Ext.define('Ext.ux.colorpick.SliderAlpha', {
         // Position dragger
         el = dragHandle.getEl();
         el.setStyle({
-            top: top
+            top: top + 'px'
         });
     },
 

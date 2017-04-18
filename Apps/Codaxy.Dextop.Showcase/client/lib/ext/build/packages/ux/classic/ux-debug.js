@@ -414,6 +414,198 @@ Ext.define('Ext.ux.ajax.JsonSimlet', {
 });
 
 /**
+ * Pivot Simlet does remote pivot calculations.
+ * Filtering the pivot results doesn't work.
+ */
+Ext.define('Ext.ux.ajax.PivotSimlet', {
+    extend: 'Ext.ux.ajax.JsonSimlet',
+    alias: 'simlet.pivot',
+    lastPost: null,
+    // last Ajax params sent to this simlet
+    lastResponse: null,
+    // last JSON response produced by this simlet
+    keysSeparator: '',
+    grandTotalKey: '',
+    doPost: function(ctx) {
+        var me = this,
+            ret = me.callParent(arguments);
+        // pick up status/statusText
+        me.lastResponse = me.processData(me.getData(ctx), Ext.decode(ctx.xhr.body));
+        ret.responseText = Ext.encode(me.lastResponse);
+        return ret;
+    },
+    processData: function(data, params) {
+        var me = this,
+            len = data.length,
+            response = {
+                success: true,
+                leftAxis: [],
+                topAxis: [],
+                results: []
+            },
+            leftAxis = new Ext.util.MixedCollection(),
+            topAxis = new Ext.util.MixedCollection(),
+            results = new Ext.util.MixedCollection(),
+            i, j, k, leftKeys, topKeys, item, agg;
+        me.lastPost = params;
+        me.keysSeparator = params.keysSeparator;
+        me.grandTotalKey = params.grandTotalKey;
+        for (i = 0; i < len; i++) {
+            leftKeys = me.extractValues(data[i], params.leftAxis, leftAxis);
+            topKeys = me.extractValues(data[i], params.topAxis, topAxis);
+            // add record to grand totals
+            me.addResult(data[i], me.grandTotalKey, me.grandTotalKey, results);
+            for (j = 0; j < leftKeys.length; j++) {
+                // add record to col grand totals
+                me.addResult(data[i], leftKeys[j], me.grandTotalKey, results);
+                // add record to left/top keys pair
+                for (k = 0; k < topKeys.length; k++) {
+                    me.addResult(data[i], leftKeys[j], topKeys[k], results);
+                }
+            }
+            // add record to row grand totals
+            for (j = 0; j < topKeys.length; j++) {
+                me.addResult(data[i], me.grandTotalKey, topKeys[j], results);
+            }
+        }
+        // extract items from their left/top collections and build the json response
+        response.leftAxis = leftAxis.getRange();
+        response.topAxis = topAxis.getRange();
+        len = results.getCount();
+        for (i = 0; i < len; i++) {
+            item = results.getAt(i);
+            item.values = {};
+            for (j = 0; j < params.aggregate.length; j++) {
+                agg = params.aggregate[j];
+                item.values[agg.id] = me[agg.aggregator](item.records, agg.dataIndex, item.leftKey, item.topKey);
+            }
+            delete (item.records);
+            response.results.push(item);
+        }
+        leftAxis.clear();
+        topAxis.clear();
+        results.clear();
+        return response;
+    },
+    getKey: function(value) {
+        var me = this;
+        me.keysMap = me.keysMap || {};
+        if (!Ext.isDefined(me.keysMap[value])) {
+            me.keysMap[value] = Ext.id();
+        }
+        return me.keysMap[value];
+    },
+    extractValues: function(record, dimensions, col) {
+        var len = dimensions.length,
+            keys = [],
+            i, j, key, item, dim;
+        key = '';
+        for (j = 0; j < len; j++) {
+            dim = dimensions[j];
+            key += (j > 0 ? this.keysSeparator : '') + this.getKey(record[dim.dataIndex]);
+            item = col.getByKey(key);
+            if (!item) {
+                item = col.add(key, {
+                    key: key,
+                    value: record[dim.dataIndex],
+                    dimensionId: dim.id
+                });
+            }
+            keys.push(key);
+        }
+        return keys;
+    },
+    addResult: function(record, leftKey, topKey, results) {
+        var item = results.getByKey(leftKey + '/' + topKey);
+        if (!item) {
+            item = results.add(leftKey + '/' + topKey, {
+                leftKey: leftKey,
+                topKey: topKey,
+                records: []
+            });
+        }
+        item.records.push(record);
+    },
+    sum: function(records, measure, rowGroupKey, colGroupKey) {
+        var length = records.length,
+            total = 0,
+            i;
+        for (i = 0; i < length; i++) {
+            total += Ext.Number.from(records[i][measure], 0);
+        }
+        return total;
+    },
+    avg: function(records, measure, rowGroupKey, colGroupKey) {
+        var length = records.length,
+            total = 0,
+            i;
+        for (i = 0; i < length; i++) {
+            total += Ext.Number.from(records[i][measure], 0);
+        }
+        return length > 0 ? (total / length) : 0;
+    },
+    min: function(records, measure, rowGroupKey, colGroupKey) {
+        var data = [],
+            length = records.length,
+            i, v;
+        for (i = 0; i < length; i++) {
+            data.push(records[i][measure]);
+        }
+        v = Ext.Array.min(data);
+        return v;
+    },
+    max: function(records, measure, rowGroupKey, colGroupKey) {
+        var data = [],
+            length = records.length,
+            i;
+        for (i = 0; i < length; i++) {
+            data.push(records[i][measure]);
+        }
+        v = Ext.Array.max(data);
+        return v;
+    },
+    count: function(records, measure, rowGroupKey, colGroupKey) {
+        return records.length;
+    },
+    variance: function(records, measure, rowGroupKey, colGroupKey) {
+        var me = Ext.pivot.Aggregators,
+            length = records.length,
+            avg = me.avg.apply(me, arguments),
+            total = 0,
+            i;
+        if (avg > 0) {
+            for (i = 0; i < length; i++) {
+                total += Math.pow(Ext.Number.from(records[i][measure], 0) - avg, 2);
+            }
+        }
+        return (total > 0 && length > 1) ? (total / (length - 1)) : 0;
+    },
+    varianceP: function(records, measure, rowGroupKey, colGroupKey) {
+        var me = Ext.pivot.Aggregators,
+            length = records.length,
+            avg = me.avg.apply(me, arguments),
+            total = 0,
+            i;
+        if (avg > 0) {
+            for (i = 0; i < length; i++) {
+                total += Math.pow(Ext.Number.from(records[i][measure], 0) - avg, 2);
+            }
+        }
+        return (total > 0 && length > 0) ? (total / length) : 0;
+    },
+    stdDev: function(records, measure, rowGroupKey, colGroupKey) {
+        var me = Ext.pivot.Aggregators,
+            v = me.variance.apply(me, arguments);
+        return v > 0 ? Math.sqrt(v) : 0;
+    },
+    stdDevP: function(records, measure, rowGroupKey, colGroupKey) {
+        var me = Ext.pivot.Aggregators,
+            v = me.varianceP.apply(me, arguments);
+        return v > 0 ? Math.sqrt(v) : 0;
+    }
+});
+
+/**
  * Simulates an XMLHttpRequest object's methods and properties but is backed by a
  * {@link Ext.ux.ajax.Simlet} instance that provides the data.
  */
@@ -2397,7 +2589,7 @@ Ext.define('Ext.ux.google.Api', {
  */
 Ext.define('Ext.ux.google.Feeds', {
     extend: 'Ext.ux.google.Api',
-    requiresGoogle: {
+    _requiresGoogle: {
         api: 'feeds',
         nocss: true
     }
@@ -4823,56 +5015,10 @@ Ext.define('Ext.ux.IFrame', {
         var me = this;
         return me.iframeEl.dom;
     },
-    beforeDestroy: function() {
-        this.cleanupListeners(true);
-        this.callParent();
-    },
-    cleanupListeners: function(destroying) {
-        var doc, prop;
-        if (this.rendered) {
-            try {
-                doc = this.getDoc();
-                if (doc) {
-                    Ext.get(doc).un(this._docListeners);
-                    if (destroying) {
-                        for (prop in doc) {
-                            if (doc.hasOwnProperty && doc.hasOwnProperty(prop)) {
-                                delete doc[prop];
-                            }
-                        }
-                    }
-                }
-            } catch (e) {}
-        }
-    },
     onLoad: function() {
         var me = this,
-            doc = me.getDoc(),
-            fn = me.onRelayedEvent;
+            doc = me.getDoc();
         if (doc) {
-            try {
-                // These events need to be relayed from the inner document (where they stop
-                // bubbling) up to the outer document. This has to be done at the DOM level so
-                // the event reaches listeners on elements like the document body. The effected
-                // mechanisms that depend on this bubbling behavior are listed to the right
-                // of the event.
-                Ext.get(doc).on(me._docListeners = {
-                    mousedown: fn,
-                    // menu dismisal (MenuManager) and Window onMouseDown (toFront)
-                    mousemove: fn,
-                    // window resize drag detection
-                    mouseup: fn,
-                    // window resize termination
-                    click: fn,
-                    // not sure, but just to be safe
-                    dblclick: fn,
-                    // not sure again
-                    scope: me
-                });
-            } catch (e) {}
-            // cannot do this xss
-            // We need to be sure we remove all our events from the iframe on unload or we're going to LEAK!
-            Ext.get(this.getWin()).on('beforeunload', me.cleanupListeners, me);
             this.el.unmask();
             this.fireEvent('load', this);
         } else if (me.src) {
@@ -4880,27 +5026,6 @@ Ext.define('Ext.ux.IFrame', {
             this.fireEvent('error', this);
         }
     },
-    onRelayedEvent: function(event) {
-        // relay event from the iframe's document to the document that owns the iframe...
-        var iframeEl = this.iframeEl,
-            // Get the left-based iframe position
-            iframeXY = iframeEl.getTrueXY(),
-            originalEventXY = event.getXY(),
-            // Get the left-based XY position.
-            // This is because the consumer of the injected event will
-            // perform its own RTL normalization.
-            eventXY = event.getTrueXY();
-        // the event from the inner document has XY relative to that document's origin,
-        // so adjust it to use the origin of the iframe in the outer document:
-        event.xy = [
-            iframeXY[0] + eventXY[0],
-            iframeXY[1] + eventXY[1]
-        ];
-        event.injectEvent(iframeEl);
-        // blame the iframe for the event...
-        event.xy = originalEventXY;
-    },
-    // restore the original XY (just for safety)
     load: function(src) {
         var me = this,
             text = me.loadMask,
@@ -4913,6 +5038,11 @@ Ext.define('Ext.ux.IFrame', {
         }
     }
 });
+/*
+ * Note: Event relayers are not needed here because the combination of the gesture system and 
+ * normal focus/blur will handle it.
+ * Tested with the examples/classic/desktop app.
+ */
 /*
  * TODO items:
  *
@@ -8406,14 +8536,6 @@ Ext.define('Ext.ux.colorpick.SelectorController', {
     requires: [
         'Ext.ux.colorpick.ColorUtils'
     ],
-    initViewModel: function() {
-        var me = this,
-            view = me.getView();
-        // And ensure that the
-        view.childViewModel.bind('{selectedColor}', function(color) {
-            view.setColor(color);
-        });
-    },
     destroy: function() {
         var me = this,
             view = me.getView(),
@@ -8732,7 +8854,7 @@ Ext.define('Ext.ux.colorpick.SliderAlpha', {
         // Position dragger
         el = dragHandle.getEl();
         el.setStyle({
-            top: top
+            top: top + 'px'
         });
     },
     // Called via data binding whenever selectedColor.h changes; hue param is 0-1
@@ -8927,7 +9049,7 @@ Ext.define('Ext.ux.colorpick.SliderHue', {
             return;
         }
         // y-axis of slider with value 0-1 translates to reverse of "hue"
-        top = containerHeight * (360 - hue) / 360;
+        top = containerHeight * (1 - hue);
         // Position dragger
         el = dragHandle.getEl();
         el.setStyle({
@@ -9050,6 +9172,9 @@ Ext.define('Ext.ux.colorpick.Selector', {
             me.getSliderAndAField(childViewModel),
             me.getPreviewAndButtons(childViewModel, config)
         ];
+        me.childViewModel.bind('{selectedColor}', function(color) {
+            me.setColor(color);
+        });
         me.callParent(arguments);
     },
     updateColor: function(color) {
@@ -11098,7 +11223,6 @@ Ext.define('Ext.ux.desktop.TrayClock', {
 */
 /**
  * From code originally written by David Davis
- * <http://www.sencha.com/blog/html5-video-canvas-and-ext-js>
  *
  * For HTML5 video to work, your server must
  * send the right content type, for more info see:
@@ -11633,15 +11757,6 @@ Ext.define('Ext.ux.form.MultiSelect', {
         var me = this;
         me.items = me.setupItems();
         me.bindStore(me.store, true);
-        if (me.store.autoCreated) {
-            me.valueField = me.displayField = 'field1';
-            if (!me.store.expanded) {
-                me.displayField = 'field2';
-            }
-        }
-        if (!Ext.isDefined(me.valueField)) {
-            me.valueField = me.displayField;
-        }
         me.callParent();
         me.initField();
     },
@@ -11966,9 +12081,32 @@ Ext.define('Ext.ux.form.MultiSelect', {
         me.callParent();
     },
     onBindStore: function(store) {
-        var boundList = this.boundList;
+        var me = this,
+            boundList = this.boundList;
+        if (store.autoCreated) {
+            me.resolveDisplayField();
+        }
+        if (!Ext.isDefined(me.valueField)) {
+            me.valueField = me.displayField;
+        }
         if (boundList) {
             boundList.bindStore(store);
+        }
+    },
+    /**
+     * Applies auto-created store fields to field and boundlist
+     * @private
+     */
+    resolveDisplayField: function() {
+        var me = this,
+            boundList = me.boundList,
+            store = me.getStore();
+        me.valueField = me.displayField = 'field1';
+        if (!store.expanded) {
+            me.displayField = 'field2';
+        }
+        if (boundList) {
+            boundList.setDisplayField(me.displayField);
         }
     }
 });
@@ -12288,10 +12426,20 @@ Ext.define('Ext.ux.form.ItemSelector', {
         Ext.resumeLayouts(true);
     },
     onBindStore: function(store, initial) {
-        var me = this;
-        if (me.fromField) {
-            me.fromField.store.removeAll();
-            me.toField.store.removeAll();
+        var me = this,
+            fromField = me.fromField,
+            toField = me.toField;
+        if (fromField) {
+            fromField.store.removeAll();
+            toField.store.removeAll();
+            if (store.autoCreated) {
+                fromField.resolveDisplayField();
+                toField.resolveDisplayField();
+                me.resolveDisplayField();
+            }
+            if (!Ext.isDefined(me.valueField)) {
+                me.valueField = me.displayField;
+            }
             // Add everything to the from field as soon as the Store is loaded
             if (store.getCount()) {
                 me.populateFromStore(store);

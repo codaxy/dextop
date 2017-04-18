@@ -28,6 +28,12 @@ namespace Newtonsoft.Json.Converters
             {
                 DateTime dateTime = (DateTime)value;
 
+                if (dateTime.Kind == DateTimeKind.Utc) // Don't mess up UTC dates
+                {
+                    base.WriteJson(writer, dateTime, serializer);
+                    return;
+                }
+
                 if ((DateTimeStyles & DateTimeStyles.AdjustToUniversal) == DateTimeStyles.AdjustToUniversal 
                     || (DateTimeStyles & DateTimeStyles.AssumeUniversal) == DateTimeStyles.AssumeUniversal)
                     dateTime = dateTime.ToUniversalTime();

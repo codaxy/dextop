@@ -9,16 +9,6 @@ Ext.define('Ext.ux.colorpick.SelectorController', {
         'Ext.ux.colorpick.ColorUtils'
     ],
 
-    initViewModel: function () {
-        var me = this,
-            view = me.getView();
-
-        // And ensure that the
-        view.childViewModel.bind('{selectedColor}', function (color) {
-            view.setColor(color);
-        });
-    },
-
     destroy: function () {
         var me = this,
             view = me.getView(),

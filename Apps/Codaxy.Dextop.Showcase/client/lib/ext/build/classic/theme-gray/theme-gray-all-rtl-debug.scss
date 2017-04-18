@@ -1,4 +1,4 @@
-$image-search-path: 'C:/BuildAgent/work/b3173c323478ec0c/staging/build/classic/theme-gray/resources' !default;
+$image-search-path: 'C:/BuildAgent/work/957075b4b2ea01c7/sencha/ext/build/classic/theme-gray/resources' !default;
 $theme-name:  'theme-gray' !default;
 $include-ext-abstractcomponent: dynamic(true);;
 $include-ext-abstractcontainer: dynamic(true);;
@@ -1110,6 +1110,7 @@ $relative-image-path-for-uis: $theme-base-resource-path;
 @import '../../../classic/theme-base/sass/src/form/field/Text';
 @import '../../../classic/theme-base/sass/src/form/field/TextArea';
 @import '../../../classic/theme-base/sass/src/window/MessageBox';
+@import '../../../classic/theme-base/sass/src/form/FieldContainer';
 @import '../../../classic/theme-base/sass/src/form/field/Checkbox';
 @import '../../../classic/theme-base/sass/src/form/FieldSet';
 @import '../../../classic/theme-base/sass/src/view/View';

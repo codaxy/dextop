@@ -21,7 +21,7 @@ namespace Codaxy.Dextop.Showcase.Demos.Remoting
         DextopReadResult<ApiGridModel> IDextopReadProxy<ApiGridModel>.Read(DextopReadFilter filter)
         {
             var results = new[] {
-               new ApiGridModel { Id = 1, Age = 20, Basketball = false, Football = true, FirstName = "Diego", LastName = "Armando", FavoriteSport = 1 }
+               new ApiGridModel { Id = 1, DOB = new DateTime(1990, 1, 1, 0, 0, 0), Basketball = false, Football = true, FirstName = "Diego", LastName = "Armando", FavoriteSport = 1 }
            };
 
             return DextopReadResult.Create(results);
@@ -60,8 +60,11 @@ namespace Codaxy.Dextop.Showcase.Demos.Remoting
         [DextopGridColumn(flex = 1, readOnly = true)]
         public String FullName { get { return FirstName + " " + LastName; } }
 
+        [DextopGridColumn(flex = 1, readOnly = true)]
+        public DateTime DOB { get; set; }
+
         [DextopGridColumn(width = 50)]
-        public int Age { get; set; }        
+        public int Age { get { return (DateTime.UtcNow.Year - DOB.Year); } }
 
         [DextopGridColumn]
         public bool Basketball { get; set; }

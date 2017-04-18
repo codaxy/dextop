@@ -84,6 +84,9 @@ Ext.define('Ext.draw.ContainerBase', {
     preview: function() {
         var image = this.getImage(),
             items;
+        if (Ext.isIE8) {
+            return;
+        }
         if (image.type === 'svg-markup') {
             items = {
                 xtype: 'container',
@@ -7524,6 +7527,16 @@ Ext.define('Ext.draw.sprite.Composite', {
         plain.width = right - left;
         plain.height = bottom - top;
     },
+    isVisible: function() {
+        // Override the abstract Sprite's method.
+        // Composite uses a simpler check, because it has no fill or stroke
+        // style of its own, it just houses other sprites.
+        var attr = this.attr,
+            parent = this.getParent(),
+            hasParent = parent && (parent.isSurface || parent.isVisible()),
+            isSeen = hasParent && !attr.hidden && attr.globalAlpha;
+        return !!isSeen;
+    },
     /**
      * Renders all sprites contained in the composite to the surface.
      */
@@ -13968,7 +13981,7 @@ Ext.define('Ext.draw.Container', {
      * Downloads an image or PDF of the chart / drawing or opens it in a separate 
      * browser tab/window if the download can't be triggered. The exact behavior is 
      * platform and browser specific. For more consistent results on mobile devices use 
-     * the {@link #preview} method instead.
+     * the {@link #preview} method instead. This method doesn't work in IE8.
      *
      * @param {Object} [config] The following config options are supported:
      *
@@ -14043,6 +14056,9 @@ Ext.define('Ext.draw.Container', {
         var me = this,
             inputs = [],
             markup, name, value;
+        if (Ext.isIE8) {
+            return;
+        }
         config = Ext.apply({
             version: 2,
             data: me.getImage().data
@@ -14101,9 +14117,11 @@ Ext.define('Ext.draw.Container', {
      * Displays an image of a Ext.draw.Container on screen.
      * On mobile devices this lets users tap-and-hold to bring up the menu
      * with image saving options.
-     * Note: some browsers won't save the preview image if it's SVG based
-     * (i.e. generated from a draw container that uses 'Ext.draw.engine.Svg' engine).
-     * And some platforms may not have the means of viewing successfully saved SVG images.
+     * Notes:
+     * - some browsers won't save the preview image if it's SVG based
+     *   (i.e. generated from a draw container that uses 'Ext.draw.engine.Svg' engine);
+     * - some platforms may not have the means of viewing successfully saved SVG images;
+     * - this method does not work on IE8.
      */
     destroy: function() {
         var me = this,
@@ -16005,8 +16023,23 @@ Ext.define('Ext.chart.series.Series', {
             oldLabel.setTemplate(new Ext.chart.sprite.Label(newLabel));
         } else {
             oldLabel.getTemplate().setAttributes(newLabel);
+            if (newLabel && newLabel.display) {
+                oldLabel.setAttributes({
+                    hidden: newLabel.display === 'none'
+                });
+            }
+            oldLabel.setDirty(true);
+            // inform the label about the template change
+            this.updateLabel();
         }
+        // won't be called automatically in this case
         return oldLabel;
+    },
+    updateLabel: function() {
+        var chart = this.getChart();
+        if (chart && !chart.isInitializing) {
+            chart.redraw();
+        }
     },
     createItemInstancingSprite: function(sprite, itemInstancing) {
         var me = this,
@@ -20921,6 +20954,11 @@ Ext.define('Ext.chart.AbstractChart', {
         }
         return Ext.Factory.chartTheme(theme);
     },
+    updateGradients: function(gradients) {
+        if (!Ext.isEmpty(gradients)) {
+            this.updateTheme(this.getTheme());
+        }
+    },
     updateTheme: function(theme) {
         var me = this,
             axes = me.getAxes(),
@@ -24186,6 +24224,10 @@ Ext.define('Ext.chart.interactions.ItemHighlight', {
             item, tooltip, chart;
         if (me.getSticky()) {
             return true;
+        }
+        if (isMousePointer && me.stickyHighlightItem) {
+            me.stickyHighlightItem = null;
+            me.highlight(null);
         }
         if (me.isDragging) {
             if (tipItem && isMousePointer) {
@@ -29236,6 +29278,7 @@ Ext.define('Ext.chart.series.sprite.Line', {
         // re-build the stroke path, using coordinates saved in the 'strip',
         // and render the stroke on top of the fill.
         var strip = [];
+        ctx.beginPath();
         for (i = 3; i < ln; i += 3) {
             x0 = list[i - 3];
             y0 = list[i - 2];
@@ -30170,7 +30213,9 @@ Ext.define('Ext.chart.series.sprite.PieSlice', {
         labelCfg.globalAlpha = attr.globalAlpha * attr.fillOpacity;
         // If a slice is empty, don't display the label.
         // This behavior can be overridden by a renderer.
-        labelCfg.hidden = (attr.startAngle == attr.endAngle);
+        if (labelTpl.display !== 'none') {
+            labelCfg.hidden = (attr.startAngle == attr.endAngle);
+        }
         if (labelTpl.attr.renderer) {
             params = [
                 me.attr.label,
@@ -30897,31 +30942,17 @@ Ext.define('Ext.chart.series.sprite.Pie3DPart', {
             ]
         });
     },
-    // Part names that are only visible when a pie slice is translucent
-    // (globalAlpha or fillOpacity attributes are less than 1).
-    // Note: this assumes that the sprite is used as a part of the series,
-    // where all the sprites that make up a slice receive the same
-    // alpha value. If, say, a standalone sprite is used, it won't be visible
-    // when completely opaque.
-    normallyInvisibleParts: {
-        bottom: true,
-        innerFront: true,
-        outerBack: true
-    },
     alphaUpdater: function(attr) {
         var me = this,
             opacity = attr.globalAlpha,
             fillOpacity = attr.fillOpacity,
             oldOpacity = me.oldOpacity,
-            oldFillOpacity = me.oldFillOpacity,
-            normallyInvisibleParts = me.normallyInvisibleParts;
+            oldFillOpacity = me.oldFillOpacity;
         // Update the path when the sprite becomes translucent or completely opaque.
         if ((opacity !== oldOpacity && (opacity === 1 || oldOpacity === 1)) || (fillOpacity !== oldFillOpacity && (fillOpacity === 1 || oldFillOpacity === 1))) {
-            if (attr.part in normallyInvisibleParts) {
-                me.scheduleUpdater(attr, 'path', [
-                    'globalAlpha'
-                ]);
-            }
+            me.scheduleUpdater(attr, 'path', [
+                'globalAlpha'
+            ]);
             me.oldOpacity = opacity;
             me.oldFillOpacity = fillOpacity;
         }
@@ -31066,7 +31097,7 @@ Ext.define('Ext.chart.series.sprite.Pie3DPart', {
             depth;
         switch (attr.part) {
             case 'top':
-                attr.zIndex = 5;
+                attr.zIndex = 6;
                 break;
             case 'outerFront':
                 startAngle = normalize(startAngle + rotation);
@@ -31272,6 +31303,7 @@ Ext.define('Ext.chart.series.sprite.Pie3DPart', {
             baseRotation = attr.baseRotation,
             startAngle = attr.startAngle + baseRotation,
             endAngle = attr.endAngle + baseRotation,
+            isFullPie = (!attr.startAngle && Ext.Number.isEqual(Math.PI * 2, attr.endAngle, 1.0E-7)),
             thickness = attr.thickness,
             startRho = attr.startRho,
             endRho = attr.endRho,
@@ -31281,7 +31313,7 @@ Ext.define('Ext.chart.series.sprite.Pie3DPart', {
             isTranslucent = attr.globalAlpha < 1,
             isVisible = position === 'start' && cos < 0 || position === 'end' && cos > 0 || isTranslucent,
             midAngle;
-        if (isVisible) {
+        if (isVisible && !isFullPie) {
             midAngle = (startAngle + endAngle) / 2;
             centerX += Math.cos(midAngle) * margin;
             centerY += Math.sin(midAngle) * margin * distortion;
