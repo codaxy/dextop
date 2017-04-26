@@ -83,7 +83,8 @@ Ext.define('Showcase.DemoFilterPanel', {
 	},
 	
 	filterStore: function() {
-		var search = this.getComponent('searchBox').getValue().toLowerCase();
+	    var search = this.getComponent('searchBox').getValue().toLowerCase();
+	    this.store.clearFilter();
 		this.store.filterBy(function(record, id) {
 			var cf = this.currentFilter;
 			var match = true;
