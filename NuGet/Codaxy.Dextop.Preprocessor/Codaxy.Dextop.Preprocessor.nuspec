@@ -8,7 +8,7 @@
     <description>Generate JS, concenate, minify Dextop resources</description>
 	<projectUrl>https://github.com/codaxy/dextop</projectUrl>
 	<dependencies>
-		<dependency id="Codaxy.Dextop.Core" />		
+		<dependency id="Codaxy.Dextop.Core" version="1.2.0.42" />		
 	</dependencies>	  	
    </metadata>
 </package>
