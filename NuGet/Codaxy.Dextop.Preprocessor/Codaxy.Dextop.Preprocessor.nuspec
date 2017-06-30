@@ -3,12 +3,12 @@
   <metadata schemaVersion="2">
     <id>Codaxy.Dextop.Preprocessor</id>    
     <title>Dextop - Preprocessor</title>
-    <version>1.1.0.6</version>
+    <version>1.1.0.7</version>
     <authors>Codaxy</authors>
     <description>Generate JS, concenate, minify Dextop resources</description>
 	<projectUrl>https://github.com/codaxy/dextop</projectUrl>
 	<dependencies>
-		<dependency id="Codaxy.Dextop.Core" version="1.2.0.42" />		
+		<dependency id="Codaxy.Dextop.Core" version="1.2.0.43" />		
 	</dependencies>	  	
    </metadata>
 </package>
