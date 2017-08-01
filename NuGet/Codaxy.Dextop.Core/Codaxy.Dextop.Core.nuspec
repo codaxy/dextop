@@ -8,9 +8,9 @@
     <description>Dextop Rich Internet Application Framework (Libraries)</description>
 	<projectUrl>https://github.com/codaxy/dextop</projectUrl>
 	<dependencies>
-		<dependency id="newtonsoft.json" />
-		<dependency id="WebGrease" />
-		<dependency id="Codaxy.Common" />
+		<dependency id="newtonsoft.json" version="10.0" />
+		<dependency id="WebGrease" version="1.6" />
+		<dependency id="Codaxy.Common" version="1.0" />
 	</dependencies>	  	
    </metadata>
 </package>
