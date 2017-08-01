@@ -3,13 +3,13 @@
   <metadata schemaVersion="2">
     <id>Codaxy.Dextop.Api</id>    
     <title>Dextop Api Framework (Libraries)</title>
-    <version>0.0.0.12</version>
+    <version>1.2.2.0</version>
     <authors>Codaxy</authors>
     <description>Dextop Api provides stateless Dextop mode</description>
 	<projectUrl>https://github.com/codaxy/dextop</projectUrl>
 	<dependencies>
-		<dependency id="Codaxy.Dextop.Core" />
-    <dependency id="Autofac" />
+		<dependency id="Codaxy.Dextop.Core" version="1.2.2" />
+    <dependency id="Autofac" version="4.6" />
 	</dependencies>	  	
    </metadata>
 </package>
