@@ -7,7 +7,6 @@
 Ext.onReady(function() {
     if (Ext.Date) {
         Ext.Date.monthNames = ["januari", "februari", "mars", "april", "maj", "juni", "juli", "augusti", "september", "oktober", "november", "december"];
-
         Ext.Date.dayNames = ["söndag", "måndag", "tisdag", "onsdag", "torsdag", "fredag", "lördag"];
 
         Ext.Date.formatCodes.a = "(m.getHours() < 12 ? 'em' : 'fm')";
@@ -55,6 +54,12 @@ Ext.onReady(function() {
     blankText: "Detta fält är obligatoriskt",
     regexText: "",
     emptyText: null
+});Ext.define("Ext.locale.sv_SE.form.field.Time", {
+    override: "Ext.form.field.Time",
+    minText: "Tiden i detta fält måste vara lika med eller efter tiden i {0}",
+    maxText: "Tiden i detta fält måste vara lika med eller före tiden i {0}",
+    invalidText: "{0} är inte en korrekt tid",
+    format: "G:i",
 });Ext.define("Ext.locale.sv_SE.form.field.VTypes", {
     override: "Ext.form.field.VTypes",
     emailText: 'Detta fält ska innehålla en e-post adress i formatet "användare@domän.se"',
@@ -108,20 +113,17 @@ Ext.onReady(function() {
  * Ext.Date.parse("2006-01-15 3:20:01 FM", "Y-m-d g:i:s A")           -> Sun Jan 15 2006 15:20:01
  */
 
-if (Ext.util && Ext.util.Format) {
+if (Ext.util && Ext.util.Format) { 
 
     Ext.define('Ext.locale.sv_SE.util.Format', {
         override: 'Ext.util.Format',
         decimalSeparator: ',',
-        thousandSeparator: '.',
+        thousandSeparator: ' ',
         // Swedish Krone
         currencySign: 'kr',
-        dateFormat: 'Y-m-d'
-    }, function() {
-        var originalParse = Ext.Date.parse;
-        Ext.Date.parse = function(input, format, strict) {
-            return originalParse(input.replace('am', 'em').replace('pm', 'fm').replace('AM', 'EM').replace('PM', 'FM'), format, strict);
-        };
+        currencyAtEnd: true,
+        dateFormat: 'Y-m-d',
+        currencySpacer: ' '
     });
 }// changing the msg text below will affect the LoadMask
 Ext.define("Ext.locale.sv_SE.view.AbstractView", {

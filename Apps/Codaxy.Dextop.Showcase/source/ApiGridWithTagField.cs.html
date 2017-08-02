@@ -19,17 +19,28 @@ namespace Codaxy.Dextop.Showcase.Demos.Remoting
     [DextopApiControllerAlias(&quot;people-grid&quot;)]
     public class ApiGridWithTagFieldController : DextopApiController, IDextopDataProxy&lt;PeopleModel&gt;
     {
+        static PeopleModel[] data = new[] {
+            new PeopleModel { Id = 1, FirstName = &quot;Diego&quot;, LastName = &quot;Armando&quot;, CountryIds = new [] { 2, 4 }, CountryNames = new[] { &quot;Russia&quot;, &quot;Serbia&quot; } }
+        };
+
         DextopReadResult&lt;PeopleModel&gt; IDextopReadProxy&lt;PeopleModel&gt;.Read(DextopReadFilter filter)
         {
-            var results = new[] {
-               new PeopleModel { Id = 1, FirstName = &quot;Diego&quot;, LastName = &quot;Armando&quot;, CountryIds = new [] { 2, 4 }, CountryNames = new[] { &quot;Russia&quot;, &quot;Serbia&quot; } }
-           };
-
-            return DextopReadResult.Create(results);
+            return DextopReadResult.Create(data);
         }
 
         IList&lt;PeopleModel&gt; IDextopDataProxy&lt;PeopleModel&gt;.Create(IList&lt;PeopleModel&gt; records)
         {
+            var id = data.Max(a =&gt; a.Id);
+            foreach (var rec in records)
+            {
+                rec.Id = ++id;
+                rec.CountryNames = CountriesLookup.All().Where(a =&gt; rec.CountryIds.Contains(a.id)).Select(a =&gt; a.text).ToArray();
+            }
+
+            data = data.Concat(records)
+                .OrderBy(a =&gt; a.Id)
+                .ToArray();
+
             return records;
         }
 
@@ -40,9 +51,21 @@ namespace Codaxy.Dextop.Showcase.Demos.Remoting
 
         IList&lt;PeopleModel&gt; IDextopDataProxy&lt;PeopleModel&gt;.Update(IList&lt;PeopleModel&gt; records)
         {
+            foreach (var rec in records)
+                rec.CountryNames = CountriesLookup.All().Where(a =&gt; rec.CountryIds.Contains(a.id)).Select(a =&gt; a.text).ToArray();
+
+            var r = records.ToDictionary(a =&gt; a.Id);
+            foreach (var rec in records)
+                data = data
+                    .Where(a =&gt; !r.ContainsKey(a.Id))
+                    .Concat(records)
+                    .OrderBy(a =&gt; a.Id)
+                    .ToArray();
+
             return records;
         }
     }
+
 
     [DextopForm]
     [DextopModel]
@@ -60,7 +83,7 @@ namespace Codaxy.Dextop.Showcase.Demos.Remoting
         [DextopFormField(anchor = &quot;0&quot;)]
         [DextopGridColumn(flex = 1)]
         public String LastName { get; set; }
-        
+
         [DextopGridColumn(flex = 1, readOnly = true)]
         public String FullName { get { return FirstName + &quot; &quot; + LastName; } }
 
@@ -81,16 +104,19 @@ namespace Codaxy.Dextop.Showcase.Demos.Remoting
     [DextopApiControllerAlias(&quot;countries-lookup&quot;)]
     public class CountriesLookup : DextopApiController, IDextopReadProxy&lt;CountriesModel&gt;
     {
+        public static CountriesModel[] All()
+        {
+            return new[] {
+                    new CountriesModel { id = 1, text=&quot;Bosnia and Herzegovina&quot; },
+                    new CountriesModel { id = 2, text=&quot;Russia&quot; },
+                    new CountriesModel { id = 3, text=&quot;United states&quot; },
+                    new CountriesModel { id = 4, text=&quot;Serbia&quot; }
+                };
+        }
+
         public DextopReadResult&lt;CountriesModel&gt; Read(DextopReadFilter filter)
         {
-            var results = new[] {
-               new CountriesModel { id = 1, text=&quot;Bosnia and Herzegovina&quot; },
-               new CountriesModel { id = 2, text=&quot;Russia&quot; },
-               new CountriesModel { id = 3, text=&quot;United states&quot; },
-               new CountriesModel { id = 4, text=&quot;Serbia&quot; },
-           };
-
-            return DextopReadResult.Create(results);
+            return DextopReadResult.Create(All());
         }
     }
 }

@@ -315,6 +315,11 @@ Ext.define("Ext.locale.fr.window.MessageBox", {
     }    
 });
 
+Ext.define('Ext.locale.fr.data.validator.Presence',{
+    override: 'Ext.data.validator.Presence',
+    message: 'Ce champ est obligatoire'
+});
+
 // This is needed until we can refactor all of the locales into individual files
 Ext.define("Ext.locale.fr.Component", {	
     override: "Ext.Component"

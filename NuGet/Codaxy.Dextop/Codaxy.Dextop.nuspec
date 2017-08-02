@@ -3,12 +3,12 @@
   <metadata schemaVersion="2">
     <id>Codaxy.Dextop.6</id>    
     <title>Dextop RIA Framework (Full) - Ext JS 6</title>
-    <version>6.0.3.2</version>
+    <version>6.5.1.0</version>
     <authors>Codaxy</authors>
     <description>Dextop Rich Internet Application Framework (Full)</description>
   <projectUrl>https://github.com/codaxy/dextop</projectUrl>
   <dependencies>		
-    <dependency id="Codaxy.Dextop.6.Core" version="6.0.3" />
+    <dependency id="Codaxy.Dextop.6.Core" version="6.5" />
   </dependencies>	   
    </metadata>
 </package>

@@ -20,7 +20,7 @@ Ext.define('Showcase.demos.ApiTreeWindow', {
 
         var api = Dextop.api('tree-api');
 
-        //it's important to create columns before creating grid's store in order to load lookup stores first
+        // It's important to create columns before creating grid's store in order to load lookup stores first
 	    var columns = api.createGridColumns({
 	        checkEditor: true
 	    });
@@ -29,35 +29,8 @@ Ext.define('Showcase.demos.ApiTreeWindow', {
 	        autoLoad: true
 	    });
 
-	    cellEditor = new Ext.grid.plugin.CellEditing({
-	        clicksToEdit: 1
-	    });
-
 	    var grid = Ext.create('Ext.tree.Panel', {
-	        store: store,
-	        tbar: [{
-	            text: 'Add',
-	            scope: this,
-	            handler: function () {
-	                var rec = Ext.create(store.model, {});
-	                store.insert(0, rec);
-	                cellEditor.startEditByPosition({ row: 0, column: 1 }); //changes all the time
-	            }
-	        }, '-', {
-	            text: 'Remove',
-	            scope: this,
-	            handler: function () {
-	                var s = grid.getSelectionModel().getSelection();
-	                for (var i = 0; i < s.length; i++)
-	                    store.remove(s[i]);
-	            }
-	        }, '-', {
-	            text: 'Save',
-	            scope: this,
-	            handler: function () {
-	                store.sync();
-	            }
-	        }]
+	        store: store
 	    });
 
 	    Ext.apply(this, {

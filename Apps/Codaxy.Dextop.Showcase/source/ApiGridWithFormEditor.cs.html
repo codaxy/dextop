@@ -19,17 +19,25 @@ namespace Codaxy.Dextop.Showcase.Demos.Remoting
     [DextopApiControllerAlias(&quot;api-grid-form&quot;)]
     public class ApiGridWithFormEditorController : DextopApiController, IDextopDataProxy&lt;ApiGridFormModel&gt;
     {
+        static ApiGridFormModel[] data = new[] {
+            new ApiGridFormModel { Id = 1, Age = 20, Basketball = false, Football = true, FirstName = &quot;Diego&quot;, LastName = &quot;Armando&quot;, FavoriteSport = 1 }
+        };
+
         DextopReadResult&lt;ApiGridFormModel&gt; IDextopReadProxy&lt;ApiGridFormModel&gt;.Read(DextopReadFilter filter)
         {
-            var results = new[] {
-               new ApiGridFormModel { Id = 1, Age = 20, Basketball = false, Football = true, FirstName = &quot;Diego&quot;, LastName = &quot;Armando&quot;, FavoriteSport = 1 }
-           };
-
-            return DextopReadResult.Create(results);
+            return DextopReadResult.Create(data);
         }
 
         IList&lt;ApiGridFormModel&gt; IDextopDataProxy&lt;ApiGridFormModel&gt;.Create(IList&lt;ApiGridFormModel&gt; records)
         {
+            var id = data.Max(a =&gt; a.Id);
+            foreach (var rec in records)
+                rec.Id = ++id;
+
+            data = data.Concat(records)
+                .OrderBy(a =&gt; a.Id)
+                .ToArray();
+
             return records;
         }
 
@@ -40,17 +48,24 @@ namespace Codaxy.Dextop.Showcase.Demos.Remoting
 
         IList&lt;ApiGridFormModel&gt; IDextopDataProxy&lt;ApiGridFormModel&gt;.Update(IList&lt;ApiGridFormModel&gt; records)
         {
+            var r = records.ToDictionary(a =&gt; a.Id);
+            foreach (var rec in records)
+                data = data
+                    .Where(a =&gt; !r.ContainsKey(a.Id))
+                    .Concat(records)
+                    .OrderBy(a =&gt; a.Id)
+                    .ToArray();
+
             return records;
         }
     }
-
+    
     [DextopModel]
     [DextopGrid]
     [DextopForm]
     class ApiGridFormModel
     {
         [DextopModelId]
-        [DextopFormField]
         [DextopGridColumn(width = 50, readOnly = true)]
         public int Id { get; set; }
 

@@ -17,17 +17,25 @@ namespace Codaxy.Dextop.Showcase.Demos.Remoting
 {
     public class ApiGrid : DextopApiController, IDextopDataProxy&lt;ApiGridModel&gt;
     {
+        static ApiGridModel[] data = new[] {
+            new ApiGridModel { Id = 1, DOB = new DateTime(1990, 1, 1, 0, 0, 0), Basketball = false, Football = true, FirstName = &quot;Diego&quot;, LastName = &quot;Armando&quot;, FavoriteSport = 1 }
+        };
+
         DextopReadResult&lt;ApiGridModel&gt; IDextopReadProxy&lt;ApiGridModel&gt;.Read(DextopReadFilter filter)
         {
-            var results = new[] {
-               new ApiGridModel { Id = 1, DOB = new DateTime(1990, 1, 1, 0, 0, 0), Basketball = false, Football = true, FirstName = &quot;Diego&quot;, LastName = &quot;Armando&quot;, FavoriteSport = 1 }
-           };
-
-            return DextopReadResult.Create(results);
+            return DextopReadResult.Create(data);
         }
 
         IList&lt;ApiGridModel&gt; IDextopDataProxy&lt;ApiGridModel&gt;.Create(IList&lt;ApiGridModel&gt; records)
         {
+            var id = data.Max(a =&gt; a.Id);
+            foreach (var rec in records)
+                rec.Id = ++id;
+
+            data = data.Concat(records)
+                .OrderBy(a =&gt; a.Id)
+                .ToArray();
+
             return records;
         }
 
@@ -38,6 +46,14 @@ namespace Codaxy.Dextop.Showcase.Demos.Remoting
 
         IList&lt;ApiGridModel&gt; IDextopDataProxy&lt;ApiGridModel&gt;.Update(IList&lt;ApiGridModel&gt; records)
         {
+            var r = records.ToDictionary(a =&gt; a.Id);
+            foreach (var rec in records)
+                data = data
+                    .Where(a =&gt; !r.ContainsKey(a.Id))
+                    .Concat(records)
+                    .OrderBy(a =&gt; a.Id)
+                    .ToArray();
+
             return records;
         }
     }

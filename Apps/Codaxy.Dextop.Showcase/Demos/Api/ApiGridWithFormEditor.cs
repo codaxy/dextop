@@ -20,17 +20,25 @@ namespace Codaxy.Dextop.Showcase.Demos.Remoting
     [DextopApiControllerAlias("api-grid-form")]
     public class ApiGridWithFormEditorController : DextopApiController, IDextopDataProxy<ApiGridFormModel>
     {
+        static ApiGridFormModel[] data = new[] {
+            new ApiGridFormModel { Id = 1, Age = 20, Basketball = false, Football = true, FirstName = "Diego", LastName = "Armando", FavoriteSport = 1 }
+        };
+
         DextopReadResult<ApiGridFormModel> IDextopReadProxy<ApiGridFormModel>.Read(DextopReadFilter filter)
         {
-            var results = new[] {
-               new ApiGridFormModel { Id = 1, Age = 20, Basketball = false, Football = true, FirstName = "Diego", LastName = "Armando", FavoriteSport = 1 }
-           };
-
-            return DextopReadResult.Create(results);
+            return DextopReadResult.Create(data);
         }
 
         IList<ApiGridFormModel> IDextopDataProxy<ApiGridFormModel>.Create(IList<ApiGridFormModel> records)
         {
+            var id = data.Max(a => a.Id);
+            foreach (var rec in records)
+                rec.Id = ++id;
+
+            data = data.Concat(records)
+                .OrderBy(a => a.Id)
+                .ToArray();
+
             return records;
         }
 
@@ -41,17 +49,24 @@ namespace Codaxy.Dextop.Showcase.Demos.Remoting
 
         IList<ApiGridFormModel> IDextopDataProxy<ApiGridFormModel>.Update(IList<ApiGridFormModel> records)
         {
+            var r = records.ToDictionary(a => a.Id);
+            foreach (var rec in records)
+                data = data
+                    .Where(a => !r.ContainsKey(a.Id))
+                    .Concat(records)
+                    .OrderBy(a => a.Id)
+                    .ToArray();
+
             return records;
         }
     }
-
+    
     [DextopModel]
     [DextopGrid]
     [DextopForm]
     class ApiGridFormModel
     {
         [DextopModelId]
-        [DextopFormField]
         [DextopGridColumn(width = 50, readOnly = true)]
         public int Id { get; set; }
 

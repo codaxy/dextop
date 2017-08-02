@@ -23,7 +23,8 @@ Ext.define('Showcase.demos.ApiGridWithFormEditor', {
             editing: 'form',
 	        tbar: ['add', 'edit', 'remove'],
 	        storeOptions: {
-                autoLoad: true
+	            autoLoad: true,
+                autoSync: true
 	        }
 	    });
 

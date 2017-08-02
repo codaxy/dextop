@@ -307,7 +307,7 @@ Ext.define("Ext.locale.de.form.field.Time", {
 
 Ext.define("Ext.locale.de.form.CheckboxGroup", {
     override: "Ext.form.CheckboxGroup",
-    blankText: "Du mußt mehr als einen Eintrag aus der Gruppe auswählen"
+    blankText: "Du mußt mindestens einen Eintrag aus der Gruppe auswählen"
 });
 
 Ext.define("Ext.locale.de.form.RadioGroup", {

@@ -70,12 +70,12 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=4.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Autofac.4.5.0\lib\net45\Autofac.dll</HintPath>
+    <Reference Include="Autofac, Version=4.6.1.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Autofac.4.6.1\lib\net45\Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Codaxy.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Codaxy.Common.0.5.16.10\lib\Codaxy.Common.dll</HintPath>
+      <HintPath>..\..\packages\Codaxy.Common.1.0.0\lib\Codaxy.Common.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MarkdownDeep, Version=1.5.4615.26275, Culture=neutral, processorArchitecture=MSIL">
@@ -87,7 +87,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Newtonsoft.Json.10.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions" />
@@ -558,6 +558,13 @@
     <Content Include="client\lib\ext\build\classic\theme-gray\resources\images\menu\default-group-checked.gif" />
     <Content Include="client\lib\ext\build\classic\theme-gray\resources\images\menu\default-menu-parent-left.gif" />
     <Content Include="client\lib\ext\build\classic\theme-gray\resources\images\menu\default-menu-parent.gif" />
+    <Content Include="client\lib\ext\build\classic\theme-gray\resources\images\menu\default-menubar-checked.gif" />
+    <Content Include="client\lib\ext\build\classic\theme-gray\resources\images\menu\default-menubar-group-checked.gif" />
+    <Content Include="client\lib\ext\build\classic\theme-gray\resources\images\menu\default-menubar-menu-parent-left.gif" />
+    <Content Include="client\lib\ext\build\classic\theme-gray\resources\images\menu\default-menubar-menu-parent.gif" />
+    <Content Include="client\lib\ext\build\classic\theme-gray\resources\images\menu\default-menubar-scroll-bottom.gif" />
+    <Content Include="client\lib\ext\build\classic\theme-gray\resources\images\menu\default-menubar-scroll-top.gif" />
+    <Content Include="client\lib\ext\build\classic\theme-gray\resources\images\menu\default-menubar-unchecked.gif" />
     <Content Include="client\lib\ext\build\classic\theme-gray\resources\images\menu\default-scroll-bottom.gif" />
     <Content Include="client\lib\ext\build\classic\theme-gray\resources\images\menu\default-scroll-top.gif" />
     <Content Include="client\lib\ext\build\classic\theme-gray\resources\images\menu\default-unchecked.gif" />
@@ -639,6 +646,8 @@
     <Content Include="client\lib\ext\build\classic\theme-gray\resources\images\slider\slider-thumb.png" />
     <Content Include="client\lib\ext\build\classic\theme-gray\resources\images\slider\slider-v-bg.png" />
     <Content Include="client\lib\ext\build\classic\theme-gray\resources\images\slider\slider-v-thumb.png" />
+    <Content Include="client\lib\ext\build\classic\theme-gray\resources\images\tab-bar\default-more-left.gif" />
+    <Content Include="client\lib\ext\build\classic\theme-gray\resources\images\tab-bar\default-more.gif" />
     <Content Include="client\lib\ext\build\classic\theme-gray\resources\images\tab-bar\default-scroll-bottom-left.gif" />
     <Content Include="client\lib\ext\build\classic\theme-gray\resources\images\tab-bar\default-scroll-bottom-right.gif" />
     <Content Include="client\lib\ext\build\classic\theme-gray\resources\images\tab-bar\default-scroll-left-bottom.gif" />
@@ -967,6 +976,13 @@
     <Content Include="client\lib\ext\build\classic\theme-gray\resources\theme-classic\images\menu\default-group-checked.gif" />
     <Content Include="client\lib\ext\build\classic\theme-gray\resources\theme-classic\images\menu\default-menu-parent-left.gif" />
     <Content Include="client\lib\ext\build\classic\theme-gray\resources\theme-classic\images\menu\default-menu-parent.gif" />
+    <Content Include="client\lib\ext\build\classic\theme-gray\resources\theme-classic\images\menu\default-menubar-checked.gif" />
+    <Content Include="client\lib\ext\build\classic\theme-gray\resources\theme-classic\images\menu\default-menubar-group-checked.gif" />
+    <Content Include="client\lib\ext\build\classic\theme-gray\resources\theme-classic\images\menu\default-menubar-menu-parent-left.gif" />
+    <Content Include="client\lib\ext\build\classic\theme-gray\resources\theme-classic\images\menu\default-menubar-menu-parent.gif" />
+    <Content Include="client\lib\ext\build\classic\theme-gray\resources\theme-classic\images\menu\default-menubar-scroll-bottom.gif" />
+    <Content Include="client\lib\ext\build\classic\theme-gray\resources\theme-classic\images\menu\default-menubar-scroll-top.gif" />
+    <Content Include="client\lib\ext\build\classic\theme-gray\resources\theme-classic\images\menu\default-menubar-unchecked.gif" />
     <Content Include="client\lib\ext\build\classic\theme-gray\resources\theme-classic\images\menu\default-scroll-bottom.gif" />
     <Content Include="client\lib\ext\build\classic\theme-gray\resources\theme-classic\images\menu\default-scroll-top.gif" />
     <Content Include="client\lib\ext\build\classic\theme-gray\resources\theme-classic\images\menu\default-unchecked.gif" />
@@ -1003,6 +1019,8 @@
     <Content Include="client\lib\ext\build\classic\theme-gray\resources\theme-classic\images\slider\slider-thumb.png" />
     <Content Include="client\lib\ext\build\classic\theme-gray\resources\theme-classic\images\slider\slider-v-bg.png" />
     <Content Include="client\lib\ext\build\classic\theme-gray\resources\theme-classic\images\slider\slider-v-thumb.png" />
+    <Content Include="client\lib\ext\build\classic\theme-gray\resources\theme-classic\images\tab-bar\default-more-left.gif" />
+    <Content Include="client\lib\ext\build\classic\theme-gray\resources\theme-classic\images\tab-bar\default-more.gif" />
     <Content Include="client\lib\ext\build\classic\theme-gray\resources\theme-classic\images\tab-bar\default-scroll-bottom-left.gif" />
     <Content Include="client\lib\ext\build\classic\theme-gray\resources\theme-classic\images\tab-bar\default-scroll-bottom-right.gif" />
     <Content Include="client\lib\ext\build\classic\theme-gray\resources\theme-classic\images\tab-bar\default-scroll-left-bottom.gif" />
