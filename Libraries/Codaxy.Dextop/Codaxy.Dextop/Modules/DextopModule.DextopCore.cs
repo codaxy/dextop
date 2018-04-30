@@ -44,7 +44,7 @@ namespace Codaxy.Dextop
                 "/"
             );
 
-            var supportedLanguages = new[] { "sr", "ru", "da" };
+            var supportedLanguages = new[] { "sr", "ru", "da", "mk" };
 
             if (!SkipLocalizations)
             {
